@@ -1,0 +1,44 @@
+name: english_village
+description: 地球村闯关式英语学习 App
+publish_to: 'none'
+version: 0.8.5+22
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  go_router: ^14.8.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_tts: ^4.2.2
+  audioplayers: ^6.1.0
+  crypto: ^3.0.7
+  speech_to_text: ^7.0.0
+  sherpa_onnx: ^1.13.8
+  path_provider: ^2.1.5
+  record: ^6.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  ffi: ^2.1.3
+
+# path_provider_android 2.3.x 依赖 jni 插件（含 CMake 原生代码），
+# 在中文路径 pub-cache 下 AGP 会因路径 JSON 编码问题构建失败；
+# 钉到 2.2.23（纯 Kotlin，无原生编译）绕开。
+dependency_overrides:
+  path_provider_android: 2.2.23
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/courses/
+    - assets/sounds/
+    - assets/audio/listening/
+    - assets/audio/dialogues/
+    - assets/dialogues/
+    - assets/models/whisper/

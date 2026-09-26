@@ -1,0 +1,72 @@
+{
+  "u1": [
+    {"speaker": 0, "english": "Hi! My name is Mia. What's your name?", "chinese": "嗨！我叫米娅。你叫什么名字？"},
+    {"speaker": 1, "english": "I'm Leo. Nice to meet you, Mia!", "chinese": "我是里奥。很高兴认识你，米娅！"},
+    {"speaker": 0, "english": "Nice to meet you too, Leo!", "chinese": "我也很高兴认识你，里奥！"}
+  ],
+  "u2": [
+    {"speaker": 0, "english": "What time is it, Leo?", "chinese": "里奥，现在几点了？"},
+    {"speaker": 1, "english": "It's nine o'clock. Our class starts now!", "chinese": "九点了。我们要上课了！"},
+    {"speaker": 0, "english": "Great! Today is Monday, right?", "chinese": "太好了！今天是星期一，对吧？"}
+  ],
+  "u3": [
+    {"speaker": 0, "english": "Is that your sister in the photo?", "chinese": "照片里的是你姐姐吗？"},
+    {"speaker": 1, "english": "Yes! She is a doctor, and she's very kind.", "chinese": "是的！她是一名医生，而且她很亲切。"},
+    {"speaker": 0, "english": "She looks just like you!", "chinese": "她看起来和你真像！"}
+  ],
+  "u4": [
+    {"speaker": 0, "english": "I'm hungry. What would you like to eat?", "chinese": "我饿了。你想吃什么？"},
+    {"speaker": 1, "english": "I'd like an apple and some juice, please.", "chinese": "我想要一个苹果和一些果汁。"},
+    {"speaker": 0, "english": "Sounds good! I'll have a sandwich.", "chinese": "听起来不错！我要一个三明治。"}
+  ],
+  "u5": [
+    {"speaker": 0, "english": "Have you seen my blue notebook?", "chinese": "你看到我的蓝色笔记本了吗？"},
+    {"speaker": 1, "english": "Yes, it's next to the red pencil.", "chinese": "看到了，它在红色铅笔旁边。"},
+    {"speaker": 0, "english": "There it is. Thank you!", "chinese": "找到啦。谢谢你！"}
+  ],
+  "u6": [
+    {"speaker": 0, "english": "What do you do after school?", "chinese": "放学后你做什么？"},
+    {"speaker": 1, "english": "I usually read, but today I'm playing basketball.", "chinese": "我通常看书，但今天我要打篮球。"},
+    {"speaker": 0, "english": "Can I play with you?", "chinese": "我可以和你一起玩吗？"}
+  ],
+  "u7": [
+    {"speaker": 0, "english": "It's sunny today. Shall we go outside?", "chinese": "今天天气晴朗。我们出去走走好吗？"},
+    {"speaker": 1, "english": "Sure! Spring is my favorite season.", "chinese": "好呀！春天是我最喜欢的季节。"},
+    {"speaker": 0, "english": "Let's enjoy the warm weather!", "chinese": "我们去享受温暖的天气吧！"}
+  ],
+  "u8": [
+    {"speaker": 0, "english": "How do we get to the train station?", "chinese": "我们怎么去火车站？"},
+    {"speaker": 1, "english": "Take the bus, then turn left at the bank.", "chinese": "坐公交车，然后在银行处左转。"},
+    {"speaker": 0, "english": "Got it. Let's go!", "chinese": "明白了。我们走吧！"}
+  ],
+  "u9": [
+    {"speaker": 0, "english": "How much is this green bag?", "chinese": "这个绿色的包多少钱？"},
+    {"speaker": 1, "english": "It's twenty dollars. Do you like it?", "chinese": "二十美元。你喜欢吗？"},
+    {"speaker": 0, "english": "Yes! I'll take it, please.", "chinese": "喜欢！我要买它。"}
+  ],
+  "u10": [
+    {"speaker": 0, "english": "You don't look well. What's wrong?", "chinese": "你看起来不太舒服。怎么了？"},
+    {"speaker": 1, "english": "I have a headache. I need some rest.", "chinese": "我头疼。我需要休息一下。"},
+    {"speaker": 0, "english": "Drink some water and feel better soon!", "chinese": "喝点水，祝你早日康复！"}
+  ],
+  "u11": [
+    {"speaker": 0, "english": "What are you studying today?", "chinese": "你今天在学什么？"},
+    {"speaker": 1, "english": "English! We have a test on Friday.", "chinese": "英语！我们周五有考试。"},
+    {"speaker": 0, "english": "Let's study together after school.", "chinese": "放学后我们一起学习吧。"}
+  ],
+  "u12": [
+    {"speaker": 0, "english": "Do you want to see a movie tonight?", "chinese": "今晚想去看电影吗？"},
+    {"speaker": 1, "english": "I'd love to! I also enjoy music.", "chinese": "想！我也喜欢音乐。"},
+    {"speaker": 0, "english": "We can listen to songs on the way.", "chinese": "路上我们可以听歌。"}
+  ],
+  "u13": [
+    {"speaker": 0, "english": "Would you like to come to my party?", "chinese": "你想来参加我的聚会吗？"},
+    {"speaker": 1, "english": "Thanks for inviting me! When is it?", "chinese": "谢谢邀请！什么时候？"},
+    {"speaker": 0, "english": "Saturday afternoon. See you there!", "chinese": "星期六下午。到时见！"}
+  ],
+  "u14": [
+    {"speaker": 0, "english": "What should we visit on our trip?", "chinese": "旅行时我们该参观哪里？"},
+    {"speaker": 1, "english": "Let's see the museum and try local food.", "chinese": "去看看博物馆，再尝尝当地美食吧。"},
+    {"speaker": 0, "english": "That sounds like a wonderful day!", "chinese": "听起来会是很棒的一天！"}
+  ]
+}
