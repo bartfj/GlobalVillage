@@ -35,6 +35,12 @@ class RewardsPage extends ConsumerWidget {
     ref.watch(rewardRevisionProvider);
     final units = ref.watch(courseProvider).requireValue.units;
     final rewards = ref.watch(rewardRepositoryProvider);
+    if (rewards == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('收藏')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       appBar: AppBar(title: const Text('收藏')),
       body: ListView.separated(

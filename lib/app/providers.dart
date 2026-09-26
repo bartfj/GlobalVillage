@@ -36,23 +36,30 @@ final authProvider = StateNotifierProvider<AuthController, AuthState>(
   (ref) => AuthController(ref.watch(userRepositoryProvider)),
 );
 
-final progressStoreProvider = Provider<ProgressStore>(
-  (ref) => ProgressStore(userKey: ref.watch(authProvider).userKey!),
-);
+/// 无会话时返回 null，避免登出瞬间 `userKey!` 空断言崩溃
+final progressStoreProvider = Provider<ProgressStore?>((ref) {
+  final userKey = ref.watch(authProvider).userKey;
+  if (userKey == null) return null;
+  return ProgressStore(userKey: userKey);
+});
 
-final progressRepositoryProvider = Provider<ProgressRepository>(
-  (ref) => ProgressRepository(
-    store: ref.watch(progressStoreProvider),
+final progressRepositoryProvider = Provider<ProgressRepository?>((ref) {
+  final store = ref.watch(progressStoreProvider);
+  if (store == null) return null;
+  return ProgressRepository(
+    store: store,
     course: ref.watch(courseProvider).requireValue,
-  ),
-);
+  );
+});
 
-final rewardRepositoryProvider = Provider<RewardRepository>(
-  (ref) => RewardRepository(
-    store: RewardStore(userKey: ref.watch(authProvider).userKey!),
+final rewardRepositoryProvider = Provider<RewardRepository?>((ref) {
+  final userKey = ref.watch(authProvider).userKey;
+  if (userKey == null) return null;
+  return RewardRepository(
+    store: RewardStore(userKey: userKey),
     course: ref.watch(courseProvider).requireValue,
-  ),
-);
+  );
+});
 
 final rewardRevisionProvider = StateProvider<int>((ref) => 0);
 

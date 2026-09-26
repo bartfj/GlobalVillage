@@ -63,19 +63,23 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       _saveError = null;
     });
     try {
-      await ref
-          .read(progressRepositoryProvider)
-          .recordResult(
-            lessonId: widget.lessonId,
-            correctCount: widget.result.correctCount,
-            totalCount: widget.result.totalCount,
-          );
+      final progressRepo = ref.read(progressRepositoryProvider);
+      final rewardRepo = ref.read(rewardRepositoryProvider);
+      if (progressRepo == null || rewardRepo == null) {
+        throw StateError('无有效会话，无法保存进度');
+      }
+      await progressRepo.recordResult(
+        lessonId: widget.lessonId,
+        correctCount: widget.result.correctCount,
+        totalCount: widget.result.totalCount,
+      );
       if (!mounted) return;
       ref.read(progressRevisionProvider.notifier).state++;
       if (widget.result.passed) {
-        final award = await ref
-            .read(rewardRepositoryProvider)
-            .awardForPassedAttempt(widget.lessonId, widget.result.attemptId);
+        final award = await rewardRepo.awardForPassedAttempt(
+          widget.lessonId,
+          widget.result.attemptId,
+        );
         if (award == null) throw StateError('无法保存收藏奖励');
         if (!mounted) return;
         ref.read(rewardRevisionProvider.notifier).state++;

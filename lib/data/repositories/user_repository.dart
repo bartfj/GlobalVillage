@@ -25,6 +25,7 @@ class UserRepository {
     final length = name.runes.length;
     if (length < 2 || length > 12) return '昵称需为 2-12 个字符';
     if (name.contains('|')) return '昵称不能包含 "|" 字符';
+    if (name.toLowerCase() == guestKey) return '该昵称为系统保留';
     if (store.getUser(name) != null) return '该昵称已被注册';
     if (password.length < 6) return '密码至少 6 位';
     if (password != confirm) return '两次输入的密码不一致';
