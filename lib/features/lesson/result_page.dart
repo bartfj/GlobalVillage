@@ -45,6 +45,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
   bool _saving = false;
   bool _saved = false;
   RewardAward? _award;
+  int _treeCount = 0;
   String? _saveError;
   bool _showCelebration = false;
   bool _showDialogue = false;
@@ -73,14 +74,17 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       if (!mounted) return;
       ref.read(progressRevisionProvider.notifier).state++;
       if (widget.result.passed) {
-        final award = await ref
-            .read(rewardRepositoryProvider)
-            .awardForPassedAttempt(widget.lessonId, widget.result.attemptId);
+        final repo = ref.read(rewardRepositoryProvider);
+        final award = await repo.awardForPassedAttempt(
+          widget.lessonId,
+          widget.result.attemptId,
+        );
         if (award == null) throw StateError('无法保存收藏奖励');
         if (!mounted) return;
         ref.read(rewardRevisionProvider.notifier).state++;
         setState(() {
           _award = award;
+          _treeCount = repo.treeCount;
           // 每次通关都播放趣味对话 + 庆祝（不只首次发徽章时）
           _showDialogue = true;
         });
@@ -171,6 +175,8 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                               '${_award!.unit.title}徽章 ${_award!.newlyAwarded ? '+1' : '已领取'}',
                             ),
                             Text('累计 ${_award!.count} 枚'),
+                            if (_treeCount > 0)
+                              Text('梭梭树 +1 · 累计 $_treeCount 棵'),
                           ],
                         ),
                       ),
@@ -215,6 +221,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                 child: AwardCelebration(
                   award: _award!,
                   isPerfect: result.accuracy >= 1.0,
+                  treeCount: _treeCount,
                   onCollect: () => setState(() => _showCelebration = false),
                 ),
               ),

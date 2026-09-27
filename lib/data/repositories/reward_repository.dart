@@ -18,6 +18,9 @@ class RewardRepository {
   int countFor(String unitId) =>
       store.attempts.values.where((id) => id == unitId).length;
 
+  /// 梭梭树总数 = 累计通关次数（每次通关存一条记录，attemptId 幂等、按账号隔离）
+  int get treeCount => store.attempts.length;
+
   Future<RewardAward?> awardForPassedAttempt(
     String lessonId,
     String attemptId,

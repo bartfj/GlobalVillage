@@ -64,6 +64,50 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('treeCount shows stage line and stage-up highlight', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildAppTheme(),
+        home: Scaffold(
+          body: AwardCelebration(
+            award: const RewardAward(
+              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
+              1,
+              true,
+            ),
+            treeCount: 3,
+            onCollect: () {},
+          ),
+        ),
+      ),
+    );
+    // 非升阶：显示常规树计数与阶段名
+    expect(find.text('梭梭树 +1 · 累计 3 棵 · 幼苗'), findsOneWidget);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildAppTheme(),
+        home: Scaffold(
+          body: AwardCelebration(
+            award: const RewardAward(
+              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
+              1,
+              true,
+            ),
+            treeCount: 5,
+            onCollect: () {},
+          ),
+        ),
+      ),
+    );
+    // 升阶（5 棵 = 小树阈值）：显示高亮升阶文案
+    expect(find.text('梭梭树成长为「小树」啦！'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 3));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('characters take turns showing fun speech bubbles', (
     tester,
   ) async {

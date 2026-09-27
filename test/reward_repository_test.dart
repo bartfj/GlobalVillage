@@ -46,9 +46,29 @@ void main() {
       );
       expect((await repo.awardForPassedAttempt('l1', 'b'))?.count, 2);
       expect(repo.countFor('u1'), 2);
+      expect(repo.treeCount, 2);
       expect(await repo.awardForPassedAttempt('unknown', 'c'), isNull);
       expect(await repo.awardForPassedAttempt('l2', 'a'), isNull);
       expect(await repo.awardForPassedAttempt('l1', ''), isNull);
+    },
+  );
+
+  test(
+    'treeCount counts all passed attempts across units, unlike unit badges',
+    () async {
+      final repo = RewardRepository(
+        store: const RewardStore(userKey: 'guest'),
+        course: course(),
+      );
+      await repo.awardForPassedAttempt('l1', 'a');
+      await repo.awardForPassedAttempt('l2', 'b');
+      await repo.awardForPassedAttempt('l1', 'c');
+      expect(repo.treeCount, 3);
+      expect(repo.countFor('u1'), 2);
+      expect(repo.countFor('u2'), 1);
+      // 幂等：同 attempt 不重复计树
+      await repo.awardForPassedAttempt('l1', 'a');
+      expect(repo.treeCount, 3);
     },
   );
 

@@ -6,19 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme.dart';
+import '../../../data/models/tree_growth.dart';
 import '../../../data/repositories/reward_repository.dart';
 
 /// 闯关庆祝页：循环彩纸雨 + 徽章光环星星 + 角色欢呼 + 音效震动
 /// [award] 为空时（理论上不发生，兜底）不显示徽章计数信息
+/// [treeCount] 为本次通关后的梭梭树累计数（null 表示不展示树区块）
 class AwardCelebration extends StatefulWidget {
   final RewardAward? award;
   final bool isPerfect;
+  final int? treeCount;
   final VoidCallback onCollect;
 
   const AwardCelebration({
     super.key,
     required this.award,
     this.isPerfect = false,
+    this.treeCount,
     required this.onCollect,
   });
 
@@ -161,6 +165,10 @@ class _AwardCelebrationState extends State<AwardCelebration>
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
+                            if (widget.treeCount != null) ...[
+                              const SizedBox(height: 14),
+                              _buildTreeLine(),
+                            ],
                           ],
                         ),
                         PushableButton(
@@ -252,6 +260,45 @@ class _AwardCelebrationState extends State<AwardCelebration>
           ),
         );
       },
+    );
+  }
+
+  static const _stageIcons = {
+    TreeStage.seed: Icons.grain_rounded,
+    TreeStage.sprout: Icons.eco_rounded,
+    TreeStage.smallTree: Icons.park_rounded,
+    TreeStage.bigTree: Icons.forest_rounded,
+  };
+
+  /// 梭梭树区块（单行）：阶段图标 + 本次获得/累计/阶段；升阶时替换为高亮提示
+  Widget _buildTreeLine() {
+    final count = widget.treeCount!;
+    final stage = stageFor(count);
+    final leveledUp = hasStageUp(count);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.greenLight.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.green, width: 2),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(_stageIcons[stage], size: 26, color: AppColors.greenDark),
+          const SizedBox(width: 8),
+          Text(
+            leveledUp
+                ? '梭梭树成长为「${stage.label}」啦！'
+                : '梭梭树 +1 · 累计 $count 棵 · ${stage.label}',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              color: leveledUp ? AppColors.goldDark : AppColors.greenDark,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
