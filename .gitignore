@@ -67,4 +67,5 @@ app.*.map.json
 /android/.gradle/
 /android/build/
 /android/app/src/main/jniLibs/
-/android/key.properties
+# 签名密钥与配置已按项目要求纳入版本控制（私有仓库使用）
+# /android/key.properties
