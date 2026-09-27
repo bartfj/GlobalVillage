@@ -7,7 +7,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('all units have three valid dialogue lines', () async {
-    for (var i = 1; i <= 14; i++) {
+    for (var i = 1; i <= 16; i++) {
       final script = await DialogueScript.load('u$i');
       expect(script, isNotNull);
       expect(script!.lines.length, 3);

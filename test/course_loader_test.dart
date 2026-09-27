@@ -12,10 +12,10 @@ void main() {
     final course =
         Course.fromJson(jsonDecode(file.readAsStringSync()) as Map<String, dynamic>);
 
-    expect(course.units, hasLength(14));
+    expect(course.units, hasLength(16));
     final lessons = course.orderedLessons;
-    expect(lessons, hasLength(56));
-    expect(lessons.map((l) => l.id).toSet(), hasLength(56), reason: '课程 id 唯一');
+    expect(lessons, hasLength(64));
+    expect(lessons.map((l) => l.id).toSet(), hasLength(64), reason: '课程 id 唯一');
 
     final exerciseIds = <String>{};
     for (final lesson in lessons) {
@@ -38,6 +38,6 @@ void main() {
         }
       }
     }
-    expect(exerciseIds, hasLength(504));
+    expect(exerciseIds, hasLength(576));
   });
 }

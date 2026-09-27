@@ -68,5 +68,15 @@
     {"speaker": 0, "english": "What should we visit on our trip?", "chinese": "旅行时我们该参观哪里？"},
     {"speaker": 1, "english": "Let's see the museum and try local food.", "chinese": "去看看博物馆，再尝尝当地美食吧。"},
     {"speaker": 0, "english": "That sounds like a wonderful day!", "chinese": "听起来会是很棒的一天！"}
+  ],
+  "u15": [
+    {"speaker": 0, "english": "Excuse me, how can I get to the bank?", "chinese": "打扰一下，去银行怎么走？"},
+    {"speaker": 1, "english": "Go straight and turn right at the store.", "chinese": "直走，然后在商店处右转。"},
+    {"speaker": 0, "english": "Thank you! I'll buy some coffee on the way.", "chinese": "谢谢！我路上再买点咖啡。"}
+  ],
+  "u16": [
+    {"speaker": 0, "english": "Do you want to go hiking this weekend?", "chinese": "这个周末想去爬山吗？"},
+    {"speaker": 1, "english": "Yes! But I have a headache today.", "chinese": "想去！不过我今天有点头疼。"},
+    {"speaker": 0, "english": "Rest well first. Sports can wait!", "chinese": "先好好休息。运动可以等一等！"}
   ]
 }
