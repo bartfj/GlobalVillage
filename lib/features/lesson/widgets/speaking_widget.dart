@@ -45,6 +45,16 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
   String _recognized = '';
   double? _lastScore;
 
+  /// 离线路径静音检测：是否已检测到说话、说话后累计静音时长（ms）
+  bool _speechDetected = false;
+  int _silenceMs = 0;
+
+  /// 峰值幅度阈值：高于该值视为"在说话"（16bit PCM，满幅 32767）
+  static const _silencePeakThreshold = 800;
+
+  /// 与系统路径 pauseFor 一致：说话后连续静音达到该时长即提前停止录音
+  static const _silenceStopMs = 3000;
+
   /// 识别结束但没听清任何内容（用户没说话/环境太安静/服务无响应）
   bool _emptyResult = false;
 
@@ -174,6 +184,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     }
     try {
       _pcmChunks.clear();
+      _speechDetected = false;
+      _silenceMs = 0;
       final stream = await _recorder.startStream(
         const RecordConfig(
           encoder: AudioEncoder.pcm16bits,
@@ -181,7 +193,21 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
           numChannels: 1,
         ),
       );
-      _recSub = stream.listen((chunk) => _pcmChunks.addAll(chunk));
+      _recSub = stream.listen((chunk) {
+        _pcmChunks.addAll(chunk);
+        // 静音检测：本块峰值超过阈值视为"在说话"，重置静音计时；
+        // 说话后连续静音达到 3 秒，提前结束录音（与系统路径一致）
+        if (_peakAmplitude(chunk) > _silencePeakThreshold) {
+          _speechDetected = true;
+          _silenceMs = 0;
+        } else if (_speechDetected && _listening) {
+          // 16kHz 16bit 单声道：每毫秒 32 字节
+          _silenceMs += chunk.length ~/ 32;
+          if (_silenceMs >= _silenceStopMs) {
+            _stopOffline();
+          }
+        }
+      });
     } catch (_) {
       if (mounted) {
         setState(() {
@@ -205,7 +231,21 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     });
   }
 
+  /// 计算 16bit 小端 PCM 数据块的峰值幅度
+  int _peakAmplitude(List<int> chunk) {
+    var peak = 0;
+    for (var i = 0; i + 1 < chunk.length; i += 2) {
+      var sample = chunk[i] | (chunk[i + 1] << 8);
+      if (sample > 32767) sample -= 65536;
+      final abs = sample < 0 ? -sample : sample;
+      if (abs > peak) peak = abs;
+    }
+    return peak;
+  }
+
   Future<void> _stopOffline() async {
+    if (!_listening) return; // 防重入：静音检测可能在订阅取消前连续触发
+    _listening = false;
     _stopTimer?.cancel();
     await _recSub?.cancel();
     _recSub = null;

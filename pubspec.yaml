@@ -1,7 +1,7 @@
 name: english_village
 description: 地球村闯关式英语学习 App
 publish_to: 'none'
-version: 0.8.7+24
+version: 0.8.8+25
 
 environment:
   sdk: ^3.9.0
