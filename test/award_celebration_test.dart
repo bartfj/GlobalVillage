@@ -5,6 +5,23 @@ import 'package:english_village/features/lesson/widgets/award_celebration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+const _unit = Unit(
+  id: 'u1',
+  title: '问候与自我介绍',
+  description: '',
+  lessons: [],
+);
+
+const _lesson = Lesson(id: 'l1', title: '第一课', exercises: []);
+
+RewardAward _award({required int count, bool newlyAwarded = true}) =>
+    RewardAward(
+      lesson: _lesson,
+      unit: _unit,
+      count: count,
+      newlyAwarded: newlyAwarded,
+    );
+
 void main() {
   testWidgets('passed award can be collected on a compact screen', (
     tester,
@@ -20,11 +37,7 @@ void main() {
         theme: buildAppTheme(),
         home: Scaffold(
           body: AwardCelebration(
-            award: const RewardAward(
-              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
-              2,
-              true,
-            ),
+            award: _award(count: 2),
             onCollect: () => collected = true,
           ),
         ),
@@ -46,11 +59,7 @@ void main() {
         theme: buildAppTheme(),
         home: Scaffold(
           body: AwardCelebration(
-            award: const RewardAward(
-              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
-              5,
-              true,
-            ),
+            award: _award(count: 5),
             isPerfect: true,
             onCollect: () {},
           ),
@@ -72,11 +81,7 @@ void main() {
         theme: buildAppTheme(),
         home: Scaffold(
           body: AwardCelebration(
-            award: const RewardAward(
-              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
-              1,
-              true,
-            ),
+            award: _award(count: 1),
             treeCount: 3,
             onCollect: () {},
           ),
@@ -91,11 +96,7 @@ void main() {
         theme: buildAppTheme(),
         home: Scaffold(
           body: AwardCelebration(
-            award: const RewardAward(
-              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
-              1,
-              true,
-            ),
+            award: _award(count: 1),
             treeCount: 5,
             onCollect: () {},
           ),
@@ -137,11 +138,7 @@ void main() {
         theme: buildAppTheme(),
         home: Scaffold(
           body: AwardCelebration(
-            award: const RewardAward(
-              Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []),
-              3,
-              true,
-            ),
+            award: _award(count: 3),
             isPerfect: true,
             onCollect: () {},
           ),
