@@ -42,4 +42,6 @@ flutter test
 flutter build apk --release
 ```
 
+向 `main` 开 PR 或推送时，GitHub Actions（`.github/workflows/pr-ci.yml`）会自动跑 `flutter analyze` + `flutter test`。
+
 生成脚本（课程内容、音频、二维码等幂等流水线）位于 `.trae/` 目录。
