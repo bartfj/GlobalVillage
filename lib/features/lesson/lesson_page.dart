@@ -33,6 +33,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   late final String _attemptId;
 
   Lesson? _lesson;
+  bool _locked = false;
 
   @override
   void initState() {
@@ -45,6 +46,16 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       16,
       (_) => random.nextInt(256).toRadixString(16).padLeft(2, '0'),
     ).join();
+
+    final progress = ref.read(progressRepositoryProvider);
+    if (_lesson == null ||
+        progress == null ||
+        !progress.isLessonUnlocked(widget.lessonId)) {
+      _locked = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) context.go('/');
+      });
+    }
   }
 
   void _onCheck() {
@@ -56,6 +67,12 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     } else {
       sound.playWrong();
     }
+  }
+
+  void _onSkipSpeaking() {
+    final controller = ref.read(lessonControllerProvider(_lesson!).notifier);
+    controller.skipWithoutCredit();
+    setState(() => _currentAnswer = '');
   }
 
   void _onContinue() {
@@ -101,6 +118,9 @@ class _LessonPageState extends ConsumerState<LessonPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_locked) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     final lesson = _lesson;
     if (lesson == null) {
       return const Scaffold(body: Center(child: Text('课程不存在')));
@@ -143,6 +163,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
             if (state.checked)
               AnswerFeedbackBar(
                 correct: state.lastAnswerCorrect!,
+                skipped: state.skipped,
                 correctAnswer: exercise.answer,
                 onContinue: _onContinue,
               )
@@ -199,6 +220,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           exercise: exercise,
           enabled: enabled,
           onChanged: (v) => setState(() => _currentAnswer = v),
+          onSkip: _onSkipSpeaking,
         );
     }
   }

@@ -116,4 +116,30 @@ void main() {
     expect(other.isLessonCompleted('l1'), isFalse);
     expect(other.isLessonUnlocked('l2'), isFalse);
   });
+
+  test('已通关后重学更低分不覆盖最好成绩，仍保持完成', () async {
+    await repo.recordResult(lessonId: 'l1', correctCount: 10, totalCount: 10);
+    expect(repo.store.get('l1')!.score, 100);
+
+    final passed = await repo.recordResult(
+      lessonId: 'l1',
+      correctCount: 7,
+      totalCount: 10,
+    );
+    expect(passed, isTrue);
+    final kept = repo.store.get('l1')!;
+    expect(kept.completed, isTrue);
+    expect(kept.correctCount, 10);
+    expect(kept.totalCount, 10);
+    expect(kept.score, 100);
+  });
+
+  test('已通关后重学更高分会更新最好成绩', () async {
+    await repo.recordResult(lessonId: 'l1', correctCount: 7, totalCount: 10);
+    await repo.recordResult(lessonId: 'l1', correctCount: 9, totalCount: 10);
+    final best = repo.store.get('l1')!;
+    expect(best.correctCount, 9);
+    expect(best.totalCount, 10);
+    expect(best.score, 90);
+  });
 }

@@ -14,6 +14,12 @@ class RewardsPage extends ConsumerWidget {
     ref.watch(rewardRevisionProvider);
     final courses = ref.watch(allCoursesProvider).requireValue;
     final rewards = ref.watch(rewardRepositoryProvider);
+    if (rewards == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('徽章')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     final rows = <Widget>[];
     for (final course in courses) {

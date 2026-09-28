@@ -64,6 +64,21 @@ void main() {
     );
   });
 
+  test('保留昵称 guest 不可注册（大小写不敏感）', () async {
+    expect(
+      await repo.register(nickname: 'guest', password: '123456', confirm: '123456'),
+      '该昵称为系统保留',
+    );
+    expect(
+      await repo.register(nickname: 'Guest', password: '123456', confirm: '123456'),
+      '该昵称为系统保留',
+    );
+    expect(
+      await repo.register(nickname: ' GUEST ', password: '123456', confirm: '123456'),
+      '该昵称为系统保留',
+    );
+  });
+
   test('登录：未注册昵称与错误密码', () async {
     await repo.register(nickname: '小明', password: '123456', confirm: '123456');
     expect(await repo.login(nickname: '不存在', password: '123456'), '该昵称未注册');

@@ -16,6 +16,12 @@ class CompletedLessonsPage extends ConsumerWidget {
     final progress = ref.watch(progressRepositoryProvider);
     final store = ref.watch(progressStoreProvider);
 
+    if (progress == null || store == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     final completed = course.orderedLessons
         .where((l) => progress.isLessonCompleted(l.id))
         .toList();

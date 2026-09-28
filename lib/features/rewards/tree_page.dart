@@ -19,7 +19,13 @@ class TreePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(rewardRevisionProvider);
-    final count = ref.watch(rewardRepositoryProvider).treeCount;
+    final rewards = ref.watch(rewardRepositoryProvider);
+    if (rewards == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    final count = rewards.treeCount;
     final stage = stageFor(count);
     final stages = TreeStage.values;
     final stageIndex = stages.indexOf(stage);

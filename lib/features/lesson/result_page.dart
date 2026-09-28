@@ -65,18 +65,20 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       _saveError = null;
     });
     try {
-      await ref
-          .read(progressRepositoryProvider)
-          .recordResult(
-            lessonId: widget.lessonId,
-            correctCount: widget.result.correctCount,
-            totalCount: widget.result.totalCount,
-          );
+      final progressRepo = ref.read(progressRepositoryProvider);
+      final rewardRepo = ref.read(rewardRepositoryProvider);
+      if (progressRepo == null || rewardRepo == null) {
+        throw StateError('无有效会话，无法保存进度');
+      }
+      await progressRepo.recordResult(
+        lessonId: widget.lessonId,
+        correctCount: widget.result.correctCount,
+        totalCount: widget.result.totalCount,
+      );
       if (!mounted) return;
       ref.read(progressRevisionProvider.notifier).state++;
       if (widget.result.passed) {
-        final repo = ref.read(rewardRepositoryProvider);
-        final award = await repo.awardForPassedAttempt(
+        final award = await rewardRepo.awardForPassedAttempt(
           widget.lessonId,
           widget.result.attemptId,
         );
@@ -85,7 +87,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
         ref.read(rewardRevisionProvider.notifier).state++;
         setState(() {
           _award = award;
-          _treeCount = repo.treeCount;
+          _treeCount = rewardRepo.treeCount;
           // 每次通关都播放趣味对话 + 庆祝（不只首次发徽章时）
           _showDialogue = true;
         });

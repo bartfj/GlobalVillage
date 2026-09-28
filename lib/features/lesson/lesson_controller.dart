@@ -24,6 +24,9 @@ class LessonState {
   /// 当前题在"继续"后是否需要移到队尾重做
   final bool pendingRetry;
 
+  /// 降级跳过（如跟读完成）：已判定但不计正确、不重做
+  final bool skipped;
+
   const LessonState({
     required this.queue,
     required this.totalCount,
@@ -31,16 +34,17 @@ class LessonState {
     required this.wrongOnce,
     required this.lastAnswerCorrect,
     required this.pendingRetry,
+    this.skipped = false,
   });
 
   factory LessonState.initial(Lesson lesson) => LessonState(
-    queue: List.of(lesson.exercises),
-    totalCount: lesson.exercises.length,
-    correctCount: 0,
-    wrongOnce: const {},
-    lastAnswerCorrect: null,
-    pendingRetry: false,
-  );
+        queue: List.of(lesson.exercises),
+        totalCount: lesson.exercises.length,
+        correctCount: 0,
+        wrongOnce: const {},
+        lastAnswerCorrect: null,
+        pendingRetry: false,
+      );
 
   Exercise get current => queue.first;
   bool get checked => lastAnswerCorrect != null;
@@ -58,6 +62,7 @@ class LessonState {
     Set<String>? wrongOnce,
     Object? lastAnswerCorrect = _unset,
     bool? pendingRetry,
+    bool? skipped,
   }) {
     return LessonState(
       queue: queue ?? this.queue,
@@ -68,6 +73,7 @@ class LessonState {
           ? this.lastAnswerCorrect
           : lastAnswerCorrect as bool?,
       pendingRetry: pendingRetry ?? this.pendingRetry,
+      skipped: skipped ?? this.skipped,
     );
   }
 }
@@ -95,8 +101,19 @@ class LessonController extends StateNotifier<LessonState> {
       wrongOnce: wrongOnce,
       lastAnswerCorrect: correct,
       pendingRetry: !correct && !isRetry,
+      skipped: false,
     );
     return correct;
+  }
+
+  /// 降级跳过：出队前进，不计正确分、不入重做队列。
+  void skipWithoutCredit() {
+    if (state.checked || state.finished) return;
+    state = state.copyWith(
+      lastAnswerCorrect: false,
+      pendingRetry: false,
+      skipped: true,
+    );
   }
 
   /// 进入下一题：答对或二次答错则出队；首次答错移到队尾重做
@@ -109,6 +126,7 @@ class LessonController extends StateNotifier<LessonState> {
       queue: queue,
       lastAnswerCorrect: null,
       pendingRetry: false,
+      skipped: false,
     );
   }
 

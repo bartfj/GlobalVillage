@@ -39,6 +39,13 @@ class MainMenuDrawer extends ConsumerWidget {
     final selectedTrack = ref.watch(selectedTrackProvider);
     final allCourses = ref.watch(allCoursesProvider).requireValue;
 
+    if (progress == null || rewards == null) {
+      return const Drawer(
+        backgroundColor: Colors.white,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     final total = course.orderedLessons.length;
     final completed = course.orderedLessons
         .where((l) => progress.isLessonCompleted(l.id))

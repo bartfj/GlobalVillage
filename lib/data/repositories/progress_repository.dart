@@ -56,9 +56,9 @@ class ProgressRepository {
   }) async {
     final passed = totalCount > 0 && correctCount / totalCount >= kPassThreshold;
     final existing = store.get(lessonId);
-    // 未完成或本次成绩更好时才覆盖，避免重学刷低历史成绩
+    // 仅在新纪录或首次通关时覆盖，避免重学刷低历史成绩
     final betterScore = correctCount > (existing?.correctCount ?? -1);
-    if (existing == null || (!existing.completed && betterScore) || passed) {
+    if (existing == null || betterScore || (!existing.completed && passed)) {
       await store.save(
         LessonProgress(
           lessonId: lessonId,
@@ -68,7 +68,9 @@ class ProgressRepository {
               : (correctCount * 100 / totalCount).round(),
           correctCount: correctCount,
           totalCount: totalCount,
-          completedAt: passed ? DateTime.now() : existing?.completedAt,
+          completedAt: passed
+              ? (existing?.completedAt ?? DateTime.now())
+              : existing?.completedAt,
         ),
       );
     }

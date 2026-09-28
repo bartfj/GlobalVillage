@@ -14,17 +14,22 @@ import '../../../data/models/course.dart';
 
 /// 跟读题：播放原音 -> 用户跟读 -> 语音识别打分。
 /// 优先用系统语音识别；系统无识别服务时自动切换内置离线识别
-/// （sherpa-onnx，纯本地）；麦克风权限被拒时降级为"跟读完成"直接通过。
+/// （sherpa-onnx，纯本地）；麦克风权限被拒或识别不可用时，
+/// 「跟读完成」走跳过（不计正确分），而非满分通过。
 class SpeakingWidget extends ConsumerStatefulWidget {
   final Exercise exercise;
   final bool enabled;
   final ValueChanged<String> onChanged;
+
+  /// 降级跳过（不计分）；未提供时回退为 onChanged 空串
+  final VoidCallback? onSkip;
 
   const SpeakingWidget({
     super.key,
     required this.exercise,
     required this.enabled,
     required this.onChanged,
+    this.onSkip,
   });
 
   @override
@@ -286,9 +291,13 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     );
   }
 
-  /// 降级：识别服务不可用时，确认已跟读直接通过
+  /// 降级：识别服务不可用时，确认已跟读则跳过（不计满分）
   void _markDone() {
-    widget.onChanged(widget.exercise.sentence);
+    if (widget.onSkip != null) {
+      widget.onSkip!();
+    } else {
+      widget.onChanged('');
+    }
   }
 
   @override

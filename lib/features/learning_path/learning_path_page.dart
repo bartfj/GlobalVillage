@@ -78,7 +78,7 @@ class LearningPathPage extends ConsumerWidget {
   }
 
   void _confirmSkipLesson(BuildContext context, WidgetRef ref) {
-    final lesson = ref.read(progressRepositoryProvider).currentLesson;
+    final lesson = ref.read(progressRepositoryProvider)?.currentLesson;
     if (lesson == null) {
       ScaffoldMessenger.of(
         context,
@@ -100,7 +100,7 @@ class LearningPathPage extends ConsumerWidget {
               Navigator.of(dialogContext).pop();
               final skipped = await ref
                   .read(progressRepositoryProvider)
-                  .skipCurrentLesson();
+                  ?.skipCurrentLesson();
               if (skipped == null) return;
               ref.read(progressRevisionProvider.notifier).state++;
               if (context.mounted) {
@@ -318,9 +318,16 @@ class LearningPathPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 进度变化时自动刷新路径
     ref.watch(progressRevisionProvider);
+    final auth = ref.watch(authProvider);
+    // 登出瞬间会话已空，provider 为 null；等路由 redirect，避免空断言
+    if (!auth.hasSession) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     final course = ref.watch(courseProvider);
     final progress = ref.watch(progressRepositoryProvider);
-    final auth = ref.watch(authProvider);
+    if (progress == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     final total = course.orderedLessons.length;
     final completed = course.orderedLessons
