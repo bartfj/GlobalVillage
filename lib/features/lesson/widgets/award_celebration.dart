@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme.dart';
+import '../../../data/models/lesson_badge.dart';
 import '../../../data/models/tree_growth.dart';
 import '../../../data/repositories/reward_repository.dart';
 
@@ -101,7 +102,7 @@ class _AwardCelebrationState extends State<AwardCelebration>
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.award?.unit.title;
+    final title = widget.award?.lesson.title;
     return ColoredBox(
       color: Colors.white,
       child: SafeArea(
@@ -220,21 +221,32 @@ class _AwardCelebrationState extends State<AwardCelebration>
               // 环绕星星
               for (var i = 0; i < 8; i++)
                 _buildStar(i, scale),
-              // 徽章本体
+              // 徽章本体（每关不同图标/颜色）
               Transform.scale(
                 scale: scale,
-                child: Container(
-                  width: 156,
-                  height: 156,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.greenLight,
-                  ),
-                  child: const Icon(
-                    Icons.military_tech_rounded,
-                    size: 112,
-                    color: AppColors.goldDark,
-                  ),
+                child: Builder(
+                  builder: (context) {
+                    final lessonId = widget.award?.lesson.id;
+                    final style = lessonId == null
+                        ? const LessonBadgeStyle(
+                            icon: Icons.military_tech_rounded,
+                            color: AppColors.goldDark,
+                          )
+                        : LessonBadgeStyle.forLesson(lessonId);
+                    return Container(
+                      width: 156,
+                      height: 156,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: style.color.withValues(alpha: 0.18),
+                      ),
+                      child: Icon(
+                        style.icon,
+                        size: 112,
+                        color: style.color,
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

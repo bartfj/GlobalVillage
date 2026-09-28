@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/login_page.dart';
 import '../features/auth/register_page.dart';
 import '../features/auth/welcome_page.dart';
+import '../features/learning_path/completed_lessons_page.dart';
 import '../features/learning_path/learning_path_page.dart';
 import '../features/lesson/lesson_page.dart';
 import '../features/lesson/result_page.dart';
 import '../features/rewards/rewards_page.dart';
+import '../features/rewards/tree_page.dart';
 import 'providers.dart';
 
 const _authLocations = ['/welcome', '/login', '/register'];
@@ -30,8 +32,20 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/', builder: (context, state) => const LearningPathPage()),
       GoRoute(
-        path: '/rewards',
+        path: '/badges',
         builder: (context, state) => const RewardsPage(),
+      ),
+      GoRoute(
+        path: '/rewards',
+        redirect: (context, state) => '/badges',
+      ),
+      GoRoute(
+        path: '/tree',
+        builder: (context, state) => const TreePage(),
+      ),
+      GoRoute(
+        path: '/completed',
+        builder: (context, state) => const CompletedLessonsPage(),
       ),
       GoRoute(
         path: '/welcome',

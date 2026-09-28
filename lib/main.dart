@@ -9,6 +9,7 @@ import 'data/models/progress.dart';
 import 'data/models/user.dart';
 import 'data/sources/progress_store.dart';
 import 'data/sources/reward_store.dart';
+import 'data/sources/settings_store.dart';
 import 'data/sources/user_store.dart';
 
 Future<void> main() async {
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Hive.openBox<String>(RewardStore.boxName);
   await Hive.openBox<User>(UserStore.usersBoxName);
   await Hive.openBox<String>(UserStore.sessionBoxName);
+  await Hive.openBox<String>(SettingsStore.boxName);
   await ProgressStore.migrateLegacy();
   runApp(const ProviderScope(child: EnglishVillageApp()));
 }
@@ -29,8 +31,8 @@ class EnglishVillageApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final course = ref.watch(courseProvider);
-    return course.when(
+    final courses = ref.watch(allCoursesProvider);
+    return courses.when(
       loading: () => const MaterialApp(
         home: Scaffold(body: Center(child: CircularProgressIndicator())),
       ),

@@ -185,7 +185,7 @@ void main() {
         {'attemptId': 'a', 'unitId': 'u2'},
       ];
       await Hive.box<User>(UserStore.usersBoxName).clear();
-      expect(await service.importBackup(jsonEncode(data)), '备份码收藏数据错误');
+      expect(await service.importBackup(jsonEncode(data)), '备份码徽章数据错误');
       expect(users.getUser('tester'), isNull);
     },
   );

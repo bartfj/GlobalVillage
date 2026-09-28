@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
+import '../../data/models/lesson_badge.dart';
 import '../../data/repositories/reward_repository.dart';
 import 'widgets/award_celebration.dart';
 import 'widgets/dialogue_performance.dart';
@@ -79,7 +80,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
           widget.lessonId,
           widget.result.attemptId,
         );
-        if (award == null) throw StateError('无法保存收藏奖励');
+        if (award == null) throw StateError('无法保存徽章奖励');
         if (!mounted) return;
         ref.read(rewardRevisionProvider.notifier).state++;
         setState(() {
@@ -166,15 +167,17 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                             Transform.scale(scale: value, child: child),
                         child: Column(
                           children: [
-                            const Icon(
-                              Icons.military_tech_rounded,
+                            Icon(
+                              LessonBadgeStyle.forLesson(_award!.lesson.id).icon,
                               size: 48,
-                              color: AppColors.goldDark,
+                              color: LessonBadgeStyle.forLesson(
+                                _award!.lesson.id,
+                              ).color,
                             ),
                             Text(
-                              '${_award!.unit.title}徽章 ${_award!.newlyAwarded ? '+1' : '已领取'}',
+                              '${_award!.lesson.title}徽章 ${_award!.newlyAwarded ? '+1' : '已领取'}',
                             ),
-                            Text('累计 ${_award!.count} 枚'),
+                            Text('本关累计 ${_award!.count} 枚'),
                             if (_treeCount > 0)
                               Text('梭梭树 +1 · 累计 $_treeCount 棵'),
                           ],

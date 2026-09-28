@@ -7,6 +7,7 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
 import 'widgets/lesson_node.dart';
+import 'widgets/main_menu_drawer.dart';
 import 'widgets/unit_header.dart';
 
 /// 首页：垂直学习路径
@@ -68,30 +69,6 @@ class LearningPathPage extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-              _showBackup(context, ref);
-            },
-            child: const Text('备份数据', style: TextStyle(color: AppColors.blue)),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-              _showRestore(context, ref);
-            },
-            child: const Text('恢复数据', style: TextStyle(color: AppColors.blue)),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-              _confirmLogout(context, ref);
-            },
-            child: const Text(
-              '退出登录 / 切换账号',
-              style: TextStyle(color: AppColors.red),
-            ),
-          ),
-          TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
             child: const Text('知道了', style: TextStyle(color: AppColors.green)),
           ),
@@ -139,78 +116,22 @@ class LearningPathPage extends ConsumerWidget {
     );
   }
 
-  /// 备份数据：导出当前账号备份码供复制保存
-  Future<void> _showBackup(BuildContext context, WidgetRef ref) async {
+  /// 备份 / 恢复：同一对话框内导出备份码或粘贴恢复
+  Future<void> _showBackupRestore(BuildContext context, WidgetRef ref) async {
     final auth = ref.read(authProvider);
+    String? exportCode;
+    String? exportHint;
     if (auth.isGuest) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('游客数据不支持备份，请先注册账号')));
-      return;
+      exportHint = '游客数据不支持导出备份，请先注册账号。仍可粘贴备份码恢复其他账号。';
+    } else {
+      exportCode = await ref.read(backupServiceProvider).exportBackup();
+      if (!context.mounted) return;
+      if (exportCode == null) {
+        exportHint = '备份失败：未找到当前账号。仍可粘贴备份码尝试恢复。';
+      }
     }
-    final code = await ref.read(backupServiceProvider).exportBackup();
     if (!context.mounted) return;
-    if (code == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('备份失败：未找到当前账号')));
-      return;
-    }
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('备份码', style: TextStyle(fontSize: 17)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              '复制保存以下备份码，在新设备"恢复数据"中粘贴即可找回账号与进度。',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 8),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 220),
-              child: SingleChildScrollView(
-                child: SelectableText(
-                  code,
-                  style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
-                ),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text(
-              '关闭',
-              style: TextStyle(color: AppColors.textSecondary),
-            ),
-          ),
-          TextButton(
-            onPressed: () async {
-              await Clipboard.setData(ClipboardData(text: code));
-              if (context.mounted) {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('备份码已复制到剪贴板')));
-              }
-            },
-            child: const Text(
-              '复制备份码',
-              style: TextStyle(color: AppColors.green),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  /// 恢复数据：粘贴备份码恢复账号与进度
-  void _showRestore(BuildContext context, WidgetRef ref) {
     final controller = TextEditingController();
     String? error;
     showDialog<void>(
@@ -220,34 +141,101 @@ class LearningPathPage extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text('恢复数据', style: TextStyle(fontSize: 17)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '粘贴备份码，恢复对应账号与学习进度（同名账号将被覆盖）。',
-                style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: controller,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: '粘贴备份码',
-                  border: OutlineInputBorder(),
+          title: const Text('备份 / 恢复', style: TextStyle(fontSize: 17)),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '导出备份',
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
                 ),
-                style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
-              ),
-              if (error != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Text(
-                    error!,
-                    style: const TextStyle(fontSize: 13, color: AppColors.red),
+                const SizedBox(height: 6),
+                if (exportCode case final code?) ...[
+                  const Text(
+                    '复制保存以下备份码，换设备时可在下方粘贴恢复。',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 120),
+                    child: SingleChildScrollView(
+                      child: SelectableText(
+                        code,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () async {
+                        await Clipboard.setData(ClipboardData(text: code));
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('备份码已复制到剪贴板')),
+                          );
+                        }
+                      },
+                      child: const Text(
+                        '复制备份码',
+                        style: TextStyle(color: AppColors.green),
+                      ),
+                    ),
+                  ),
+                ] else
+                  Text(
+                    exportHint ?? '',
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                const SizedBox(height: 12),
+                const Divider(height: 1),
+                const SizedBox(height: 12),
+                const Text(
+                  '恢复数据',
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  '粘贴备份码，恢复对应账号与学习进度（同名账号将被覆盖）。',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: AppColors.textSecondary,
                   ),
                 ),
-            ],
+                const SizedBox(height: 8),
+                TextField(
+                  controller: controller,
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    hintText: '粘贴备份码',
+                    border: OutlineInputBorder(),
+                  ),
+                  style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+                ),
+                if (error != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Text(
+                      error!,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.red,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -262,7 +250,7 @@ class LearningPathPage extends ConsumerWidget {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text(
-                '取消',
+                '关闭',
                 style: TextStyle(color: AppColors.textSecondary),
               ),
             ),
@@ -278,6 +266,7 @@ class LearningPathPage extends ConsumerWidget {
                 }
                 final nickname = ref.read(userStoreProvider).currentSession!;
                 await ref.read(authProvider.notifier).restoreSession(nickname);
+                ref.read(selectedTrackProvider.notifier).reload();
                 ref.read(progressRevisionProvider.notifier).state++;
                 if (context.mounted) {
                   Navigator.of(context).pop();
@@ -329,7 +318,7 @@ class LearningPathPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 进度变化时自动刷新路径
     ref.watch(progressRevisionProvider);
-    final course = ref.watch(courseProvider).requireValue;
+    final course = ref.watch(courseProvider);
     final progress = ref.watch(progressRepositoryProvider);
     final auth = ref.watch(authProvider);
 
@@ -339,6 +328,24 @@ class LearningPathPage extends ConsumerWidget {
         .length;
 
     return Scaffold(
+      drawer: MainMenuDrawer(
+        onBackupRestore: () {
+          Navigator.of(context).pop();
+          _showBackupRestore(context, ref);
+        },
+        onAbout: () {
+          Navigator.of(context).pop();
+          _showAbout(context, ref);
+        },
+        onLogout: () {
+          Navigator.of(context).pop();
+          _confirmLogout(context, ref);
+        },
+        onLogin: () {
+          Navigator.of(context).pop();
+          context.push('/login');
+        },
+      ),
       appBar: AppBar(
         title: Text(
           course.title,
@@ -353,8 +360,8 @@ class LearningPathPage extends ConsumerWidget {
               Icons.military_tech_rounded,
               color: AppColors.goldDark,
             ),
-            tooltip: '收藏',
-            onPressed: () => context.push('/rewards'),
+            tooltip: '徽章',
+            onPressed: () => context.push('/badges'),
           ),
           Center(
             child: Padding(
@@ -367,14 +374,6 @@ class LearningPathPage extends ConsumerWidget {
                 ),
               ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.info_outline,
-              color: AppColors.textSecondary,
-            ),
-            tooltip: '关于',
-            onPressed: () => _showAbout(context, ref),
           ),
         ],
         backgroundColor: Colors.white,

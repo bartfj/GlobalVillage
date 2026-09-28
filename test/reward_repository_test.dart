@@ -15,7 +15,9 @@ Course course() => Course(
       id: 'u${i + 1}',
       title: 'unit ${i + 1}',
       description: '',
-      lessons: [Lesson(id: 'l${i + 1}', title: 'lesson', exercises: const [])],
+      lessons: [
+        Lesson(id: 'l${i + 1}', title: 'lesson ${i + 1}', exercises: const []),
+      ],
     ),
   ),
 );
@@ -33,7 +35,7 @@ void main() {
   });
 
   test(
-    'each passed attempt increments its unit and duplicate attempt is idempotent',
+    'each passed attempt increments its lesson badge and duplicate is idempotent',
     () async {
       final repo = RewardRepository(
         store: const RewardStore(userKey: 'guest'),
@@ -45,7 +47,8 @@ void main() {
         false,
       );
       expect((await repo.awardForPassedAttempt('l1', 'b'))?.count, 2);
-      expect(repo.countFor('u1'), 2);
+      expect(repo.countFor('l1'), 2);
+      expect(repo.countFor('u1'), 0);
       expect(repo.treeCount, 2);
       expect(await repo.awardForPassedAttempt('unknown', 'c'), isNull);
       expect(await repo.awardForPassedAttempt('l2', 'a'), isNull);
@@ -54,7 +57,7 @@ void main() {
   );
 
   test(
-    'treeCount counts all passed attempts across units, unlike unit badges',
+    'treeCount counts all passed attempts across lessons',
     () async {
       final repo = RewardRepository(
         store: const RewardStore(userKey: 'guest'),
@@ -64,16 +67,15 @@ void main() {
       await repo.awardForPassedAttempt('l2', 'b');
       await repo.awardForPassedAttempt('l1', 'c');
       expect(repo.treeCount, 3);
-      expect(repo.countFor('u1'), 2);
-      expect(repo.countFor('u2'), 1);
-      // 幂等：同 attempt 不重复计树
+      expect(repo.countFor('l1'), 2);
+      expect(repo.countFor('l2'), 1);
       await repo.awardForPassedAttempt('l1', 'a');
       expect(repo.treeCount, 3);
     },
   );
 
   test(
-    'all 14 units map correctly and accounts are isolated after reopening box',
+    'all lessons map correctly and accounts are isolated after reopening box',
     () async {
       final guest = RewardRepository(
         store: const RewardStore(userKey: 'guest'),
@@ -81,20 +83,20 @@ void main() {
       );
       for (var i = 1; i <= 14; i++) {
         expect(
-          (await guest.awardForPassedAttempt('l$i', '$i'))?.unit.id,
-          'u$i',
+          (await guest.awardForPassedAttempt('l$i', '$i'))?.lesson.id,
+          'l$i',
         );
       }
       final other = RewardRepository(
         store: const RewardStore(userKey: 'other'),
         course: course(),
       );
-      expect(other.countFor('u1'), 0);
+      expect(other.countFor('l1'), 0);
       expect((await other.awardForPassedAttempt('l1', '1'))?.count, 1);
       await Hive.box<String>(RewardStore.boxName).close();
       await Hive.openBox<String>(RewardStore.boxName);
-      expect(guest.countFor('u14'), 1);
-      expect(other.countFor('u1'), 1);
+      expect(guest.countFor('l14'), 1);
+      expect(other.countFor('l1'), 1);
     },
   );
 }

@@ -82,20 +82,24 @@ class BackupService {
     final rewardEntries = <String, String>{};
     if (data['version'] == 2) {
       final rewards = data['rewards'];
-      if (rewards is! List) return '备份码收藏数据错误';
+      if (rewards is! List) return '备份码徽章数据错误';
       for (final item in rewards) {
         if (item is! Map<String, dynamic> ||
             item['attemptId'] is! String ||
             item['unitId'] is! String) {
-          return '备份码收藏数据错误';
+          return '备份码徽章数据错误';
         }
         final attemptId = item['attemptId'] as String;
         final unitId = item['unitId'] as String;
+        // unitId 字段兼容：旧 unit（u1）或新 lessonId（u1l1 / z_u1l2）
+        final subjectOk = RegExp(
+          r'^(?:z_|e_)?u\d+(?:l\d+)?$',
+        ).hasMatch(unitId);
         if (attemptId.isEmpty ||
             attemptId.contains('|') ||
-            !RegExp(r'^u(?:[1-9]|1[0-4])$').hasMatch(unitId) ||
+            !subjectOk ||
             rewardEntries.containsKey(attemptId)) {
-          return '备份码收藏数据错误';
+          return '备份码徽章数据错误';
         }
         rewardEntries[attemptId] = unitId;
       }
