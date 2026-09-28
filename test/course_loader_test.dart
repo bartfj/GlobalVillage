@@ -47,25 +47,56 @@ void main() {
     }
   });
 
-  test('零基础课程 JSON 为 64 关且 id 不与初级冲突', () {
+  test('零基础课程 JSON 为 128 关且 id 不与初级冲突', () {
     final zero = Course.fromJson(
       jsonDecode(File('assets/courses/course_zero.json').readAsStringSync())
           as Map<String, dynamic>,
     );
     final beginner = Course.fromJson(
-      jsonDecode(
-            File('assets/courses/course_beginner.json').readAsStringSync(),
-          )
+      jsonDecode(File('assets/courses/course_beginner.json').readAsStringSync())
           as Map<String, dynamic>,
     );
 
     expect(zero.id, 'zero');
     expect(zero.title, '英语零基础');
-    expect(zero.units, hasLength(16));
-    expect(zero.orderedLessons, hasLength(64));
+    expect(zero.units, hasLength(32));
+    expect(zero.orderedLessons, hasLength(128));
+    expect(
+      zero.orderedLessons.map((lesson) => lesson.id).toSet(),
+      hasLength(128),
+    );
+
+    for (var unitIndex = 0; unitIndex < zero.units.length; unitIndex++) {
+      final unit = zero.units[unitIndex];
+      expect(unit.id, 'z_u${unitIndex + 1}');
+      expect(unit.lessons, hasLength(4));
+      for (
+        var lessonIndex = 0;
+        lessonIndex < unit.lessons.length;
+        lessonIndex++
+      ) {
+        expect(unit.lessons[lessonIndex].id, '${unit.id}l${lessonIndex + 1}');
+      }
+    }
 
     for (final lesson in zero.orderedLessons) {
       _assertExerciseShape(lesson);
+    }
+
+    for (final lesson in zero.orderedLessons.skip(64)) {
+      for (final exercise in lesson.exercises) {
+        if (exercise.type == ExerciseType.translateChoice ||
+            exercise.type == ExerciseType.listeningChoice) {
+          expect(exercise.options.toSet(), hasLength(4), reason: exercise.id);
+        }
+        if (exercise.type == ExerciseType.fillBlank) {
+          expect(
+            exercise.sentenceWithBlank!.replaceFirst('____', exercise.answer),
+            exercise.sentence,
+            reason: exercise.id,
+          );
+        }
+      }
     }
 
     final allLessonIds = [
