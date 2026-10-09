@@ -81,6 +81,7 @@ List<Map<String, dynamic>> _exercises(String id, List<(String, String)> pairs) {
     String answer, [
     List<String> options = const [],
     String? blank,
+    List<Map<String, String>>? pairs,
   ]) => {
     'id': '${id}e$number',
     'type': type,
@@ -89,7 +90,15 @@ List<Map<String, dynamic>> _exercises(String id, List<(String, String)> pairs) {
     'options': options,
     'answer': answer,
     'sentenceWithBlank': blank,
+    if (pairs != null) 'pairs': pairs,
   };
+
+  String matchAnswer() {
+    final entries = [
+      for (var i = 0; i < 4; i++) (chinese[i], english[i]),
+    ]..sort((a, b) => a.$1.compareTo(b.$1));
+    return entries.map((pair) => '${pair.$1}=${pair.$2}').join('|');
+  }
 
   // Use a short, non-repeated word for the typed answer.
   final words = english[3].split(' ');
@@ -116,11 +125,15 @@ List<Map<String, dynamic>> _exercises(String id, List<(String, String)> pairs) {
     item(2, 'translateChoice', english[1], english[1], chinese[1], chinese),
     item(
       3,
-      'translateChoice',
-      chinese[2],
-      english[2],
-      english[2].replaceFirst(RegExp(r'[.!?]$'), ''),
-      [for (final value in english) value.replaceFirst(RegExp(r'[.!?]$'), '')],
+      'matchPairs',
+      '把中文和英文连起来',
+      english[0],
+      matchAnswer(),
+      const [],
+      null,
+      [
+        for (var i = 0; i < 4; i++) {'left': chinese[i], 'right': english[i]},
+      ],
     ),
     item(4, 'wordBank', chinese[3], english[3], english[3]),
     item(5, 'wordBank', chinese[0], english[0], english[0]),

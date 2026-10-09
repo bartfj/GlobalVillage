@@ -22,12 +22,32 @@ void _assertExerciseShape(Lesson lesson) {
       case ExerciseType.speaking:
         expect(ex.sentence, ex.answer);
         expect(ex.options, isEmpty);
+      case ExerciseType.matchPairs:
+        expect(ex.pairs, hasLength(4), reason: ex.id);
+        expect(ex.pairs.map((p) => p.left).toSet(), hasLength(4), reason: ex.id);
+        expect(ex.pairs.map((p) => p.right).toSet(), hasLength(4), reason: ex.id);
+        expect(MatchPair.encode(ex.pairs), ex.answer, reason: ex.id);
     }
   }
+  expect(
+    lesson.exercises.map((ex) => ex.type).toList(),
+    [
+      ExerciseType.translateChoice,
+      ExerciseType.translateChoice,
+      ExerciseType.matchPairs,
+      ExerciseType.wordBank,
+      ExerciseType.wordBank,
+      ExerciseType.listeningChoice,
+      ExerciseType.listeningChoice,
+      ExerciseType.fillBlank,
+      ExerciseType.speaking,
+    ],
+    reason: lesson.id,
+  );
 }
 
 void main() {
-  test('初级课程 JSON 为 128 关且结构完整', () {
+  test('初级课程 JSON 为 176 关且结构完整', () {
     final file = File('assets/courses/course_beginner.json');
     expect(file.existsSync(), isTrue);
 
@@ -37,17 +57,17 @@ void main() {
 
     expect(course.id, 'beginner');
     expect(course.title, '英语初级');
-    expect(course.units, hasLength(32));
+    expect(course.units, hasLength(44));
     final lessons = course.orderedLessons;
-    expect(lessons, hasLength(128));
-    expect(lessons.map((l) => l.id).toSet(), hasLength(128));
+    expect(lessons, hasLength(176));
+    expect(lessons.map((l) => l.id).toSet(), hasLength(176));
 
     for (final lesson in lessons) {
       _assertExerciseShape(lesson);
     }
   });
 
-  test('零基础课程 JSON 为 128 关且 id 不与初级冲突', () {
+  test('零基础课程 JSON 为 136 关且 id 不与初级冲突', () {
     final zero = Course.fromJson(
       jsonDecode(File('assets/courses/course_zero.json').readAsStringSync())
           as Map<String, dynamic>,
@@ -59,11 +79,11 @@ void main() {
 
     expect(zero.id, 'zero');
     expect(zero.title, '英语零基础');
-    expect(zero.units, hasLength(32));
-    expect(zero.orderedLessons, hasLength(128));
+    expect(zero.units, hasLength(34));
+    expect(zero.orderedLessons, hasLength(136));
     expect(
       zero.orderedLessons.map((lesson) => lesson.id).toSet(),
-      hasLength(128),
+      hasLength(136),
     );
 
     for (var unitIndex = 0; unitIndex < zero.units.length; unitIndex++) {

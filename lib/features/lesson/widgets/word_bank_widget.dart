@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme.dart';
+import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
+import 'tappable_phonetic_text.dart';
 
 /// 词块排序组句题：点击乱序词块拼出正确句子
 class WordBankWidget extends StatefulWidget {
@@ -121,7 +123,7 @@ class _WordBankWidgetState extends State<WordBankWidget> {
           const Padding(
             padding: EdgeInsets.only(top: 6),
             child: Text(
-              '长按词块可拖动调整顺序，拖动开始时词块变绿并震动提示',
+              '长按词块可拖动调整顺序；词库词块长按可查看音标',
               style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
             ),
           ),
@@ -132,7 +134,11 @@ class _WordBankWidgetState extends State<WordBankWidget> {
           runSpacing: 8,
           children: [
             for (var i = 0; i < _bank.length; i++)
-              _WordChip(label: _bank[i], onTap: () => _pick(i)),
+              _WordChip(
+                label: _bank[i],
+                onTap: () => _pick(i),
+                onLongPressPhonetic: true,
+              ),
           ],
         ),
       ],
@@ -202,12 +208,14 @@ class _WordChip extends StatelessWidget {
   final VoidCallback onTap;
   final bool dragging;
   final bool elevated;
+  final bool onLongPressPhonetic;
 
   const _WordChip({
     required this.label,
     required this.onTap,
     this.dragging = false,
     this.elevated = false,
+    this.onLongPressPhonetic = false,
   });
 
   @override
@@ -216,6 +224,14 @@ class _WordChip extends StatelessWidget {
     final shadowColor = dragging ? AppColors.greenDark : AppColors.lockedDark;
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongPressPhonetic &&
+              PhoneticLookupService.looksEnglish(label)
+          ? () {
+              final box = context.findRenderObject() as RenderBox?;
+              if (box == null || !box.hasSize) return;
+              showPhoneticBubbleForBox(context, label, box);
+            }
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
@@ -233,10 +249,17 @@ class _WordChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
             color: AppColors.textPrimary,
+            decoration: onLongPressPhonetic
+                ? TextDecoration.underline
+                : TextDecoration.none,
+            decorationStyle: onLongPressPhonetic
+                ? TextDecorationStyle.dotted
+                : null,
+            decorationColor: AppColors.blue.withValues(alpha: 0.45),
           ),
         ),
       ),

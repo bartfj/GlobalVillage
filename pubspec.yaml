@@ -1,7 +1,7 @@
 name: english_village
 description: 地球村闯关式英语学习 App
 publish_to: 'none'
-version: 0.8.12+29
+version: 0.8.18+35
 
 environment:
   sdk: ^3.9.0
@@ -20,6 +20,7 @@ dependencies:
   sherpa_onnx: ^1.13.8
   path_provider: ^2.1.5
   record: ^6.2.0
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -41,4 +42,10 @@ flutter:
     - assets/audio/listening/
     - assets/audio/dialogues/
     - assets/dialogues/
+    - assets/phonetics/
     - assets/models/whisper/
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: fonts/STIXTwoText-Regular.ttf
+          weight: 400

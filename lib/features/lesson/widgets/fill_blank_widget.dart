@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme.dart';
+import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
+import 'tappable_phonetic_text.dart';
 
 /// 拼写填空题：补全句子中缺失的单词
 class FillBlankWidget extends StatefulWidget {
@@ -34,6 +36,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
     final blankSentence =
         widget.exercise.sentenceWithBlank ?? widget.exercise.sentence;
     final parts = blankSentence.split('____');
+    final style = _sentenceStyle(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -57,7 +60,9 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   if (parts.isNotEmpty)
-                    Text(parts.first, style: _sentenceStyle(context)),
+                    PhoneticLookupService.looksEnglish(parts.first)
+                        ? TappablePhoneticText(parts.first, style: style)
+                        : Text(parts.first, style: style),
                   SizedBox(
                     width: 110,
                     child: TextField(
@@ -94,8 +99,16 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
                       onChanged: widget.onChanged,
                     ),
                   ),
-                  if (parts.length > 1)
-                    Text(parts.sublist(1).join('____'), style: _sentenceStyle(context)),
+                  if (parts.length > 1) ...[
+                    Builder(
+                      builder: (context) {
+                        final rest = parts.sublist(1).join('____');
+                        return PhoneticLookupService.looksEnglish(rest)
+                            ? TappablePhoneticText(rest, style: style)
+                            : Text(rest, style: style);
+                      },
+                    ),
+                  ],
                 ],
               ),
             ],

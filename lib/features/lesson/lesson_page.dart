@@ -12,7 +12,9 @@ import 'result_page.dart';
 import 'widgets/answer_feedback_bar.dart';
 import 'widgets/fill_blank_widget.dart';
 import 'widgets/listening_choice_widget.dart';
+import 'widgets/match_pairs_widget.dart';
 import 'widgets/speaking_widget.dart';
+import 'widgets/tappable_phonetic_text.dart';
 import 'widgets/translate_choice_widget.dart';
 import 'widgets/word_bank_widget.dart';
 
@@ -28,6 +30,7 @@ class LessonPage extends ConsumerStatefulWidget {
 
 class _LessonPageState extends ConsumerState<LessonPage> {
   String _currentAnswer = '';
+  String? _lastPhoneticExerciseId;
   int _questionSerial = 0;
   late final DateTime _startTime;
   late final String _attemptId;
@@ -96,6 +99,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   }
 
   Future<void> _onClose() async {
+    dismissPhoneticBubble();
     final quit = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -132,6 +136,10 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     }
     final exercise = state.current;
     final questionKey = ValueKey('${exercise.id}#$_questionSerial');
+    if (_lastPhoneticExerciseId != exercise.id) {
+      _lastPhoneticExerciseId = exercise.id;
+      dismissPhoneticBubble();
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -164,7 +172,9 @@ class _LessonPageState extends ConsumerState<LessonPage> {
               AnswerFeedbackBar(
                 correct: state.lastAnswerCorrect!,
                 skipped: state.skipped,
-                correctAnswer: exercise.answer,
+                correctAnswer: exercise.type == ExerciseType.matchPairs
+                    ? MatchPair.formatForDisplay(exercise.answer)
+                    : exercise.answer,
                 onContinue: _onContinue,
               )
             else
@@ -221,6 +231,13 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           enabled: enabled,
           onChanged: (v) => setState(() => _currentAnswer = v),
           onSkip: _onSkipSpeaking,
+        );
+      case ExerciseType.matchPairs:
+        return MatchPairsWidget(
+          key: questionKey,
+          exercise: exercise,
+          enabled: enabled,
+          onChanged: (v) => setState(() => _currentAnswer = v),
         );
     }
   }

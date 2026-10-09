@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/services/backup_service.dart';
+import '../core/services/phonetic_lookup_service.dart';
 import '../core/services/sound_service.dart';
 import '../core/services/tts_service.dart';
 import '../data/models/course.dart';
@@ -99,6 +100,12 @@ final soundServiceProvider = Provider<SoundService>((ref) {
 
 final ttsServiceProvider = Provider<TtsService>((ref) {
   final service = TtsService();
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+final phoneticLookupProvider = Provider<PhoneticLookupService>((ref) {
+  final service = PhoneticLookupService();
   ref.onDispose(service.dispose);
   return service;
 });

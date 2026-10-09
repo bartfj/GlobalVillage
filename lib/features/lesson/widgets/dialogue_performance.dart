@@ -27,15 +27,25 @@ class DialoguePerformance extends StatefulWidget {
 class _DialoguePerformanceState extends State<DialoguePerformance> {
   final AudioPlayer _player = AudioPlayer();
   final FlutterTts _tts = FlutterTts();
+  StreamSubscription<void>? _completeSub;
   DialogueScript? _script;
   Timer? _timer;
   int _index = 0;
   int _generation = 0;
   bool _finished = false;
 
+  /// 仅在本句真正开始播放后为 true，避免 stop() 误触发 completed 切句。
+  bool _awaitingComplete = false;
+
   @override
   void initState() {
     super.initState();
+    _completeSub = _player.onPlayerComplete.listen((_) {
+      _onPlaybackComplete();
+    });
+    _tts.setCompletionHandler(() {
+      _onPlaybackComplete();
+    });
     _load();
   }
 
@@ -59,21 +69,15 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
     if (script == null || _finished) return;
     final line = script.lines[_index];
     final generation = ++_generation;
+    _awaitingComplete = false;
     final words = line.english.split(RegExp(r'\s+')).length;
-    final duration = Duration(
-      milliseconds: (words * 400 + 1400).clamp(3200, 7800),
+    // 兜底：部分机型不回调 completed 时仍能推进。
+    final timeout = Duration(
+      milliseconds: (words * 400 + 2000).clamp(4500, 12000),
     );
-    unawaited(_playVoice(line, _index + 1, generation));
     _timer?.cancel();
-    _timer = Timer(duration, () {
-      if (!mounted || _finished || generation != _generation) return;
-      if (_index + 1 == script.lines.length) {
-        _finish();
-      } else {
-        setState(() => _index++);
-        _playLine();
-      }
-    });
+    _timer = Timer(timeout, () => _advance(generation: generation));
+    unawaited(_playVoice(line, _index + 1, generation));
   }
 
   Future<void> _playVoice(
@@ -82,29 +86,62 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
     int generation,
   ) async {
     try {
+      // stop 可能触发 completed；此时 _awaitingComplete 仍为 false，会被忽略。
       await _player.stop();
       await _tts.stop();
       if (!mounted || _finished || generation != _generation) return;
       await _player.play(
         AssetSource('audio/dialogues/${widget.unitId}_$lineNumber.mp3'),
       );
+      if (!mounted || _finished || generation != _generation) return;
+      _awaitingComplete = true;
     } catch (_) {
       if (!mounted || _finished || generation != _generation) return;
       try {
         await _tts.setLanguage('en-US');
         await _tts.setSpeechRate(0.45);
-        if (mounted && !_finished && generation == _generation) {
-          await _tts.speak(line.english);
-        }
+        if (!mounted || _finished || generation != _generation) return;
+        _awaitingComplete = true;
+        await _tts.speak(line.english);
       } catch (_) {
-        // 字幕和演出仍可继续。
+        // 字幕和演出仍可继续；超时兜底会推进。
       }
     }
+  }
+
+  void _onPlaybackComplete() {
+    if (!_awaitingComplete || _finished) return;
+    final generation = _generation;
+    _awaitingComplete = false;
+    _advance(generation: generation);
+  }
+
+  void _advance({required int generation}) {
+    if (!mounted || _finished || generation != _generation) return;
+    _awaitingComplete = false;
+    _timer?.cancel();
+    final script = _script;
+    if (script == null) return;
+
+    if (_index + 1 >= script.lines.length) {
+      _timer = Timer(const Duration(milliseconds: 600), () {
+        if (!mounted || _finished || generation != _generation) return;
+        _finish();
+      });
+      return;
+    }
+
+    _timer = Timer(const Duration(milliseconds: 400), () {
+      if (!mounted || _finished || generation != _generation) return;
+      setState(() => _index++);
+      _playLine();
+    });
   }
 
   void _finish() {
     if (_finished) return;
     _finished = true;
+    _awaitingComplete = false;
     _generation++;
     _timer?.cancel();
     unawaited(_player.stop());
@@ -115,8 +152,10 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
   @override
   void dispose() {
     _finished = true;
+    _awaitingComplete = false;
     _generation++;
     _timer?.cancel();
+    unawaited(_completeSub?.cancel());
     unawaited(_player.dispose());
     unawaited(_tts.stop());
     super.dispose();

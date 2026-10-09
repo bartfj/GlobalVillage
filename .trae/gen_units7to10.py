@@ -4,8 +4,10 @@ import json
 import hashlib
 import random
 import re
+from pathlib import Path
 
-SRC = r'd:\workspace\github_code\地球村\assets\courses\course_beginner.json'
+ROOT = Path(__file__).resolve().parent.parent
+SRC = ROOT / "assets" / "courses" / "course_beginner.json"
 
 # 每课 6 组句对 (中文, 英文)
 UNITS = [
@@ -201,8 +203,9 @@ def make_blank(sentence, seed):
     return blanked, word
 
 
-def append_units(units):
-    with open(SRC, encoding='utf-8') as f:
+def append_units(units, course_path=None):
+    path = Path(course_path) if course_path else SRC
+    with open(path, encoding='utf-8') as f:
         data = json.load(f)
 
     existing = {u['id'] for u in data['units']}
@@ -282,14 +285,14 @@ def append_units(units):
         data['units'].append(unit)
         print(f"added {u['id']} {u['title']}: {len(unit['lessons'])} lessons")
 
-    with open(SRC, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=True, indent=2)
 
     # 校验
     nu = len(data['units'])
     nl = sum(len(u['lessons']) for u in data['units'])
     ne = sum(len(l['exercises']) for u in data['units'] for l in u['lessons'])
-    print(f'TOTAL units={nu} lessons={nl} exercises={ne}')
+    print(f'TOTAL {path.name} units={nu} lessons={nl} exercises={ne}')
 
 
 if __name__ == '__main__':

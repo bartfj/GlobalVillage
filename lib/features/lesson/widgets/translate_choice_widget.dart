@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme.dart';
+import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
+import 'tappable_phonetic_text.dart';
 
 /// 翻译单选题：题干 + 4 个选项卡
 class TranslateChoiceWidget extends StatelessWidget {
@@ -31,10 +33,15 @@ class TranslateChoiceWidget extends StatelessWidget {
             border: Border.all(color: AppColors.locked, width: 2),
             borderRadius: BorderRadius.circular(14),
           ),
-          child: Text(
-            exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          child: PhoneticLookupService.looksEnglish(exercise.prompt)
+              ? TappablePhoneticText(
+                  exercise.prompt,
+                  style: Theme.of(context).textTheme.titleMedium,
+                )
+              : Text(
+                  exercise.prompt,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
         ),
         const SizedBox(height: 16),
         for (final option in exercise.options)
@@ -65,11 +72,26 @@ class _OptionCard extends StatelessWidget {
     required this.onTap,
   });
 
+  void _showPhonetic(BuildContext context) {
+    if (!PhoneticLookupService.looksEnglish(label)) return;
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize) return;
+    final word = label
+        .split(RegExp(r'\s+'))
+        .firstWhere(
+          PhoneticLookupService.looksEnglish,
+          orElse: () => label,
+        );
+    showPhoneticBubbleForBox(context, word, box);
+  }
+
   @override
   Widget build(BuildContext context) {
     final borderColor = selected ? AppColors.blue : AppColors.locked;
+    final english = PhoneticLookupService.looksEnglish(label);
     return GestureDetector(
       onTap: enabled ? onTap : null,
+      onLongPress: english ? () => _showPhonetic(context) : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
@@ -88,6 +110,9 @@ class _OptionCard extends StatelessWidget {
             fontSize: 15,
             fontWeight: FontWeight.w600,
             color: selected ? AppColors.blueDark : AppColors.textPrimary,
+            decoration: english ? TextDecoration.underline : TextDecoration.none,
+            decorationStyle: english ? TextDecorationStyle.dotted : null,
+            decorationColor: AppColors.blue.withValues(alpha: 0.5),
           ),
         ),
       ),

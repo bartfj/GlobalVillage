@@ -36,6 +36,31 @@ def _blank_word(sentence: str) -> tuple[str, str]:
     return target, with_blank
 
 
+def _punctuate(en: str) -> str:
+    return en if en.endswith((".", "!", "?")) else en + "."
+
+
+def _four_pairs(items: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    out: list[tuple[str, str]] = []
+    seen_zh: set[str] = set()
+    seen_en: set[str] = set()
+    for zh, en in items:
+        en_s = _punctuate(en)
+        if zh in seen_zh or en_s.lower() in seen_en:
+            continue
+        seen_zh.add(zh)
+        seen_en.add(en_s.lower())
+        out.append((zh, en_s))
+        if len(out) == 4:
+            return out
+    raise ValueError(f"Need 4 unique pairs, got {len(out)}")
+
+
+def _match_answer(pairs: list[tuple[str, str]]) -> str:
+    ordered = sorted(pairs, key=lambda item: item[0])
+    return "|".join(f"{zh}={en}" for zh, en in ordered)
+
+
 def _options(correct: str, pool: list[str], k: int = 4) -> list[str]:
     opts = {correct}
     for item in pool:
@@ -67,8 +92,8 @@ def build_lesson(
     picks = items[:6]
     exercises = []
 
-    # 3x translateChoice — 交替中英方向
-    for i, (zh, en) in enumerate(picks[:3]):
+    # 2x translateChoice — 交替中英方向
+    for i, (zh, en) in enumerate(picks[:2]):
         eid = f"{lesson_id}e{i + 1}"
         if i % 2 == 0:
             exercises.append(
@@ -98,6 +123,20 @@ def build_lesson(
                     "sentenceWithBlank": None,
                 }
             )
+
+    match_pairs = _four_pairs(items)
+    exercises.append(
+        {
+            "id": f"{lesson_id}e3",
+            "type": "matchPairs",
+            "prompt": "把中文和英文连起来",
+            "sentence": match_pairs[0][1],
+            "options": [],
+            "answer": _match_answer(match_pairs),
+            "sentenceWithBlank": None,
+            "pairs": [{"left": zh, "right": en} for zh, en in match_pairs],
+        }
+    )
 
     # 2x wordBank
     for i, (zh, en) in enumerate(picks[3:5]):
@@ -1451,7 +1490,7 @@ def validate(course: dict, expect_lessons: int) -> None:
         assert types == [
             "translateChoice",
             "translateChoice",
-            "translateChoice",
+            "matchPairs",
             "wordBank",
             "wordBank",
             "listeningChoice",

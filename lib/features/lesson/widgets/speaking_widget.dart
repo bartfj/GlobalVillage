@@ -11,6 +11,7 @@ import '../../../app/theme.dart';
 import '../../../core/services/offline_asr_service.dart';
 import '../../../core/utils/similarity.dart';
 import '../../../data/models/course.dart';
+import 'tappable_phonetic_text.dart';
 
 /// 跟读题：播放原音 -> 用户跟读 -> 语音识别打分。
 /// 优先用系统语音识别；系统无识别服务时自动切换内置离线识别
@@ -320,7 +321,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
+                  child: TappablePhoneticText(
                     widget.exercise.sentence,
                     style: const TextStyle(
                       fontSize: 18,

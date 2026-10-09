@@ -1,7 +1,38 @@
 /// 课程内容模型：Course -> Unit -> Lesson -> Exercise
 library;
 
-enum ExerciseType { translateChoice, wordBank, listeningChoice, fillBlank, speaking }
+enum ExerciseType {
+  translateChoice,
+  wordBank,
+  listeningChoice,
+  fillBlank,
+  speaking,
+  matchPairs,
+}
+
+class MatchPair {
+  final String left;
+  final String right;
+
+  const MatchPair({required this.left, required this.right});
+
+  factory MatchPair.fromJson(Map<String, dynamic> json) {
+    return MatchPair(
+      left: json['left'] as String,
+      right: json['right'] as String,
+    );
+  }
+
+  /// 按 left 排序后拼成判题串：`中文=英文|...`
+  static String encode(Iterable<MatchPair> pairs) {
+    final list = pairs.toList()..sort((a, b) => a.left.compareTo(b.left));
+    return list.map((pair) => '${pair.left}=${pair.right}').join('|');
+  }
+
+  static String formatForDisplay(String answer) {
+    return answer.replaceAll('|', '\n').replaceAll('=', ' — ');
+  }
+}
 
 class Exercise {
   final String id;
@@ -22,6 +53,9 @@ class Exercise {
   /// 填空题专用：带 ____ 的句子，其他题型为 null
   final String? sentenceWithBlank;
 
+  /// 连线题左右项；其他题型为 []
+  final List<MatchPair> pairs;
+
   const Exercise({
     required this.id,
     required this.type,
@@ -30,6 +64,7 @@ class Exercise {
     required this.options,
     required this.answer,
     this.sentenceWithBlank,
+    this.pairs = const [],
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -44,6 +79,9 @@ class Exercise {
               .toList(),
       answer: json['answer'] as String,
       sentenceWithBlank: json['sentenceWithBlank'] as String?,
+      pairs: (json['pairs'] as List<dynamic>? ?? [])
+          .map((e) => MatchPair.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 }

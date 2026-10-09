@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 跟读题型：麦克风录音 + 查询系统语音识别服务（Android 11+ 可见性） -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- 点词查音标（dictionaryapi.dev） -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="地球村"
         android:name="${applicationName}"
