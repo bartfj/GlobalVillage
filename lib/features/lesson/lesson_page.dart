@@ -12,6 +12,7 @@ import 'result_page.dart';
 import 'widgets/answer_feedback_bar.dart';
 import 'widgets/fill_blank_widget.dart';
 import 'widgets/listening_choice_widget.dart';
+import 'widgets/lesson_style.dart';
 import 'widgets/match_pairs_widget.dart';
 import 'widgets/production_exercise_widget.dart';
 import 'widgets/speaking_widget.dart';
@@ -146,26 +147,74 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 12, 16, 0),
-              child: Row(
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 24, 18),
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: LessonColors.track)),
+              ),
+              child: Column(
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.close_rounded,
-                      color: AppColors.lockedDark,
-                    ),
-                    onPressed: _onClose,
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          color: LessonColors.muted,
+                        ),
+                        tooltip: '退出练习',
+                        onPressed: _onClose,
+                      ),
+                      Expanded(
+                        child: LinearProgressIndicator(
+                          value: state.progress,
+                          color: LessonColors.green,
+                          backgroundColor: LessonColors.track,
+                          borderRadius: BorderRadius.circular(6),
+                          minHeight: 12,
+                          semanticsLabel: '已完成题数',
+                          semanticsValue:
+                              '${state.totalCount - state.queue.length} / ${state.totalCount}',
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Text(
+                        '${state.totalCount - state.queue.length} / ${state.totalCount}',
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: LessonColors.muted,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: LinearProgressIndicator(value: state.progress),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 48, top: 8),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.spa_outlined,
+                          size: 15,
+                          color: LessonColors.greenDark,
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            '${ref.read(courseRepositoryProvider).course.title} · ${lesson.title}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: LessonColors.muted,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+                padding: const EdgeInsets.fromLTRB(24, 27, 24, 16),
                 child: _buildExercise(exercise, state, questionKey),
               ),
             ),
@@ -179,9 +228,12 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                 onContinue: _onContinue,
               )
             else
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-                child: PushableButton(
+              Container(
+                padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
+                decoration: const BoxDecoration(
+                  border: Border(top: BorderSide(color: LessonColors.track)),
+                ),
+                child: LessonActionButton(
                   label: '检查',
                   onPressed: _currentAnswer.trim().isEmpty ? null : _onCheck,
                 ),
@@ -210,6 +262,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           exercise: exercise,
           enabled: enabled,
           selected: _currentAnswer.isEmpty ? null : _currentAnswer,
+          checked: state.checked,
           onChanged: (v) => setState(() => _currentAnswer = v),
         );
       case ExerciseType.listeningChoice:
