@@ -32,13 +32,19 @@ def collect_items() -> list[tuple[str, str]]:
         for unit in data["units"]:
             for lesson in unit["lessons"]:
                 for exercise in lesson["exercises"]:
-                    if exercise.get("type") not in ("listeningChoice", "speaking"):
+                    if exercise.get("type") not in (
+                        "listeningChoice",
+                        "speaking",
+                        "listeningWordBank",
+                        "dictation",
+                    ):
                         continue
                     eid = exercise["id"]
-                    if eid in seen:
+                    sentence = (exercise.get("sentence") or "").strip()
+                    if not sentence or eid in seen:
                         continue
                     seen.add(eid)
-                    items.append((eid, exercise["sentence"]))
+                    items.append((eid, sentence))
     return items
 
 
