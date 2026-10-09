@@ -13,12 +13,14 @@ class WordBankWidget extends StatefulWidget {
   final Exercise exercise;
   final bool enabled;
   final ValueChanged<String> onChanged;
+  final bool showPrompt;
 
   const WordBankWidget({
     super.key,
     required this.exercise,
     required this.enabled,
     required this.onChanged,
+    this.showPrompt = true,
   });
 
   @override
@@ -67,20 +69,22 @@ class _WordBankWidgetState extends State<WordBankWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('把词块排成句子', style: Theme.of(context).textTheme.headlineSmall),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.locked, width: 2),
-            borderRadius: BorderRadius.circular(14),
+        if (widget.showPrompt) ...[
+          Text('把词块排成句子', style: Theme.of(context).textTheme.headlineSmall),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.locked, width: 2),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Text(
+              widget.exercise.prompt,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
-          child: Text(
-            widget.exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ),
-        const SizedBox(height: 16),
+          const SizedBox(height: 16),
+        ],
         // 答题区：长按词块可拖动调整顺序，点击则移回词库
         Container(
           constraints: const BoxConstraints(minHeight: 64),
@@ -183,7 +187,12 @@ class _DraggableChip extends StatelessWidget {
         color: Colors.transparent,
         child: Transform.scale(
           scale: 1.1,
-          child: _WordChip(label: label, onTap: () {}, elevated: true, dragging: true),
+          child: _WordChip(
+            label: label,
+            onTap: () {},
+            elevated: true,
+            dragging: true,
+          ),
         ),
       ),
       childWhenDragging: Opacity(
@@ -193,11 +202,8 @@ class _DraggableChip extends StatelessWidget {
       child: DragTarget<int>(
         onWillAcceptWithDetails: (details) => details.data != index,
         onAcceptWithDetails: (details) => onDroppedOn(details.data),
-        builder: (context, candidate, rejected) => _WordChip(
-          label: label,
-          onTap: onTap,
-          dragging: dragging,
-        ),
+        builder: (context, candidate, rejected) =>
+            _WordChip(label: label, onTap: onTap, dragging: dragging),
       ),
     );
   }
@@ -224,8 +230,8 @@ class _WordChip extends StatelessWidget {
     final shadowColor = dragging ? AppColors.greenDark : AppColors.lockedDark;
     return GestureDetector(
       onTap: onTap,
-      onLongPress: onLongPressPhonetic &&
-              PhoneticLookupService.looksEnglish(label)
+      onLongPress:
+          onLongPressPhonetic && PhoneticLookupService.looksEnglish(label)
           ? () {
               final box = context.findRenderObject() as RenderBox?;
               if (box == null || !box.hasSize) return;

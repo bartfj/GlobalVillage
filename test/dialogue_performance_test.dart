@@ -30,10 +30,10 @@ void main() {
       }
     }
 
-    for (var i = 1; i <= 44; i++) {
+    for (var i = 1; i <= 52; i++) {
       await expectUnit('u$i');
     }
-    for (var i = 1; i <= 34; i++) {
+    for (var i = 1; i <= 42; i++) {
       await expectUnit('z_u$i');
     }
   });
@@ -94,7 +94,9 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('last line does not finish at old short estimate', (tester) async {
+  testWidgets('last line does not finish at old short estimate', (
+    tester,
+  ) async {
     var finished = 0;
     await tester.pumpWidget(
       MaterialApp(
@@ -122,11 +124,7 @@ void main() {
 
     final oldEstimate = _oldEstimate(script.lines[2].english);
     final newTimeout = _timeoutEstimate(script.lines[2].english);
-    expect(
-      newTimeout,
-      greaterThan(oldEstimate),
-      reason: '本用例依赖新超时比旧估时更长',
-    );
+    expect(newTimeout, greaterThan(oldEstimate), reason: '本用例依赖新超时比旧估时更长');
 
     // 旧公式时长到了仍不应结束（真实 mp3 往往更长）。
     await tester.pump(oldEstimate);

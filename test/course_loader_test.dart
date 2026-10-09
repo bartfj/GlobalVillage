@@ -16,6 +16,9 @@ void _assertExerciseShape(Lesson lesson) {
         expect(ex.options, hasLength(4));
         expect(ex.options, contains(ex.answer), reason: '答案必须在选项中');
       case ExerciseType.wordBank:
+      case ExerciseType.listeningWordBank:
+      case ExerciseType.dictation:
+      case ExerciseType.translateInput:
         expect(ex.sentence, ex.answer);
       case ExerciseType.fillBlank:
         expect(ex.sentenceWithBlank, contains('____'));
@@ -24,30 +27,38 @@ void _assertExerciseShape(Lesson lesson) {
         expect(ex.options, isEmpty);
       case ExerciseType.matchPairs:
         expect(ex.pairs, hasLength(4), reason: ex.id);
-        expect(ex.pairs.map((p) => p.left).toSet(), hasLength(4), reason: ex.id);
-        expect(ex.pairs.map((p) => p.right).toSet(), hasLength(4), reason: ex.id);
+        expect(
+          ex.pairs.map((p) => p.left).toSet(),
+          hasLength(4),
+          reason: ex.id,
+        );
+        expect(
+          ex.pairs.map((p) => p.right).toSet(),
+          hasLength(4),
+          reason: ex.id,
+        );
         expect(MatchPair.encode(ex.pairs), ex.answer, reason: ex.id);
     }
   }
-  expect(
-    lesson.exercises.map((ex) => ex.type).toList(),
-    [
-      ExerciseType.translateChoice,
-      ExerciseType.translateChoice,
-      ExerciseType.matchPairs,
-      ExerciseType.wordBank,
-      ExerciseType.wordBank,
+  expect(lesson.exercises.map((ex) => ex.type).toList(), [
+    ExerciseType.translateChoice,
+    ExerciseType.translateChoice,
+    ExerciseType.matchPairs,
+    ExerciseType.wordBank,
+    anyOf(ExerciseType.wordBank, ExerciseType.translateInput),
+    ExerciseType.listeningChoice,
+    anyOf(
       ExerciseType.listeningChoice,
-      ExerciseType.listeningChoice,
-      ExerciseType.fillBlank,
-      ExerciseType.speaking,
-    ],
-    reason: lesson.id,
-  );
+      ExerciseType.listeningWordBank,
+      ExerciseType.dictation,
+    ),
+    ExerciseType.fillBlank,
+    ExerciseType.speaking,
+  ], reason: lesson.id);
 }
 
 void main() {
-  test('初级课程 JSON 为 176 关且结构完整', () {
+  test('初级课程 JSON 为 208 关且结构完整', () {
     final file = File('assets/courses/course_beginner.json');
     expect(file.existsSync(), isTrue);
 
@@ -57,17 +68,17 @@ void main() {
 
     expect(course.id, 'beginner');
     expect(course.title, '英语初级');
-    expect(course.units, hasLength(44));
+    expect(course.units, hasLength(52));
     final lessons = course.orderedLessons;
-    expect(lessons, hasLength(176));
-    expect(lessons.map((l) => l.id).toSet(), hasLength(176));
+    expect(lessons, hasLength(208));
+    expect(lessons.map((l) => l.id).toSet(), hasLength(208));
 
     for (final lesson in lessons) {
       _assertExerciseShape(lesson);
     }
   });
 
-  test('零基础课程 JSON 为 136 关且 id 不与初级冲突', () {
+  test('零基础课程 JSON 为 168 关且 id 不与初级冲突', () {
     final zero = Course.fromJson(
       jsonDecode(File('assets/courses/course_zero.json').readAsStringSync())
           as Map<String, dynamic>,
@@ -79,11 +90,11 @@ void main() {
 
     expect(zero.id, 'zero');
     expect(zero.title, '英语零基础');
-    expect(zero.units, hasLength(34));
-    expect(zero.orderedLessons, hasLength(136));
+    expect(zero.units, hasLength(42));
+    expect(zero.orderedLessons, hasLength(168));
     expect(
       zero.orderedLessons.map((lesson) => lesson.id).toSet(),
-      hasLength(136),
+      hasLength(168),
     );
 
     for (var unitIndex = 0; unitIndex < zero.units.length; unitIndex++) {

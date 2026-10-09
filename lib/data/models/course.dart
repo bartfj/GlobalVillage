@@ -8,6 +8,9 @@ enum ExerciseType {
   fillBlank,
   speaking,
   matchPairs,
+  listeningWordBank,
+  dictation,
+  translateInput,
 }
 
 class MatchPair {
@@ -73,10 +76,9 @@ class Exercise {
       type: ExerciseType.values.byName(json['type'] as String),
       prompt: json['prompt'] as String,
       sentence: json['sentence'] as String,
-      options:
-          (json['options'] as List<dynamic>? ?? [])
-              .map((e) => e as String)
-              .toList(),
+      options: (json['options'] as List<dynamic>? ?? [])
+          .map((e) => e as String)
+          .toList(),
       answer: json['answer'] as String,
       sentenceWithBlank: json['sentenceWithBlank'] as String?,
       pairs: (json['pairs'] as List<dynamic>? ?? [])
@@ -91,7 +93,11 @@ class Lesson {
   final String title;
   final List<Exercise> exercises;
 
-  const Lesson({required this.id, required this.title, required this.exercises});
+  const Lesson({
+    required this.id,
+    required this.title,
+    required this.exercises,
+  });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(

@@ -1324,5 +1324,277 @@
       "english": "Of course. Now you understand — great!",
       "chinese": "当然。现在你明白了——太好了！"
     }
+  ],
+  "z_u35": [
+    {
+      "speaker": 0,
+      "english": "Is this your farm?",
+      "chinese": "这是你的农场吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, we grow corn here.",
+      "chinese": "是的，我们在这里种玉米。"
+    },
+    {
+      "speaker": 0,
+      "english": "Can I help feed the hens?",
+      "chinese": "我可以帮忙喂母鸡吗？"
+    }
+  ],
+  "z_u36": [
+    {
+      "speaker": 0,
+      "english": "Why is this plant dry?",
+      "chinese": "这株植物为什么干了？"
+    },
+    {
+      "speaker": 1,
+      "english": "It needs some water.",
+      "chinese": "它需要一些水。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will water it gently.",
+      "chinese": "我会轻轻给它浇水。"
+    }
+  ],
+  "z_u37": [
+    {
+      "speaker": 0,
+      "english": "Where shall we have our picnic?",
+      "chinese": "我们在哪里野餐呢？"
+    },
+    {
+      "speaker": 1,
+      "english": "Let us sit under that tree.",
+      "chinese": "我们坐在那棵树下吧。"
+    },
+    {
+      "speaker": 0,
+      "english": "Great, I will spread the blanket.",
+      "chinese": "太好了，我来铺毯子。"
+    }
+  ],
+  "z_u38": [
+    {
+      "speaker": 0,
+      "english": "Who is this letter for?",
+      "chinese": "这封信是给谁的？"
+    },
+    {
+      "speaker": 1,
+      "english": "It is for my grandma.",
+      "chinese": "它是给我奶奶的。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us buy a stamp.",
+      "chinese": "我们去买一张邮票吧。"
+    }
+  ],
+  "z_u39": [
+    {
+      "speaker": 0,
+      "english": "Which painting do you like?",
+      "chinese": "你喜欢哪幅画？"
+    },
+    {
+      "speaker": 1,
+      "english": "I like the one with flowers.",
+      "chinese": "我喜欢有花的那幅。"
+    },
+    {
+      "speaker": 0,
+      "english": "The colors are very bright.",
+      "chinese": "颜色很鲜艳。"
+    }
+  ],
+  "z_u40": [
+    {
+      "speaker": 0,
+      "english": "Are you ready to swim?",
+      "chinese": "你准备好游泳了吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, I have my swimming cap.",
+      "chinese": "是的，我带了泳帽。"
+    },
+    {
+      "speaker": 0,
+      "english": "Good, take a shower first.",
+      "chinese": "好，先淋浴。"
+    }
+  ],
+  "z_u41": [
+    {
+      "speaker": 0,
+      "english": "Is this our train?",
+      "chinese": "这是我们的火车吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, our seats are by the window.",
+      "chinese": "是的，我们的座位在窗边。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us find our carriage.",
+      "chinese": "我们找我们的车厢吧。"
+    }
+  ],
+  "z_u42": [
+    {
+      "speaker": 0,
+      "english": "Why are you smiling?",
+      "chinese": "你为什么笑？"
+    },
+    {
+      "speaker": 1,
+      "english": "My friend helped me find my hat.",
+      "chinese": "我的朋友帮我找到了帽子。"
+    },
+    {
+      "speaker": 0,
+      "english": "That was kind of your friend.",
+      "chinese": "你的朋友真友善。"
+    }
+  ],
+  "u45": [
+    {
+      "speaker": 0,
+      "english": "Could I check in for my flight?",
+      "chinese": "我可以办理航班登机手续吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Certainly. May I see your passport?",
+      "chinese": "当然，请出示您的护照好吗？"
+    },
+    {
+      "speaker": 0,
+      "english": "Here it is. I have one bag to check.",
+      "chinese": "在这里，我有一个包要托运。"
+    }
+  ],
+  "u46": [
+    {
+      "speaker": 0,
+      "english": "I think I have lost my bank card.",
+      "chinese": "我想我丢了银行卡。"
+    },
+    {
+      "speaker": 1,
+      "english": "We can block it and arrange a replacement.",
+      "chinese": "我们可以冻结它并安排补卡。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you. What information do you need?",
+      "chinese": "谢谢，您需要什么信息？"
+    }
+  ],
+  "u47": [
+    {
+      "speaker": 0,
+      "english": "My washing machine will not start.",
+      "chinese": "我的洗衣机无法启动。"
+    },
+    {
+      "speaker": 1,
+      "english": "I can send a technician on Friday afternoon.",
+      "chinese": "我可以安排维修人员星期五下午上门。"
+    },
+    {
+      "speaker": 0,
+      "english": "That works for me. Please call before arriving.",
+      "chinese": "我方便，请到达前打电话。"
+    }
+  ],
+  "u48": [
+    {
+      "speaker": 0,
+      "english": "Would you like to volunteer on Saturday?",
+      "chinese": "你想星期六做志愿者吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes. What kind of help do you need?",
+      "chinese": "想，你们需要哪种帮助？"
+    },
+    {
+      "speaker": 0,
+      "english": "We need someone to welcome the visitors.",
+      "chinese": "我们需要人接待来访者。"
+    }
+  ],
+  "u49": [
+    {
+      "speaker": 0,
+      "english": "This message says the event starts at ten.",
+      "chinese": "这条消息说活动十点开始。"
+    },
+    {
+      "speaker": 1,
+      "english": "The official website says eleven. Let us check.",
+      "chinese": "官方网站说十一点，我们核实一下吧。"
+    },
+    {
+      "speaker": 0,
+      "english": "Good idea. I will contact the organizer.",
+      "chinese": "好主意，我会联系组织者。"
+    }
+  ],
+  "u50": [
+    {
+      "speaker": 0,
+      "english": "We spent more than our budget this week.",
+      "chinese": "我们这周花得超过预算了。"
+    },
+    {
+      "speaker": 1,
+      "english": "Let us check the bills and plan next week.",
+      "chinese": "我们检查账单并计划下周吧。"
+    },
+    {
+      "speaker": 0,
+      "english": "I can cut back on snacks to save money.",
+      "chinese": "我可以减少买零食来省钱。"
+    }
+  ],
+  "u51": [
+    {
+      "speaker": 0,
+      "english": "What skill would you like to improve?",
+      "chinese": "你想提高哪项技能？"
+    },
+    {
+      "speaker": 1,
+      "english": "I want to understand spoken English better.",
+      "chinese": "我想更好地理解英语口语。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us practice listening for fifteen minutes daily.",
+      "chinese": "我们每天练十五分钟听力吧。"
+    }
+  ],
+  "u52": [
+    {
+      "speaker": 0,
+      "english": "What was the best part of your trip?",
+      "chinese": "你旅行中最棒的部分是什么？"
+    },
+    {
+      "speaker": 1,
+      "english": "Meeting local people and trying their food.",
+      "chinese": "认识当地人并品尝他们的食物。"
+    },
+    {
+      "speaker": 0,
+      "english": "That sounds wonderful. I hope to go there too.",
+      "chinese": "听起来很棒，我也希望去那里。"
+    }
   ]
 }
