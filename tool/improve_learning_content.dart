@@ -86,7 +86,7 @@ void main() {
               ).allMatches(s).map((m) => m.group(0)!.toLowerCase()),
             )
             .toSet();
-        if (u >= base) {
+        if (u >= base && u < base + 8) {
           final ex = exercises[7];
           final target = targets[index++];
           final sentence = ex['sentence'] as String;
@@ -156,6 +156,8 @@ void main() {
     }
     file.writeAsStringSync('${encoder.convert(course)}\n');
   }
-  File('docs/新增64课教学台账.md').writeAsStringSync(ledger.toString());
+  File(
+    'docs/新增64课教学台账.md',
+  ).writeAsStringSync('${ledger.toString().trimRight()}\n');
   File('docs/内容审校与修订记录.md').writeAsStringSync(revision.toString());
 }

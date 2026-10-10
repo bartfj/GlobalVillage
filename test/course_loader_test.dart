@@ -58,7 +58,7 @@ void _assertExerciseShape(Lesson lesson) {
 }
 
 void main() {
-  test('初级课程 JSON 为 208 关且结构完整', () {
+  test('初级课程 JSON 为 272 关且结构完整', () {
     final file = File('assets/courses/course_beginner.json');
     expect(file.existsSync(), isTrue);
 
@@ -68,17 +68,17 @@ void main() {
 
     expect(course.id, 'beginner');
     expect(course.title, '英语初级');
-    expect(course.units, hasLength(52));
+    expect(course.units, hasLength(68));
     final lessons = course.orderedLessons;
-    expect(lessons, hasLength(208));
-    expect(lessons.map((l) => l.id).toSet(), hasLength(208));
+    expect(lessons, hasLength(272));
+    expect(lessons.map((l) => l.id).toSet(), hasLength(272));
 
     for (final lesson in lessons) {
       _assertExerciseShape(lesson);
     }
   });
 
-  test('零基础课程 JSON 为 168 关且 id 不与初级冲突', () {
+  test('零基础课程 JSON 为 232 关且 id 不与初级冲突', () {
     final zero = Course.fromJson(
       jsonDecode(File('assets/courses/course_zero.json').readAsStringSync())
           as Map<String, dynamic>,
@@ -90,11 +90,11 @@ void main() {
 
     expect(zero.id, 'zero');
     expect(zero.title, '英语零基础');
-    expect(zero.units, hasLength(42));
-    expect(zero.orderedLessons, hasLength(168));
+    expect(zero.units, hasLength(58));
+    expect(zero.orderedLessons, hasLength(232));
     expect(
       zero.orderedLessons.map((lesson) => lesson.id).toSet(),
-      hasLength(168),
+      hasLength(232),
     );
 
     for (var unitIndex = 0; unitIndex < zero.units.length; unitIndex++) {

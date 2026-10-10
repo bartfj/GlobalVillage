@@ -211,9 +211,10 @@ void main() {
     final units = course['units'] as List;
     final base = track == 'zero' ? 34 : 44;
     final prefix = track == 'zero' ? 'z_u' : 'u';
-    if (units.length != base && units.length != base + 8) {
+    if (units.length != base && units.length < base + 8) {
       throw StateError('Unexpected $track unit count: ${units.length}');
     }
+    final laterUnits = units.skip(base + 8).toList();
     // Only replace units owned by this extension, preserving all earlier data.
     units.removeRange(base, units.length);
     Map<String, dynamic>? unit;
@@ -269,6 +270,7 @@ void main() {
     if (units.length != base + 8 || lessonIndex != 4) {
       throw StateError('Incomplete expansion');
     }
+    units.addAll(laterUnits);
     file.writeAsStringSync(
       '${const JsonEncoder.withIndent('  ').convert(course)}\n',
     );

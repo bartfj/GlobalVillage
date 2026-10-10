@@ -14,13 +14,23 @@ void main() {
             File('assets/dialogues/unit_dialogues.json').readAsStringSync(),
           )
           as Map<String, dynamic>;
-  for (final track in ['zero', 'beginner']) {
+  final tasks =
+      jsonDecode(
+            File('assets/dialogues/application_tasks.json').readAsStringSync(),
+          )
+          as Map<String, dynamic>;
+  for (final track in ['zero', 'beginner', 'intermediate']) {
     final course = Course.fromJson(
       jsonDecode(File('assets/courses/course_$track.json').readAsStringSync())
           as Map<String, dynamic>,
     );
-    final count = track == 'zero' ? 42 : 52;
-    final prefix = track == 'zero' ? 'z_u' : 'u';
+    final count = {'zero': 58, 'beginner': 68, 'intermediate': 16}[track]!;
+    final prefix = {
+      'zero': 'z_u',
+      'beginner': 'u',
+      'intermediate': 'i_u',
+    }[track]!;
+    require(course.id == track, 'Course ID: $track');
     require(course.units.length == count, '$track unit count');
     for (var u = 0; u < count; u++) {
       final unit = course.units[u];
@@ -34,6 +44,34 @@ void main() {
           (line['english'] as String).trim().isNotEmpty &&
               (line['chinese'] as String).trim().isNotEmpty,
           'Dialogue text',
+        );
+      }
+      require(
+        lines.map((l) => l['english']).toSet().length == 3 &&
+            lines.map((l) => l['chinese']).toSet().length == 3,
+        'Unique dialogue: ${unit.id}',
+      );
+      final base = {'zero': 42, 'beginner': 52, 'intermediate': 0}[track]!;
+      if (u >= base) {
+        final task = tasks[unit.id] as Map<String, dynamic>?;
+        require(task != null, 'Application task: ${unit.id}');
+        final options = (task!['options'] as List).cast<String>();
+        require(
+          options.length == 4 &&
+              options.toSet().length == 4 &&
+              options.contains(task['answer']),
+          'Task choices: ${unit.id}',
+        );
+        require(
+          (task['scenario'] as String).trim().isNotEmpty &&
+              (task['question'] as String).trim().isNotEmpty,
+          'Task prompt',
+        );
+        require(
+          unit.lessons
+              .expand((l) => l.exercises)
+              .any((e) => e.sentence == task['sentence']),
+          'Task transfer: ${unit.id}',
         );
       }
       for (var l = 0; l < 4; l++) {

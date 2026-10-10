@@ -1,18 +1,770 @@
 {
-  "z_u35": {"question": "农场里种的是什么？", "options": ["玉米", "苹果", "水稻", "花"], "answer": "玉米", "scenario": "参观时向同伴介绍这里的动物，说：这里有绵羊。", "sentence": "There are sheep here."},
-  "z_u36": {"question": "植物为什么需要浇水？", "options": ["植物干了", "植物太高", "植物开花了", "花盆太大"], "answer": "植物干了", "scenario": "同伴准备摘花，请提醒：不要摘花。", "sentence": "Do not pick the flowers."},
-  "z_u37": {"question": "他们打算在哪里野餐？", "options": ["树下", "教室里", "车站里", "家里"], "answer": "树下", "scenario": "午餐结束，请同伴捡起杯子，说：把空杯子捡起来。", "sentence": "Pick up the empty cups."},
-  "z_u38": {"question": "这封信寄给谁？", "options": ["奶奶", "老师", "同学", "邮递员"], "answer": "奶奶", "scenario": "到柜台购买邮票，说：我需要一张邮票。", "sentence": "I need a stamp."},
-  "z_u39": {"question": "对话中的人喜欢哪幅画？", "options": ["有花的画", "有火车的画", "有房子的画", "有船的画"], "answer": "有花的画", "scenario": "看到同伴想碰展品，请说：请不要触摸。", "sentence": "Please do not touch."},
-  "z_u40": {"question": "下水前应该先做什么？", "options": ["淋浴", "吃午饭", "跑步", "换泳帽"], "answer": "淋浴", "scenario": "发现泳池边有人跑动，请提醒：不要在这里跑。", "sentence": "Do not run here."},
-  "z_u41": {"question": "他们的座位在哪里？", "options": ["窗边", "门口", "车站外", "餐厅里"], "answer": "窗边", "scenario": "准备下车，提醒同伴携带行李，说：带上你的包。", "sentence": "Take your bag with you."},
-  "z_u42": {"question": "朋友帮忙找到了什么？", "options": ["帽子", "书包", "雨伞", "车票"], "answer": "帽子", "scenario": "本发现帽子后向同伴说明位置，说：帽子在架子上。", "sentence": "The hat is on the shelf."},
-  "u45": {"question": "旅客有几个包要托运？", "options": ["一个", "两个", "三个", "没有"], "answer": "一个", "scenario": "到达机场后找不到行李领取地点，询问：我在哪里领取行李？", "sentence": "Where can I collect my luggage?"},
-  "u46": {"question": "银行准备如何处理丢失的银行卡？", "options": ["冻结并补卡", "增加额度", "关闭所有账户", "收取现金"], "answer": "冻结并补卡", "scenario": "发现卡上有一笔陌生交易，说明：我不认识这笔付款。", "sentence": "I do not recognize this payment."},
-  "u47": {"question": "维修人员计划什么时候上门？", "options": ["星期五下午", "星期一上午", "星期六晚上", "星期三中午"], "answer": "星期五下午", "scenario": "确认报价前询问：价格包括零件吗？", "sentence": "Does the price include the parts?"},
-  "u48": {"question": "志愿服务需要做什么？", "options": ["接待来访者", "办理登机", "修理机器", "领取行李"], "answer": "接待来访者", "scenario": "分工时告诉伙伴：我会帮忙准备桌子。", "sentence": "I will help prepare the tables."},
-  "u49": {"question": "核实时间时将联系谁？", "options": ["组织者", "银行职员", "维修人员", "机场工作人员"], "answer": "组织者", "scenario": "两份信息冲突，询问对方来源：你在哪里找到这个信息的？", "sentence": "Where did you find this information?"},
-  "u50": {"question": "为了省钱，对话中的人准备减少什么？", "options": ["零食", "房租", "课程", "车票"], "answer": "零食", "scenario": "制定下周支出计划，建议：我们应该留钱应付紧急情况。", "sentence": "We should leave money for emergencies."},
-  "u51": {"question": "他们计划每天练习听力多久？", "options": ["十五分钟", "五分钟", "半小时", "一小时"], "answer": "十五分钟", "scenario": "课堂上老师讲得太快，请求：你能说得再慢一点吗？", "sentence": "Could you speak a little more slowly?"},
-  "u52": {"question": "旅行中最棒的部分是什么？", "options": ["认识当地人并品尝食物", "买新手机", "办理银行卡", "参加考试"], "answer": "认识当地人并品尝食物", "scenario": "向朋友推荐河边的小店，说：我推荐河边的小咖啡馆。", "sentence": "I recommend the small cafe by the river."}
+  "z_u35": {
+    "question": "农场里种的是什么？",
+    "options": [
+      "玉米",
+      "苹果",
+      "水稻",
+      "花"
+    ],
+    "answer": "玉米",
+    "scenario": "参观时向同伴介绍这里的动物，说：这里有绵羊。",
+    "sentence": "There are sheep here."
+  },
+  "z_u36": {
+    "question": "植物为什么需要浇水？",
+    "options": [
+      "植物干了",
+      "植物太高",
+      "植物开花了",
+      "花盆太大"
+    ],
+    "answer": "植物干了",
+    "scenario": "同伴准备摘花，请提醒：不要摘花。",
+    "sentence": "Do not pick the flowers."
+  },
+  "z_u37": {
+    "question": "他们打算在哪里野餐？",
+    "options": [
+      "树下",
+      "教室里",
+      "车站里",
+      "家里"
+    ],
+    "answer": "树下",
+    "scenario": "午餐结束，请同伴捡起杯子，说：把空杯子捡起来。",
+    "sentence": "Pick up the empty cups."
+  },
+  "z_u38": {
+    "question": "这封信寄给谁？",
+    "options": [
+      "奶奶",
+      "老师",
+      "同学",
+      "邮递员"
+    ],
+    "answer": "奶奶",
+    "scenario": "到柜台购买邮票，说：我需要一张邮票。",
+    "sentence": "I need a stamp."
+  },
+  "z_u39": {
+    "question": "对话中的人喜欢哪幅画？",
+    "options": [
+      "有花的画",
+      "有火车的画",
+      "有房子的画",
+      "有船的画"
+    ],
+    "answer": "有花的画",
+    "scenario": "看到同伴想碰展品，请说：请不要触摸。",
+    "sentence": "Please do not touch."
+  },
+  "z_u40": {
+    "question": "下水前应该先做什么？",
+    "options": [
+      "淋浴",
+      "吃午饭",
+      "跑步",
+      "换泳帽"
+    ],
+    "answer": "淋浴",
+    "scenario": "发现泳池边有人跑动，请提醒：不要在这里跑。",
+    "sentence": "Do not run here."
+  },
+  "z_u41": {
+    "question": "他们的座位在哪里？",
+    "options": [
+      "窗边",
+      "门口",
+      "车站外",
+      "餐厅里"
+    ],
+    "answer": "窗边",
+    "scenario": "准备下车，提醒同伴携带行李，说：带上你的包。",
+    "sentence": "Take your bag with you."
+  },
+  "z_u42": {
+    "question": "朋友帮忙找到了什么？",
+    "options": [
+      "帽子",
+      "书包",
+      "雨伞",
+      "车票"
+    ],
+    "answer": "帽子",
+    "scenario": "本发现帽子后向同伴说明位置，说：帽子在架子上。",
+    "sentence": "The hat is on the shelf."
+  },
+  "u45": {
+    "question": "旅客有几个包要托运？",
+    "options": [
+      "一个",
+      "两个",
+      "三个",
+      "没有"
+    ],
+    "answer": "一个",
+    "scenario": "到达机场后找不到行李领取地点，询问：我在哪里领取行李？",
+    "sentence": "Where can I collect my luggage?"
+  },
+  "u46": {
+    "question": "银行准备如何处理丢失的银行卡？",
+    "options": [
+      "冻结并补卡",
+      "增加额度",
+      "关闭所有账户",
+      "收取现金"
+    ],
+    "answer": "冻结并补卡",
+    "scenario": "发现卡上有一笔陌生交易，说明：我不认识这笔付款。",
+    "sentence": "I do not recognize this payment."
+  },
+  "u47": {
+    "question": "维修人员计划什么时候上门？",
+    "options": [
+      "星期五下午",
+      "星期一上午",
+      "星期六晚上",
+      "星期三中午"
+    ],
+    "answer": "星期五下午",
+    "scenario": "确认报价前询问：价格包括零件吗？",
+    "sentence": "Does the price include the parts?"
+  },
+  "u48": {
+    "question": "志愿服务需要做什么？",
+    "options": [
+      "接待来访者",
+      "办理登机",
+      "修理机器",
+      "领取行李"
+    ],
+    "answer": "接待来访者",
+    "scenario": "分工时告诉伙伴：我会帮忙准备桌子。",
+    "sentence": "I will help prepare the tables."
+  },
+  "u49": {
+    "question": "核实时间时将联系谁？",
+    "options": [
+      "组织者",
+      "银行职员",
+      "维修人员",
+      "机场工作人员"
+    ],
+    "answer": "组织者",
+    "scenario": "两份信息冲突，询问对方来源：你在哪里找到这个信息的？",
+    "sentence": "Where did you find this information?"
+  },
+  "u50": {
+    "question": "为了省钱，对话中的人准备减少什么？",
+    "options": [
+      "零食",
+      "房租",
+      "课程",
+      "车票"
+    ],
+    "answer": "零食",
+    "scenario": "制定下周支出计划，建议：我们应该留钱应付紧急情况。",
+    "sentence": "We should leave money for emergencies."
+  },
+  "u51": {
+    "question": "他们计划每天练习听力多久？",
+    "options": [
+      "十五分钟",
+      "五分钟",
+      "半小时",
+      "一小时"
+    ],
+    "answer": "十五分钟",
+    "scenario": "课堂上老师讲得太快，请求：你能说得再慢一点吗？",
+    "sentence": "Could you speak a little more slowly?"
+  },
+  "u52": {
+    "question": "旅行中最棒的部分是什么？",
+    "options": [
+      "认识当地人并品尝食物",
+      "买新手机",
+      "办理银行卡",
+      "参加考试"
+    ],
+    "answer": "认识当地人并品尝食物",
+    "scenario": "向朋友推荐河边的小店，说：我推荐河边的小咖啡馆。",
+    "sentence": "I recommend the small cafe by the river."
+  },
+  "z_u43": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我们有面包和牛奶。",
+      "我的杯子在桌上。",
+      "吐司是温热的。",
+      "我洗我的杯子。"
+    ],
+    "answer": "我们有面包和牛奶。",
+    "scenario": "在“早餐准备”场景中表达：我洗我的杯子。",
+    "sentence": "I wash my cup."
+  },
+  "z_u44": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "这些袜子是白色的。",
+      "把衬衫晾在外面。",
+      "叠好干净的毛巾。",
+      "是的，它需要洗了。"
+    ],
+    "answer": "是的，它需要洗了。",
+    "scenario": "在“洗衣晾晒”场景中表达：叠好干净的毛巾。",
+    "sentence": "Fold the clean towel."
+  },
+  "z_u45": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "保持水碗干净。",
+      "对小狗温柔一些。",
+      "是的，它想吃些食物。",
+      "猫在这里睡觉。"
+    ],
+    "answer": "是的，它想吃些食物。",
+    "scenario": "在“宠物照顾”场景中表达：对小狗温柔一些。",
+    "sentence": "Be gentle with the puppy."
+  },
+  "z_u46": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我在这里安静地阅读。",
+      "它们在这个架子上。",
+      "这个故事看起来有趣。",
+      "这是我的借书证。"
+    ],
+    "answer": "它们在这个架子上。",
+    "scenario": "在“图书馆借书”场景中表达：我在这里安静地阅读。",
+    "sentence": "I read quietly in here."
+  },
+  "z_u47": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "有，它们今天很新鲜。",
+      "这个面包闻起来很香。",
+      "把面包放进袋子。",
+      "我把面包带回家。"
+    ],
+    "answer": "有，它们今天很新鲜。",
+    "scenario": "在“面包店”场景中表达：我把面包带回家。",
+    "sentence": "I take the bread home."
+  },
+  "z_u48": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "这些橙子是圆的。",
+      "请称一下这些苹果。",
+      "我们在家分享葡萄。",
+      "甜，你可以尝一个。"
+    ],
+    "answer": "甜，你可以尝一个。",
+    "scenario": "在“水果市场”场景中表达：我们在家分享葡萄。",
+    "sentence": "We share the grapes at home."
+  },
+  "z_u49": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "在公交车上扶好扶手。",
+      "带上你的包。",
+      "去，在这里上车。",
+      "公交站很近。"
+    ],
+    "answer": "去，在这里上车。",
+    "scenario": "在“乘坐公交”场景中表达：带上你的包。",
+    "sentence": "Take your bag with you."
+  },
+  "z_u50": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "她会在午饭后打电话。",
+      "她现在不在这里。",
+      "我叫本。",
+      "请再说一遍。"
+    ],
+    "answer": "她现在不在这里。",
+    "scenario": "在“电话留言”场景中表达：她会在午饭后打电话。",
+    "sentence": "She will call after lunch."
+  },
+  "z_u51": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "能，我们需要一些纸。",
+      "我在这里画一颗星。",
+      "在背面涂一些胶水。",
+      "这张卡片是给爸爸的。"
+    ],
+    "answer": "能，我们需要一些纸。",
+    "scenario": "在“制作手工”场景中表达：这张卡片是给爸爸的。",
+    "sentence": "This card is for Dad."
+  },
+  "z_u52": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "这首歌很短。",
+      "听节拍。",
+      "音乐让我开心。",
+      "会，我能慢慢地打。"
+    ],
+    "answer": "会，我能慢慢地打。",
+    "scenario": "在“音乐活动”场景中表达：音乐让我开心。",
+    "sentence": "The music makes me happy."
+  },
+  "z_u53": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我们午饭后玩游戏。",
+      "星期天是安静的一天。",
+      "我要去看我的表亲。",
+      "我们早上见面。"
+    ],
+    "answer": "我要去看我的表亲。",
+    "scenario": "在“周末安排”场景中表达：星期天是安静的一天。",
+    "sentence": "Sunday is a quiet day."
+  },
+  "z_u54": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我和家人待在一起。",
+      "它在公园旁边。",
+      "我需要帮助看地图。",
+      "在商店处左转。"
+    ],
+    "answer": "它在公园旁边。",
+    "scenario": "在“迷路求助”场景中表达：我和家人待在一起。",
+    "sentence": "I stay with my family."
+  },
+  "z_u55": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "好的，请给我一点就好。",
+      "请把勺子递过来。",
+      "这顿饭很好吃。",
+      "我可以离开餐桌吗？"
+    ],
+    "answer": "好的，请给我一点就好。",
+    "scenario": "在“餐桌礼貌”场景中表达：我可以离开餐桌吗？",
+    "sentence": "May I leave the table?"
+  },
+  "z_u56": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "这些鞋很合脚。",
+      "下雨时我穿靴子。",
+      "我准备好出门了。",
+      "穿件夹克，天气冷。"
+    ],
+    "answer": "穿件夹克，天气冷。",
+    "scenario": "在“衣物搭配”场景中表达：我准备好出门了。",
+    "sentence": "I am ready to go outside."
+  },
+  "z_u57": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "休息后我感觉好些了。",
+      "和朋友聊聊有帮助。",
+      "我对比赛感到紧张。",
+      "我为我的画感到自豪。"
+    ],
+    "answer": "我对比赛感到紧张。",
+    "scenario": "在“表达感受”场景中表达：和朋友聊聊有帮助。",
+    "sentence": "Talking to a friend helps."
+  },
+  "z_u58": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "那是一个快乐的下午。",
+      "开心，我在公园玩了。",
+      "我们找到了一个红球。",
+      "然后我们喝了些水。"
+    ],
+    "answer": "开心，我在公园玩了。",
+    "scenario": "在“一天的小故事”场景中表达：那是一个快乐的下午。",
+    "sentence": "It was a happy afternoon."
+  },
+  "u53": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "当然，您需要什么？",
+      "我从星期一开始一直咳嗽。",
+      "请解释标签上的说明。",
+      "我会先向医生确认。"
+    ],
+    "answer": "当然，您需要什么？",
+    "scenario": "在“药店咨询”场景中表达：我会先向医生确认。",
+    "sentence": "I will check with my doctor first."
+  },
+  "u54": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我想看医生。",
+      "我应该带上之前的检查结果吗？",
+      "我需要更改我的预约时间。",
+      "我们九点半有一个时段。"
+    ],
+    "answer": "我们九点半有一个时段。",
+    "scenario": "在“预约看诊”场景中表达：我需要更改我的预约时间。",
+    "sentence": "I need to change my appointment time."
+  },
+  "u55": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "这件商品送到时拉链坏了。",
+      "请通过邮件发给我确认信息。",
+      "可以，您有收据吗？",
+      "这个尺码对我来说太小了。"
+    ],
+    "answer": "可以，您有收据吗？",
+    "scenario": "在“退换商品”场景中表达：请通过邮件发给我确认信息。",
+    "sentence": "Please send me a confirmation by email."
+  },
+  "u56": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "您能核对一下配送地址吗？",
+      "到了，它在前台。",
+      "运单号在这封邮件里。",
+      "我两点到四点会在家。"
+    ],
+    "answer": "到了，它在前台。",
+    "scenario": "在“快递收取”场景中表达：您能核对一下配送地址吗？",
+    "sentence": "Could you check the delivery address?"
+  },
+  "u57": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "您可以星期五上午取。",
+      "租金包含水电费吗？",
+      "我们入住前拍些照片吧。",
+      "请把这处损坏记入物品状况清单。"
+    ],
+    "answer": "您可以星期五上午取。",
+    "scenario": "在“租房入住”场景中表达：请把这处损坏记入物品状况清单。",
+    "sentence": "Please add this damage to the inventory."
+  },
+  "u58": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "十点以后音乐声很大。",
+      "我们星期六要办一个小聚会。",
+      "我们可以商定一个更安静的时段。",
+      "当然，很抱歉打扰了您。"
+    ],
+    "answer": "当然，很抱歉打扰了您。",
+    "scenario": "在“邻里沟通”场景中表达：我们可以商定一个更安静的时段。",
+    "sentence": "We can agree on a quieter time."
+  },
+  "u59": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "您能和厨房确认一下这个情况吗？",
+      "我需要取消我们的预订。",
+      "当然，您希望几点？",
+      "有没有离音箱远些的桌子？"
+    ],
+    "answer": "当然，您希望几点？",
+    "scenario": "在“餐厅预订”场景中表达：我需要取消我们的预订。",
+    "sentence": "I need to cancel our reservation."
+  },
+  "u60": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "谢谢您妥善保管它。",
+      "有，您能描述里面有什么吗？",
+      "我今天早上把它落在公交车上了。",
+      "我记得坐在后门附近。"
+    ],
+    "answer": "有，您能描述里面有什么吗？",
+    "scenario": "在“失物招领”场景中表达：谢谢您妥善保管它。",
+    "sentence": "Thank you for keeping it safe."
+  },
+  "u61": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "能，但你的摄像头没开。",
+      "请把会议链接发给我。",
+      "声音有延迟。",
+      "我会在会议后发送笔记。"
+    ],
+    "answer": "能，但你的摄像头没开。",
+    "scenario": "在“线上会议”场景中表达：我会在会议后发送笔记。",
+    "sentence": "I will send the notes after the meeting."
+  },
+  "u62": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我们需要选一个合适的日期。",
+      "你能查看天气预报吗？",
+      "我们在星期四之前确认细节吧。",
+      "听起来不错，我们可以在哪里集合？"
+    ],
+    "answer": "听起来不错，我们可以在哪里集合？",
+    "scenario": "在“安排活动”场景中表达：我们在星期四之前确认细节吧。",
+    "sentence": "Let us confirm the details by Thursday."
+  },
+  "u63": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "您能告诉我面试形式吗？",
+      "谢谢您考虑我的申请。",
+      "还在，请把申请发给我们。",
+      "这个岗位看重哪些技能？"
+    ],
+    "answer": "还在，请把申请发给我们。",
+    "scenario": "在“求职准备”场景中表达：谢谢您考虑我的申请。",
+    "sentence": "Thank you for considering my application."
+  },
+  "u64": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我们为意外的工作留一些时间吧。",
+      "报告明天早上截止。",
+      "我每天早上列一个简短清单。",
+      "我们能把会议改到星期五吗？"
+    ],
+    "answer": "报告明天早上截止。",
+    "scenario": "在“时间管理”场景中表达：我们为意外的工作留一些时间吧。",
+    "sentence": "Let us leave some time for unexpected work."
+  },
+  "u65": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "可以，但可能有额外费用。",
+      "我需要提前一天出行。",
+      "最后一班公交车已经走了。",
+      "我会保留这些费用的收据。"
+    ],
+    "answer": "可以，但可能有额外费用。",
+    "scenario": "在“旅行变更”场景中表达：我会保留这些费用的收据。",
+    "sentence": "I will keep the receipts for these expenses."
+  },
+  "u66": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "开放时间列在底部。",
+      "请查看是否需要预约。",
+      "我会请工作人员确认日期。",
+      "图书馆星期五会提前关门。"
+    ],
+    "answer": "图书馆星期五会提前关门。",
+    "scenario": "在“阅读公告”场景中表达：我会请工作人员确认日期。",
+    "sentence": "I will ask the staff to confirm the date."
+  },
+  "u67": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "保留收据直到旅程结束。",
+      "让我重复一遍步骤来核对。",
+      "首先，在屏幕上选择目的地。",
+      "然后选择乘客人数。"
+    ],
+    "answer": "首先，在屏幕上选择目的地。",
+    "scenario": "在“说明步骤”场景中表达：让我重复一遍步骤来核对。",
+    "sentence": "Let me repeat the steps to check."
+  },
+  "u68": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "下周，我会更独立地练习。",
+      "很忙，但大家都乐于帮忙。",
+      "我学会了如何处理客户的问题。",
+      "把事情记下来帮助我记住。"
+    ],
+    "answer": "很忙，但大家都乐于帮忙。",
+    "scenario": "在“经历与建议”场景中表达：下周，我会更独立地练习。",
+    "sentence": "Next week, I will practice more independently."
+  },
+  "i_u1": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "培训结束后，一位同事邀请了我。",
+      "我们正在规划时，预算突然变了。",
+      "虽然压力很大，我们还是按时完成了。",
+      "这次经历教会我更清楚地沟通。"
+    ],
+    "answer": "培训结束后，一位同事邀请了我。",
+    "scenario": "在“经历叙述”场景中表达：这次经历教会我更清楚地沟通。",
+    "sentence": "The experience taught me to communicate more clearly."
+  },
+  "i_u2": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "在我看来，安全应该是首要考虑。",
+      "例如，我们学校附近的道路非常繁忙。",
+      "我们或许能找到让两方都受益的办法。",
+      "需要，因为更安全的路线可能鼓励更多人骑车。"
+    ],
+    "answer": "需要，因为更安全的路线可能鼓励更多人骑车。",
+    "scenario": "在“观点与理由”场景中表达：我们或许能找到让两方都受益的办法。",
+    "sentence": "We might find a solution that benefits both groups."
+  },
+  "i_u3": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "规模更小的班级提供更多个人反馈。",
+      "我选择这个方案，因为它满足我的主要需求。",
+      "晚间课程更灵活，但费用更高。",
+      "线上方案每天能为我节省一个小时。"
+    ],
+    "answer": "晚间课程更灵活，但费用更高。",
+    "scenario": "在“比较与决策”场景中表达：我选择这个方案，因为它满足我的主要需求。",
+    "sentence": "I chose this option because it meets my main needs."
+  },
+  "i_u4": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "请以书面形式确认修改后的约定。",
+      "我可以多给两天，但不能给整整一周。",
+      "我们需要更多时间仔细核对数字。",
+      "我们能先交付第一部分，之后完成其余部分吗？"
+    ],
+    "answer": "我可以多给两天，但不能给整整一周。",
+    "scenario": "在“协商与折中”场景中表达：请以书面形式确认修改后的约定。",
+    "sentence": "Please confirm the revised agreement in writing."
+  },
+  "i_u5": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "如果有人准备样本数据，我可以牵头测试。",
+      "我们提前完成了第一阶段。",
+      "问题解决后，你能尽快告诉我们吗？",
+      "我们每周结束时回顾一下进展吧。"
+    ],
+    "answer": "如果有人准备样本数据，我可以牵头测试。",
+    "scenario": "在“项目协作”场景中表达：我们每周结束时回顾一下进展吧。",
+    "sentence": "Let us review our progress at the end of each week."
+  },
+  "i_u6": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我先简要概述这个问题。",
+      "数字显示有所改善，但样本很小。",
+      "总之，我们建议再测试这个流程一个月。",
+      "当然，新流程显著缩短了等待时间。"
+    ],
+    "answer": "当然，新流程显著缩短了等待时间。",
+    "scenario": "在“演示与问答”场景中表达：总之，我们建议再测试这个流程一个月。",
+    "sentence": "To summarize, we recommend testing the process for another month."
+  },
+  "i_u7": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "是否可以在星期五之前确认细节？",
+      "如果没有收到回复，我会直接联系办公室。",
+      "收到了，我们正在审核，明天会回复。",
+      "我写信是为了跟进我们之前的讨论。"
+    ],
+    "answer": "收到了，我们正在审核，明天会回复。",
+    "scenario": "在“邮件与跟进”场景中表达：如果没有收到回复，我会直接联系办公室。",
+    "sentence": "If I do not hear back, I will contact the office directly."
+  },
+  "i_u8": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "谢谢您这么及时地解决问题。",
+      "当然，我看到房型不对。",
+      "服务与贵网站上的描述不符。",
+      "您能解释有哪些补偿方案吗？"
+    ],
+    "answer": "当然，我看到房型不对。",
+    "scenario": "在“投诉与解决”场景中表达：谢谢您这么及时地解决问题。",
+    "sentence": "Thank you for resolving the issue so promptly."
+  },
+  "i_u9": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "小礼物很常见，但并不是所有地方都要求。",
+      "习惯不仅因地区而异，也因家庭而异。",
+      "我更愿意礼貌地询问，而不是想当然。",
+      "了解差异有助于我们避免误解。"
+    ],
+    "answer": "小礼物很常见，但并不是所有地方都要求。",
+    "scenario": "在“文化与习惯”场景中表达：了解差异有助于我们避免误解。",
+    "sentence": "Learning about differences helps us avoid misunderstandings."
+  },
+  "i_u10": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "标题的说法比证据能支持的更强。",
+      "文章没有解释参与者是如何选出的。",
+      "分享之前，我想看看另一个来源。",
+      "它引用了一项官方研究，但我还没查原文。"
+    ],
+    "answer": "它引用了一项官方研究，但我还没查原文。",
+    "scenario": "在“新闻与证据”场景中表达：分享之前，我想看看另一个来源。",
+    "sentence": "I would like to see another source before sharing it."
+  },
+  "i_u11": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我会通过官方支持渠道核实这个请求。",
+      "请解释如何删除与我账户关联的数据。",
+      "我不确定，我们应该查看它的隐私政策。",
+      "你可以限制与该服务共享哪些信息。"
+    ],
+    "answer": "我不确定，我们应该查看它的隐私政策。",
+    "scenario": "在“数字隐私”场景中表达：请解释如何删除与我账户关联的数据。",
+    "sentence": "Please explain how I can delete the data linked to my account."
+  },
+  "i_u12": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我们的目标是减少浪费，同时不排斥任何人。",
+      "可能可以，但我们需要可靠的清洗方式。",
+      "环境影响取决于杯子的重复使用次数。",
+      "维修物品可能比立刻更换更好。"
+    ],
+    "answer": "可能可以，但我们需要可靠的清洗方式。",
+    "scenario": "在“环境与取舍”场景中表达：我们的目标是减少浪费，同时不排斥任何人。",
+    "sentence": "Our aim is to reduce waste without excluding people."
+  },
+  "i_u13": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "制定现实的目标让开始变得更容易。",
+      "工作忙时，我往往会不休息。",
+      "如果症状持续，我会寻求专业建议。",
+      "小改变更容易长期保持。"
+    ],
+    "answer": "制定现实的目标让开始变得更容易。",
+    "scenario": "在“健康与习惯”场景中表达：小改变更容易长期保持。",
+    "sentence": "Small changes are easier to maintain over a long period."
+  },
+  "i_u14": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "要求可能因您的情况而不同。",
+      "我希望得到关于这个决定的书面解释。",
+      "我会保留所有提交材料的副本。",
+      "您需要填写表格并提供居住证明。"
+    ],
+    "answer": "您需要填写表格并提供居住证明。",
+    "scenario": "在“公共服务”场景中表达：我会保留所有提交材料的副本。",
+    "sentence": "I will keep a copy of everything I submit."
+  },
+  "i_u15": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "我不再重复所有内容，而是专注于觉得困难的部分。",
+      "我会下个月回顾进展并调整计划。",
+      "我能理解文章，但很难跟上快速对话。",
+      "我注意到使用词汇时记得更牢。"
+    ],
+    "answer": "我能理解文章，但很难跟上快速对话。",
+    "scenario": "在“学习与反思”场景中表达：我会下个月回顾进展并调整计划。",
+    "sentence": "I will review my progress and adjust the plan next month."
+  },
+  "i_u16": {
+    "question": "根据对话，对方怎样回应第一个问题？",
+    "options": [
+      "访问结束后，我们会讨论哪些做法有效以及哪些需要改进。",
+      "我们需要在预订交通前确认预算。",
+      "我们应该提前询问来访者的需求。",
+      "计划应该兼顾费用、便利性和学习机会。"
+    ],
+    "answer": "我们需要在预订交通前确认预算。",
+    "scenario": "在“综合任务”场景中表达：访问结束后，我们会讨论哪些做法有效以及哪些需要改进。",
+    "sentence": "After the visit, we will discuss what worked and what to improve."
+  }
 }

@@ -1596,5 +1596,821 @@
       "english": "That sounds wonderful. I hope to go there too.",
       "chinese": "听起来很棒，我也希望去那里。"
     }
+  ],
+  "z_u43": [
+    {
+      "speaker": 0,
+      "english": "What is for breakfast?",
+      "chinese": "早餐吃什么？"
+    },
+    {
+      "speaker": 1,
+      "english": "We have bread and milk.",
+      "chinese": "我们有面包和牛奶。"
+    },
+    {
+      "speaker": 0,
+      "english": "Please pass me the bread.",
+      "chinese": "请把面包递给我。"
+    }
+  ],
+  "z_u44": [
+    {
+      "speaker": 0,
+      "english": "Is this shirt dirty?",
+      "chinese": "这件衬衫脏了吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, it needs a wash.",
+      "chinese": "是的，它需要洗了。"
+    },
+    {
+      "speaker": 0,
+      "english": "Put it in this basket.",
+      "chinese": "把它放进这个篮子。"
+    }
+  ],
+  "z_u45": [
+    {
+      "speaker": 0,
+      "english": "Is your cat hungry?",
+      "chinese": "你的猫饿了吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, it wants some food.",
+      "chinese": "是的，它想吃些食物。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us fill its bowl.",
+      "chinese": "我们把它的碗装满吧。"
+    }
+  ],
+  "z_u46": [
+    {
+      "speaker": 0,
+      "english": "Where are the picture books?",
+      "chinese": "图画书在哪里？"
+    },
+    {
+      "speaker": 1,
+      "english": "They are on this shelf.",
+      "chinese": "它们在这个架子上。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you for your help.",
+      "chinese": "谢谢你的帮助。"
+    }
+  ],
+  "z_u47": [
+    {
+      "speaker": 0,
+      "english": "Do you have small rolls?",
+      "chinese": "你们有小面包吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, they are fresh today.",
+      "chinese": "有，它们今天很新鲜。"
+    },
+    {
+      "speaker": 0,
+      "english": "I would like two, please.",
+      "chinese": "请给我两个。"
+    }
+  ],
+  "z_u48": [
+    {
+      "speaker": 0,
+      "english": "Are these pears sweet?",
+      "chinese": "这些梨甜吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, you can try one.",
+      "chinese": "甜，你可以尝一个。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will take three pears.",
+      "chinese": "我要三个梨。"
+    }
+  ],
+  "z_u49": [
+    {
+      "speaker": 0,
+      "english": "Does this bus go downtown?",
+      "chinese": "这辆公交车去市中心吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, get on here.",
+      "chinese": "去，在这里上车。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you, I have my ticket.",
+      "chinese": "谢谢，我带着车票。"
+    }
+  ],
+  "z_u50": [
+    {
+      "speaker": 0,
+      "english": "Can I speak to Anna?",
+      "chinese": "我可以和安娜说话吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "She is not here now.",
+      "chinese": "她现在不在这里。"
+    },
+    {
+      "speaker": 0,
+      "english": "Please ask her to call me.",
+      "chinese": "请让她给我打电话。"
+    }
+  ],
+  "z_u51": [
+    {
+      "speaker": 0,
+      "english": "Can you help me make a card?",
+      "chinese": "你能帮我做一张卡片吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, we need some paper.",
+      "chinese": "能，我们需要一些纸。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us choose a blue sheet.",
+      "chinese": "我们选一张蓝色的纸吧。"
+    }
+  ],
+  "z_u52": [
+    {
+      "speaker": 0,
+      "english": "Can you play the drum?",
+      "chinese": "你会打鼓吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, I can play slowly.",
+      "chinese": "会，我能慢慢地打。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us play together.",
+      "chinese": "我们一起演奏吧。"
+    }
+  ],
+  "z_u53": [
+    {
+      "speaker": 0,
+      "english": "What will you do on Saturday?",
+      "chinese": "你星期六要做什么？"
+    },
+    {
+      "speaker": 1,
+      "english": "I will visit my cousin.",
+      "chinese": "我要去看我的表亲。"
+    },
+    {
+      "speaker": 0,
+      "english": "Have a nice time!",
+      "chinese": "玩得开心！"
+    }
+  ],
+  "z_u54": [
+    {
+      "speaker": 0,
+      "english": "Where is the school?",
+      "chinese": "学校在哪里？"
+    },
+    {
+      "speaker": 1,
+      "english": "It is next to the park.",
+      "chinese": "它在公园旁边。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you, I can see it now.",
+      "chinese": "谢谢，我现在能看到它了。"
+    }
+  ],
+  "z_u55": [
+    {
+      "speaker": 0,
+      "english": "Would you like some soup?",
+      "chinese": "你想喝些汤吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, please, just a little.",
+      "chinese": "好的，请给我一点就好。"
+    },
+    {
+      "speaker": 0,
+      "english": "Here is your bowl.",
+      "chinese": "这是你的碗。"
+    }
+  ],
+  "z_u56": [
+    {
+      "speaker": 0,
+      "english": "What should I wear today?",
+      "chinese": "我今天该穿什么？"
+    },
+    {
+      "speaker": 1,
+      "english": "Wear a jacket, it is cold.",
+      "chinese": "穿件夹克，天气冷。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will take my green jacket.",
+      "chinese": "我要带我的绿色夹克。"
+    }
+  ],
+  "z_u57": [
+    {
+      "speaker": 0,
+      "english": "How do you feel today?",
+      "chinese": "你今天感觉怎么样？"
+    },
+    {
+      "speaker": 1,
+      "english": "I feel nervous about the game.",
+      "chinese": "我对比赛感到紧张。"
+    },
+    {
+      "speaker": 0,
+      "english": "We can practice together.",
+      "chinese": "我们可以一起练习。"
+    }
+  ],
+  "z_u58": [
+    {
+      "speaker": 0,
+      "english": "Did you enjoy your day?",
+      "chinese": "你今天过得开心吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, I played in the park.",
+      "chinese": "开心，我在公园玩了。"
+    },
+    {
+      "speaker": 0,
+      "english": "Tell me about your game.",
+      "chinese": "跟我说说你的游戏。"
+    }
+  ],
+  "u53": [
+    {
+      "speaker": 0,
+      "english": "Could I speak to the pharmacist?",
+      "chinese": "我可以和药剂师说话吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Of course, what do you need?",
+      "chinese": "当然，您需要什么？"
+    },
+    {
+      "speaker": 0,
+      "english": "I need advice about this medicine.",
+      "chinese": "我需要关于这种药的建议。"
+    }
+  ],
+  "u54": [
+    {
+      "speaker": 0,
+      "english": "Do you have any appointments tomorrow?",
+      "chinese": "你们明天还有预约时段吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "We have one at half past nine.",
+      "chinese": "我们九点半有一个时段。"
+    },
+    {
+      "speaker": 0,
+      "english": "That time works for me, thank you.",
+      "chinese": "那个时间我方便，谢谢。"
+    }
+  ],
+  "u55": [
+    {
+      "speaker": 0,
+      "english": "Can I return this sweater?",
+      "chinese": "我可以退这件毛衣吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, do you have the receipt?",
+      "chinese": "可以，您有收据吗？"
+    },
+    {
+      "speaker": 0,
+      "english": "Here it is, I bought it yesterday.",
+      "chinese": "在这里，我昨天买的。"
+    }
+  ],
+  "u56": [
+    {
+      "speaker": 0,
+      "english": "Has my parcel arrived yet?",
+      "chinese": "我的包裹到了吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, it is at the front desk.",
+      "chinese": "到了，它在前台。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will come down to collect it.",
+      "chinese": "我会下来取它。"
+    }
+  ],
+  "u57": [
+    {
+      "speaker": 0,
+      "english": "When can I collect the keys?",
+      "chinese": "我什么时候可以取钥匙？"
+    },
+    {
+      "speaker": 1,
+      "english": "You can collect them on Friday morning.",
+      "chinese": "您可以星期五上午取。"
+    },
+    {
+      "speaker": 0,
+      "english": "Great, I will bring my identification.",
+      "chinese": "太好了，我会带身份证明。"
+    }
+  ],
+  "u58": [
+    {
+      "speaker": 0,
+      "english": "Could we talk about the noise?",
+      "chinese": "我们可以聊聊噪声的事吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Of course, I am sorry it disturbed you.",
+      "chinese": "当然，很抱歉打扰了您。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you, I need to sleep early.",
+      "chinese": "谢谢，我需要早点睡。"
+    }
+  ],
+  "u59": [
+    {
+      "speaker": 0,
+      "english": "Could I book a table for four?",
+      "chinese": "我可以预订一张四人桌吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Certainly, what time would you like?",
+      "chinese": "当然，您希望几点？"
+    },
+    {
+      "speaker": 0,
+      "english": "Seven o'clock would be ideal.",
+      "chinese": "七点最合适。"
+    }
+  ],
+  "u60": [
+    {
+      "speaker": 0,
+      "english": "Has anyone handed in a blue bag?",
+      "chinese": "有人交来一个蓝色的包吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, can you describe what is inside?",
+      "chinese": "有，您能描述里面有什么吗？"
+    },
+    {
+      "speaker": 0,
+      "english": "It contains a notebook with my name.",
+      "chinese": "里面有一本写着我名字的笔记本。"
+    }
+  ],
+  "u61": [
+    {
+      "speaker": 0,
+      "english": "Can you hear me clearly?",
+      "chinese": "你能听清我说话吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, but your camera is off.",
+      "chinese": "能，但你的摄像头没开。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will turn it on now.",
+      "chinese": "我现在把它打开。"
+    }
+  ],
+  "u62": [
+    {
+      "speaker": 0,
+      "english": "Shall we organize a community picnic?",
+      "chinese": "我们组织一次社区野餐好吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "That sounds good, where could we meet?",
+      "chinese": "听起来不错，我们可以在哪里集合？"
+    },
+    {
+      "speaker": 0,
+      "english": "The park has plenty of space.",
+      "chinese": "公园有充足的空间。"
+    }
+  ],
+  "u63": [
+    {
+      "speaker": 0,
+      "english": "Is this position still available?",
+      "chinese": "这个职位还在招聘吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, please send us your application.",
+      "chinese": "还在，请把申请发给我们。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will include my recent work experience.",
+      "chinese": "我会写上近期的工作经历。"
+    }
+  ],
+  "u64": [
+    {
+      "speaker": 0,
+      "english": "Which task should we finish first?",
+      "chinese": "我们应该先完成哪项任务？"
+    },
+    {
+      "speaker": 1,
+      "english": "The report is due tomorrow morning.",
+      "chinese": "报告明天早上截止。"
+    },
+    {
+      "speaker": 0,
+      "english": "Then I will start with the report.",
+      "chinese": "那我就从报告开始。"
+    }
+  ],
+  "u65": [
+    {
+      "speaker": 0,
+      "english": "Can I change my train ticket?",
+      "chinese": "我可以改签火车票吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, but there may be an extra charge.",
+      "chinese": "可以，但可能有额外费用。"
+    },
+    {
+      "speaker": 0,
+      "english": "Please check the price before changing it.",
+      "chinese": "请在改签前核对价格。"
+    }
+  ],
+  "u66": [
+    {
+      "speaker": 0,
+      "english": "What does this notice say?",
+      "chinese": "这个公告说什么？"
+    },
+    {
+      "speaker": 1,
+      "english": "The library will close early on Friday.",
+      "chinese": "图书馆星期五会提前关门。"
+    },
+    {
+      "speaker": 0,
+      "english": "Then I should return my books on Thursday.",
+      "chinese": "那我应该星期四还书。"
+    }
+  ],
+  "u67": [
+    {
+      "speaker": 0,
+      "english": "How do I use this ticket machine?",
+      "chinese": "我怎么使用这台售票机？"
+    },
+    {
+      "speaker": 1,
+      "english": "First, choose your destination on the screen.",
+      "chinese": "首先，在屏幕上选择目的地。"
+    },
+    {
+      "speaker": 0,
+      "english": "All right, what should I do next?",
+      "chinese": "好的，接下来我应该做什么？"
+    }
+  ],
+  "u68": [
+    {
+      "speaker": 0,
+      "english": "How was your first week at work?",
+      "chinese": "你上班的第一周怎么样？"
+    },
+    {
+      "speaker": 1,
+      "english": "It was busy, but everyone was helpful.",
+      "chinese": "很忙，但大家都乐于帮忙。"
+    },
+    {
+      "speaker": 0,
+      "english": "That is good, what did you learn?",
+      "chinese": "那很好，你学到了什么？"
+    }
+  ],
+  "i_u1": [
+    {
+      "speaker": 0,
+      "english": "How did you get involved in the project?",
+      "chinese": "你是怎么参与这个项目的？"
+    },
+    {
+      "speaker": 1,
+      "english": "A colleague invited me after our training session.",
+      "chinese": "培训结束后，一位同事邀请了我。"
+    },
+    {
+      "speaker": 0,
+      "english": "That sounds interesting, what happened next?",
+      "chinese": "听起来很有趣，接下来发生了什么？"
+    }
+  ],
+  "i_u2": [
+    {
+      "speaker": 0,
+      "english": "Do you think the city needs more cycle lanes?",
+      "chinese": "你认为这座城市需要更多自行车道吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, because safer routes could encourage more people to cycle.",
+      "chinese": "需要，因为更安全的路线可能鼓励更多人骑车。"
+    },
+    {
+      "speaker": 0,
+      "english": "I agree, although parking space is also important.",
+      "chinese": "我同意，不过停车空间也很重要。"
+    }
+  ],
+  "i_u3": [
+    {
+      "speaker": 0,
+      "english": "Which course would suit your schedule better?",
+      "chinese": "哪门课程更适合你的日程？"
+    },
+    {
+      "speaker": 1,
+      "english": "The evening course is more flexible, but it costs more.",
+      "chinese": "晚间课程更灵活，但费用更高。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us compare the total costs before deciding.",
+      "chinese": "我们在决定前比较一下总费用吧。"
+    }
+  ],
+  "i_u4": [
+    {
+      "speaker": 0,
+      "english": "Would you be willing to extend the deadline?",
+      "chinese": "你愿意延长截止日期吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "I could allow two more days, but not a full week.",
+      "chinese": "我可以多给两天，但不能给整整一周。"
+    },
+    {
+      "speaker": 0,
+      "english": "That would help, let us agree on Wednesday.",
+      "chinese": "那会有帮助，我们就定在星期三吧。"
+    }
+  ],
+  "i_u5": [
+    {
+      "speaker": 0,
+      "english": "Who will be responsible for testing the new system?",
+      "chinese": "谁将负责测试新系统？"
+    },
+    {
+      "speaker": 1,
+      "english": "I can lead the testing if someone prepares the sample data.",
+      "chinese": "如果有人准备样本数据，我可以牵头测试。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will prepare the data and send it by Monday.",
+      "chinese": "我会准备数据，并在星期一之前发送。"
+    }
+  ],
+  "i_u6": [
+    {
+      "speaker": 0,
+      "english": "Could you explain the main finding of your report?",
+      "chinese": "你能解释报告的主要发现吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Certainly, the new process reduced waiting times significantly.",
+      "chinese": "当然，新流程显著缩短了等待时间。"
+    },
+    {
+      "speaker": 0,
+      "english": "That is useful, how did you measure the change?",
+      "chinese": "这很有用，你们是如何衡量变化的？"
+    }
+  ],
+  "i_u7": [
+    {
+      "speaker": 0,
+      "english": "Have you received the documents I sent last week?",
+      "chinese": "你收到我上周发送的文件了吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Yes, we are reviewing them and will reply tomorrow.",
+      "chinese": "收到了，我们正在审核，明天会回复。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you, please let me know if anything is missing.",
+      "chinese": "谢谢，如果缺少任何东西，请告诉我。"
+    }
+  ],
+  "i_u8": [
+    {
+      "speaker": 0,
+      "english": "Could we discuss the problem with my booking?",
+      "chinese": "我们可以讨论一下我的预订问题吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Of course, I can see that the room type was incorrect.",
+      "chinese": "当然，我看到房型不对。"
+    },
+    {
+      "speaker": 0,
+      "english": "I would appreciate a solution that matches my original booking.",
+      "chinese": "如果能按我的原预订解决，我将不胜感激。"
+    }
+  ],
+  "i_u9": [
+    {
+      "speaker": 0,
+      "english": "Is it usual to bring a gift when visiting someone here?",
+      "chinese": "在这里拜访别人时带礼物是惯例吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "A small gift is common, but it is not expected everywhere.",
+      "chinese": "小礼物很常见，但并不是所有地方都要求。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thanks, I will ask the host what would be appropriate.",
+      "chinese": "谢谢，我会问主人什么比较合适。"
+    }
+  ],
+  "i_u10": [
+    {
+      "speaker": 0,
+      "english": "How reliable is the report you shared?",
+      "chinese": "你分享的那篇报道有多可靠？"
+    },
+    {
+      "speaker": 1,
+      "english": "It quotes an official study, but I have not checked the original.",
+      "chinese": "它引用了一项官方研究，但我还没查原文。"
+    },
+    {
+      "speaker": 0,
+      "english": "Let us read the study before drawing conclusions.",
+      "chinese": "我们先读研究，再得出结论吧。"
+    }
+  ],
+  "i_u11": [
+    {
+      "speaker": 0,
+      "english": "Why does this app need access to my contacts?",
+      "chinese": "这个应用为什么需要访问我的联系人？"
+    },
+    {
+      "speaker": 1,
+      "english": "I am not sure, we should check its privacy policy.",
+      "chinese": "我不确定，我们应该查看它的隐私政策。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will deny access until I understand the reason.",
+      "chinese": "弄清原因之前，我会拒绝授权。"
+    }
+  ],
+  "i_u12": [
+    {
+      "speaker": 0,
+      "english": "Would reusable cups reduce waste at our events?",
+      "chinese": "可重复使用的杯子能减少我们活动中的垃圾吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "Probably, but we would need a reliable way to wash them.",
+      "chinese": "可能可以，但我们需要可靠的清洗方式。"
+    },
+    {
+      "speaker": 0,
+      "english": "We could try them at a small event first.",
+      "chinese": "我们可以先在小型活动中试用。"
+    }
+  ],
+  "i_u13": [
+    {
+      "speaker": 0,
+      "english": "What has helped you maintain your new routine?",
+      "chinese": "什么帮助你保持新的日常习惯？"
+    },
+    {
+      "speaker": 1,
+      "english": "Setting a realistic goal made it easier to get started.",
+      "chinese": "制定现实的目标让开始变得更容易。"
+    },
+    {
+      "speaker": 0,
+      "english": "I might try that instead of changing everything at once.",
+      "chinese": "我或许会尝试那样做，而不是一次改变所有事情。"
+    }
+  ],
+  "i_u14": [
+    {
+      "speaker": 0,
+      "english": "Could you explain how to apply for this service?",
+      "chinese": "您能解释如何申请这项服务吗？"
+    },
+    {
+      "speaker": 1,
+      "english": "You need to complete the form and provide proof of residence.",
+      "chinese": "您需要填写表格并提供居住证明。"
+    },
+    {
+      "speaker": 0,
+      "english": "Thank you, is assistance available if I need help with the form?",
+      "chinese": "谢谢，如果填写表格有困难，可以获得帮助吗？"
+    }
+  ],
+  "i_u15": [
+    {
+      "speaker": 0,
+      "english": "Which part of the course has been most challenging?",
+      "chinese": "这门课程哪部分最有挑战？"
+    },
+    {
+      "speaker": 1,
+      "english": "I understand the texts, but I struggle to follow fast conversations.",
+      "chinese": "我能理解文章，但很难跟上快速对话。"
+    },
+    {
+      "speaker": 0,
+      "english": "We could practice with short recordings and gradually increase the speed.",
+      "chinese": "我们可以用短录音练习，再逐渐提高速度。"
+    }
+  ],
+  "i_u16": [
+    {
+      "speaker": 0,
+      "english": "How should we organize the exchange visit next month?",
+      "chinese": "我们应该如何组织下个月的交流访问？"
+    },
+    {
+      "speaker": 1,
+      "english": "We need to confirm the budget before booking transport.",
+      "chinese": "我们需要在预订交通前确认预算。"
+    },
+    {
+      "speaker": 0,
+      "english": "I will compare the options and report back on Friday.",
+      "chinese": "我会比较各个方案，并在星期五反馈。"
+    }
   ]
 }

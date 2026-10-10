@@ -3028,6 +3028,1158 @@
       "status": "header-ok-listening-pending"
     },
     {
+      "path": "assets/audio/listening/z_u43l1e6.mp3",
+      "text": "We have bread and milk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l1e7.mp3",
+      "text": "Please pass me the bread.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l1e9.mp3",
+      "text": "What is for breakfast?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l2e6.mp3",
+      "text": "The toast is warm.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l2e7.mp3",
+      "text": "We eat breakfast together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l2e9.mp3",
+      "text": "I put two plates here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l3e6.mp3",
+      "text": "Please pass me the bread.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l3e7.mp3",
+      "text": "I put two plates here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l3e9.mp3",
+      "text": "What is for breakfast?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l4e6.mp3",
+      "text": "My cup is on the table.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l4e7.mp3",
+      "text": "The toast is warm.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u43l4e9.mp3",
+      "text": "We have bread and milk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l1e6.mp3",
+      "text": "Yes, it needs a wash.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l1e7.mp3",
+      "text": "Put it in this basket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l1e9.mp3",
+      "text": "Is this shirt dirty?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l2e6.mp3",
+      "text": "Hang the shirt outside.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l2e7.mp3",
+      "text": "The clothes are dry now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l2e9.mp3",
+      "text": "I wash the dark clothes.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l3e6.mp3",
+      "text": "Put it in this basket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l3e7.mp3",
+      "text": "I wash the dark clothes.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l3e9.mp3",
+      "text": "Is this shirt dirty?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l4e6.mp3",
+      "text": "These socks are white.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l4e7.mp3",
+      "text": "Hang the shirt outside.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u44l4e9.mp3",
+      "text": "Yes, it needs a wash.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l1e6.mp3",
+      "text": "Yes, it wants some food.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l1e7.mp3",
+      "text": "Let us fill its bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l1e9.mp3",
+      "text": "Is your cat hungry?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l2e6.mp3",
+      "text": "Keep the water bowl clean.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l2e7.mp3",
+      "text": "The rabbit likes carrots.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l2e9.mp3",
+      "text": "My dog needs a walk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l3e6.mp3",
+      "text": "Let us fill its bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l3e7.mp3",
+      "text": "My dog needs a walk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l3e9.mp3",
+      "text": "Is your cat hungry?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l4e6.mp3",
+      "text": "The cat sleeps here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l4e7.mp3",
+      "text": "Keep the water bowl clean.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u45l4e9.mp3",
+      "text": "Yes, it wants some food.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l1e6.mp3",
+      "text": "They are on this shelf.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l1e7.mp3",
+      "text": "Thank you for your help.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l1e9.mp3",
+      "text": "Where are the picture books?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l2e6.mp3",
+      "text": "Here is my library card.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l2e7.mp3",
+      "text": "Please return it on Monday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l2e9.mp3",
+      "text": "I want to borrow this book.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l3e6.mp3",
+      "text": "Thank you for your help.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l3e7.mp3",
+      "text": "I want to borrow this book.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l3e9.mp3",
+      "text": "Where are the picture books?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l4e6.mp3",
+      "text": "This story looks fun.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l4e7.mp3",
+      "text": "Here is my library card.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u46l4e9.mp3",
+      "text": "They are on this shelf.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l1e6.mp3",
+      "text": "Yes, they are fresh today.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l1e7.mp3",
+      "text": "I would like two, please.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l1e9.mp3",
+      "text": "Do you have small rolls?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l2e6.mp3",
+      "text": "Put the bread in a bag.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l2e7.mp3",
+      "text": "Here is the money.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l2e9.mp3",
+      "text": "How much is this cake?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l3e6.mp3",
+      "text": "I would like two, please.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l3e7.mp3",
+      "text": "How much is this cake?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l3e9.mp3",
+      "text": "Do you have small rolls?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l4e6.mp3",
+      "text": "This bread smells good.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l4e7.mp3",
+      "text": "Put the bread in a bag.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u47l4e9.mp3",
+      "text": "Yes, they are fresh today.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l1e6.mp3",
+      "text": "Yes, you can try one.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l1e7.mp3",
+      "text": "I will take three pears.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l1e9.mp3",
+      "text": "Are these pears sweet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l2e6.mp3",
+      "text": "Please weigh these apples.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l2e7.mp3",
+      "text": "I carry the fruit carefully.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l2e9.mp3",
+      "text": "We need some ripe bananas.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l3e6.mp3",
+      "text": "I will take three pears.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l3e7.mp3",
+      "text": "We need some ripe bananas.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l3e9.mp3",
+      "text": "Are these pears sweet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l4e6.mp3",
+      "text": "These oranges are round.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l4e7.mp3",
+      "text": "Please weigh these apples.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u48l4e9.mp3",
+      "text": "Yes, you can try one.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l1e6.mp3",
+      "text": "Yes, get on here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l1e7.mp3",
+      "text": "Thank you, I have my ticket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l1e9.mp3",
+      "text": "Does this bus go downtown?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l2e6.mp3",
+      "text": "Hold the rail on the bus.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l2e7.mp3",
+      "text": "We get off at the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l2e9.mp3",
+      "text": "Please wait in line.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l3e6.mp3",
+      "text": "Thank you, I have my ticket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l3e7.mp3",
+      "text": "Please wait in line.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l3e9.mp3",
+      "text": "Does this bus go downtown?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l4e6.mp3",
+      "text": "The bus stop is near.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l4e7.mp3",
+      "text": "Hold the rail on the bus.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u49l4e9.mp3",
+      "text": "Yes, get on here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l1e6.mp3",
+      "text": "She is not here now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l1e7.mp3",
+      "text": "Please ask her to call me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l1e9.mp3",
+      "text": "Can I speak to Anna?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l2e6.mp3",
+      "text": "Please say it again.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l2e7.mp3",
+      "text": "I write down your message.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l2e9.mp3",
+      "text": "This is my phone number.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l3e6.mp3",
+      "text": "Please ask her to call me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l3e7.mp3",
+      "text": "This is my phone number.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l3e9.mp3",
+      "text": "Can I speak to Anna?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l4e6.mp3",
+      "text": "My name is Ben.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l4e7.mp3",
+      "text": "Please say it again.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u50l4e9.mp3",
+      "text": "She is not here now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l1e6.mp3",
+      "text": "Yes, we need some paper.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l1e7.mp3",
+      "text": "Let us choose a blue sheet.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l1e9.mp3",
+      "text": "Can you help me make a card?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l2e6.mp3",
+      "text": "Put some glue on the back.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l2e7.mp3",
+      "text": "Write a kind message inside.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l2e9.mp3",
+      "text": "Cut along this line.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l3e6.mp3",
+      "text": "Let us choose a blue sheet.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l3e7.mp3",
+      "text": "Cut along this line.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l3e9.mp3",
+      "text": "Can you help me make a card?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l4e6.mp3",
+      "text": "I draw a star here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l4e7.mp3",
+      "text": "Put some glue on the back.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u51l4e9.mp3",
+      "text": "Yes, we need some paper.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l1e6.mp3",
+      "text": "Yes, I can play slowly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l1e7.mp3",
+      "text": "Let us play together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l1e9.mp3",
+      "text": "Can you play the drum?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l2e6.mp3",
+      "text": "Listen to the beat.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l2e7.mp3",
+      "text": "We practice after school.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l2e9.mp3",
+      "text": "I sing with my friends.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l3e6.mp3",
+      "text": "Let us play together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l3e7.mp3",
+      "text": "I sing with my friends.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l3e9.mp3",
+      "text": "Can you play the drum?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l4e6.mp3",
+      "text": "This song is short.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l4e7.mp3",
+      "text": "Listen to the beat.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u52l4e9.mp3",
+      "text": "Yes, I can play slowly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l1e6.mp3",
+      "text": "I will visit my cousin.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l1e7.mp3",
+      "text": "Have a nice time!",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l1e9.mp3",
+      "text": "What will you do on Saturday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l2e6.mp3",
+      "text": "We play games after lunch.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l2e7.mp3",
+      "text": "I come home before dinner.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l2e9.mp3",
+      "text": "I pack a small bag.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l3e6.mp3",
+      "text": "Have a nice time!",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l3e7.mp3",
+      "text": "I pack a small bag.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l3e9.mp3",
+      "text": "What will you do on Saturday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l4e6.mp3",
+      "text": "We meet in the morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l4e7.mp3",
+      "text": "We play games after lunch.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u53l4e9.mp3",
+      "text": "I will visit my cousin.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l1e6.mp3",
+      "text": "It is next to the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l1e7.mp3",
+      "text": "Thank you, I can see it now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l1e9.mp3",
+      "text": "Where is the school?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l2e6.mp3",
+      "text": "Turn left at the shop.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l2e7.mp3",
+      "text": "The sign points this way.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l2e9.mp3",
+      "text": "Go straight to the corner.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l3e6.mp3",
+      "text": "Thank you, I can see it now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l3e7.mp3",
+      "text": "Go straight to the corner.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l3e9.mp3",
+      "text": "Where is the school?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l4e6.mp3",
+      "text": "I need help with the map.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l4e7.mp3",
+      "text": "Turn left at the shop.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u54l4e9.mp3",
+      "text": "It is next to the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l1e6.mp3",
+      "text": "Yes, please, just a little.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l1e7.mp3",
+      "text": "Here is your bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l1e9.mp3",
+      "text": "Would you like some soup?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l2e6.mp3",
+      "text": "This meal tastes great.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l2e7.mp3",
+      "text": "Thank you for cooking.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l2e9.mp3",
+      "text": "I wait for everyone.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l3e6.mp3",
+      "text": "Here is your bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l3e7.mp3",
+      "text": "I wait for everyone.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l3e9.mp3",
+      "text": "Would you like some soup?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l4e6.mp3",
+      "text": "Please pass the spoon.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l4e7.mp3",
+      "text": "This meal tastes great.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u55l4e9.mp3",
+      "text": "Yes, please, just a little.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l1e6.mp3",
+      "text": "Wear a jacket, it is cold.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l1e7.mp3",
+      "text": "I will take my green jacket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l1e9.mp3",
+      "text": "What should I wear today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l2e6.mp3",
+      "text": "I wear boots in the rain.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l2e7.mp3",
+      "text": "This hat keeps me warm.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l2e9.mp3",
+      "text": "My scarf is soft.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l3e6.mp3",
+      "text": "I will take my green jacket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l3e7.mp3",
+      "text": "My scarf is soft.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l3e9.mp3",
+      "text": "What should I wear today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l4e6.mp3",
+      "text": "These shoes fit well.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l4e7.mp3",
+      "text": "I wear boots in the rain.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u56l4e9.mp3",
+      "text": "Wear a jacket, it is cold.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l1e6.mp3",
+      "text": "I feel nervous about the game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l1e7.mp3",
+      "text": "We can practice together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l1e9.mp3",
+      "text": "How do you feel today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l2e6.mp3",
+      "text": "I feel better after a rest.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l2e7.mp3",
+      "text": "Please tell me what is wrong.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l2e9.mp3",
+      "text": "The loud noise scares me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l3e6.mp3",
+      "text": "We can practice together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l3e7.mp3",
+      "text": "The loud noise scares me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l3e9.mp3",
+      "text": "How do you feel today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l4e6.mp3",
+      "text": "I am proud of my picture.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l4e7.mp3",
+      "text": "I feel better after a rest.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u57l4e9.mp3",
+      "text": "I feel nervous about the game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l1e6.mp3",
+      "text": "Yes, I played in the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l1e7.mp3",
+      "text": "Tell me about your game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l1e9.mp3",
+      "text": "Did you enjoy your day?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l2e6.mp3",
+      "text": "Then we had some water.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l2e7.mp3",
+      "text": "We went home at five.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l2e9.mp3",
+      "text": "My friend kicked the ball.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l3e6.mp3",
+      "text": "Tell me about your game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l3e7.mp3",
+      "text": "My friend kicked the ball.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l3e9.mp3",
+      "text": "Did you enjoy your day?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l4e6.mp3",
+      "text": "We found a red ball.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l4e7.mp3",
+      "text": "Then we had some water.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/z_u58l4e9.mp3",
+      "text": "Yes, I played in the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
       "path": "assets/audio/listening/u1l1e6.mp3",
       "text": "Good evening.",
       "bytes": 12240,
@@ -6772,6 +7924,2310 @@
       "status": "header-ok-listening-pending"
     },
     {
+      "path": "assets/audio/listening/u53l1e6.mp3",
+      "text": "Of course, what do you need?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l1e7.mp3",
+      "text": "I need advice about this medicine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l1e9.mp3",
+      "text": "Could I speak to the pharmacist?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l2e6.mp3",
+      "text": "Please explain the instructions on the label.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l2e7.mp3",
+      "text": "I am already taking another medicine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l2e9.mp3",
+      "text": "Does this medicine make people sleepy?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l3e6.mp3",
+      "text": "I need advice about this medicine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l3e7.mp3",
+      "text": "Does this medicine make people sleepy?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l3e9.mp3",
+      "text": "Could I speak to the pharmacist?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l4e6.mp3",
+      "text": "I have had a cough since Monday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l4e7.mp3",
+      "text": "Please explain the instructions on the label.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u53l4e9.mp3",
+      "text": "Of course, what do you need?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l1e6.mp3",
+      "text": "We have one at half past nine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l1e7.mp3",
+      "text": "That time works for me, thank you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l1e9.mp3",
+      "text": "Do you have any appointments tomorrow?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l2e6.mp3",
+      "text": "Should I bring my previous test results?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l2e7.mp3",
+      "text": "Please arrive ten minutes before your appointment.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l2e9.mp3",
+      "text": "The pain started two days ago.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l3e6.mp3",
+      "text": "That time works for me, thank you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l3e7.mp3",
+      "text": "The pain started two days ago.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l3e9.mp3",
+      "text": "Do you have any appointments tomorrow?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l4e6.mp3",
+      "text": "I would like to see a doctor.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l4e7.mp3",
+      "text": "Should I bring my previous test results?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u54l4e9.mp3",
+      "text": "We have one at half past nine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l1e6.mp3",
+      "text": "Yes, do you have the receipt?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l1e7.mp3",
+      "text": "Here it is, I bought it yesterday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l1e9.mp3",
+      "text": "Can I return this sweater?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l2e6.mp3",
+      "text": "The item arrived with a broken zip.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l2e7.mp3",
+      "text": "How long does the refund usually take?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l2e9.mp3",
+      "text": "Could I exchange it for a larger one?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l3e6.mp3",
+      "text": "Here it is, I bought it yesterday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l3e7.mp3",
+      "text": "Could I exchange it for a larger one?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l3e9.mp3",
+      "text": "Can I return this sweater?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l4e6.mp3",
+      "text": "The size is too small for me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l4e7.mp3",
+      "text": "The item arrived with a broken zip.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u55l4e9.mp3",
+      "text": "Yes, do you have the receipt?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l1e6.mp3",
+      "text": "Yes, it is at the front desk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l1e7.mp3",
+      "text": "I will come down to collect it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l1e9.mp3",
+      "text": "Has my parcel arrived yet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l2e6.mp3",
+      "text": "I will be home between two and four.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l2e7.mp3",
+      "text": "The delivery is later than expected.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l2e9.mp3",
+      "text": "Please leave the parcel with my neighbor.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l3e6.mp3",
+      "text": "I will come down to collect it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l3e7.mp3",
+      "text": "Please leave the parcel with my neighbor.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l3e9.mp3",
+      "text": "Has my parcel arrived yet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l4e6.mp3",
+      "text": "The tracking number is in this email.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l4e7.mp3",
+      "text": "I will be home between two and four.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u56l4e9.mp3",
+      "text": "Yes, it is at the front desk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l1e6.mp3",
+      "text": "You can collect them on Friday morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l1e7.mp3",
+      "text": "Great, I will bring my identification.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l1e9.mp3",
+      "text": "When can I collect the keys?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l2e6.mp3",
+      "text": "Let us take photos before moving in.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l2e7.mp3",
+      "text": "Where can I find the meter reading?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l2e9.mp3",
+      "text": "I noticed a mark on the bedroom wall.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l3e6.mp3",
+      "text": "Great, I will bring my identification.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l3e7.mp3",
+      "text": "I noticed a mark on the bedroom wall.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l3e9.mp3",
+      "text": "When can I collect the keys?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l4e6.mp3",
+      "text": "Does the rent include water and electricity?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l4e7.mp3",
+      "text": "Let us take photos before moving in.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u57l4e9.mp3",
+      "text": "You can collect them on Friday morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l1e6.mp3",
+      "text": "Of course, I am sorry it disturbed you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l1e7.mp3",
+      "text": "Thank you, I need to sleep early.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l1e9.mp3",
+      "text": "Could we talk about the noise?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l2e6.mp3",
+      "text": "We are having a small party on Saturday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l2e7.mp3",
+      "text": "Please let us know if there is a problem.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l2e9.mp3",
+      "text": "Would you mind turning it down?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l3e6.mp3",
+      "text": "Thank you, I need to sleep early.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l3e7.mp3",
+      "text": "Would you mind turning it down?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l3e9.mp3",
+      "text": "Could we talk about the noise?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l4e6.mp3",
+      "text": "The music is quite loud after ten.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l4e7.mp3",
+      "text": "We are having a small party on Saturday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u58l4e9.mp3",
+      "text": "Of course, I am sorry it disturbed you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l1e6.mp3",
+      "text": "Certainly, what time would you like?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l1e7.mp3",
+      "text": "Seven o'clock would be ideal.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l1e9.mp3",
+      "text": "Could I book a table for four?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l2e6.mp3",
+      "text": "Could you check this with the kitchen?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l2e7.mp3",
+      "text": "We may arrive about ten minutes late.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l2e9.mp3",
+      "text": "One guest has a nut allergy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l3e6.mp3",
+      "text": "Seven o'clock would be ideal.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l3e7.mp3",
+      "text": "One guest has a nut allergy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l3e9.mp3",
+      "text": "Could I book a table for four?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l4e6.mp3",
+      "text": "Is there a table away from the speakers?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l4e7.mp3",
+      "text": "Could you check this with the kitchen?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u59l4e9.mp3",
+      "text": "Certainly, what time would you like?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l1e6.mp3",
+      "text": "Yes, can you describe what is inside?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l1e7.mp3",
+      "text": "It contains a notebook with my name.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l1e9.mp3",
+      "text": "Has anyone handed in a blue bag?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l2e6.mp3",
+      "text": "I remember sitting near the back door.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l2e7.mp3",
+      "text": "Where should I collect the lost item?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l2e9.mp3",
+      "text": "There is a small pocket on the front.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l3e6.mp3",
+      "text": "It contains a notebook with my name.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l3e7.mp3",
+      "text": "There is a small pocket on the front.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l3e9.mp3",
+      "text": "Has anyone handed in a blue bag?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l4e6.mp3",
+      "text": "I left it on the bus this morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l4e7.mp3",
+      "text": "I remember sitting near the back door.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u60l4e9.mp3",
+      "text": "Yes, can you describe what is inside?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l1e6.mp3",
+      "text": "Yes, but your camera is off.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l1e7.mp3",
+      "text": "I will turn it on now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l1e9.mp3",
+      "text": "Can you hear me clearly?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l2e6.mp3",
+      "text": "There is a delay in the sound.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l2e7.mp3",
+      "text": "Let us take turns to speak.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l2e9.mp3",
+      "text": "Could you share your screen?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l3e6.mp3",
+      "text": "I will turn it on now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l3e7.mp3",
+      "text": "Could you share your screen?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l3e9.mp3",
+      "text": "Can you hear me clearly?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l4e6.mp3",
+      "text": "Please send me the meeting link.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l4e7.mp3",
+      "text": "There is a delay in the sound.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u61l4e9.mp3",
+      "text": "Yes, but your camera is off.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l1e6.mp3",
+      "text": "That sounds good, where could we meet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l1e7.mp3",
+      "text": "The park has plenty of space.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l1e9.mp3",
+      "text": "Shall we organize a community picnic?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l2e6.mp3",
+      "text": "Could you check the weather forecast?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l2e7.mp3",
+      "text": "We should have an indoor backup plan.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l2e9.mp3",
+      "text": "I can bring drinks for everyone.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l3e6.mp3",
+      "text": "The park has plenty of space.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l3e7.mp3",
+      "text": "I can bring drinks for everyone.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l3e9.mp3",
+      "text": "Shall we organize a community picnic?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l4e6.mp3",
+      "text": "We need to choose a suitable date.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l4e7.mp3",
+      "text": "Could you check the weather forecast?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u62l4e9.mp3",
+      "text": "That sounds good, where could we meet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l1e6.mp3",
+      "text": "Yes, please send us your application.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l1e7.mp3",
+      "text": "I will include my recent work experience.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l1e9.mp3",
+      "text": "Is this position still available?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l2e6.mp3",
+      "text": "Could you tell me about the interview format?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l2e7.mp3",
+      "text": "I am available next Wednesday afternoon.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l2e9.mp3",
+      "text": "I have experience working with customers.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l3e6.mp3",
+      "text": "I will include my recent work experience.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l3e7.mp3",
+      "text": "I have experience working with customers.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l3e9.mp3",
+      "text": "Is this position still available?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l4e6.mp3",
+      "text": "What skills are important for this role?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l4e7.mp3",
+      "text": "Could you tell me about the interview format?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u63l4e9.mp3",
+      "text": "Yes, please send us your application.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l1e6.mp3",
+      "text": "The report is due tomorrow morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l1e7.mp3",
+      "text": "Then I will start with the report.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l1e9.mp3",
+      "text": "Which task should we finish first?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l2e6.mp3",
+      "text": "Could we move the meeting to Friday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l2e7.mp3",
+      "text": "I need a break before the next task.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l2e9.mp3",
+      "text": "This task takes longer than I expected.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l3e6.mp3",
+      "text": "Then I will start with the report.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l3e7.mp3",
+      "text": "This task takes longer than I expected.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l3e9.mp3",
+      "text": "Which task should we finish first?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l4e6.mp3",
+      "text": "I make a short list each morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l4e7.mp3",
+      "text": "Could we move the meeting to Friday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u64l4e9.mp3",
+      "text": "The report is due tomorrow morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l1e6.mp3",
+      "text": "Yes, but there may be an extra charge.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l1e7.mp3",
+      "text": "Please check the price before changing it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l1e9.mp3",
+      "text": "Can I change my train ticket?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l2e6.mp3",
+      "text": "The last bus has already left.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l2e7.mp3",
+      "text": "Could you help me find a nearby hotel?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l2e9.mp3",
+      "text": "Is there another route to the city?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l3e6.mp3",
+      "text": "Please check the price before changing it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l3e7.mp3",
+      "text": "Is there another route to the city?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l3e9.mp3",
+      "text": "Can I change my train ticket?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l4e6.mp3",
+      "text": "I need to travel one day earlier.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l4e7.mp3",
+      "text": "The last bus has already left.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u65l4e9.mp3",
+      "text": "Yes, but there may be an extra charge.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l1e6.mp3",
+      "text": "The library will close early on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l1e7.mp3",
+      "text": "Then I should return my books on Thursday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l1e9.mp3",
+      "text": "What does this notice say?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l2e6.mp3",
+      "text": "Please check whether booking is required.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l2e7.mp3",
+      "text": "The entrance has moved to the side street.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l2e9.mp3",
+      "text": "This change only applies next week.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l3e6.mp3",
+      "text": "Then I should return my books on Thursday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l3e7.mp3",
+      "text": "This change only applies next week.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l3e9.mp3",
+      "text": "What does this notice say?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l4e6.mp3",
+      "text": "The opening hours are listed at the bottom.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l4e7.mp3",
+      "text": "Please check whether booking is required.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u66l4e9.mp3",
+      "text": "The library will close early on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l1e6.mp3",
+      "text": "First, choose your destination on the screen.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l1e7.mp3",
+      "text": "All right, what should I do next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l1e9.mp3",
+      "text": "How do I use this ticket machine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l2e6.mp3",
+      "text": "Keep the receipt until your journey ends.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l2e7.mp3",
+      "text": "If it does not work, ask the staff.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l2e9.mp3",
+      "text": "Check the details before you pay.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l3e6.mp3",
+      "text": "All right, what should I do next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l3e7.mp3",
+      "text": "Check the details before you pay.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l3e9.mp3",
+      "text": "How do I use this ticket machine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l4e6.mp3",
+      "text": "Then select the number of passengers.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l4e7.mp3",
+      "text": "Keep the receipt until your journey ends.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u67l4e9.mp3",
+      "text": "First, choose your destination on the screen.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l1e6.mp3",
+      "text": "It was busy, but everyone was helpful.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l1e7.mp3",
+      "text": "That is good, what did you learn?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l1e9.mp3",
+      "text": "How was your first week at work?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l2e6.mp3",
+      "text": "Writing things down helped me remember.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l2e7.mp3",
+      "text": "My advice is to ask clear questions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l2e9.mp3",
+      "text": "At first, I was afraid to ask for help.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l3e6.mp3",
+      "text": "That is good, what did you learn?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l3e7.mp3",
+      "text": "At first, I was afraid to ask for help.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l3e9.mp3",
+      "text": "How was your first week at work?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l4e6.mp3",
+      "text": "I learned how to handle customer questions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l4e7.mp3",
+      "text": "Writing things down helped me remember.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/u68l4e9.mp3",
+      "text": "It was busy, but everyone was helpful.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l1e6.mp3",
+      "text": "A colleague invited me after our training session.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l1e7.mp3",
+      "text": "That sounds interesting, what happened next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l1e9.mp3",
+      "text": "How did you get involved in the project?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l2e6.mp3",
+      "text": "Although it was stressful, we finished on time.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l2e7.mp3",
+      "text": "Looking back, I should have asked for help earlier.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l2e9.mp3",
+      "text": "We had to adjust our plan at short notice.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l3e6.mp3",
+      "text": "That sounds interesting, what happened next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l3e7.mp3",
+      "text": "We had to adjust our plan at short notice.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l3e9.mp3",
+      "text": "How did you get involved in the project?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l4e6.mp3",
+      "text": "While we were planning, the budget suddenly changed.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l4e7.mp3",
+      "text": "Although it was stressful, we finished on time.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u1l4e9.mp3",
+      "text": "A colleague invited me after our training session.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l1e6.mp3",
+      "text": "Yes, because safer routes could encourage more people to cycle.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l1e7.mp3",
+      "text": "I agree, although parking space is also important.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l1e9.mp3",
+      "text": "Do you think the city needs more cycle lanes?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l2e6.mp3",
+      "text": "For example, the road near our school is very busy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l2e7.mp3",
+      "text": "I understand your point, but the cost needs consideration.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l2e9.mp3",
+      "text": "One reason is that many children cycle to school.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l3e6.mp3",
+      "text": "I agree, although parking space is also important.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l3e7.mp3",
+      "text": "One reason is that many children cycle to school.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l3e9.mp3",
+      "text": "Do you think the city needs more cycle lanes?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l4e6.mp3",
+      "text": "In my view, safety should be the main priority.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l4e7.mp3",
+      "text": "For example, the road near our school is very busy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u2l4e9.mp3",
+      "text": "Yes, because safer routes could encourage more people to cycle.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l1e6.mp3",
+      "text": "The evening course is more flexible, but it costs more.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l1e7.mp3",
+      "text": "Let us compare the total costs before deciding.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l1e9.mp3",
+      "text": "Which course would suit your schedule better?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l2e6.mp3",
+      "text": "The smaller class offers more individual feedback.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l2e7.mp3",
+      "text": "If the timetable changes, I may choose the other course.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l2e9.mp3",
+      "text": "However, I learn better when I meet people in person.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l3e6.mp3",
+      "text": "Let us compare the total costs before deciding.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l3e7.mp3",
+      "text": "However, I learn better when I meet people in person.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l3e9.mp3",
+      "text": "Which course would suit your schedule better?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l4e6.mp3",
+      "text": "The online option would save me an hour each day.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l4e7.mp3",
+      "text": "The smaller class offers more individual feedback.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u3l4e9.mp3",
+      "text": "The evening course is more flexible, but it costs more.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l1e6.mp3",
+      "text": "I could allow two more days, but not a full week.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l1e7.mp3",
+      "text": "That would help, let us agree on Wednesday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l1e9.mp3",
+      "text": "Would you be willing to extend the deadline?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l2e6.mp3",
+      "text": "Could we deliver the first part and finish the rest later?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l2e7.mp3",
+      "text": "This compromise would keep the main project on track.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l2e9.mp3",
+      "text": "I understand that the schedule is already tight.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l3e6.mp3",
+      "text": "That would help, let us agree on Wednesday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l3e7.mp3",
+      "text": "I understand that the schedule is already tight.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l3e9.mp3",
+      "text": "Would you be willing to extend the deadline?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l4e6.mp3",
+      "text": "We need more time to check the figures carefully.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l4e7.mp3",
+      "text": "Could we deliver the first part and finish the rest later?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u4l4e9.mp3",
+      "text": "I could allow two more days, but not a full week.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l1e6.mp3",
+      "text": "I can lead the testing if someone prepares the sample data.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l1e7.mp3",
+      "text": "I will prepare the data and send it by Monday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l1e9.mp3",
+      "text": "Who will be responsible for testing the new system?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l2e6.mp3",
+      "text": "Could you let us know as soon as the issue is resolved?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l2e7.mp3",
+      "text": "We should flag any risks before they cause delays.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l2e9.mp3",
+      "text": "The remaining tasks depend on the supplier's response.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l3e6.mp3",
+      "text": "I will prepare the data and send it by Monday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l3e7.mp3",
+      "text": "The remaining tasks depend on the supplier's response.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l3e9.mp3",
+      "text": "Who will be responsible for testing the new system?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l4e6.mp3",
+      "text": "We have completed the first stage ahead of schedule.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l4e7.mp3",
+      "text": "Could you let us know as soon as the issue is resolved?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u5l4e9.mp3",
+      "text": "I can lead the testing if someone prepares the sample data.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l1e6.mp3",
+      "text": "Certainly, the new process reduced waiting times significantly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l1e7.mp3",
+      "text": "That is useful, how did you measure the change?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l1e9.mp3",
+      "text": "Could you explain the main finding of your report?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l2e6.mp3",
+      "text": "The figures suggest an improvement, but the sample is small.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l2e7.mp3",
+      "text": "I do not have that information, but I can check later.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l2e9.mp3",
+      "text": "This chart compares the results from the two teams.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l3e6.mp3",
+      "text": "That is useful, how did you measure the change?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l3e7.mp3",
+      "text": "This chart compares the results from the two teams.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l3e9.mp3",
+      "text": "Could you explain the main finding of your report?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l4e6.mp3",
+      "text": "I will begin with a brief overview of the problem.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l4e7.mp3",
+      "text": "The figures suggest an improvement, but the sample is small.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u6l4e9.mp3",
+      "text": "Certainly, the new process reduced waiting times significantly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l1e6.mp3",
+      "text": "Yes, we are reviewing them and will reply tomorrow.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l1e7.mp3",
+      "text": "Thank you, please let me know if anything is missing.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l1e9.mp3",
+      "text": "Have you received the documents I sent last week?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l2e6.mp3",
+      "text": "Would it be possible to confirm the details by Friday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l2e7.mp3",
+      "text": "I appreciate your help in resolving this matter.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l2e9.mp3",
+      "text": "Please find the updated schedule attached to this email.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l3e6.mp3",
+      "text": "Thank you, please let me know if anything is missing.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l3e7.mp3",
+      "text": "Please find the updated schedule attached to this email.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l3e9.mp3",
+      "text": "Have you received the documents I sent last week?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l4e6.mp3",
+      "text": "I am writing to follow up on our previous discussion.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l4e7.mp3",
+      "text": "Would it be possible to confirm the details by Friday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u7l4e9.mp3",
+      "text": "Yes, we are reviewing them and will reply tomorrow.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l1e6.mp3",
+      "text": "Of course, I can see that the room type was incorrect.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l1e7.mp3",
+      "text": "I would appreciate a solution that matches my original booking.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l1e9.mp3",
+      "text": "Could we discuss the problem with my booking?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l2e6.mp3",
+      "text": "Could you explain what compensation is available?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l2e7.mp3",
+      "text": "I would prefer a replacement rather than a partial refund.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l2e9.mp3",
+      "text": "I have attached photos showing the condition on arrival.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l3e6.mp3",
+      "text": "I would appreciate a solution that matches my original booking.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l3e7.mp3",
+      "text": "I have attached photos showing the condition on arrival.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l3e9.mp3",
+      "text": "Could we discuss the problem with my booking?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l4e6.mp3",
+      "text": "The service did not match the description on your website.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l4e7.mp3",
+      "text": "Could you explain what compensation is available?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u8l4e9.mp3",
+      "text": "Of course, I can see that the room type was incorrect.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l1e6.mp3",
+      "text": "A small gift is common, but it is not expected everywhere.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l1e7.mp3",
+      "text": "Thanks, I will ask the host what would be appropriate.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l1e9.mp3",
+      "text": "Is it usual to bring a gift when visiting someone here?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l2e6.mp3",
+      "text": "Rather than assume, I prefer to ask a respectful question.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l2e7.mp3",
+      "text": "Could you explain what this tradition means to you?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l2e9.mp3",
+      "text": "I did not realize that the gesture could seem impolite.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l3e6.mp3",
+      "text": "Thanks, I will ask the host what would be appropriate.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l3e7.mp3",
+      "text": "I did not realize that the gesture could seem impolite.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l3e9.mp3",
+      "text": "Is it usual to bring a gift when visiting someone here?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l4e6.mp3",
+      "text": "Customs can vary between families as well as regions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l4e7.mp3",
+      "text": "Rather than assume, I prefer to ask a respectful question.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u9l4e9.mp3",
+      "text": "A small gift is common, but it is not expected everywhere.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l1e6.mp3",
+      "text": "It quotes an official study, but I have not checked the original.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l1e7.mp3",
+      "text": "Let us read the study before drawing conclusions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l1e9.mp3",
+      "text": "How reliable is the report you shared?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l2e6.mp3",
+      "text": "The article does not explain how the participants were selected.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l2e7.mp3",
+      "text": "This result may not apply to every age group.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l2e9.mp3",
+      "text": "We should distinguish facts from the writer's opinion.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l3e6.mp3",
+      "text": "Let us read the study before drawing conclusions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l3e7.mp3",
+      "text": "We should distinguish facts from the writer's opinion.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l3e9.mp3",
+      "text": "How reliable is the report you shared?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l4e6.mp3",
+      "text": "The headline makes a stronger claim than the evidence supports.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l4e7.mp3",
+      "text": "The article does not explain how the participants were selected.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u10l4e9.mp3",
+      "text": "It quotes an official study, but I have not checked the original.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l1e6.mp3",
+      "text": "I am not sure, we should check its privacy policy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l1e7.mp3",
+      "text": "I will deny access until I understand the reason.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l1e9.mp3",
+      "text": "Why does this app need access to my contacts?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l2e6.mp3",
+      "text": "I will verify the request through the official support channel.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l2e7.mp3",
+      "text": "Turning off location sharing may reduce unnecessary tracking.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l2e9.mp3",
+      "text": "The message asks me to enter my password on an unfamiliar site.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l3e6.mp3",
+      "text": "I will deny access until I understand the reason.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l3e7.mp3",
+      "text": "The message asks me to enter my password on an unfamiliar site.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l3e9.mp3",
+      "text": "Why does this app need access to my contacts?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l4e6.mp3",
+      "text": "You can limit which information is shared with the service.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l4e7.mp3",
+      "text": "I will verify the request through the official support channel.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u11l4e9.mp3",
+      "text": "I am not sure, we should check its privacy policy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l1e6.mp3",
+      "text": "Probably, but we would need a reliable way to wash them.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l1e7.mp3",
+      "text": "We could try them at a small event first.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l1e9.mp3",
+      "text": "Would reusable cups reduce waste at our events?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l2e6.mp3",
+      "text": "Repairing an item can be better than replacing it immediately.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l2e7.mp3",
+      "text": "Not every family can afford the more expensive option.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l2e9.mp3",
+      "text": "We should consider transport as well as the materials.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l3e6.mp3",
+      "text": "We could try them at a small event first.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l3e7.mp3",
+      "text": "We should consider transport as well as the materials.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l3e9.mp3",
+      "text": "Would reusable cups reduce waste at our events?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l4e6.mp3",
+      "text": "The environmental impact depends on how often the cups are reused.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l4e7.mp3",
+      "text": "Repairing an item can be better than replacing it immediately.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u12l4e9.mp3",
+      "text": "Probably, but we would need a reliable way to wash them.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l1e6.mp3",
+      "text": "Setting a realistic goal made it easier to get started.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l1e7.mp3",
+      "text": "I might try that instead of changing everything at once.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l1e9.mp3",
+      "text": "What has helped you maintain your new routine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l2e6.mp3",
+      "text": "If a symptom persists, I will seek professional advice.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l2e7.mp3",
+      "text": "It is important to choose activities that suit your abilities.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l2e9.mp3",
+      "text": "Keeping a regular bedtime has improved my energy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l3e6.mp3",
+      "text": "I might try that instead of changing everything at once.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l3e7.mp3",
+      "text": "Keeping a regular bedtime has improved my energy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l3e9.mp3",
+      "text": "What has helped you maintain your new routine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l4e6.mp3",
+      "text": "I tend to skip breaks when I am busy at work.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l4e7.mp3",
+      "text": "If a symptom persists, I will seek professional advice.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u13l4e9.mp3",
+      "text": "Setting a realistic goal made it easier to get started.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l1e6.mp3",
+      "text": "You need to complete the form and provide proof of residence.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l1e7.mp3",
+      "text": "Thank you, is assistance available if I need help with the form?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l1e9.mp3",
+      "text": "Could you explain how to apply for this service?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l2e6.mp3",
+      "text": "I would like a written explanation of the decision.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l2e7.mp3",
+      "text": "Is there a deadline for requesting a review?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l2e9.mp3",
+      "text": "Please tell me which documents are still missing.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l3e6.mp3",
+      "text": "Thank you, is assistance available if I need help with the form?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l3e7.mp3",
+      "text": "Please tell me which documents are still missing.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l3e9.mp3",
+      "text": "Could you explain how to apply for this service?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l4e6.mp3",
+      "text": "The requirements may differ depending on your circumstances.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l4e7.mp3",
+      "text": "I would like a written explanation of the decision.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u14l4e9.mp3",
+      "text": "You need to complete the form and provide proof of residence.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l1e6.mp3",
+      "text": "I understand the texts, but I struggle to follow fast conversations.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l1e7.mp3",
+      "text": "We could practice with short recordings and gradually increase the speed.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l1e9.mp3",
+      "text": "Which part of the course has been most challenging?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l2e6.mp3",
+      "text": "Instead of repeating everything, I focus on the areas I find difficult.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l2e7.mp3",
+      "text": "My next goal is to explain an idea without translating every word.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l2e9.mp3",
+      "text": "Feedback helped me identify a pattern in my mistakes.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l3e6.mp3",
+      "text": "We could practice with short recordings and gradually increase the speed.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l3e7.mp3",
+      "text": "Feedback helped me identify a pattern in my mistakes.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l3e9.mp3",
+      "text": "Which part of the course has been most challenging?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l4e6.mp3",
+      "text": "I noticed that I remember words better when I use them.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l4e7.mp3",
+      "text": "Instead of repeating everything, I focus on the areas I find difficult.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u15l4e9.mp3",
+      "text": "I understand the texts, but I struggle to follow fast conversations.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l1e6.mp3",
+      "text": "We need to confirm the budget before booking transport.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l1e7.mp3",
+      "text": "I will compare the options and report back on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l1e9.mp3",
+      "text": "How should we organize the exchange visit next month?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l2e6.mp3",
+      "text": "The plan should balance cost, accessibility, and learning opportunities.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l2e7.mp3",
+      "text": "Please make sure everyone understands their responsibilities.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l2e9.mp3",
+      "text": "If the weather is poor, we can move the activities indoors.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l3e6.mp3",
+      "text": "I will compare the options and report back on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l3e7.mp3",
+      "text": "If the weather is poor, we can move the activities indoors.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l3e9.mp3",
+      "text": "How should we organize the exchange visit next month?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l4e6.mp3",
+      "text": "We should ask the visitors about their needs in advance.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l4e7.mp3",
+      "text": "The plan should balance cost, accessibility, and learning opportunities.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/listening/i_u16l4e9.mp3",
+      "text": "We need to confirm the budget before booking transport.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
       "path": "assets/audio/dialogues/u1_1.mp3",
       "text": "Hi! My name is Mia. What's your name?",
       "bytes": 34848,
@@ -8462,6 +11918,870 @@
       "text": "That sounds wonderful. I hope to go there too.",
       "bytes": 30816,
       "status": "header-ok-listening-pending"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u43_1.mp3",
+      "text": "What is for breakfast?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u43_2.mp3",
+      "text": "We have bread and milk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u43_3.mp3",
+      "text": "Please pass me the bread.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u44_1.mp3",
+      "text": "Is this shirt dirty?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u44_2.mp3",
+      "text": "Yes, it needs a wash.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u44_3.mp3",
+      "text": "Put it in this basket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u45_1.mp3",
+      "text": "Is your cat hungry?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u45_2.mp3",
+      "text": "Yes, it wants some food.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u45_3.mp3",
+      "text": "Let us fill its bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u46_1.mp3",
+      "text": "Where are the picture books?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u46_2.mp3",
+      "text": "They are on this shelf.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u46_3.mp3",
+      "text": "Thank you for your help.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u47_1.mp3",
+      "text": "Do you have small rolls?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u47_2.mp3",
+      "text": "Yes, they are fresh today.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u47_3.mp3",
+      "text": "I would like two, please.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u48_1.mp3",
+      "text": "Are these pears sweet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u48_2.mp3",
+      "text": "Yes, you can try one.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u48_3.mp3",
+      "text": "I will take three pears.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u49_1.mp3",
+      "text": "Does this bus go downtown?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u49_2.mp3",
+      "text": "Yes, get on here.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u49_3.mp3",
+      "text": "Thank you, I have my ticket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u50_1.mp3",
+      "text": "Can I speak to Anna?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u50_2.mp3",
+      "text": "She is not here now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u50_3.mp3",
+      "text": "Please ask her to call me.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u51_1.mp3",
+      "text": "Can you help me make a card?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u51_2.mp3",
+      "text": "Yes, we need some paper.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u51_3.mp3",
+      "text": "Let us choose a blue sheet.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u52_1.mp3",
+      "text": "Can you play the drum?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u52_2.mp3",
+      "text": "Yes, I can play slowly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u52_3.mp3",
+      "text": "Let us play together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u53_1.mp3",
+      "text": "What will you do on Saturday?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u53_2.mp3",
+      "text": "I will visit my cousin.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u53_3.mp3",
+      "text": "Have a nice time!",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u54_1.mp3",
+      "text": "Where is the school?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u54_2.mp3",
+      "text": "It is next to the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u54_3.mp3",
+      "text": "Thank you, I can see it now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u55_1.mp3",
+      "text": "Would you like some soup?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u55_2.mp3",
+      "text": "Yes, please, just a little.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u55_3.mp3",
+      "text": "Here is your bowl.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u56_1.mp3",
+      "text": "What should I wear today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u56_2.mp3",
+      "text": "Wear a jacket, it is cold.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u56_3.mp3",
+      "text": "I will take my green jacket.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u57_1.mp3",
+      "text": "How do you feel today?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u57_2.mp3",
+      "text": "I feel nervous about the game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u57_3.mp3",
+      "text": "We can practice together.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u58_1.mp3",
+      "text": "Did you enjoy your day?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u58_2.mp3",
+      "text": "Yes, I played in the park.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/z_u58_3.mp3",
+      "text": "Tell me about your game.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u53_1.mp3",
+      "text": "Could I speak to the pharmacist?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u53_2.mp3",
+      "text": "Of course, what do you need?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u53_3.mp3",
+      "text": "I need advice about this medicine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u54_1.mp3",
+      "text": "Do you have any appointments tomorrow?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u54_2.mp3",
+      "text": "We have one at half past nine.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u54_3.mp3",
+      "text": "That time works for me, thank you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u55_1.mp3",
+      "text": "Can I return this sweater?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u55_2.mp3",
+      "text": "Yes, do you have the receipt?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u55_3.mp3",
+      "text": "Here it is, I bought it yesterday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u56_1.mp3",
+      "text": "Has my parcel arrived yet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u56_2.mp3",
+      "text": "Yes, it is at the front desk.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u56_3.mp3",
+      "text": "I will come down to collect it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u57_1.mp3",
+      "text": "When can I collect the keys?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u57_2.mp3",
+      "text": "You can collect them on Friday morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u57_3.mp3",
+      "text": "Great, I will bring my identification.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u58_1.mp3",
+      "text": "Could we talk about the noise?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u58_2.mp3",
+      "text": "Of course, I am sorry it disturbed you.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u58_3.mp3",
+      "text": "Thank you, I need to sleep early.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u59_1.mp3",
+      "text": "Could I book a table for four?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u59_2.mp3",
+      "text": "Certainly, what time would you like?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u59_3.mp3",
+      "text": "Seven o'clock would be ideal.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u60_1.mp3",
+      "text": "Has anyone handed in a blue bag?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u60_2.mp3",
+      "text": "Yes, can you describe what is inside?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u60_3.mp3",
+      "text": "It contains a notebook with my name.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u61_1.mp3",
+      "text": "Can you hear me clearly?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u61_2.mp3",
+      "text": "Yes, but your camera is off.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u61_3.mp3",
+      "text": "I will turn it on now.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u62_1.mp3",
+      "text": "Shall we organize a community picnic?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u62_2.mp3",
+      "text": "That sounds good, where could we meet?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u62_3.mp3",
+      "text": "The park has plenty of space.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u63_1.mp3",
+      "text": "Is this position still available?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u63_2.mp3",
+      "text": "Yes, please send us your application.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u63_3.mp3",
+      "text": "I will include my recent work experience.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u64_1.mp3",
+      "text": "Which task should we finish first?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u64_2.mp3",
+      "text": "The report is due tomorrow morning.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u64_3.mp3",
+      "text": "Then I will start with the report.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u65_1.mp3",
+      "text": "Can I change my train ticket?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u65_2.mp3",
+      "text": "Yes, but there may be an extra charge.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u65_3.mp3",
+      "text": "Please check the price before changing it.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u66_1.mp3",
+      "text": "What does this notice say?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u66_2.mp3",
+      "text": "The library will close early on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u66_3.mp3",
+      "text": "Then I should return my books on Thursday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u67_1.mp3",
+      "text": "How do I use this ticket machine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u67_2.mp3",
+      "text": "First, choose your destination on the screen.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u67_3.mp3",
+      "text": "All right, what should I do next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u68_1.mp3",
+      "text": "How was your first week at work?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u68_2.mp3",
+      "text": "It was busy, but everyone was helpful.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/u68_3.mp3",
+      "text": "That is good, what did you learn?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u1_1.mp3",
+      "text": "How did you get involved in the project?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u1_2.mp3",
+      "text": "A colleague invited me after our training session.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u1_3.mp3",
+      "text": "That sounds interesting, what happened next?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u2_1.mp3",
+      "text": "Do you think the city needs more cycle lanes?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u2_2.mp3",
+      "text": "Yes, because safer routes could encourage more people to cycle.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u2_3.mp3",
+      "text": "I agree, although parking space is also important.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u3_1.mp3",
+      "text": "Which course would suit your schedule better?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u3_2.mp3",
+      "text": "The evening course is more flexible, but it costs more.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u3_3.mp3",
+      "text": "Let us compare the total costs before deciding.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u4_1.mp3",
+      "text": "Would you be willing to extend the deadline?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u4_2.mp3",
+      "text": "I could allow two more days, but not a full week.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u4_3.mp3",
+      "text": "That would help, let us agree on Wednesday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u5_1.mp3",
+      "text": "Who will be responsible for testing the new system?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u5_2.mp3",
+      "text": "I can lead the testing if someone prepares the sample data.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u5_3.mp3",
+      "text": "I will prepare the data and send it by Monday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u6_1.mp3",
+      "text": "Could you explain the main finding of your report?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u6_2.mp3",
+      "text": "Certainly, the new process reduced waiting times significantly.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u6_3.mp3",
+      "text": "That is useful, how did you measure the change?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u7_1.mp3",
+      "text": "Have you received the documents I sent last week?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u7_2.mp3",
+      "text": "Yes, we are reviewing them and will reply tomorrow.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u7_3.mp3",
+      "text": "Thank you, please let me know if anything is missing.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u8_1.mp3",
+      "text": "Could we discuss the problem with my booking?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u8_2.mp3",
+      "text": "Of course, I can see that the room type was incorrect.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u8_3.mp3",
+      "text": "I would appreciate a solution that matches my original booking.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u9_1.mp3",
+      "text": "Is it usual to bring a gift when visiting someone here?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u9_2.mp3",
+      "text": "A small gift is common, but it is not expected everywhere.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u9_3.mp3",
+      "text": "Thanks, I will ask the host what would be appropriate.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u10_1.mp3",
+      "text": "How reliable is the report you shared?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u10_2.mp3",
+      "text": "It quotes an official study, but I have not checked the original.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u10_3.mp3",
+      "text": "Let us read the study before drawing conclusions.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u11_1.mp3",
+      "text": "Why does this app need access to my contacts?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u11_2.mp3",
+      "text": "I am not sure, we should check its privacy policy.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u11_3.mp3",
+      "text": "I will deny access until I understand the reason.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u12_1.mp3",
+      "text": "Would reusable cups reduce waste at our events?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u12_2.mp3",
+      "text": "Probably, but we would need a reliable way to wash them.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u12_3.mp3",
+      "text": "We could try them at a small event first.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u13_1.mp3",
+      "text": "What has helped you maintain your new routine?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u13_2.mp3",
+      "text": "Setting a realistic goal made it easier to get started.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u13_3.mp3",
+      "text": "I might try that instead of changing everything at once.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u14_1.mp3",
+      "text": "Could you explain how to apply for this service?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u14_2.mp3",
+      "text": "You need to complete the form and provide proof of residence.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u14_3.mp3",
+      "text": "Thank you, is assistance available if I need help with the form?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u15_1.mp3",
+      "text": "Which part of the course has been most challenging?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u15_2.mp3",
+      "text": "I understand the texts, but I struggle to follow fast conversations.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u15_3.mp3",
+      "text": "We could practice with short recordings and gradually increase the speed.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u16_1.mp3",
+      "text": "How should we organize the exchange visit next month?",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u16_2.mp3",
+      "text": "We need to confirm the budget before booking transport.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
+    },
+    {
+      "path": "assets/audio/dialogues/i_u16_3.mp3",
+      "text": "I will compare the options and report back on Friday.",
+      "bytes": 0,
+      "status": "missing-or-invalid"
     }
   ]
 }

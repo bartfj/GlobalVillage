@@ -30,11 +30,14 @@ void main() {
       }
     }
 
-    for (var i = 1; i <= 52; i++) {
+    for (var i = 1; i <= 68; i++) {
       await expectUnit('u$i');
     }
-    for (var i = 1; i <= 42; i++) {
+    for (var i = 1; i <= 58; i++) {
       await expectUnit('z_u$i');
+    }
+    for (var i = 1; i <= 16; i++) {
+      await expectUnit('i_u$i');
     }
   });
 

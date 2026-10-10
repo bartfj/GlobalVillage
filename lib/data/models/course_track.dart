@@ -1,18 +1,21 @@
-/// 学习内容大类：零基础 / 初级
+/// 学习内容大类：零基础 / 初级 / 中级
 enum CourseTrack {
   zero,
-  beginner;
+  beginner,
+  intermediate;
 
   String get id => name;
 
   String get label => switch (this) {
     CourseTrack.zero => '零基础',
     CourseTrack.beginner => '初级',
+    CourseTrack.intermediate => '中级',
   };
 
   String get assetPath => switch (this) {
     CourseTrack.zero => 'assets/courses/course_zero.json',
     CourseTrack.beginner => 'assets/courses/course_beginner.json',
+    CourseTrack.intermediate => 'assets/courses/course_intermediate.json',
   };
 
   static CourseTrack fromId(String? id) {

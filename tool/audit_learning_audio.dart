@@ -19,7 +19,7 @@ void main() {
     });
   }
 
-  for (final track in ['zero', 'beginner']) {
+  for (final track in ['zero', 'beginner', 'intermediate']) {
     final data = jsonDecode(
       File('assets/courses/course_$track.json').readAsStringSync(),
     );
