@@ -38,13 +38,13 @@ class LessonState {
   });
 
   factory LessonState.initial(Lesson lesson) => LessonState(
-        queue: List.of(lesson.exercises),
-        totalCount: lesson.exercises.length,
-        correctCount: 0,
-        wrongOnce: const {},
-        lastAnswerCorrect: null,
-        pendingRetry: false,
-      );
+    queue: List.of(lesson.exercises),
+    totalCount: lesson.exercises.length,
+    correctCount: 0,
+    wrongOnce: const {},
+    lastAnswerCorrect: null,
+    pendingRetry: false,
+  );
 
   Exercise get current => queue.first;
   bool get checked => lastAnswerCorrect != null;
@@ -87,7 +87,7 @@ class LessonController extends StateNotifier<LessonState> {
     if (state.checked || state.finished) {
       return state.lastAnswerCorrect ?? false;
     }
-    final correct = _normalize(answer) == _normalize(state.current.answer);
+    final correct = state.current.accepts(answer);
     final isRetry = state.wrongOnce.contains(state.current.id);
     final wrongOnce = {...state.wrongOnce};
     var correctCount = state.correctCount;
@@ -128,13 +128,6 @@ class LessonController extends StateNotifier<LessonState> {
       pendingRetry: false,
       skipped: false,
     );
-  }
-
-  static String _normalize(String text) {
-    var s = text.trim().toLowerCase();
-    s = s.replaceAll(RegExp(r'\s+'), ' ');
-    s = s.replaceAll(RegExp(r'[.!?,;]+$'), '');
-    return s;
   }
 }
 

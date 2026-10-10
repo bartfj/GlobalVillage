@@ -52,6 +52,25 @@ class Exercise {
 
   /// 正确答案
   final String answer;
+  final List<String> acceptedAnswers;
+
+  bool accepts(String input) {
+    final normalized = normalizeAnswer(input);
+    if (normalized.isEmpty) return false;
+    final alternatives = type == ExerciseType.translateInput
+        ? acceptedAnswers
+        : const <String>[];
+    return [
+      answer,
+      ...alternatives,
+    ].any((a) => normalizeAnswer(a) == normalized);
+  }
+
+  static String normalizeAnswer(String text) => text
+      .trim()
+      .toLowerCase()
+      .replaceAll(RegExp(r'\s+'), ' ')
+      .replaceAll(RegExp(r'[.!?,;]+$'), '');
 
   /// 填空题专用：带 ____ 的句子，其他题型为 null
   final String? sentenceWithBlank;
@@ -68,6 +87,7 @@ class Exercise {
     required this.answer,
     this.sentenceWithBlank,
     this.pairs = const [],
+    this.acceptedAnswers = const [],
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -80,6 +100,9 @@ class Exercise {
           .map((e) => e as String)
           .toList(),
       answer: json['answer'] as String,
+      acceptedAnswers: (json['acceptedAnswers'] as List<dynamic>? ?? [])
+          .map((e) => e as String)
+          .toList(),
       sentenceWithBlank: json['sentenceWithBlank'] as String?,
       pairs: (json['pairs'] as List<dynamic>? ?? [])
           .map((e) => MatchPair.fromJson(e as Map<String, dynamic>))

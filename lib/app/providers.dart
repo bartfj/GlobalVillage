@@ -12,6 +12,7 @@ import '../data/repositories/reward_repository.dart';
 import '../data/repositories/user_repository.dart';
 import '../data/sources/course_loader.dart';
 import '../data/sources/progress_store.dart';
+import '../data/sources/learning_store.dart';
 import '../data/sources/reward_store.dart';
 import '../data/sources/settings_store.dart';
 import '../data/sources/user_store.dart';
@@ -72,10 +73,7 @@ final progressStoreProvider = Provider<ProgressStore?>((ref) {
 final progressRepositoryProvider = Provider<ProgressRepository?>((ref) {
   final store = ref.watch(progressStoreProvider);
   if (store == null) return null;
-  return ProgressRepository(
-    store: store,
-    course: ref.watch(courseProvider),
-  );
+  return ProgressRepository(store: store, course: ref.watch(courseProvider));
 });
 
 final rewardRepositoryProvider = Provider<RewardRepository?>((ref) {
@@ -91,6 +89,11 @@ final rewardRevisionProvider = StateProvider<int>((ref) => 0);
 
 /// 进度版本号：完成课程后 +1，驱动学习路径页刷新
 final progressRevisionProvider = StateProvider<int>((ref) => 0);
+
+final learningStoreProvider = Provider<LearningStore?>((ref) {
+  final userKey = ref.watch(authProvider).userKey;
+  return userKey == null ? null : LearningStore(userKey: userKey);
+});
 
 final soundServiceProvider = Provider<SoundService>((ref) {
   final service = SoundService();

@@ -1,0 +1,18 @@
+{
+  "z_u35": {"question": "农场里种的是什么？", "options": ["玉米", "苹果", "水稻", "花"], "answer": "玉米", "scenario": "参观时向同伴介绍这里的动物，说：这里有绵羊。", "sentence": "There are sheep here."},
+  "z_u36": {"question": "植物为什么需要浇水？", "options": ["植物干了", "植物太高", "植物开花了", "花盆太大"], "answer": "植物干了", "scenario": "同伴准备摘花，请提醒：不要摘花。", "sentence": "Do not pick the flowers."},
+  "z_u37": {"question": "他们打算在哪里野餐？", "options": ["树下", "教室里", "车站里", "家里"], "answer": "树下", "scenario": "午餐结束，请同伴捡起杯子，说：把空杯子捡起来。", "sentence": "Pick up the empty cups."},
+  "z_u38": {"question": "这封信寄给谁？", "options": ["奶奶", "老师", "同学", "邮递员"], "answer": "奶奶", "scenario": "到柜台购买邮票，说：我需要一张邮票。", "sentence": "I need a stamp."},
+  "z_u39": {"question": "对话中的人喜欢哪幅画？", "options": ["有花的画", "有火车的画", "有房子的画", "有船的画"], "answer": "有花的画", "scenario": "看到同伴想碰展品，请说：请不要触摸。", "sentence": "Please do not touch."},
+  "z_u40": {"question": "下水前应该先做什么？", "options": ["淋浴", "吃午饭", "跑步", "换泳帽"], "answer": "淋浴", "scenario": "发现泳池边有人跑动，请提醒：不要在这里跑。", "sentence": "Do not run here."},
+  "z_u41": {"question": "他们的座位在哪里？", "options": ["窗边", "门口", "车站外", "餐厅里"], "answer": "窗边", "scenario": "准备下车，提醒同伴携带行李，说：带上你的包。", "sentence": "Take your bag with you."},
+  "z_u42": {"question": "朋友帮忙找到了什么？", "options": ["帽子", "书包", "雨伞", "车票"], "answer": "帽子", "scenario": "本发现帽子后向同伴说明位置，说：帽子在架子上。", "sentence": "The hat is on the shelf."},
+  "u45": {"question": "旅客有几个包要托运？", "options": ["一个", "两个", "三个", "没有"], "answer": "一个", "scenario": "到达机场后找不到行李领取地点，询问：我在哪里领取行李？", "sentence": "Where can I collect my luggage?"},
+  "u46": {"question": "银行准备如何处理丢失的银行卡？", "options": ["冻结并补卡", "增加额度", "关闭所有账户", "收取现金"], "answer": "冻结并补卡", "scenario": "发现卡上有一笔陌生交易，说明：我不认识这笔付款。", "sentence": "I do not recognize this payment."},
+  "u47": {"question": "维修人员计划什么时候上门？", "options": ["星期五下午", "星期一上午", "星期六晚上", "星期三中午"], "answer": "星期五下午", "scenario": "确认报价前询问：价格包括零件吗？", "sentence": "Does the price include the parts?"},
+  "u48": {"question": "志愿服务需要做什么？", "options": ["接待来访者", "办理登机", "修理机器", "领取行李"], "answer": "接待来访者", "scenario": "分工时告诉伙伴：我会帮忙准备桌子。", "sentence": "I will help prepare the tables."},
+  "u49": {"question": "核实时间时将联系谁？", "options": ["组织者", "银行职员", "维修人员", "机场工作人员"], "answer": "组织者", "scenario": "两份信息冲突，询问对方来源：你在哪里找到这个信息的？", "sentence": "Where did you find this information?"},
+  "u50": {"question": "为了省钱，对话中的人准备减少什么？", "options": ["零食", "房租", "课程", "车票"], "answer": "零食", "scenario": "制定下周支出计划，建议：我们应该留钱应付紧急情况。", "sentence": "We should leave money for emergencies."},
+  "u51": {"question": "他们计划每天练习听力多久？", "options": ["十五分钟", "五分钟", "半小时", "一小时"], "answer": "十五分钟", "scenario": "课堂上老师讲得太快，请求：你能说得再慢一点吗？", "sentence": "Could you speak a little more slowly?"},
+  "u52": {"question": "旅行中最棒的部分是什么？", "options": ["认识当地人并品尝食物", "买新手机", "办理银行卡", "参加考试"], "answer": "认识当地人并品尝食物", "scenario": "向朋友推荐河边的小店，说：我推荐河边的小咖啡馆。", "sentence": "I recommend the small cafe by the river."}
+}

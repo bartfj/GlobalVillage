@@ -53,7 +53,7 @@ class TtsService {
   }
 
   /// 播放题目发音：内置 mp3 优先，缺失/失败回退系统 TTS
-  Future<void> speakExercise(Exercise exercise) async {
+  Future<bool> speakExercise(Exercise exercise) async {
     final relative = 'audio/listening/${exercise.id}.mp3';
     final bundlePath = 'assets/$relative';
 
@@ -62,18 +62,20 @@ class TtsService {
         await _ensurePlayerReady();
         await _tts.stop();
         await _player.stop();
-        await _player.play(AssetSource(relative));
-        return;
+        await _player
+            .play(AssetSource(relative))
+            .timeout(const Duration(seconds: 8));
+        return true;
       } catch (_) {
         // 播放失败则回退 TTS
       }
     }
 
-    await speak(exercise.sentence);
+    return speak(exercise.sentence);
   }
 
-  Future<void> speak(String text) async {
-    if (text.trim().isEmpty) return;
+  Future<bool> speak(String text) async {
+    if (text.trim().isEmpty) return false;
     try {
       // 先释放 AudioPlayer 焦点，否则部分机型 TTS 会无声
       try {
@@ -82,9 +84,12 @@ class TtsService {
       await _ensureInitialized();
       await _tts.stop();
       await _tts.setVolume(1.0);
-      await _tts.speak(text.trim());
+      final result = await _tts
+          .speak(text.trim())
+          .timeout(const Duration(seconds: 8));
+      return result == 1;
     } catch (_) {
-      // TTS 不可用时静默降级
+      return false;
     }
   }
 
@@ -99,8 +104,7 @@ class TtsService {
         final started = Completer<bool>();
         late final StreamSubscription<PlayerState> sub;
         sub = _player.onPlayerStateChanged.listen((state) {
-          if (state == PlayerState.playing ||
-              state == PlayerState.completed) {
+          if (state == PlayerState.playing || state == PlayerState.completed) {
             if (!started.isCompleted) started.complete(true);
           }
         });

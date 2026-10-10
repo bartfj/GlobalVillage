@@ -47,6 +47,20 @@ void main() {
             'ID: ${ex.id}',
           );
           require(ex.answer.isNotEmpty, 'Answer: ${ex.id}');
+          require(
+            ex.acceptedAnswers.isEmpty ||
+                ex.type == ExerciseType.translateInput,
+            'Alternatives only for translation input: ${ex.id}',
+          );
+          require(
+            ex.acceptedAnswers.every((a) => a.trim().isNotEmpty),
+            'Empty alternative: ${ex.id}',
+          );
+          require(
+            ex.acceptedAnswers.map(Exercise.normalizeAnswer).toSet().length ==
+                ex.acceptedAnswers.length,
+            'Duplicate alternatives: ${ex.id}',
+          );
           switch (ex.type) {
             case ExerciseType.translateChoice:
             case ExerciseType.listeningChoice:

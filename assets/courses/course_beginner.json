@@ -21364,9 +21364,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：能给我一个靠窗座位吗？",
               "sentence": "Could I have a window seat?",
-              "answer": "have",
+              "answer": "seat",
               "options": [],
-              "sentenceWithBlank": "Could I ____ a window seat?"
+              "sentenceWithBlank": "Could I have a window ____?"
             },
             {
               "id": "u45l1e9",
@@ -21454,7 +21454,8 @@
               "sentence": "Please place your bag on the belt.",
               "answer": "Please place your bag on the belt.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u45l2e6",
@@ -21484,9 +21485,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请走过扫描设备。",
               "sentence": "Please walk through the scanner.",
-              "answer": "walk",
+              "answer": "scanner",
               "options": [],
-              "sentenceWithBlank": "Please ____ through the scanner."
+              "sentenceWithBlank": "Please walk through the ____."
             },
             {
               "id": "u45l2e9",
@@ -21604,9 +21605,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请留意广播通知。",
               "sentence": "Please listen for the announcement.",
-              "answer": "listen",
+              "answer": "announcement",
               "options": [],
-              "sentenceWithBlank": "Please ____ for the announcement."
+              "sentenceWithBlank": "Please listen for the ____."
             },
             {
               "id": "u45l3e9",
@@ -21694,7 +21695,8 @@
               "sentence": "Where can I collect my luggage?",
               "answer": "Where can I collect my luggage?",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u45l4e6",
@@ -21724,9 +21726,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请描述您丢失的包。",
               "sentence": "Please describe your missing bag.",
-              "answer": "describe",
+              "answer": "bag",
               "options": [],
-              "sentenceWithBlank": "Please ____ your missing bag."
+              "sentenceWithBlank": "Please describe your missing ____."
             },
             {
               "id": "u45l4e9",
@@ -21757,10 +21759,10 @@
               "sentence": "I would like to open an account.",
               "answer": "I would like to open an account.",
               "options": [
-                "I would like to open an account.",
-                "What documents do I need?",
-                "Please bring proof of your address.",
-                "There is no monthly account fee."
+                "I would like to close an account.",
+                "I would like to withdraw some cash.",
+                "I would like to transfer money.",
+                "I would like to open an account."
               ],
               "sentenceWithBlank": null
             },
@@ -21851,9 +21853,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：这个账户没有月费。",
               "sentence": "There is no monthly account fee.",
-              "answer": "monthly",
+              "answer": "fee",
               "options": [],
-              "sentenceWithBlank": "There is no ____ account fee."
+              "sentenceWithBlank": "There is no monthly account ____."
             },
             {
               "id": "u46l1e9",
@@ -21941,7 +21943,10 @@
               "sentence": "I need to withdraw some cash.",
               "answer": "I need to withdraw some cash.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": [
+                "I need to take out some cash."
+              ]
             },
             {
               "id": "u46l2e6",
@@ -21971,9 +21976,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：您需要收据吗？",
               "sentence": "Would you like a receipt?",
-              "answer": "you",
+              "answer": "receipt",
               "options": [],
-              "sentenceWithBlank": "Would ____ like a receipt?"
+              "sentenceWithBlank": "Would you like a ____?"
             },
             {
               "id": "u46l2e9",
@@ -22091,9 +22096,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：款项应该明天到账。",
               "sentence": "The payment should arrive tomorrow.",
-              "answer": "payment",
+              "answer": "tomorrow",
               "options": [],
-              "sentenceWithBlank": "The ____ should arrive tomorrow."
+              "sentenceWithBlank": "The payment should arrive ____."
             },
             {
               "id": "u46l3e9",
@@ -22181,7 +22186,10 @@
               "sentence": "My bank card is missing.",
               "answer": "My bank card is missing.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": [
+                "I cannot find my bank card."
+              ]
             },
             {
               "id": "u46l4e6",
@@ -22211,9 +22219,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我如何申请补卡？",
               "sentence": "How can I request a replacement?",
-              "answer": "can",
+              "answer": "replacement",
               "options": [],
-              "sentenceWithBlank": "How ____ I request a replacement?"
+              "sentenceWithBlank": "How can I request a ____?"
             },
             {
               "id": "u46l4e9",
@@ -22338,9 +22346,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：您能派人来检查吗？",
               "sentence": "Could you send someone to inspect it?",
-              "answer": "you",
+              "answer": "inspect",
               "options": [],
-              "sentenceWithBlank": "Could ____ send someone to inspect it?"
+              "sentenceWithBlank": "Could you send someone to ____ it?"
             },
             {
               "id": "u47l1e9",
@@ -22428,7 +22436,8 @@
               "sentence": "When is the technician available?",
               "answer": "When is the technician available?",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u47l2e6",
@@ -22458,9 +22467,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：星期五下午我方便。",
               "sentence": "Friday afternoon works for me.",
-              "answer": "afternoon",
+              "answer": "Friday",
               "options": [],
-              "sentenceWithBlank": "Friday ____ works for me."
+              "sentenceWithBlank": "____ afternoon works for me."
             },
             {
               "id": "u47l2e9",
@@ -22578,9 +22587,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我需要时间考虑这个价格。",
               "sentence": "I need time to consider the price.",
-              "answer": "need",
+              "answer": "price",
               "options": [],
-              "sentenceWithBlank": "I ____ time to consider the price."
+              "sentenceWithBlank": "I need time to consider the ____."
             },
             {
               "id": "u47l3e9",
@@ -22668,7 +22677,8 @@
               "sentence": "The machine is working again.",
               "answer": "The machine is working again.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u47l4e6",
@@ -22698,9 +22708,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：这次维修保修多久？",
               "sentence": "How long is the repair guaranteed?",
-              "answer": "long",
+              "answer": "guaranteed",
               "options": [],
-              "sentenceWithBlank": "How ____ is the repair guaranteed?"
+              "sentenceWithBlank": "How long is the repair ____?"
             },
             {
               "id": "u47l4e9",
@@ -22825,9 +22835,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请填写这份申请表。",
               "sentence": "Please complete this application form.",
-              "answer": "complete",
+              "answer": "form",
               "options": [],
-              "sentenceWithBlank": "Please ____ this application form."
+              "sentenceWithBlank": "Please complete this application ____."
             },
             {
               "id": "u48l1e9",
@@ -22915,7 +22925,8 @@
               "sentence": "We need to sort these donations.",
               "answer": "We need to sort these donations.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u48l2e6",
@@ -22945,9 +22956,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们公平分配工作吧。",
               "sentence": "Let us divide the work fairly.",
-              "answer": "divide",
+              "answer": "fairly",
               "options": [],
-              "sentenceWithBlank": "Let us ____ the work fairly."
+              "sentenceWithBlank": "Let us divide the work ____."
             },
             {
               "id": "u48l2e9",
@@ -23065,9 +23076,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们应该一起检查所有东西。",
               "sentence": "We should check everything together.",
-              "answer": "should",
+              "answer": "together",
               "options": [],
-              "sentenceWithBlank": "We ____ check everything together."
+              "sentenceWithBlank": "We should check everything ____."
             },
             {
               "id": "u48l3e9",
@@ -23155,7 +23166,8 @@
               "sentence": "Thank you for giving your time.",
               "answer": "Thank you for giving your time.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u48l4e6",
@@ -23185,9 +23197,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我很乐意再次参加。",
               "sentence": "I would be happy to join again.",
-              "answer": "would",
+              "answer": "again",
               "options": [],
-              "sentenceWithBlank": "I ____ be happy to join again."
+              "sentenceWithBlank": "I would be happy to join ____."
             },
             {
               "id": "u48l4e9",
@@ -23312,9 +23324,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们检查一下发布日期吧。",
               "sentence": "Let us check the publication date.",
-              "answer": "check",
+              "answer": "date",
               "options": [],
-              "sentenceWithBlank": "Let us ____ the publication date."
+              "sentenceWithBlank": "Let us check the publication ____."
             },
             {
               "id": "u49l1e9",
@@ -23402,7 +23414,8 @@
               "sentence": "These two reports give different numbers.",
               "answer": "These two reports give different numbers.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u49l2e6",
@@ -23432,9 +23445,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：不要只依赖标题。",
               "sentence": "Do not rely on the headline alone.",
-              "answer": "not",
+              "answer": "alone",
               "options": [],
-              "sentenceWithBlank": "Do ____ rely on the headline alone."
+              "sentenceWithBlank": "Do not rely on the headline ____."
             },
             {
               "id": "u49l2e9",
@@ -23552,9 +23565,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：让我重复一下要点。",
               "sentence": "Let me repeat the main points.",
-              "answer": "repeat",
+              "answer": "points",
               "options": [],
-              "sentenceWithBlank": "Let me ____ the main points."
+              "sentenceWithBlank": "Let me repeat the main ____."
             },
             {
               "id": "u49l3e9",
@@ -23642,7 +23655,8 @@
               "sentence": "I gave you the wrong date earlier.",
               "answer": "I gave you the wrong date earlier.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u49l4e6",
@@ -23672,9 +23686,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：谢谢你指出这一点。",
               "sentence": "Thank you for pointing that out.",
-              "answer": "you",
+              "answer": "out",
               "options": [],
-              "sentenceWithBlank": "Thank ____ for pointing that out."
+              "sentenceWithBlank": "Thank you for pointing that ____."
             },
             {
               "id": "u49l4e9",
@@ -23799,9 +23813,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们把总额加起来吧。",
               "sentence": "Let us add up the total.",
-              "answer": "add",
+              "answer": "total",
               "options": [],
-              "sentenceWithBlank": "Let us ____ up the total."
+              "sentenceWithBlank": "Let us add up the ____."
             },
             {
               "id": "u50l1e9",
@@ -23889,7 +23903,8 @@
               "sentence": "We need to set a weekly budget.",
               "answer": "We need to set a weekly budget.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u50l2e6",
@@ -23919,9 +23934,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们应该留钱应付紧急情况。",
               "sentence": "We should leave money for emergencies.",
-              "answer": "should",
+              "answer": "emergencies",
               "options": [],
-              "sentenceWithBlank": "We ____ leave money for emergencies."
+              "sentenceWithBlank": "We should leave money for ____."
             },
             {
               "id": "u50l2e9",
@@ -24039,9 +24054,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们比较一下最终费用吧。",
               "sentence": "Let us compare the final costs.",
-              "answer": "compare",
+              "answer": "costs",
               "options": [],
-              "sentenceWithBlank": "Let us ____ the final costs."
+              "sentenceWithBlank": "Let us compare the final ____."
             },
             {
               "id": "u50l3e9",
@@ -24129,7 +24144,8 @@
               "sentence": "We spent more than we expected.",
               "answer": "We spent more than we expected.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u50l4e6",
@@ -24159,9 +24175,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们的预算现在更容易管理了。",
               "sentence": "Our budget is easier to manage now.",
-              "answer": "budget",
+              "answer": "now",
               "options": [],
-              "sentenceWithBlank": "Our ____ is easier to manage now."
+              "sentenceWithBlank": "Our budget is easier to manage ____."
             },
             {
               "id": "u50l4e9",
@@ -24286,9 +24302,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：课程每周上两次。",
               "sentence": "Classes meet twice a week.",
-              "answer": "meet",
+              "answer": "week",
               "options": [],
-              "sentenceWithBlank": "Classes ____ twice a week."
+              "sentenceWithBlank": "Classes meet twice a ____."
             },
             {
               "id": "u51l1e9",
@@ -24376,7 +24392,8 @@
               "sentence": "Could you explain the assignment?",
               "answer": "Could you explain the assignment?",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u51l2e6",
@@ -24406,9 +24423,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请展示你如何得出答案。",
               "sentence": "Please show how you reached the answer.",
-              "answer": "show",
+              "answer": "answer",
               "options": [],
-              "sentenceWithBlank": "Please ____ how you reached the answer."
+              "sentenceWithBlank": "Please show how you reached the ____."
             },
             {
               "id": "u51l2e9",
@@ -24526,9 +24543,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我感谢你有用的建议。",
               "sentence": "I appreciate your useful suggestions.",
-              "answer": "appreciate",
+              "answer": "suggestions",
               "options": [],
-              "sentenceWithBlank": "I ____ your useful suggestions."
+              "sentenceWithBlank": "I appreciate your useful ____."
             },
             {
               "id": "u51l3e9",
@@ -24616,7 +24633,8 @@
               "sentence": "I want to improve my listening skills.",
               "answer": "I want to improve my listening skills.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u51l4e6",
@@ -24646,9 +24664,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：小步骤能带来很大改变。",
               "sentence": "Small steps can make a big difference.",
-              "answer": "steps",
+              "answer": "difference",
               "options": [],
-              "sentenceWithBlank": "Small ____ can make a big difference."
+              "sentenceWithBlank": "Small steps can make a big ____."
             },
             {
               "id": "u51l4e9",
@@ -24773,9 +24791,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我很兴奋能探索这座城市。",
               "sentence": "I was excited to explore the city.",
-              "answer": "was",
+              "answer": "city",
               "options": [],
-              "sentenceWithBlank": "I ____ excited to explore the city."
+              "sentenceWithBlank": "I was excited to explore the ____."
             },
             {
               "id": "u52l1e9",
@@ -24863,7 +24881,8 @@
               "sentence": "It started raining during our walk.",
               "answer": "It started raining during our walk.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u52l2e6",
@@ -24893,9 +24912,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：这个变化让我们的一天更有趣。",
               "sentence": "The change made our day more interesting.",
-              "answer": "change",
+              "answer": "interesting",
               "options": [],
-              "sentenceWithBlank": "The ____ made our day more interesting."
+              "sentenceWithBlank": "The change made our day more ____."
             },
             {
               "id": "u52l2e9",
@@ -25013,9 +25032,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：值得在一天较早的时候去参观。",
               "sentence": "It is worth visiting early in the day.",
-              "answer": "worth",
+              "answer": "early",
               "options": [],
-              "sentenceWithBlank": "It is ____ visiting early in the day."
+              "sentenceWithBlank": "It is worth visiting ____ in the day."
             },
             {
               "id": "u52l3e9",
@@ -25103,7 +25122,8 @@
               "sentence": "The best part was meeting new people.",
               "answer": "The best part was meeting new people.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "u52l4e6",
@@ -25133,9 +25153,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我希望我们能再一起旅行。",
               "sentence": "I hope we can travel together again.",
-              "answer": "hope",
+              "answer": "again",
               "options": [],
-              "sentenceWithBlank": "I ____ we can travel together again."
+              "sentenceWithBlank": "I hope we can travel together ____."
             },
             {
               "id": "u52l4e9",

@@ -205,6 +205,12 @@ class MainMenuDrawer extends ConsumerWidget {
                     ),
                   const Divider(height: 16),
                   _MenuTile(
+                    icon: Icons.history_rounded,
+                    iconColor: AppColors.blue,
+                    title: '复习与学习记录',
+                    onTap: () => _openRoute(context, '/review'),
+                  ),
+                  _MenuTile(
                     icon: Icons.sync_alt_rounded,
                     iconColor: AppColors.blue,
                     title: '备份 / 恢复',
@@ -318,10 +324,7 @@ class _MenuTile extends StatelessWidget {
           color: titleColor ?? AppColors.textPrimary,
         ),
       ),
-      trailing: const Icon(
-        Icons.chevron_right,
-        color: AppColors.lockedDark,
-      ),
+      trailing: const Icon(Icons.chevron_right, color: AppColors.lockedDark),
       onTap: onTap,
     );
   }

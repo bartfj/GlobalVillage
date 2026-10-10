@@ -11,8 +11,120 @@ import 'widgets/main_menu_drawer.dart';
 import 'widgets/unit_header.dart';
 
 /// 首页：垂直学习路径
-class LearningPathPage extends ConsumerWidget {
+class LearningPathPage extends ConsumerStatefulWidget {
   const LearningPathPage({super.key});
+
+  @override
+  ConsumerState<LearningPathPage> createState() => _LearningPathPageState();
+}
+
+class _LearningPathPageState extends ConsumerState<LearningPathPage> {
+  final _scroll = ScrollController();
+  final _lessonKeys = <String, GlobalKey>{};
+  final _unitKeys = <String, GlobalKey>{};
+  String? _identity;
+  String? _targetId;
+  bool _targetVisible = true;
+  int _generation = 0;
+
+  GlobalKey _lessonKey(String id) =>
+      _lessonKeys.putIfAbsent(id, () => GlobalKey());
+  GlobalKey _unitKey(String id) => _unitKeys.putIfAbsent(id, () => GlobalKey());
+
+  @override
+  void initState() {
+    super.initState();
+    _scroll.addListener(_updateVisibility);
+  }
+
+  void _updateVisibility() {
+    final box = _lessonKeys[_targetId]?.currentContext?.findRenderObject();
+    final viewport = _scroll.hasClients
+        ? _scroll.position.viewportDimension
+        : 0.0;
+    if (box is! RenderBox || !box.hasSize || viewport <= 0) return;
+    final scrollBox = Scrollable.of(
+      _lessonKeys[_targetId]!.currentContext!,
+    ).context.findRenderObject();
+    if (scrollBox is! RenderBox) return;
+    final top = box.localToGlobal(Offset.zero, ancestor: scrollBox).dy;
+    final visible = top >= 0 && top + box.size.height <= viewport;
+    if (mounted && visible != _targetVisible) {
+      setState(() => _targetVisible = visible);
+    }
+  }
+
+  void _locate(GlobalKey? key, {bool animate = true}) {
+    final generation = _generation;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted ||
+          generation != _generation ||
+          key?.currentContext == null) {
+        return;
+      }
+      await Scrollable.ensureVisible(
+        key!.currentContext!,
+        alignment: 0.25,
+        duration: animate ? const Duration(milliseconds: 300) : Duration.zero,
+      );
+      if (mounted && generation == _generation) _updateVisibility();
+    });
+    WidgetsBinding.instance.ensureVisualUpdate();
+  }
+
+  void _showDirectory(BuildContext context, WidgetRef ref) {
+    final course = ref.read(courseProvider);
+    final progress = ref.read(progressRepositoryProvider)!;
+    final current = progress.currentLesson;
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) => SafeArea(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(sheetContext).height * 0.7,
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  '单元目录',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    for (final unit in course.units)
+                      ListTile(
+                        title: Text(unit.title),
+                        leading: Icon(
+                          unit.lessons.any((l) => l.id == current?.id)
+                              ? Icons.my_location
+                              : Icons.menu_book_outlined,
+                        ),
+                        subtitle: Text(
+                          '${unit.lessons.where((l) => progress.isLessonCompleted(l.id)).length} / ${unit.lessons.length} 已完成',
+                        ),
+                        onTap: () {
+                          Navigator.pop(sheetContext);
+                          _locate(_unitKeys[unit.id]);
+                        },
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
 
   // 蛇形路径的水平偏移系数（相对可用宽度）
   static const _offsetPattern = [
@@ -315,7 +427,7 @@ class LearningPathPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // 进度变化时自动刷新路径
     ref.watch(progressRevisionProvider);
     final auth = ref.watch(authProvider);
@@ -333,6 +445,21 @@ class LearningPathPage extends ConsumerWidget {
     final completed = course.orderedLessons
         .where((l) => progress.isLessonCompleted(l.id))
         .length;
+    final current = progress.currentLesson;
+    final target =
+        current ??
+        (course.orderedLessons.isEmpty ? null : course.orderedLessons.last);
+    final identity = '${auth.userKey}|${course.id}';
+    if (_identity != identity || _targetId != target?.id) {
+      if (_identity != identity) {
+        _lessonKeys.clear();
+        _unitKeys.clear();
+      }
+      _identity = identity;
+      _targetId = target?.id;
+      _generation++;
+      if (target != null) _locate(_lessonKey(target.id), animate: false);
+    }
 
     return Scaffold(
       drawer: MainMenuDrawer(
@@ -363,6 +490,11 @@ class LearningPathPage extends ConsumerWidget {
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.list_alt_rounded),
+            tooltip: '单元目录',
+            onPressed: () => _showDirectory(context, ref),
+          ),
+          IconButton(
             icon: const Icon(
               Icons.military_tech_rounded,
               color: AppColors.goldDark,
@@ -388,57 +520,109 @@ class LearningPathPage extends ConsumerWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          return ListView(
+          return SingleChildScrollView(
+            controller: _scroll,
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
-            children: [
-              if (auth.isGuest) _GuestBanner(),
-              for (final unit in course.units) ...[
-                UnitHeader(title: unit.title, description: unit.description),
-                const SizedBox(height: 20),
-                for (var i = 0; i < unit.lessons.length; i++)
-                  Builder(
-                    builder: (context) {
-                      final lesson = unit.lessons[i];
-                      final offset =
-                          _offsetPattern[i % _offsetPattern.length] *
-                          (constraints.maxWidth - 40 - 72);
-                      final status = progress.isLessonCompleted(lesson.id)
-                          ? LessonNodeStatus.completed
-                          : progress.isLessonUnlocked(lesson.id)
-                          ? LessonNodeStatus.current
-                          : LessonNodeStatus.locked;
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Transform.translate(
-                          offset: Offset(offset, 0),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: LessonNode(
-                              key: ValueKey(lesson.id),
-                              status: status,
-                              title: lesson.title,
-                              onStart: () =>
-                                  context.push('/lesson/${lesson.id}'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (auth.isGuest) _GuestBanner(),
+                for (final unit in course.units) ...[
+                  KeyedSubtree(
+                    key: _unitKey(unit.id),
+                    child: UnitHeader(
+                      title: unit.title,
+                      description: unit.description,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  for (var i = 0; i < unit.lessons.length; i++)
+                    Builder(
+                      builder: (context) {
+                        final lesson = unit.lessons[i];
+                        final offset =
+                            _offsetPattern[i % _offsetPattern.length] *
+                            (constraints.maxWidth - 40 - 72);
+                        final status = progress.isLessonCompleted(lesson.id)
+                            ? LessonNodeStatus.completed
+                            : progress.isLessonUnlocked(lesson.id)
+                            ? LessonNodeStatus.current
+                            : LessonNodeStatus.locked;
+                        return Padding(
+                          key: _lessonKey(lesson.id),
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Transform.translate(
+                            offset: Offset(offset, 0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: LessonNode(
+                                key: ValueKey(lesson.id),
+                                status: status,
+                                title: lesson.title,
+                                onStart: () =>
+                                    context.push('/lesson/${lesson.id}'),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                const SizedBox(height: 12),
-              ],
-              Center(
-                child: Text(
-                  'v$kAppVersion',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.lockedDark,
+                        );
+                      },
+                    ),
+                  const SizedBox(height: 12),
+                ],
+                Center(
+                  child: Text(
+                    'v$kAppVersion',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.lockedDark,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
+      ),
+      floatingActionButton: target == null || _targetVisible
+          ? null
+          : FloatingActionButton.small(
+              tooltip: '回到当前课',
+              onPressed: () => _locate(_lessonKeys[target.id]),
+              child: const Icon(Icons.my_location),
+            ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(top: BorderSide(color: AppColors.locked)),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  current == null
+                      ? '全部完成'
+                      : '第${course.orderedLessons.indexWhere((l) => l.id == current.id) + 1}节 · ${current.title}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+              const SizedBox(width: 12),
+              FilledButton.icon(
+                onPressed: () => context.push(
+                  current == null ? '/review' : '/lesson/${current.id}',
+                ),
+                icon: Icon(
+                  current == null ? Icons.refresh : Icons.arrow_forward,
+                ),
+                label: Text(current == null ? '复习' : '继续学习'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

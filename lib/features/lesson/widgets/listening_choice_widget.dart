@@ -30,11 +30,19 @@ class _ListeningChoiceWidgetState extends ConsumerState<ListeningChoiceWidget> {
   void initState() {
     super.initState();
     // 进入题目自动播放一遍
-    WidgetsBinding.instance.addPostFrameCallback((_) => _speak());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _speak();
+    });
   }
 
-  void _speak() {
-    ref.read(ttsServiceProvider).speakExercise(widget.exercise);
+  Future<void> _speak() async {
+    final ok = await ref
+        .read(ttsServiceProvider)
+        .speakExercise(widget.exercise);
+    if (!mounted || ok) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('语音播放失败，请检查媒体音量及英语语音服务后重试。')));
   }
 
   @override

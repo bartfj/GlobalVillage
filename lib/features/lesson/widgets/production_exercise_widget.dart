@@ -38,8 +38,14 @@ class _ProductionExerciseWidgetState
     }
   }
 
-  void _play() {
-    ref.read(ttsServiceProvider).speakExercise(widget.exercise);
+  Future<void> _play() async {
+    final ok = await ref
+        .read(ttsServiceProvider)
+        .speakExercise(widget.exercise);
+    if (!mounted || ok) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('语音播放失败，请检查媒体音量及英语语音服务后重试。')));
   }
 
   @override

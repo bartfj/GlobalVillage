@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:english_village/data/models/course.dart';
+import 'improve_learning_content.dart' as improvement;
 
 // Unit title (on the first lesson), lesson title, then four English/Chinese pairs.
 const zeroMaterial = '''
@@ -287,4 +288,5 @@ void main() {
   dialogueFile.writeAsStringSync(
     '${const JsonEncoder.withIndent('  ').convert(dialogues)}\n',
   );
+  improvement.main();
 }

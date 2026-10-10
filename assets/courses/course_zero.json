@@ -16584,10 +16584,10 @@
               "sentence": "This is a farm.",
               "answer": "This is a farm.",
               "options": [
-                "This is a farm.",
-                "The farmer grows corn.",
-                "There are sheep here.",
-                "The cow eats grass."
+                "This is a park.",
+                "This is a school.",
+                "This is a garden.",
+                "This is a farm."
               ],
               "sentenceWithBlank": null
             },
@@ -16678,9 +16678,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：奶牛吃草。",
               "sentence": "The cow eats grass.",
-              "answer": "cow",
+              "answer": "grass",
               "options": [],
-              "sentenceWithBlank": "The ____ eats grass."
+              "sentenceWithBlank": "The cow eats ____."
             },
             {
               "id": "z_u35l1e9",
@@ -16768,7 +16768,8 @@
               "sentence": "Please feed the hens.",
               "answer": "Please feed the hens.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u35l2e6",
@@ -16798,9 +16799,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：让大门保持关闭。",
               "sentence": "Keep the gate closed.",
-              "answer": "the",
+              "answer": "closed",
               "options": [],
-              "sentenceWithBlank": "Keep ____ gate closed."
+              "sentenceWithBlank": "Keep the gate ____."
             },
             {
               "id": "z_u35l2e9",
@@ -16918,9 +16919,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我提着一个篮子。",
               "sentence": "I carry a basket.",
-              "answer": "carry",
+              "answer": "basket",
               "options": [],
-              "sentenceWithBlank": "I ____ a basket."
+              "sentenceWithBlank": "I carry a ____."
             },
             {
               "id": "z_u35l3e9",
@@ -17008,7 +17009,8 @@
               "sentence": "We visit the farm today.",
               "answer": "We visit the farm today.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u35l4e6",
@@ -17038,9 +17040,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们洗靴子。",
               "sentence": "We wash our boots.",
-              "answer": "wash",
+              "answer": "boots",
               "options": [],
-              "sentenceWithBlank": "We ____ our boots."
+              "sentenceWithBlank": "We wash our ____."
             },
             {
               "id": "z_u35l4e9",
@@ -17071,10 +17073,10 @@
               "sentence": "This flower is pink.",
               "answer": "This flower is pink.",
               "options": [
-                "This flower is pink.",
-                "The tree has roots.",
-                "These leaves are green.",
-                "The stem is strong."
+                "This flower is red.",
+                "This flower is white.",
+                "This flower is yellow.",
+                "This flower is pink."
               ],
               "sentenceWithBlank": null
             },
@@ -17165,9 +17167,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：茎很结实。",
               "sentence": "The stem is strong.",
-              "answer": "stem",
+              "answer": "strong",
               "options": [],
-              "sentenceWithBlank": "The ____ is strong."
+              "sentenceWithBlank": "The stem is ____."
             },
             {
               "id": "z_u36l1e9",
@@ -17255,7 +17257,8 @@
               "sentence": "Put seeds in the soil.",
               "answer": "Put seeds in the soil.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u36l2e6",
@@ -17285,9 +17288,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：花盆很小。",
               "sentence": "The pot is small.",
-              "answer": "pot",
+              "answer": "small",
               "options": [],
-              "sentenceWithBlank": "The ____ is small."
+              "sentenceWithBlank": "The pot is ____."
             },
             {
               "id": "z_u36l2e9",
@@ -17405,9 +17408,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：不要摘花。",
               "sentence": "Do not pick the flowers.",
-              "answer": "not",
+              "answer": "flowers",
               "options": [],
-              "sentenceWithBlank": "Do ____ pick the flowers."
+              "sentenceWithBlank": "Do not pick the ____."
             },
             {
               "id": "z_u36l3e9",
@@ -17495,7 +17498,8 @@
               "sentence": "A new leaf appears.",
               "answer": "A new leaf appears.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u36l4e6",
@@ -17558,10 +17562,10 @@
               "sentence": "We need some sandwiches.",
               "answer": "We need some sandwiches.",
               "options": [
-                "We need some sandwiches.",
-                "Put apples in the bag.",
-                "Bring a bottle of water.",
-                "I pack four cups."
+                "We need some apples.",
+                "We need some water.",
+                "We need some cups.",
+                "We need some sandwiches."
               ],
               "sentenceWithBlank": null
             },
@@ -17652,9 +17656,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我装了四个杯子。",
               "sentence": "I pack four cups.",
-              "answer": "pack",
+              "answer": "cups",
               "options": [],
-              "sentenceWithBlank": "I ____ four cups."
+              "sentenceWithBlank": "I pack four ____."
             },
             {
               "id": "z_u37l1e9",
@@ -17742,7 +17746,8 @@
               "sentence": "This spot is shady.",
               "answer": "This spot is shady.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u37l2e6",
@@ -17772,9 +17777,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：把毯子铺开。",
               "sentence": "Spread the blanket out.",
-              "answer": "the",
+              "answer": "blanket",
               "options": [],
-              "sentenceWithBlank": "Spread ____ blanket out."
+              "sentenceWithBlank": "Spread the ____ out."
             },
             {
               "id": "z_u37l2e9",
@@ -17892,9 +17897,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们在户外吃午饭。",
               "sentence": "We eat lunch outside.",
-              "answer": "eat",
+              "answer": "outside",
               "options": [],
-              "sentenceWithBlank": "We ____ lunch outside."
+              "sentenceWithBlank": "We eat lunch ____."
             },
             {
               "id": "z_u37l3e9",
@@ -17982,7 +17987,8 @@
               "sentence": "Pick up the empty cups.",
               "answer": "Pick up the empty cups.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u37l4e6",
@@ -18012,9 +18018,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：离开时保持公园干净。",
               "sentence": "Leave the park clean.",
-              "answer": "the",
+              "answer": "clean",
               "options": [],
-              "sentenceWithBlank": "Leave ____ park clean."
+              "sentenceWithBlank": "Leave the park ____."
             },
             {
               "id": "z_u37l4e9",
@@ -18045,10 +18051,10 @@
               "sentence": "I write a short letter.",
               "answer": "I write a short letter.",
               "options": [
-                "I write a short letter.",
-                "This envelope is white.",
-                "Put the letter inside.",
-                "Write your name here."
+                "I read a short letter.",
+                "I write a short story.",
+                "I read a short story.",
+                "I write a short letter."
               ],
               "sentenceWithBlank": null
             },
@@ -18139,9 +18145,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：在这里写你的名字。",
               "sentence": "Write your name here.",
-              "answer": "your",
+              "answer": "name",
               "options": [],
-              "sentenceWithBlank": "Write ____ name here."
+              "sentenceWithBlank": "Write your ____ here."
             },
             {
               "id": "z_u38l1e9",
@@ -18229,7 +18235,8 @@
               "sentence": "What is your address?",
               "answer": "What is your address?",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u38l2e6",
@@ -18259,9 +18266,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请检查地址。",
               "sentence": "Please check the address.",
-              "answer": "check",
+              "answer": "address",
               "options": [],
-              "sentenceWithBlank": "Please ____ the address."
+              "sentenceWithBlank": "Please check the ____."
             },
             {
               "id": "z_u38l2e9",
@@ -18379,9 +18386,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：邮局开门了。",
               "sentence": "The post office is open.",
-              "answer": "post",
+              "answer": "open",
               "options": [],
-              "sentenceWithBlank": "The ____ office is open."
+              "sentenceWithBlank": "The post office is ____."
             },
             {
               "id": "z_u38l3e9",
@@ -18469,7 +18476,8 @@
               "sentence": "The letter is for Grandma.",
               "answer": "The letter is for Grandma.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u38l4e6",
@@ -18499,9 +18507,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：奶奶寄来了回信。",
               "sentence": "Grandma sends a reply.",
-              "answer": "sends",
+              "answer": "reply",
               "options": [],
-              "sentenceWithBlank": "Grandma ____ a reply."
+              "sentenceWithBlank": "Grandma sends a ____."
             },
             {
               "id": "z_u38l4e9",
@@ -18626,9 +18634,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们进入博物馆。",
               "sentence": "We enter the museum.",
-              "answer": "enter",
+              "answer": "museum",
               "options": [],
-              "sentenceWithBlank": "We ____ the museum."
+              "sentenceWithBlank": "We enter the ____."
             },
             {
               "id": "z_u39l1e9",
@@ -18716,7 +18724,8 @@
               "sentence": "This bowl is old.",
               "answer": "This bowl is old.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u39l2e6",
@@ -18746,9 +18755,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：先读标签。",
               "sentence": "Read the label first.",
-              "answer": "the",
+              "answer": "first",
               "options": [],
-              "sentenceWithBlank": "Read ____ label first."
+              "sentenceWithBlank": "Read the label ____."
             },
             {
               "id": "z_u39l2e9",
@@ -18866,9 +18875,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：小声说话。",
               "sentence": "Keep your voice low.",
-              "answer": "your",
+              "answer": "low",
               "options": [],
-              "sentenceWithBlank": "Keep ____ voice low."
+              "sentenceWithBlank": "Keep your voice ____."
             },
             {
               "id": "z_u39l3e9",
@@ -18956,7 +18965,8 @@
               "sentence": "I like this painting.",
               "answer": "I like this painting.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u39l4e6",
@@ -18986,9 +18996,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我看到了一个古老的钟。",
               "sentence": "I saw an old clock.",
-              "answer": "saw",
+              "answer": "clock",
               "options": [],
-              "sentenceWithBlank": "I ____ an old clock."
+              "sentenceWithBlank": "I saw an old ____."
             },
             {
               "id": "z_u39l4e9",
@@ -19113,9 +19123,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：先淋浴。",
               "sentence": "Take a shower first.",
-              "answer": "shower",
+              "answer": "first",
               "options": [],
-              "sentenceWithBlank": "Take a ____ first."
+              "sentenceWithBlank": "Take a shower ____."
             },
             {
               "id": "z_u40l1e9",
@@ -19203,7 +19213,8 @@
               "sentence": "I can float now.",
               "answer": "I can float now.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u40l2e6",
@@ -19233,9 +19244,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：抓住这里的池边。",
               "sentence": "Hold the edge here.",
-              "answer": "the",
+              "answer": "here",
               "options": [],
-              "sentenceWithBlank": "Hold ____ edge here."
+              "sentenceWithBlank": "Hold the edge ____."
             },
             {
               "id": "z_u40l2e9",
@@ -19353,9 +19364,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：向大人求助。",
               "sentence": "Ask an adult for help.",
-              "answer": "adult",
+              "answer": "help",
               "options": [],
-              "sentenceWithBlank": "Ask an ____ for help."
+              "sentenceWithBlank": "Ask an adult for ____."
             },
             {
               "id": "z_u40l3e9",
@@ -19443,7 +19454,8 @@
               "sentence": "I feel tired now.",
               "answer": "I feel tired now.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u40l4e6",
@@ -19473,9 +19485,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：把毛巾收好。",
               "sentence": "Put your towel away.",
-              "answer": "your",
+              "answer": "away",
               "options": [],
-              "sentenceWithBlank": "Put ____ towel away."
+              "sentenceWithBlank": "Put your towel ____."
             },
             {
               "id": "z_u40l4e9",
@@ -19600,9 +19612,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：我们的火车快出发了。",
               "sentence": "Our train leaves soon.",
-              "answer": "train",
+              "answer": "soon",
               "options": [],
-              "sentenceWithBlank": "Our ____ leaves soon."
+              "sentenceWithBlank": "Our train leaves ____."
             },
             {
               "id": "z_u41l1e9",
@@ -19690,7 +19702,8 @@
               "sentence": "This is our carriage.",
               "answer": "This is our carriage.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u41l2e6",
@@ -19720,9 +19733,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：请坐在窗边。",
               "sentence": "Please sit by the window.",
-              "answer": "sit",
+              "answer": "window",
               "options": [],
-              "sentenceWithBlank": "Please ____ by the window."
+              "sentenceWithBlank": "Please sit by the ____."
             },
             {
               "id": "z_u41l2e9",
@@ -19840,9 +19853,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：天空看起来很晴朗。",
               "sentence": "The sky looks clear.",
-              "answer": "sky",
+              "answer": "clear",
               "options": [],
-              "sentenceWithBlank": "The ____ looks clear."
+              "sentenceWithBlank": "The sky looks ____."
             },
             {
               "id": "z_u41l3e9",
@@ -19930,7 +19943,8 @@
               "sentence": "Our stop is next.",
               "answer": "Our stop is next.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u41l4e6",
@@ -19960,9 +19974,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：爷爷在这里接我们。",
               "sentence": "Grandpa meets us here.",
-              "answer": "meets",
+              "answer": "here",
               "options": [],
-              "sentenceWithBlank": "Grandpa ____ us here."
+              "sentenceWithBlank": "Grandpa meets us ____."
             },
             {
               "id": "z_u41l4e9",
@@ -20087,9 +20101,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：他们一起走。",
               "sentence": "They walk together.",
-              "answer": "walk",
+              "answer": "together",
               "options": [],
-              "sentenceWithBlank": "They ____ together."
+              "sentenceWithBlank": "They walk ____."
             },
             {
               "id": "z_u42l1e9",
@@ -20177,7 +20191,8 @@
               "sentence": "Ben cannot find his hat.",
               "answer": "Ben cannot find his hat.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u42l2e6",
@@ -20207,9 +20222,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：他把它戴上了。",
               "sentence": "He puts it on.",
-              "answer": "puts",
+              "answer": "on",
               "options": [],
-              "sentenceWithBlank": "He ____ it on."
+              "sentenceWithBlank": "He puts it ____."
             },
             {
               "id": "z_u42l2e9",
@@ -20327,9 +20342,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：露西感谢她的朋友。",
               "sentence": "Lucy thanks her friend.",
-              "answer": "thanks",
+              "answer": "friend",
               "options": [],
-              "sentenceWithBlank": "Lucy ____ her friend."
+              "sentenceWithBlank": "Lucy thanks her ____."
             },
             {
               "id": "z_u42l3e9",
@@ -20417,7 +20432,8 @@
               "sentence": "We visit Grandma today.",
               "answer": "We visit Grandma today.",
               "options": [],
-              "sentenceWithBlank": null
+              "sentenceWithBlank": null,
+              "acceptedAnswers": []
             },
             {
               "id": "z_u42l4e6",
@@ -20447,9 +20463,9 @@
               "type": "fillBlank",
               "prompt": "补全句子：晚饭时大家都笑了。",
               "sentence": "Everyone smiles at dinner.",
-              "answer": "smiles",
+              "answer": "dinner",
               "options": [],
-              "sentenceWithBlank": "Everyone ____ at dinner."
+              "sentenceWithBlank": "Everyone smiles at ____."
             },
             {
               "id": "z_u42l4e9",
