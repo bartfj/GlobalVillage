@@ -71,10 +71,56 @@ class Exercise {
     final alternatives = type == ExerciseType.translateInput
         ? acceptedAnswers
         : const <String>[];
-    return [
-      answer,
-      ...alternatives,
-    ].any((a) => normalizeInput(a) == normalized);
+    final folded = expandKeyboardAliases(normalized);
+    return [answer, ...alternatives].any((a) {
+      final candidate = normalizeInput(a);
+      return candidate == normalized || candidate == folded;
+    });
+  }
+
+  /// 普通键盘打法的兼容展开：梵文 aa→ā、R→ṛ、T→ṭ、H→ḥ 等；
+  /// 中文拼音数字声调 ma4→mà、v→ü。展开结果仍参与严格比对，
+  /// 不会放宽声调、长短元音或卷舌差异。
+  String expandKeyboardAliases(String text) => switch (language) {
+    LearningLanguage.sanskrit => _expandSanskritAliases(text),
+    LearningLanguage.chinese => _expandPinyinAliases(text),
+    LearningLanguage.english => text,
+  };
+
+  static const _sanskritDigraphs = {
+    'aa': 'ā', 'ii': 'ī', 'uu': 'ū', 'sh': 'ś',
+  };
+  static const _sanskritCapitals = {
+    'A': 'ā', 'I': 'ī', 'U': 'ū', 'R': 'ṛ', 'G': 'ṅ', 'J': 'ñ',
+    'T': 'ṭ', 'D': 'ḍ', 'N': 'ṇ', 'S': 'ṣ', 'M': 'ṃ', 'H': 'ḥ',
+  };
+
+  static String _expandSanskritAliases(String text) {
+    var out = text;
+    for (final entry in _sanskritDigraphs.entries) {
+      out = out.replaceAll(entry.key, entry.value);
+    }
+    return out
+        .split('')
+        .map((c) => _sanskritCapitals[c] ?? c)
+        .join();
+  }
+
+  static const _pinyinTones = {
+    'a': ['ā', 'á', 'ǎ', 'à'],
+    'e': ['ē', 'é', 'ě', 'è'],
+    'i': ['ī', 'í', 'ǐ', 'ì'],
+    'o': ['ō', 'ó', 'ǒ', 'ò'],
+    'u': ['ū', 'ú', 'ǔ', 'ù'],
+    'v': ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
+  };
+
+  static String _expandPinyinAliases(String text) {
+    final out = text.replaceAllMapped(
+      RegExp(r'([aeiouv])([1-4])'),
+      (m) => _pinyinTones[m[1]!]![int.parse(m[2]!) - 1],
+    );
+    return out.replaceAll('v', 'ü');
   }
 
   static String normalizeAnswer(String text) => text

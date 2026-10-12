@@ -85,6 +85,30 @@ void main() {
       expect(sanskrit.accepts('a\u0304'), isTrue);
       expect(sanskrit.accepts('a'), isFalse);
       expect(sanskrit.accepts('Ā'), isFalse);
+      // ASCII keyboard aliases still respect strict distinctions.
+      expect(sanskrit.accepts('aa'), isTrue);
+      const retroflex = Exercise(
+        id: 'sa-ta',
+        type: ExerciseType.translateInput,
+        prompt: '',
+        sentence: 'ṭa',
+        options: [],
+        answer: 'ṭa',
+        language: LearningLanguage.sanskrit,
+      );
+      expect(retroflex.accepts('Ta'), isTrue);
+      expect(retroflex.accepts('ta'), isFalse);
+      const word = Exercise(
+        id: 'sa-rama',
+        type: ExerciseType.translateInput,
+        prompt: '',
+        sentence: 'rāmaḥ',
+        options: [],
+        answer: 'rāmaḥ',
+        language: LearningLanguage.sanskrit,
+      );
+      expect(word.accepts('raamaH'), isTrue);
+      expect(word.accepts('ramaha'), isFalse);
       const chinese = Exercise(
         id: 'zh',
         type: ExerciseType.translateInput,
@@ -96,9 +120,25 @@ void main() {
       );
       expect(chinese.accepts('ma\u030c'), isTrue);
       expect(chinese.accepts('ma'), isFalse);
+      expect(chinese.accepts('ma3'), isTrue);
+      expect(chinese.accepts('ma4'), isFalse);
+      const nu = Exercise(
+        id: 'zh-nu',
+        type: ExerciseType.translateInput,
+        prompt: '',
+        sentence: 'nǚ',
+        options: [],
+        answer: 'nǚ',
+        language: LearningLanguage.chinese,
+      );
+      expect(nu.accepts('nv3'), isTrue);
+      expect(nu.accepts('lv'), isFalse);
       final generated = generateLanguageCourses(write: false);
       for (final entry in generated.entries) {
-        expect(File(entry.key).readAsStringSync(), entry.value);
+        final onDisk = File(entry.key)
+            .readAsStringSync()
+            .replaceAll('\r\n', '\n');
+        expect(onDisk, entry.value);
       }
     },
   );
@@ -250,4 +290,40 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets('special character bar inserts into translate input', (
+    tester,
+  ) async {
+    final sa = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.sanskrit),
+    ))!;
+    final e = sa.units.first.lessons.first.exercises.firstWhere(
+      (ex) => ex.type == ExerciseType.translateInput && ex.answer == 'ī',
+    );
+    var answer = '';
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: buildExerciseWidget(
+              exercise: e,
+              enabled: true,
+              checked: false,
+              currentAnswer: '',
+              onChanged: (value) => answer = value,
+              questionKey: const ValueKey('sa-input'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.widgetWithText(ActionChip, 'ī'));
+    await tester.pump();
+    expect(answer, 'ī');
+    expect(e.accepts(answer), isTrue);
+    await tester.tap(find.widgetWithText(ActionChip, 'ḥ'));
+    await tester.pump();
+    expect(answer, 'īḥ');
+    expect(tester.takeException(), isNull);
+  });
 }

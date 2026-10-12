@@ -49,6 +49,34 @@ class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
         : null,
   );
 
+  /// 普通键盘打不出的字符，点按插入光标处。
+  static const _sanskritChars = [
+    'ā', 'ī', 'ū', 'ṛ', 'ṅ', 'ñ', 'ṭ', 'ḍ', 'ṇ', 'ś', 'ṣ', 'ṃ', 'ḥ',
+  ];
+  static const _chineseChars = [
+    'ā', 'á', 'ǎ', 'à', 'ē', 'é', 'ě', 'è',
+    'ī', 'í', 'ǐ', 'ì', 'ō', 'ó', 'ǒ', 'ò',
+    'ū', 'ú', 'ǔ', 'ù', 'ǖ', 'ǘ', 'ǚ', 'ǜ',
+  ];
+
+  List<String> get _specialChars =>
+      widget.exercise.language == LearningLanguage.sanskrit
+          ? _sanskritChars
+          : _chineseChars;
+
+  void _insertChar(String char) {
+    final text = _input.text;
+    final selection = _input.selection;
+    final start = selection.isValid ? selection.start : text.length;
+    final end = selection.isValid ? selection.end : text.length;
+    final next = text.replaceRange(start, end, char);
+    _input.value = TextEditingValue(
+      text: next,
+      selection: TextSelection.collapsed(offset: start + char.length),
+    );
+    widget.onChanged(next);
+  }
+
   void _pick(int index, bool selected) {
     setState(() {
       if (selected) {
@@ -131,7 +159,7 @@ class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
                 ),
             ],
           ),
-        ] else
+        ] else ...[
           TextField(
             controller: _input,
             enabled: widget.enabled,
@@ -145,9 +173,27 @@ class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
               labelText: ex.language == LearningLanguage.chinese
                   ? '汉字 / 拼音'
                   : 'IAST / 天城体',
+              helperText: ex.language == LearningLanguage.chinese
+                  ? '拼音可用数字声调：ma4 = mà，lv = lü'
+                  : '也可用键盘打法：aa = ā，R = ṛ，T = ṭ，H = ḥ',
             ),
             onChanged: widget.onChanged,
           ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: [
+              for (final char in _specialChars)
+                ActionChip(
+                  label: Text(char),
+                  visualDensity: VisualDensity.compact,
+                  onPressed:
+                      widget.enabled ? () => _insertChar(char) : null,
+                ),
+            ],
+          ),
+        ],
       ],
     );
   }
