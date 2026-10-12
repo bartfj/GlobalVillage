@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../app/providers.dart';
 import '../../../app/theme.dart';
 import '../../../data/models/course_track.dart';
+import '../../../data/models/learning_language.dart';
+import 'course_selector.dart';
 import '../../../data/models/tree_growth.dart';
 
 /// 学习路径侧滑主菜单：账号头 + 进度/奖励概览 + 功能入口
@@ -166,10 +168,17 @@ class MainMenuDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 children: [
+                  ListTile(
+                    leading: const Icon(Icons.language),
+                    title: const Text('学习语言'),
+                    subtitle: Text(selectedTrack.language.label),
+                    trailing: const Icon(Icons.arrow_drop_down),
+                    onTap: () => showCourseSelector(context, ref),
+                  ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(16, 8, 16, 4),
                     child: Text(
-                      '学习内容',
+                      '系统课程',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -177,7 +186,9 @@ class MainMenuDrawer extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  for (final track in CourseTrack.values)
+                  for (final track in CourseTrack.values.where(
+                    (t) => t.language == selectedTrack.language,
+                  ))
                     ListTile(
                       leading: Icon(
                         track == selectedTrack
@@ -203,36 +214,39 @@ class MainMenuDrawer extends ConsumerWidget {
                         if (context.mounted) Navigator.of(context).pop();
                       },
                     ),
-                  const Divider(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 4, 20, 8),
-                    child: Text(
-                      '专项练习',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textSecondary,
+                  if (selectedTrack.language == LearningLanguage.english) ...[
+                    const Divider(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(20, 4, 20, 8),
+                      child: Text(
+                        '专项练习',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ),
-                  ),
-                  _MenuTile(
-                    icon: Icons.hearing_rounded,
-                    iconColor: AppColors.blue,
-                    title: '发音练习',
-                    onTap: () => _openRoute(context, '/practice/pronunciation'),
-                  ),
-                  _MenuTile(
-                    icon: Icons.menu_book_rounded,
-                    iconColor: AppColors.goldDark,
-                    title: '单词练习',
-                    onTap: () => _openRoute(context, '/practice/vocabulary'),
-                  ),
-                  _MenuTile(
-                    icon: Icons.record_voice_over_rounded,
-                    iconColor: AppColors.green,
-                    title: '口语练习',
-                    onTap: () => _openRoute(context, '/practice/speaking'),
-                  ),
+                    _MenuTile(
+                      icon: Icons.hearing_rounded,
+                      iconColor: AppColors.blue,
+                      title: '发音练习',
+                      onTap: () =>
+                          _openRoute(context, '/practice/pronunciation'),
+                    ),
+                    _MenuTile(
+                      icon: Icons.menu_book_rounded,
+                      iconColor: AppColors.goldDark,
+                      title: '单词练习',
+                      onTap: () => _openRoute(context, '/practice/vocabulary'),
+                    ),
+                    _MenuTile(
+                      icon: Icons.record_voice_over_rounded,
+                      iconColor: AppColors.green,
+                      title: '口语练习',
+                      onTap: () => _openRoute(context, '/practice/speaking'),
+                    ),
+                  ],
                   const Divider(height: 16),
                   _MenuTile(
                     icon: Icons.history_rounded,

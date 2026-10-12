@@ -1,0 +1,2216 @@
+{
+  "id": "sanskrit",
+  "title": "梵文入门",
+  "language": "sanskrit",
+  "explanationLanguage": "chinese",
+  "units": [
+    {
+      "id": "sa_u1",
+      "title": "元音与长短音",
+      "description": "元音识读",
+      "lessons": [
+        {
+          "id": "sa_u1l1",
+          "title": "识读入门",
+          "exercises": [
+            {
+              "id": "sa_u1l1e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [
+                "a",
+                "ā",
+                "i",
+                "ī"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अ"
+            },
+            {
+              "id": "sa_u1l1e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ā",
+              "sentence": "ā",
+              "answer": "ā",
+              "options": [
+                "ā",
+                "i",
+                "ī",
+                "a"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "आ"
+            },
+            {
+              "id": "sa_u1l1e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 i",
+              "sentence": "i",
+              "answer": "i",
+              "options": [
+                "i",
+                "ī",
+                "a",
+                "ā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "इ"
+            },
+            {
+              "id": "sa_u1l1e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ī",
+              "sentence": "ī",
+              "answer": "ī",
+              "options": [
+                "ī",
+                "a",
+                "ā",
+                "i"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ई"
+            },
+            {
+              "id": "sa_u1l1e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [],
+              "tokens": [
+                "a"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l1e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ā",
+              "sentence": "ā",
+              "answer": "ā",
+              "options": [],
+              "tokens": [
+                "ā"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l1e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 i",
+              "sentence": "i",
+              "answer": "i",
+              "options": [],
+              "tokens": [
+                "i"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l1e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ī",
+              "sentence": "ī",
+              "answer": "ī",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l1e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u1l2",
+          "title": "基础应用",
+          "exercises": [
+            {
+              "id": "sa_u1l2e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 u",
+              "sentence": "u",
+              "answer": "u",
+              "options": [
+                "u",
+                "ū",
+                "ṛ",
+                "e"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "उ"
+            },
+            {
+              "id": "sa_u1l2e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ū",
+              "sentence": "ū",
+              "answer": "ū",
+              "options": [
+                "ū",
+                "ṛ",
+                "e",
+                "u"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ऊ"
+            },
+            {
+              "id": "sa_u1l2e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：元音 ṛ",
+              "sentence": "ṛ",
+              "answer": "ṛ",
+              "options": [
+                "ṛ",
+                "e",
+                "u",
+                "ū"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ऋ"
+            },
+            {
+              "id": "sa_u1l2e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：元音 e（长音）",
+              "sentence": "e",
+              "answer": "e",
+              "options": [
+                "e",
+                "u",
+                "ū",
+                "ṛ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ए"
+            },
+            {
+              "id": "sa_u1l2e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 u",
+              "sentence": "u",
+              "answer": "u",
+              "options": [],
+              "tokens": [
+                "u"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l2e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ū",
+              "sentence": "ū",
+              "answer": "ū",
+              "options": [],
+              "tokens": [
+                "ū"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l2e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：元音 ṛ",
+              "sentence": "ṛ",
+              "answer": "ṛ",
+              "options": [],
+              "tokens": [
+                "ṛ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l2e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：元音 e（长音）",
+              "sentence": "e",
+              "answer": "e",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l2e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 u",
+              "sentence": "u",
+              "answer": "u",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u1l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "sa_u1l3e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [
+                "a",
+                "i",
+                "u",
+                "ṛ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अ"
+            },
+            {
+              "id": "sa_u1l3e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 i",
+              "sentence": "i",
+              "answer": "i",
+              "options": [
+                "i",
+                "u",
+                "ṛ",
+                "a"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "इ"
+            },
+            {
+              "id": "sa_u1l3e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：短元音 u",
+              "sentence": "u",
+              "answer": "u",
+              "options": [
+                "u",
+                "ṛ",
+                "a",
+                "i"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "उ"
+            },
+            {
+              "id": "sa_u1l3e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：元音 ṛ",
+              "sentence": "ṛ",
+              "answer": "ṛ",
+              "options": [
+                "ṛ",
+                "a",
+                "i",
+                "u"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ऋ"
+            },
+            {
+              "id": "sa_u1l3e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [],
+              "tokens": [
+                "a"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l3e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 i",
+              "sentence": "i",
+              "answer": "i",
+              "options": [],
+              "tokens": [
+                "i"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l3e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 u",
+              "sentence": "u",
+              "answer": "u",
+              "options": [],
+              "tokens": [
+                "u"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l3e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：元音 ṛ",
+              "sentence": "ṛ",
+              "answer": "ṛ",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l3e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：短元音 a",
+              "sentence": "a",
+              "answer": "a",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u1l4",
+          "title": "综合练习",
+          "exercises": [
+            {
+              "id": "sa_u1l4e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ā",
+              "sentence": "ā",
+              "answer": "ā",
+              "options": [
+                "ā",
+                "ī",
+                "ū",
+                "e"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "आ"
+            },
+            {
+              "id": "sa_u1l4e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ī",
+              "sentence": "ī",
+              "answer": "ī",
+              "options": [
+                "ī",
+                "ū",
+                "e",
+                "ā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ई"
+            },
+            {
+              "id": "sa_u1l4e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：长元音 ū",
+              "sentence": "ū",
+              "answer": "ū",
+              "options": [
+                "ū",
+                "e",
+                "ā",
+                "ī"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ऊ"
+            },
+            {
+              "id": "sa_u1l4e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：元音 e（长音）",
+              "sentence": "e",
+              "answer": "e",
+              "options": [
+                "e",
+                "ā",
+                "ī",
+                "ū"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ए"
+            },
+            {
+              "id": "sa_u1l4e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ā",
+              "sentence": "ā",
+              "answer": "ā",
+              "options": [],
+              "tokens": [
+                "ā"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l4e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ī",
+              "sentence": "ī",
+              "answer": "ī",
+              "options": [],
+              "tokens": [
+                "ī"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l4e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ū",
+              "sentence": "ū",
+              "answer": "ū",
+              "options": [],
+              "tokens": [
+                "ū"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l4e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：元音 e（长音）",
+              "sentence": "e",
+              "answer": "e",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u1l4e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：长元音 ā",
+              "sentence": "ā",
+              "answer": "ā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sa_u2",
+      "title": "辅音与文字",
+      "description": "天城体与转写",
+      "lessons": [
+        {
+          "id": "sa_u2l1",
+          "title": "识读入门",
+          "exercises": [
+            {
+              "id": "sa_u2l1e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [
+                "ka",
+                "kha",
+                "ga",
+                "ca"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "क"
+            },
+            {
+              "id": "sa_u2l1e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：送气软腭音 kha",
+              "sentence": "kha",
+              "answer": "kha",
+              "options": [
+                "kha",
+                "ga",
+                "ca",
+                "ka"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ख"
+            },
+            {
+              "id": "sa_u2l1e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：浊软腭音 ga",
+              "sentence": "ga",
+              "answer": "ga",
+              "options": [
+                "ga",
+                "ca",
+                "ka",
+                "kha"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ग"
+            },
+            {
+              "id": "sa_u2l1e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：不送气硬腭音 ca",
+              "sentence": "ca",
+              "answer": "ca",
+              "options": [
+                "ca",
+                "ka",
+                "kha",
+                "ga"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "च"
+            },
+            {
+              "id": "sa_u2l1e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [],
+              "tokens": [
+                "ka"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l1e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：送气软腭音 kha",
+              "sentence": "kha",
+              "answer": "kha",
+              "options": [],
+              "tokens": [
+                "kha"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l1e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：浊软腭音 ga",
+              "sentence": "ga",
+              "answer": "ga",
+              "options": [],
+              "tokens": [
+                "ga"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l1e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气硬腭音 ca",
+              "sentence": "ca",
+              "answer": "ca",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l1e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u2l2",
+          "title": "基础应用",
+          "exercises": [
+            {
+              "id": "sa_u2l2e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：卷舌音 ṭa",
+              "sentence": "ṭa",
+              "answer": "ṭa",
+              "options": [
+                "ṭa",
+                "ta",
+                "pa",
+                "ma"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ट"
+            },
+            {
+              "id": "sa_u2l2e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：齿音 ta",
+              "sentence": "ta",
+              "answer": "ta",
+              "options": [
+                "ta",
+                "pa",
+                "ma",
+                "ṭa"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "त"
+            },
+            {
+              "id": "sa_u2l2e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：唇音 pa",
+              "sentence": "pa",
+              "answer": "pa",
+              "options": [
+                "pa",
+                "ma",
+                "ṭa",
+                "ta"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "प"
+            },
+            {
+              "id": "sa_u2l2e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：鼻音 ma",
+              "sentence": "ma",
+              "answer": "ma",
+              "options": [
+                "ma",
+                "ṭa",
+                "ta",
+                "pa"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "म"
+            },
+            {
+              "id": "sa_u2l2e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：卷舌音 ṭa",
+              "sentence": "ṭa",
+              "answer": "ṭa",
+              "options": [],
+              "tokens": [
+                "ṭa"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l2e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：齿音 ta",
+              "sentence": "ta",
+              "answer": "ta",
+              "options": [],
+              "tokens": [
+                "ta"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l2e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：唇音 pa",
+              "sentence": "pa",
+              "answer": "pa",
+              "options": [],
+              "tokens": [
+                "pa"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l2e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：鼻音 ma",
+              "sentence": "ma",
+              "answer": "ma",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l2e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：卷舌音 ṭa",
+              "sentence": "ṭa",
+              "answer": "ṭa",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u2l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "sa_u2l3e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [
+                "ka",
+                "ga",
+                "ṭa",
+                "pa"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "क"
+            },
+            {
+              "id": "sa_u2l3e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：浊软腭音 ga",
+              "sentence": "ga",
+              "answer": "ga",
+              "options": [
+                "ga",
+                "ṭa",
+                "pa",
+                "ka"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ग"
+            },
+            {
+              "id": "sa_u2l3e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：卷舌音 ṭa",
+              "sentence": "ṭa",
+              "answer": "ṭa",
+              "options": [
+                "ṭa",
+                "pa",
+                "ka",
+                "ga"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ट"
+            },
+            {
+              "id": "sa_u2l3e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：唇音 pa",
+              "sentence": "pa",
+              "answer": "pa",
+              "options": [
+                "pa",
+                "ka",
+                "ga",
+                "ṭa"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "प"
+            },
+            {
+              "id": "sa_u2l3e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [],
+              "tokens": [
+                "ka"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l3e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：浊软腭音 ga",
+              "sentence": "ga",
+              "answer": "ga",
+              "options": [],
+              "tokens": [
+                "ga"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l3e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：卷舌音 ṭa",
+              "sentence": "ṭa",
+              "answer": "ṭa",
+              "options": [],
+              "tokens": [
+                "ṭa"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l3e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：唇音 pa",
+              "sentence": "pa",
+              "answer": "pa",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l3e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气软腭音 ka",
+              "sentence": "ka",
+              "answer": "ka",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u2l4",
+          "title": "综合练习",
+          "exercises": [
+            {
+              "id": "sa_u2l4e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：送气软腭音 kha",
+              "sentence": "kha",
+              "answer": "kha",
+              "options": [
+                "kha",
+                "ca",
+                "ta",
+                "ma"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "ख"
+            },
+            {
+              "id": "sa_u2l4e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：不送气硬腭音 ca",
+              "sentence": "ca",
+              "answer": "ca",
+              "options": [
+                "ca",
+                "ta",
+                "ma",
+                "kha"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "च"
+            },
+            {
+              "id": "sa_u2l4e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：齿音 ta",
+              "sentence": "ta",
+              "answer": "ta",
+              "options": [
+                "ta",
+                "ma",
+                "kha",
+                "ca"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "त"
+            },
+            {
+              "id": "sa_u2l4e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：鼻音 ma",
+              "sentence": "ma",
+              "answer": "ma",
+              "options": [
+                "ma",
+                "kha",
+                "ca",
+                "ta"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "म"
+            },
+            {
+              "id": "sa_u2l4e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：送气软腭音 kha",
+              "sentence": "kha",
+              "answer": "kha",
+              "options": [],
+              "tokens": [
+                "kha"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l4e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：不送气硬腭音 ca",
+              "sentence": "ca",
+              "answer": "ca",
+              "options": [],
+              "tokens": [
+                "ca"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l4e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：齿音 ta",
+              "sentence": "ta",
+              "answer": "ta",
+              "options": [],
+              "tokens": [
+                "ta"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l4e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：鼻音 ma",
+              "sentence": "ma",
+              "answer": "ma",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u2l4e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：送气软腭音 kha",
+              "sentence": "kha",
+              "answer": "kha",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sa_u3",
+      "title": "问候与自我介绍",
+      "description": "基础交流",
+      "lessons": [
+        {
+          "id": "sa_u3l1",
+          "title": "识读入门",
+          "exercises": [
+            {
+              "id": "sa_u3l1e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [
+                "namaste",
+                "mama nāma rāmaḥ",
+                "ahaṃ chātraḥ",
+                "ahaṃ chātrā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "नमस्ते"
+            },
+            {
+              "id": "sa_u3l1e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我的名字是罗摩",
+              "sentence": "mama nāma rāmaḥ",
+              "answer": "mama nāma rāmaḥ",
+              "options": [
+                "mama nāma rāmaḥ",
+                "ahaṃ chātraḥ",
+                "ahaṃ chātrā",
+                "namaste"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "मम नाम रामः"
+            },
+            {
+              "id": "sa_u3l1e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我是男学生",
+              "sentence": "ahaṃ chātraḥ",
+              "answer": "ahaṃ chātraḥ",
+              "options": [
+                "ahaṃ chātraḥ",
+                "ahaṃ chātrā",
+                "namaste",
+                "mama nāma rāmaḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं छात्रः"
+            },
+            {
+              "id": "sa_u3l1e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我是女学生",
+              "sentence": "ahaṃ chātrā",
+              "answer": "ahaṃ chātrā",
+              "options": [
+                "ahaṃ chātrā",
+                "namaste",
+                "mama nāma rāmaḥ",
+                "ahaṃ chātraḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं छात्रा"
+            },
+            {
+              "id": "sa_u3l1e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [],
+              "tokens": [
+                "namaste"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l1e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我的名字是罗摩",
+              "sentence": "mama nāma rāmaḥ",
+              "answer": "mama nāma rāmaḥ",
+              "options": [],
+              "tokens": [
+                "mama",
+                "nāma",
+                "rāmaḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l1e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我是男学生",
+              "sentence": "ahaṃ chātraḥ",
+              "answer": "ahaṃ chātraḥ",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "chātraḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l1e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我是女学生",
+              "sentence": "ahaṃ chātrā",
+              "answer": "ahaṃ chātrā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l1e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u3l2",
+          "title": "基础应用",
+          "exercises": [
+            {
+              "id": "sa_u3l2e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：你的名字是什么",
+              "sentence": "tava nāma kim",
+              "answer": "tava nāma kim",
+              "options": [
+                "tava nāma kim",
+                "ahaṃ paṭhāmi",
+                "ahaṃ gacchāmi",
+                "ahaṃ likhāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "तव नाम किम्"
+            },
+            {
+              "id": "sa_u3l2e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我读书",
+              "sentence": "ahaṃ paṭhāmi",
+              "answer": "ahaṃ paṭhāmi",
+              "options": [
+                "ahaṃ paṭhāmi",
+                "ahaṃ gacchāmi",
+                "ahaṃ likhāmi",
+                "tava nāma kim"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं पठामि"
+            },
+            {
+              "id": "sa_u3l2e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我走（去）",
+              "sentence": "ahaṃ gacchāmi",
+              "answer": "ahaṃ gacchāmi",
+              "options": [
+                "ahaṃ gacchāmi",
+                "ahaṃ likhāmi",
+                "tava nāma kim",
+                "ahaṃ paṭhāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं गच्छामि"
+            },
+            {
+              "id": "sa_u3l2e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我写",
+              "sentence": "ahaṃ likhāmi",
+              "answer": "ahaṃ likhāmi",
+              "options": [
+                "ahaṃ likhāmi",
+                "tava nāma kim",
+                "ahaṃ paṭhāmi",
+                "ahaṃ gacchāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं लिखामि"
+            },
+            {
+              "id": "sa_u3l2e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：你的名字是什么",
+              "sentence": "tava nāma kim",
+              "answer": "tava nāma kim",
+              "options": [],
+              "tokens": [
+                "tava",
+                "nāma",
+                "kim"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l2e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我读书",
+              "sentence": "ahaṃ paṭhāmi",
+              "answer": "ahaṃ paṭhāmi",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "paṭhāmi"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l2e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我走（去）",
+              "sentence": "ahaṃ gacchāmi",
+              "answer": "ahaṃ gacchāmi",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "gacchāmi"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l2e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我写",
+              "sentence": "ahaṃ likhāmi",
+              "answer": "ahaṃ likhāmi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l2e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：你的名字是什么",
+              "sentence": "tava nāma kim",
+              "answer": "tava nāma kim",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u3l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "sa_u3l3e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [
+                "namaste",
+                "ahaṃ chātraḥ",
+                "tava nāma kim",
+                "ahaṃ gacchāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "नमस्ते"
+            },
+            {
+              "id": "sa_u3l3e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我是男学生",
+              "sentence": "ahaṃ chātraḥ",
+              "answer": "ahaṃ chātraḥ",
+              "options": [
+                "ahaṃ chātraḥ",
+                "tava nāma kim",
+                "ahaṃ gacchāmi",
+                "namaste"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं छात्रः"
+            },
+            {
+              "id": "sa_u3l3e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：你的名字是什么",
+              "sentence": "tava nāma kim",
+              "answer": "tava nāma kim",
+              "options": [
+                "tava nāma kim",
+                "ahaṃ gacchāmi",
+                "namaste",
+                "ahaṃ chātraḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "तव नाम किम्"
+            },
+            {
+              "id": "sa_u3l3e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我走（去）",
+              "sentence": "ahaṃ gacchāmi",
+              "answer": "ahaṃ gacchāmi",
+              "options": [
+                "ahaṃ gacchāmi",
+                "namaste",
+                "ahaṃ chātraḥ",
+                "tava nāma kim"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं गच्छामि"
+            },
+            {
+              "id": "sa_u3l3e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [],
+              "tokens": [
+                "namaste"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l3e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我是男学生",
+              "sentence": "ahaṃ chātraḥ",
+              "answer": "ahaṃ chātraḥ",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "chātraḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l3e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：你的名字是什么",
+              "sentence": "tava nāma kim",
+              "answer": "tava nāma kim",
+              "options": [],
+              "tokens": [
+                "tava",
+                "nāma",
+                "kim"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l3e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我走（去）",
+              "sentence": "ahaṃ gacchāmi",
+              "answer": "ahaṃ gacchāmi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l3e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：向你致敬（问候）",
+              "sentence": "namaste",
+              "answer": "namaste",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u3l4",
+          "title": "综合练习",
+          "exercises": [
+            {
+              "id": "sa_u3l4e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我的名字是罗摩",
+              "sentence": "mama nāma rāmaḥ",
+              "answer": "mama nāma rāmaḥ",
+              "options": [
+                "mama nāma rāmaḥ",
+                "ahaṃ chātrā",
+                "ahaṃ paṭhāmi",
+                "ahaṃ likhāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "मम नाम रामः"
+            },
+            {
+              "id": "sa_u3l4e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我是女学生",
+              "sentence": "ahaṃ chātrā",
+              "answer": "ahaṃ chātrā",
+              "options": [
+                "ahaṃ chātrā",
+                "ahaṃ paṭhāmi",
+                "ahaṃ likhāmi",
+                "mama nāma rāmaḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं छात्रा"
+            },
+            {
+              "id": "sa_u3l4e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我读书",
+              "sentence": "ahaṃ paṭhāmi",
+              "answer": "ahaṃ paṭhāmi",
+              "options": [
+                "ahaṃ paṭhāmi",
+                "ahaṃ likhāmi",
+                "mama nāma rāmaḥ",
+                "ahaṃ chātrā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं पठामि"
+            },
+            {
+              "id": "sa_u3l4e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我写",
+              "sentence": "ahaṃ likhāmi",
+              "answer": "ahaṃ likhāmi",
+              "options": [
+                "ahaṃ likhāmi",
+                "mama nāma rāmaḥ",
+                "ahaṃ chātrā",
+                "ahaṃ paṭhāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं लिखामि"
+            },
+            {
+              "id": "sa_u3l4e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我的名字是罗摩",
+              "sentence": "mama nāma rāmaḥ",
+              "answer": "mama nāma rāmaḥ",
+              "options": [],
+              "tokens": [
+                "mama",
+                "nāma",
+                "rāmaḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l4e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我是女学生",
+              "sentence": "ahaṃ chātrā",
+              "answer": "ahaṃ chātrā",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "chātrā"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l4e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我读书",
+              "sentence": "ahaṃ paṭhāmi",
+              "answer": "ahaṃ paṭhāmi",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "paṭhāmi"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l4e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我写",
+              "sentence": "ahaṃ likhāmi",
+              "answer": "ahaṃ likhāmi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u3l4e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我的名字是罗摩",
+              "sentence": "mama nāma rāmaḥ",
+              "answer": "mama nāma rāmaḥ",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sa_u4",
+      "title": "性别与基础语法",
+      "description": "名词与动词",
+      "lessons": [
+        {
+          "id": "sa_u4l1",
+          "title": "识读入门",
+          "exercises": [
+            {
+              "id": "sa_u4l1e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [
+                "bālaḥ",
+                "bālā",
+                "phalam",
+                "bālam"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालः"
+            },
+            {
+              "id": "sa_u4l1e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：女孩（阴性主格单数）",
+              "sentence": "bālā",
+              "answer": "bālā",
+              "options": [
+                "bālā",
+                "phalam",
+                "bālam",
+                "bālaḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बाला"
+            },
+            {
+              "id": "sa_u4l1e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：果实（中性主格或宾格单数）",
+              "sentence": "phalam",
+              "answer": "phalam",
+              "options": [
+                "phalam",
+                "bālam",
+                "bālaḥ",
+                "bālā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "फलम्"
+            },
+            {
+              "id": "sa_u4l1e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩（阳性宾格单数）",
+              "sentence": "bālam",
+              "answer": "bālam",
+              "options": [
+                "bālam",
+                "bālaḥ",
+                "bālā",
+                "phalam"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालम्"
+            },
+            {
+              "id": "sa_u4l1e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [],
+              "tokens": [
+                "bālaḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l1e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：女孩（阴性主格单数）",
+              "sentence": "bālā",
+              "answer": "bālā",
+              "options": [],
+              "tokens": [
+                "bālā"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l1e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：果实（中性主格或宾格单数）",
+              "sentence": "phalam",
+              "answer": "phalam",
+              "options": [],
+              "tokens": [
+                "phalam"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l1e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性宾格单数）",
+              "sentence": "bālam",
+              "answer": "bālam",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l1e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u4l2",
+          "title": "基础应用",
+          "exercises": [
+            {
+              "id": "sa_u4l2e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩读书",
+              "sentence": "bālaḥ paṭhati",
+              "answer": "bālaḥ paṭhati",
+              "options": [
+                "bālaḥ paṭhati",
+                "bālā paṭhati",
+                "ahaṃ phalaṃ khādāmi",
+                "tvam paṭhasi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालः पठति"
+            },
+            {
+              "id": "sa_u4l2e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：女孩读书",
+              "sentence": "bālā paṭhati",
+              "answer": "bālā paṭhati",
+              "options": [
+                "bālā paṭhati",
+                "ahaṃ phalaṃ khādāmi",
+                "tvam paṭhasi",
+                "bālaḥ paṭhati"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बाला पठति"
+            },
+            {
+              "id": "sa_u4l2e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我吃果实",
+              "sentence": "ahaṃ phalaṃ khādāmi",
+              "answer": "ahaṃ phalaṃ khādāmi",
+              "options": [
+                "ahaṃ phalaṃ khādāmi",
+                "tvam paṭhasi",
+                "bālaḥ paṭhati",
+                "bālā paṭhati"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं फलं खादामि"
+            },
+            {
+              "id": "sa_u4l2e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：你读书（单数）",
+              "sentence": "tvam paṭhasi",
+              "answer": "tvam paṭhasi",
+              "options": [
+                "tvam paṭhasi",
+                "bālaḥ paṭhati",
+                "bālā paṭhati",
+                "ahaṃ phalaṃ khādāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "त्वम् पठसि"
+            },
+            {
+              "id": "sa_u4l2e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩读书",
+              "sentence": "bālaḥ paṭhati",
+              "answer": "bālaḥ paṭhati",
+              "options": [],
+              "tokens": [
+                "bālaḥ",
+                "paṭhati"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l2e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：女孩读书",
+              "sentence": "bālā paṭhati",
+              "answer": "bālā paṭhati",
+              "options": [],
+              "tokens": [
+                "bālā",
+                "paṭhati"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l2e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我吃果实",
+              "sentence": "ahaṃ phalaṃ khādāmi",
+              "answer": "ahaṃ phalaṃ khādāmi",
+              "options": [],
+              "tokens": [
+                "ahaṃ",
+                "phalaṃ",
+                "khādāmi"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l2e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：你读书（单数）",
+              "sentence": "tvam paṭhasi",
+              "answer": "tvam paṭhasi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l2e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩读书",
+              "sentence": "bālaḥ paṭhati",
+              "answer": "bālaḥ paṭhati",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u4l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "sa_u4l3e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [
+                "bālaḥ",
+                "phalam",
+                "bālaḥ paṭhati",
+                "ahaṃ phalaṃ khādāmi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालः"
+            },
+            {
+              "id": "sa_u4l3e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：果实（中性主格或宾格单数）",
+              "sentence": "phalam",
+              "answer": "phalam",
+              "options": [
+                "phalam",
+                "bālaḥ paṭhati",
+                "ahaṃ phalaṃ khādāmi",
+                "bālaḥ"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "फलम्"
+            },
+            {
+              "id": "sa_u4l3e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩读书",
+              "sentence": "bālaḥ paṭhati",
+              "answer": "bālaḥ paṭhati",
+              "options": [
+                "bālaḥ paṭhati",
+                "ahaṃ phalaṃ khādāmi",
+                "bālaḥ",
+                "phalam"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालः पठति"
+            },
+            {
+              "id": "sa_u4l3e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：我吃果实",
+              "sentence": "ahaṃ phalaṃ khādāmi",
+              "answer": "ahaṃ phalaṃ khādāmi",
+              "options": [
+                "ahaṃ phalaṃ khādāmi",
+                "bālaḥ",
+                "phalam",
+                "bālaḥ paṭhati"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "अहं फलं खादामि"
+            },
+            {
+              "id": "sa_u4l3e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [],
+              "tokens": [
+                "bālaḥ"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l3e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：果实（中性主格或宾格单数）",
+              "sentence": "phalam",
+              "answer": "phalam",
+              "options": [],
+              "tokens": [
+                "phalam"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l3e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩读书",
+              "sentence": "bālaḥ paṭhati",
+              "answer": "bālaḥ paṭhati",
+              "options": [],
+              "tokens": [
+                "bālaḥ",
+                "paṭhati"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l3e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：我吃果实",
+              "sentence": "ahaṃ phalaṃ khādāmi",
+              "answer": "ahaṃ phalaṃ khādāmi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l3e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性主格单数）",
+              "sentence": "bālaḥ",
+              "answer": "bālaḥ",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        },
+        {
+          "id": "sa_u4l4",
+          "title": "综合练习",
+          "exercises": [
+            {
+              "id": "sa_u4l4e1",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：女孩（阴性主格单数）",
+              "sentence": "bālā",
+              "answer": "bālā",
+              "options": [
+                "bālā",
+                "bālam",
+                "bālā paṭhati",
+                "tvam paṭhasi"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बाला"
+            },
+            {
+              "id": "sa_u4l4e2",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：男孩（阳性宾格单数）",
+              "sentence": "bālam",
+              "answer": "bālam",
+              "options": [
+                "bālam",
+                "bālā paṭhati",
+                "tvam paṭhasi",
+                "bālā"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बालम्"
+            },
+            {
+              "id": "sa_u4l4e3",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：女孩读书",
+              "sentence": "bālā paṭhati",
+              "answer": "bālā paṭhati",
+              "options": [
+                "bālā paṭhati",
+                "tvam paṭhasi",
+                "bālā",
+                "bālam"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "बाला पठति"
+            },
+            {
+              "id": "sa_u4l4e4",
+              "type": "translateChoice",
+              "language": "sanskrit",
+              "prompt": "选择IAST：你读书（单数）",
+              "sentence": "tvam paṭhasi",
+              "answer": "tvam paṭhasi",
+              "options": [
+                "tvam paṭhasi",
+                "bālā",
+                "bālam",
+                "bālā paṭhati"
+              ],
+              "tokens": [],
+              "tokenSeparator": " ",
+              "support": "त्वम् पठसि"
+            },
+            {
+              "id": "sa_u4l4e5",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：女孩（阴性主格单数）",
+              "sentence": "bālā",
+              "answer": "bālā",
+              "options": [],
+              "tokens": [
+                "bālā"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l4e6",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：男孩（阳性宾格单数）",
+              "sentence": "bālam",
+              "answer": "bālam",
+              "options": [],
+              "tokens": [
+                "bālam"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l4e7",
+              "type": "wordBank",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：女孩读书",
+              "sentence": "bālā paṭhati",
+              "answer": "bālā paṭhati",
+              "options": [],
+              "tokens": [
+                "bālā",
+                "paṭhati"
+              ],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l4e8",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：你读书（单数）",
+              "sentence": "tvam paṭhasi",
+              "answer": "tvam paṭhasi",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            },
+            {
+              "id": "sa_u4l4e9",
+              "type": "translateInput",
+              "language": "sanskrit",
+              "prompt": "用IAST表达：女孩（阴性主格单数）",
+              "sentence": "bālā",
+              "answer": "bālā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": " "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

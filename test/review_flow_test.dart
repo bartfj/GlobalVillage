@@ -54,7 +54,11 @@ void main() {
   test(
     'all dialogue tasks have unique choices and valid transfer expressions',
     () async {
-      for (final track in CourseTrack.values) {
+      for (final track in [
+        CourseTrack.zero,
+        CourseTrack.beginner,
+        CourseTrack.intermediate,
+      ]) {
         final course = await CourseLoader().load(track);
         for (final unit in course.units) {
           final exercises = await buildDialoguePractice(unit);

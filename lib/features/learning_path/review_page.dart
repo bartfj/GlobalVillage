@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../data/models/course.dart';
+import '../../data/models/learning_language.dart';
 import '../lesson/dialogue_practice.dart';
 import '../lesson/lesson_page.dart';
 
@@ -156,7 +157,12 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(unit.title),
-              subtitle: const Text('综合练习与对话应用'),
+              subtitle: Text(
+                ref.watch(selectedTrackProvider).language ==
+                        LearningLanguage.english
+                    ? '综合练习与对话应用'
+                    : '综合练习',
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -172,11 +178,13 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                             ],
                           ], 'unit'),
                   ),
-                  IconButton(
-                    tooltip: '对话应用',
-                    icon: const Icon(Icons.forum_outlined),
-                    onPressed: _busy ? null : () => _dialogue(unit),
-                  ),
+                  if (ref.watch(selectedTrackProvider).language ==
+                      LearningLanguage.english)
+                    IconButton(
+                      tooltip: '对话应用',
+                      icon: const Icon(Icons.forum_outlined),
+                      onPressed: _busy ? null : () => _dialogue(unit),
+                    ),
                 ],
               ),
             ),

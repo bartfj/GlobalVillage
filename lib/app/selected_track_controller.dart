@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/models/course_track.dart';
+import '../data/models/learning_language.dart';
 import '../data/sources/settings_store.dart';
 
 /// 当前学习大类（按账号持久化，默认初级）
@@ -31,5 +32,12 @@ class SelectedTrackController extends StateNotifier<CourseTrack> {
     if (userKey == null) return;
     await _settings.setTrack(userKey, track);
     state = track;
+  }
+
+  CourseTrack rememberedTrack(LearningLanguage language) {
+    final userKey = _readUserKey();
+    return userKey == null
+        ? CourseTrack.values.firstWhere((t) => t.language == language)
+        : _settings.getLanguageTrack(userKey, language);
   }
 }

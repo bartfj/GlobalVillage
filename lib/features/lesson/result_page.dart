@@ -6,6 +6,7 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
 import '../../data/models/lesson_badge.dart';
+import '../../data/models/learning_language.dart';
 import '../../data/repositories/reward_repository.dart';
 import 'widgets/award_celebration.dart';
 import 'widgets/dialogue_performance.dart';
@@ -89,7 +90,10 @@ class _ResultPageState extends ConsumerState<ResultPage> {
           _award = award;
           _treeCount = rewardRepo.treeCount;
           // 每次通关都播放趣味对话 + 庆祝（不只首次发徽章时）
-          _showDialogue = true;
+          _showDialogue =
+              ref.read(selectedTrackProvider).language ==
+              LearningLanguage.english;
+          _showCelebration = !_showDialogue;
         });
       }
       _saved = true;
@@ -170,7 +174,9 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                         child: Column(
                           children: [
                             Icon(
-                              LessonBadgeStyle.forLesson(_award!.lesson.id).icon,
+                              LessonBadgeStyle.forLesson(
+                                _award!.lesson.id,
+                              ).icon,
                               size: 48,
                               color: LessonBadgeStyle.forLesson(
                                 _award!.lesson.id,
@@ -185,7 +191,9 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                           ],
                         ),
                       ),
-                      if (_award!.newlyAwarded)
+                      if (_award!.newlyAwarded &&
+                          ref.watch(selectedTrackProvider).language ==
+                              LearningLanguage.english)
                         TextButton.icon(
                           onPressed: () => setState(() => _showDialogue = true),
                           icon: const Icon(Icons.replay_rounded),

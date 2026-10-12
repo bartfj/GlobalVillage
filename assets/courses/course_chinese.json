@@ -1,0 +1,2215 @@
+{
+  "id": "chinese",
+  "title": "普通话入门",
+  "language": "chinese",
+  "explanationLanguage": "english",
+  "units": [
+    {
+      "id": "zh_u1",
+      "title": "拼音与声调",
+      "description": "Pinyin and tones",
+      "lessons": [
+        {
+          "id": "zh_u1l1",
+          "title": "初识表达",
+          "exercises": [
+            {
+              "id": "zh_u1l1e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [
+                "mā",
+                "má",
+                "mǎ",
+                "mà"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "妈"
+            },
+            {
+              "id": "zh_u1l1e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: hemp (pinyin, second tone)",
+              "sentence": "má",
+              "answer": "má",
+              "options": [
+                "má",
+                "mǎ",
+                "mà",
+                "mā"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "麻"
+            },
+            {
+              "id": "zh_u1l1e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: horse (pinyin, third tone)",
+              "sentence": "mǎ",
+              "answer": "mǎ",
+              "options": [
+                "mǎ",
+                "mà",
+                "mā",
+                "má"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "马"
+            },
+            {
+              "id": "zh_u1l1e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: scold (pinyin, fourth tone)",
+              "sentence": "mà",
+              "answer": "mà",
+              "options": [
+                "mà",
+                "mā",
+                "má",
+                "mǎ"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "骂"
+            },
+            {
+              "id": "zh_u1l1e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [],
+              "tokens": [
+                "mā"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l1e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: hemp (pinyin, second tone)",
+              "sentence": "má",
+              "answer": "má",
+              "options": [],
+              "tokens": [
+                "má"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l1e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: horse (pinyin, third tone)",
+              "sentence": "mǎ",
+              "answer": "mǎ",
+              "options": [],
+              "tokens": [
+                "mǎ"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l1e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: scold (pinyin, fourth tone)",
+              "sentence": "mà",
+              "answer": "mà",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l1e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u1l2",
+          "title": "场景应用",
+          "exercises": [
+            {
+              "id": "zh_u1l2e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: eight (pinyin, first tone)",
+              "sentence": "bā",
+              "answer": "bā",
+              "options": [
+                "bā",
+                "bá",
+                "bǎ",
+                "bà"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "八"
+            },
+            {
+              "id": "zh_u1l2e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: pull out (pinyin, second tone)",
+              "sentence": "bá",
+              "answer": "bá",
+              "options": [
+                "bá",
+                "bǎ",
+                "bà",
+                "bā"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "拔"
+            },
+            {
+              "id": "zh_u1l2e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: hold (pinyin, third tone)",
+              "sentence": "bǎ",
+              "answer": "bǎ",
+              "options": [
+                "bǎ",
+                "bà",
+                "bā",
+                "bá"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "把"
+            },
+            {
+              "id": "zh_u1l2e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: dad (pinyin, fourth tone)",
+              "sentence": "bà",
+              "answer": "bà",
+              "options": [
+                "bà",
+                "bā",
+                "bá",
+                "bǎ"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "爸"
+            },
+            {
+              "id": "zh_u1l2e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: eight (pinyin, first tone)",
+              "sentence": "bā",
+              "answer": "bā",
+              "options": [],
+              "tokens": [
+                "bā"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l2e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: pull out (pinyin, second tone)",
+              "sentence": "bá",
+              "answer": "bá",
+              "options": [],
+              "tokens": [
+                "bá"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l2e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: hold (pinyin, third tone)",
+              "sentence": "bǎ",
+              "answer": "bǎ",
+              "options": [],
+              "tokens": [
+                "bǎ"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l2e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: dad (pinyin, fourth tone)",
+              "sentence": "bà",
+              "answer": "bà",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l2e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: eight (pinyin, first tone)",
+              "sentence": "bā",
+              "answer": "bā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u1l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "zh_u1l3e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [
+                "mā",
+                "mǎ",
+                "bā",
+                "bǎ"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "妈"
+            },
+            {
+              "id": "zh_u1l3e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: horse (pinyin, third tone)",
+              "sentence": "mǎ",
+              "answer": "mǎ",
+              "options": [
+                "mǎ",
+                "bā",
+                "bǎ",
+                "mā"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "马"
+            },
+            {
+              "id": "zh_u1l3e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: eight (pinyin, first tone)",
+              "sentence": "bā",
+              "answer": "bā",
+              "options": [
+                "bā",
+                "bǎ",
+                "mā",
+                "mǎ"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "八"
+            },
+            {
+              "id": "zh_u1l3e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: hold (pinyin, third tone)",
+              "sentence": "bǎ",
+              "answer": "bǎ",
+              "options": [
+                "bǎ",
+                "mā",
+                "mǎ",
+                "bā"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "把"
+            },
+            {
+              "id": "zh_u1l3e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [],
+              "tokens": [
+                "mā"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l3e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: horse (pinyin, third tone)",
+              "sentence": "mǎ",
+              "answer": "mǎ",
+              "options": [],
+              "tokens": [
+                "mǎ"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l3e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: eight (pinyin, first tone)",
+              "sentence": "bā",
+              "answer": "bā",
+              "options": [],
+              "tokens": [
+                "bā"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l3e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: hold (pinyin, third tone)",
+              "sentence": "bǎ",
+              "answer": "bǎ",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l3e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "sentence": "mā",
+              "answer": "mā",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u1l4",
+          "title": "综合表达",
+          "exercises": [
+            {
+              "id": "zh_u1l4e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: hemp (pinyin, second tone)",
+              "sentence": "má",
+              "answer": "má",
+              "options": [
+                "má",
+                "mà",
+                "bá",
+                "bà"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "麻"
+            },
+            {
+              "id": "zh_u1l4e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: scold (pinyin, fourth tone)",
+              "sentence": "mà",
+              "answer": "mà",
+              "options": [
+                "mà",
+                "bá",
+                "bà",
+                "má"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "骂"
+            },
+            {
+              "id": "zh_u1l4e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: pull out (pinyin, second tone)",
+              "sentence": "bá",
+              "answer": "bá",
+              "options": [
+                "bá",
+                "bà",
+                "má",
+                "mà"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "拔"
+            },
+            {
+              "id": "zh_u1l4e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: dad (pinyin, fourth tone)",
+              "sentence": "bà",
+              "answer": "bà",
+              "options": [
+                "bà",
+                "má",
+                "mà",
+                "bá"
+              ],
+              "tokens": [],
+              "tokenSeparator": "",
+              "support": "爸"
+            },
+            {
+              "id": "zh_u1l4e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: hemp (pinyin, second tone)",
+              "sentence": "má",
+              "answer": "má",
+              "options": [],
+              "tokens": [
+                "má"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l4e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: scold (pinyin, fourth tone)",
+              "sentence": "mà",
+              "answer": "mà",
+              "options": [],
+              "tokens": [
+                "mà"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l4e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: pull out (pinyin, second tone)",
+              "sentence": "bá",
+              "answer": "bá",
+              "options": [],
+              "tokens": [
+                "bá"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l4e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: dad (pinyin, fourth tone)",
+              "sentence": "bà",
+              "answer": "bà",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u1l4e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write tone-marked pinyin: hemp (pinyin, second tone)",
+              "sentence": "má",
+              "answer": "má",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh_u2",
+      "title": "问候与介绍",
+      "description": "Greetings and introductions",
+      "lessons": [
+        {
+          "id": "zh_u2l1",
+          "title": "初识表达",
+          "exercises": [
+            {
+              "id": "zh_u2l1e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [
+                "你好",
+                "谢谢",
+                "再见",
+                "我叫安娜"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Thank you",
+              "sentence": "谢谢",
+              "answer": "谢谢",
+              "options": [
+                "谢谢",
+                "再见",
+                "我叫安娜",
+                "你好"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Goodbye",
+              "sentence": "再见",
+              "answer": "再见",
+              "options": [
+                "再见",
+                "我叫安娜",
+                "你好",
+                "谢谢"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: My name is Anna",
+              "sentence": "我叫安娜",
+              "answer": "我叫安娜",
+              "options": [
+                "我叫安娜",
+                "你好",
+                "谢谢",
+                "再见"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [],
+              "tokens": [
+                "你",
+                "好"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Thank you",
+              "sentence": "谢谢",
+              "answer": "谢谢",
+              "options": [],
+              "tokens": [
+                "谢谢"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Goodbye",
+              "sentence": "再见",
+              "answer": "再见",
+              "options": [],
+              "tokens": [
+                "再见"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: My name is Anna",
+              "sentence": "我叫安娜",
+              "answer": "我叫安娜",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l1e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u2l2",
+          "title": "场景应用",
+          "exercises": [
+            {
+              "id": "zh_u2l2e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I am a student",
+              "sentence": "我是学生",
+              "answer": "我是学生",
+              "options": [
+                "我是学生",
+                "你叫什么名字",
+                "很高兴认识你",
+                "不客气"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: What is your name",
+              "sentence": "你叫什么名字",
+              "answer": "你叫什么名字",
+              "options": [
+                "你叫什么名字",
+                "很高兴认识你",
+                "不客气",
+                "我是学生"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Nice to meet you",
+              "sentence": "很高兴认识你",
+              "answer": "很高兴认识你",
+              "options": [
+                "很高兴认识你",
+                "不客气",
+                "我是学生",
+                "你叫什么名字"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: You are welcome",
+              "sentence": "不客气",
+              "answer": "不客气",
+              "options": [
+                "不客气",
+                "我是学生",
+                "你叫什么名字",
+                "很高兴认识你"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I am a student",
+              "sentence": "我是学生",
+              "answer": "我是学生",
+              "options": [],
+              "tokens": [
+                "我",
+                "是",
+                "学生"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: What is your name",
+              "sentence": "你叫什么名字",
+              "answer": "你叫什么名字",
+              "options": [],
+              "tokens": [
+                "你",
+                "叫",
+                "什么",
+                "名字"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Nice to meet you",
+              "sentence": "很高兴认识你",
+              "answer": "很高兴认识你",
+              "options": [],
+              "tokens": [
+                "很",
+                "高兴",
+                "认识",
+                "你"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: You are welcome",
+              "sentence": "不客气",
+              "answer": "不客气",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l2e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I am a student",
+              "sentence": "我是学生",
+              "answer": "我是学生",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u2l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "zh_u2l3e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [
+                "你好",
+                "再见",
+                "我是学生",
+                "很高兴认识你"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Goodbye",
+              "sentence": "再见",
+              "answer": "再见",
+              "options": [
+                "再见",
+                "我是学生",
+                "很高兴认识你",
+                "你好"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I am a student",
+              "sentence": "我是学生",
+              "answer": "我是学生",
+              "options": [
+                "我是学生",
+                "很高兴认识你",
+                "你好",
+                "再见"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Nice to meet you",
+              "sentence": "很高兴认识你",
+              "answer": "很高兴认识你",
+              "options": [
+                "很高兴认识你",
+                "你好",
+                "再见",
+                "我是学生"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [],
+              "tokens": [
+                "你",
+                "好"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Goodbye",
+              "sentence": "再见",
+              "answer": "再见",
+              "options": [],
+              "tokens": [
+                "再见"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I am a student",
+              "sentence": "我是学生",
+              "answer": "我是学生",
+              "options": [],
+              "tokens": [
+                "我",
+                "是",
+                "学生"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Nice to meet you",
+              "sentence": "很高兴认识你",
+              "answer": "很高兴认识你",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l3e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Hello",
+              "sentence": "你好",
+              "answer": "你好",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u2l4",
+          "title": "综合表达",
+          "exercises": [
+            {
+              "id": "zh_u2l4e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Thank you",
+              "sentence": "谢谢",
+              "answer": "谢谢",
+              "options": [
+                "谢谢",
+                "我叫安娜",
+                "你叫什么名字",
+                "不客气"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: My name is Anna",
+              "sentence": "我叫安娜",
+              "answer": "我叫安娜",
+              "options": [
+                "我叫安娜",
+                "你叫什么名字",
+                "不客气",
+                "谢谢"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: What is your name",
+              "sentence": "你叫什么名字",
+              "answer": "你叫什么名字",
+              "options": [
+                "你叫什么名字",
+                "不客气",
+                "谢谢",
+                "我叫安娜"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: You are welcome",
+              "sentence": "不客气",
+              "answer": "不客气",
+              "options": [
+                "不客气",
+                "谢谢",
+                "我叫安娜",
+                "你叫什么名字"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Thank you",
+              "sentence": "谢谢",
+              "answer": "谢谢",
+              "options": [],
+              "tokens": [
+                "谢谢"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: My name is Anna",
+              "sentence": "我叫安娜",
+              "answer": "我叫安娜",
+              "options": [],
+              "tokens": [
+                "我",
+                "叫",
+                "安娜"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: What is your name",
+              "sentence": "你叫什么名字",
+              "answer": "你叫什么名字",
+              "options": [],
+              "tokens": [
+                "你",
+                "叫",
+                "什么",
+                "名字"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: You are welcome",
+              "sentence": "不客气",
+              "answer": "不客气",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u2l4e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Thank you",
+              "sentence": "谢谢",
+              "answer": "谢谢",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh_u3",
+      "title": "数字与物品",
+      "description": "Numbers and objects",
+      "lessons": [
+        {
+          "id": "zh_u3l1",
+          "title": "初识表达",
+          "exercises": [
+            {
+              "id": "zh_u3l1e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [
+                "一",
+                "二",
+                "三",
+                "这是书"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: two",
+              "sentence": "二",
+              "answer": "二",
+              "options": [
+                "二",
+                "三",
+                "这是书",
+                "一"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: three",
+              "sentence": "三",
+              "answer": "三",
+              "options": [
+                "三",
+                "这是书",
+                "一",
+                "二"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: This is a book",
+              "sentence": "这是书",
+              "answer": "这是书",
+              "options": [
+                "这是书",
+                "一",
+                "二",
+                "三"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [],
+              "tokens": [
+                "一"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: two",
+              "sentence": "二",
+              "answer": "二",
+              "options": [],
+              "tokens": [
+                "二"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: three",
+              "sentence": "三",
+              "answer": "三",
+              "options": [],
+              "tokens": [
+                "三"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: This is a book",
+              "sentence": "这是书",
+              "answer": "这是书",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l1e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u3l2",
+          "title": "场景应用",
+          "exercises": [
+            {
+              "id": "zh_u3l2e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: one person",
+              "sentence": "一个人",
+              "answer": "一个人",
+              "options": [
+                "一个人",
+                "两本书",
+                "我有三个杯子",
+                "那是我的老师"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: two books",
+              "sentence": "两本书",
+              "answer": "两本书",
+              "options": [
+                "两本书",
+                "我有三个杯子",
+                "那是我的老师",
+                "一个人"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I have three cups",
+              "sentence": "我有三个杯子",
+              "answer": "我有三个杯子",
+              "options": [
+                "我有三个杯子",
+                "那是我的老师",
+                "一个人",
+                "两本书"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: That is my teacher",
+              "sentence": "那是我的老师",
+              "answer": "那是我的老师",
+              "options": [
+                "那是我的老师",
+                "一个人",
+                "两本书",
+                "我有三个杯子"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one person",
+              "sentence": "一个人",
+              "answer": "一个人",
+              "options": [],
+              "tokens": [
+                "一",
+                "个",
+                "人"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: two books",
+              "sentence": "两本书",
+              "answer": "两本书",
+              "options": [],
+              "tokens": [
+                "两",
+                "本",
+                "书"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I have three cups",
+              "sentence": "我有三个杯子",
+              "answer": "我有三个杯子",
+              "options": [],
+              "tokens": [
+                "我",
+                "有",
+                "三",
+                "个",
+                "杯子"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: That is my teacher",
+              "sentence": "那是我的老师",
+              "answer": "那是我的老师",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l2e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one person",
+              "sentence": "一个人",
+              "answer": "一个人",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u3l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "zh_u3l3e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [
+                "一",
+                "三",
+                "一个人",
+                "我有三个杯子"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: three",
+              "sentence": "三",
+              "answer": "三",
+              "options": [
+                "三",
+                "一个人",
+                "我有三个杯子",
+                "一"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: one person",
+              "sentence": "一个人",
+              "answer": "一个人",
+              "options": [
+                "一个人",
+                "我有三个杯子",
+                "一",
+                "三"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I have three cups",
+              "sentence": "我有三个杯子",
+              "answer": "我有三个杯子",
+              "options": [
+                "我有三个杯子",
+                "一",
+                "三",
+                "一个人"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [],
+              "tokens": [
+                "一"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: three",
+              "sentence": "三",
+              "answer": "三",
+              "options": [],
+              "tokens": [
+                "三"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one person",
+              "sentence": "一个人",
+              "answer": "一个人",
+              "options": [],
+              "tokens": [
+                "一",
+                "个",
+                "人"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I have three cups",
+              "sentence": "我有三个杯子",
+              "answer": "我有三个杯子",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l3e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: one",
+              "sentence": "一",
+              "answer": "一",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u3l4",
+          "title": "综合表达",
+          "exercises": [
+            {
+              "id": "zh_u3l4e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: two",
+              "sentence": "二",
+              "answer": "二",
+              "options": [
+                "二",
+                "这是书",
+                "两本书",
+                "那是我的老师"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: This is a book",
+              "sentence": "这是书",
+              "answer": "这是书",
+              "options": [
+                "这是书",
+                "两本书",
+                "那是我的老师",
+                "二"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: two books",
+              "sentence": "两本书",
+              "answer": "两本书",
+              "options": [
+                "两本书",
+                "那是我的老师",
+                "二",
+                "这是书"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: That is my teacher",
+              "sentence": "那是我的老师",
+              "answer": "那是我的老师",
+              "options": [
+                "那是我的老师",
+                "二",
+                "这是书",
+                "两本书"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: two",
+              "sentence": "二",
+              "answer": "二",
+              "options": [],
+              "tokens": [
+                "二"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: This is a book",
+              "sentence": "这是书",
+              "answer": "这是书",
+              "options": [],
+              "tokens": [
+                "这",
+                "是",
+                "书"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: two books",
+              "sentence": "两本书",
+              "answer": "两本书",
+              "options": [],
+              "tokens": [
+                "两",
+                "本",
+                "书"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: That is my teacher",
+              "sentence": "那是我的老师",
+              "answer": "那是我的老师",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u3l4e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: two",
+              "sentence": "二",
+              "answer": "二",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh_u4",
+      "title": "生活请求",
+      "description": "Everyday requests",
+      "lessons": [
+        {
+          "id": "zh_u4l1",
+          "title": "初识表达",
+          "exercises": [
+            {
+              "id": "zh_u4l1e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [
+                "请给我水",
+                "我要一杯茶",
+                "这个多少钱",
+                "我要这个"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I would like a cup of tea",
+              "sentence": "我要一杯茶",
+              "answer": "我要一杯茶",
+              "options": [
+                "我要一杯茶",
+                "这个多少钱",
+                "我要这个",
+                "请给我水"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: How much is this",
+              "sentence": "这个多少钱",
+              "answer": "这个多少钱",
+              "options": [
+                "这个多少钱",
+                "我要这个",
+                "请给我水",
+                "我要一杯茶"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I would like this one",
+              "sentence": "我要这个",
+              "answer": "我要这个",
+              "options": [
+                "我要这个",
+                "请给我水",
+                "我要一杯茶",
+                "这个多少钱"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [],
+              "tokens": [
+                "请",
+                "给",
+                "我",
+                "水"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I would like a cup of tea",
+              "sentence": "我要一杯茶",
+              "answer": "我要一杯茶",
+              "options": [],
+              "tokens": [
+                "我",
+                "要",
+                "一",
+                "杯",
+                "茶"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: How much is this",
+              "sentence": "这个多少钱",
+              "answer": "这个多少钱",
+              "options": [],
+              "tokens": [
+                "这个",
+                "多少",
+                "钱"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I would like this one",
+              "sentence": "我要这个",
+              "answer": "我要这个",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l1e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u4l2",
+          "title": "场景应用",
+          "exercises": [
+            {
+              "id": "zh_u4l2e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please speak a little more slowly",
+              "sentence": "请说慢一点",
+              "answer": "请说慢一点",
+              "options": [
+                "请说慢一点",
+                "请再说一遍",
+                "我不明白",
+                "可以帮我吗"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please say it again",
+              "sentence": "请再说一遍",
+              "answer": "请再说一遍",
+              "options": [
+                "请再说一遍",
+                "我不明白",
+                "可以帮我吗",
+                "请说慢一点"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I do not understand",
+              "sentence": "我不明白",
+              "answer": "我不明白",
+              "options": [
+                "我不明白",
+                "可以帮我吗",
+                "请说慢一点",
+                "请再说一遍"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Can you help me",
+              "sentence": "可以帮我吗",
+              "answer": "可以帮我吗",
+              "options": [
+                "可以帮我吗",
+                "请说慢一点",
+                "请再说一遍",
+                "我不明白"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please speak a little more slowly",
+              "sentence": "请说慢一点",
+              "answer": "请说慢一点",
+              "options": [],
+              "tokens": [
+                "请",
+                "说",
+                "慢",
+                "一点"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please say it again",
+              "sentence": "请再说一遍",
+              "answer": "请再说一遍",
+              "options": [],
+              "tokens": [
+                "请",
+                "再",
+                "说",
+                "一",
+                "遍"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I do not understand",
+              "sentence": "我不明白",
+              "answer": "我不明白",
+              "options": [],
+              "tokens": [
+                "我",
+                "不",
+                "明白"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Can you help me",
+              "sentence": "可以帮我吗",
+              "answer": "可以帮我吗",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l2e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please speak a little more slowly",
+              "sentence": "请说慢一点",
+              "answer": "请说慢一点",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u4l3",
+          "title": "交错复现",
+          "exercises": [
+            {
+              "id": "zh_u4l3e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [
+                "请给我水",
+                "这个多少钱",
+                "请说慢一点",
+                "我不明白"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: How much is this",
+              "sentence": "这个多少钱",
+              "answer": "这个多少钱",
+              "options": [
+                "这个多少钱",
+                "请说慢一点",
+                "我不明白",
+                "请给我水"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please speak a little more slowly",
+              "sentence": "请说慢一点",
+              "answer": "请说慢一点",
+              "options": [
+                "请说慢一点",
+                "我不明白",
+                "请给我水",
+                "这个多少钱"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I do not understand",
+              "sentence": "我不明白",
+              "answer": "我不明白",
+              "options": [
+                "我不明白",
+                "请给我水",
+                "这个多少钱",
+                "请说慢一点"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [],
+              "tokens": [
+                "请",
+                "给",
+                "我",
+                "水"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: How much is this",
+              "sentence": "这个多少钱",
+              "answer": "这个多少钱",
+              "options": [],
+              "tokens": [
+                "这个",
+                "多少",
+                "钱"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please speak a little more slowly",
+              "sentence": "请说慢一点",
+              "answer": "请说慢一点",
+              "options": [],
+              "tokens": [
+                "请",
+                "说",
+                "慢",
+                "一点"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I do not understand",
+              "sentence": "我不明白",
+              "answer": "我不明白",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l3e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please give me water",
+              "sentence": "请给我水",
+              "answer": "请给我水",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        },
+        {
+          "id": "zh_u4l4",
+          "title": "综合表达",
+          "exercises": [
+            {
+              "id": "zh_u4l4e1",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I would like a cup of tea",
+              "sentence": "我要一杯茶",
+              "answer": "我要一杯茶",
+              "options": [
+                "我要一杯茶",
+                "我要这个",
+                "请再说一遍",
+                "可以帮我吗"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e2",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: I would like this one",
+              "sentence": "我要这个",
+              "answer": "我要这个",
+              "options": [
+                "我要这个",
+                "请再说一遍",
+                "可以帮我吗",
+                "我要一杯茶"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e3",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Please say it again",
+              "sentence": "请再说一遍",
+              "answer": "请再说一遍",
+              "options": [
+                "请再说一遍",
+                "可以帮我吗",
+                "我要一杯茶",
+                "我要这个"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e4",
+              "type": "translateChoice",
+              "language": "chinese",
+              "prompt": "Choose: Can you help me",
+              "sentence": "可以帮我吗",
+              "answer": "可以帮我吗",
+              "options": [
+                "可以帮我吗",
+                "我要一杯茶",
+                "我要这个",
+                "请再说一遍"
+              ],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e5",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I would like a cup of tea",
+              "sentence": "我要一杯茶",
+              "answer": "我要一杯茶",
+              "options": [],
+              "tokens": [
+                "我",
+                "要",
+                "一",
+                "杯",
+                "茶"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e6",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I would like this one",
+              "sentence": "我要这个",
+              "answer": "我要这个",
+              "options": [],
+              "tokens": [
+                "我",
+                "要",
+                "这个"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e7",
+              "type": "wordBank",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Please say it again",
+              "sentence": "请再说一遍",
+              "answer": "请再说一遍",
+              "options": [],
+              "tokens": [
+                "请",
+                "再",
+                "说",
+                "一",
+                "遍"
+              ],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e8",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: Can you help me",
+              "sentence": "可以帮我吗",
+              "answer": "可以帮我吗",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            },
+            {
+              "id": "zh_u4l4e9",
+              "type": "translateInput",
+              "language": "chinese",
+              "prompt": "Write simplified Chinese: I would like a cup of tea",
+              "sentence": "我要一杯茶",
+              "answer": "我要一杯茶",
+              "options": [],
+              "tokens": [],
+              "tokenSeparator": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

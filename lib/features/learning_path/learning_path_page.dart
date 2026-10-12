@@ -6,9 +6,11 @@ import 'package:go_router/go_router.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
+import '../../data/models/course_track.dart';
 import 'widgets/lesson_node.dart';
 import 'widgets/main_menu_drawer.dart';
 import 'widgets/unit_header.dart';
+import 'widgets/course_selector.dart';
 
 /// 首页：垂直学习路径
 class LearningPathPage extends ConsumerStatefulWidget {
@@ -481,11 +483,25 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
         },
       ),
       appBar: AppBar(
-        title: Text(
-          course.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w800,
-            color: AppColors.textPrimary,
+        title: InkWell(
+          key: const ValueKey('course-selector'),
+          onTap: () => showCourseSelector(context, ref),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '${course.language.shortLabel} · ${CourseTrack.fromId(course.id).label}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              const Icon(Icons.arrow_drop_down),
+            ],
           ),
         ),
         actions: [

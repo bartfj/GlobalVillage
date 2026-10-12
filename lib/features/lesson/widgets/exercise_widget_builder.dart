@@ -8,6 +8,8 @@ import 'production_exercise_widget.dart';
 import 'speaking_widget.dart';
 import 'translate_choice_widget.dart';
 import 'word_bank_widget.dart';
+import '../../../data/models/learning_language.dart';
+import 'language_exercise_widget.dart';
 
 /// 按题型挂载现有练习 Widget（课时页与专项练习共用）
 Widget buildExerciseWidget({
@@ -19,6 +21,16 @@ Widget buildExerciseWidget({
   required Key questionKey,
   VoidCallback? onSkipSpeaking,
 }) {
+  if (exercise.language != LearningLanguage.english) {
+    return LanguageExerciseWidget(
+      key: questionKey,
+      exercise: exercise,
+      enabled: enabled,
+      checked: checked,
+      answer: currentAnswer,
+      onChanged: onChanged,
+    );
+  }
   switch (exercise.type) {
     case ExerciseType.listeningWordBank:
     case ExerciseType.dictation:

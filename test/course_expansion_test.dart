@@ -39,8 +39,20 @@ void main() {
     'three tracks load with globally unique IDs and intermediate choices',
     () async {
       final courses = await CourseLoader().loadAll();
-      expect(courses.map((c) => c.id), ['zero', 'beginner', 'intermediate']);
-      expect(courses.map((c) => c.orderedLessons.length), [232, 272, 64]);
+      expect(courses.map((c) => c.id), [
+        'zero',
+        'beginner',
+        'intermediate',
+        'chinese',
+        'sanskrit',
+      ]);
+      expect(courses.map((c) => c.orderedLessons.length), [
+        232,
+        272,
+        64,
+        16,
+        16,
+      ]);
       final ids = <String>{};
       for (final course in courses) {
         for (final unit in course.units) {
@@ -56,7 +68,7 @@ void main() {
       expect(CourseTrack.fromId('intermediate'), CourseTrack.intermediate);
       expect(CourseTrack.fromId('elementary'), CourseTrack.beginner);
       expect(CourseTrack.fromId('unknown'), CourseTrack.beginner);
-      final intermediate = courses.last;
+      final intermediate = courses[2];
       expect(intermediate.title, '英语中级');
       expect(intermediate.units, hasLength(16));
       for (final lesson in intermediate.orderedLessons) {
@@ -104,7 +116,10 @@ void main() {
     'authored expansion is deterministic and preserves the original units',
     () {
       final paths = [
-        for (final track in CourseTrack.values) track.assetPath,
+        for (final track in CourseTrack.values.where(
+          (t) => t.id != 'chinese' && t.id != 'sanskrit',
+        ))
+          track.assetPath,
         'assets/dialogues/unit_dialogues.json',
         'assets/dialogues/application_tasks.json',
         'docs/新增192课教学台账.md',

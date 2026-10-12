@@ -1,6 +1,9 @@
 /// 课程内容模型：Course -> Unit -> Lesson -> Exercise
 library;
 
+import 'package:unorm_dart/unorm_dart.dart' as unicode;
+import 'learning_language.dart';
+
 enum ExerciseType {
   translateChoice,
   wordBank,
@@ -53,9 +56,17 @@ class Exercise {
   /// 正确答案
   final String answer;
   final List<String> acceptedAnswers;
+  final LearningLanguage language;
+  final String? support;
+  final List<String> tokens;
+  final String tokenSeparator;
+
+  String normalizeInput(String text) => language == LearningLanguage.english
+      ? normalizeAnswer(text)
+      : unicode.nfc(text.trim()).replaceAll(RegExp(r'\s+'), ' ');
 
   bool accepts(String input) {
-    final normalized = normalizeAnswer(input);
+    final normalized = normalizeInput(input);
     if (normalized.isEmpty) return false;
     final alternatives = type == ExerciseType.translateInput
         ? acceptedAnswers
@@ -63,7 +74,7 @@ class Exercise {
     return [
       answer,
       ...alternatives,
-    ].any((a) => normalizeAnswer(a) == normalized);
+    ].any((a) => normalizeInput(a) == normalized);
   }
 
   static String normalizeAnswer(String text) => text
@@ -88,6 +99,10 @@ class Exercise {
     this.sentenceWithBlank,
     this.pairs = const [],
     this.acceptedAnswers = const [],
+    this.language = LearningLanguage.english,
+    this.support,
+    this.tokens = const [],
+    this.tokenSeparator = ' ',
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -100,6 +115,12 @@ class Exercise {
           .map((e) => e as String)
           .toList(),
       answer: json['answer'] as String,
+      language: LearningLanguage.values.byName(
+        json['language'] as String? ?? 'english',
+      ),
+      support: json['support'] as String?,
+      tokens: (json['tokens'] as List? ?? []).cast<String>(),
+      tokenSeparator: json['tokenSeparator'] as String? ?? ' ',
       acceptedAnswers: (json['acceptedAnswers'] as List<dynamic>? ?? [])
           .map((e) => e as String)
           .toList(),
@@ -162,13 +183,25 @@ class Course {
   final String id;
   final String title;
   final List<Unit> units;
+  final LearningLanguage language;
+  final String explanationLanguage;
 
-  const Course({required this.id, required this.title, required this.units});
+  const Course({
+    required this.id,
+    required this.title,
+    required this.units,
+    this.language = LearningLanguage.english,
+    this.explanationLanguage = 'chinese',
+  });
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
       id: json['id'] as String,
       title: json['title'] as String,
+      language: LearningLanguage.values.byName(
+        json['language'] as String? ?? 'english',
+      ),
+      explanationLanguage: json['explanationLanguage'] as String? ?? 'chinese',
       units: (json['units'] as List<dynamic>)
           .map((e) => Unit.fromJson(e as Map<String, dynamic>))
           .toList(),

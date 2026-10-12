@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../data/models/course.dart';
+import '../../data/models/learning_language.dart';
 
 /// 英文发音服务：优先播放内置/网络音频，缺失时回退系统 TTS
 class TtsService {
@@ -54,6 +55,8 @@ class TtsService {
 
   /// 播放题目发音：内置 mp3 优先，缺失/失败回退系统 TTS
   Future<bool> speakExercise(Exercise exercise) async {
+    // Non-English pilot courses have no verified audio or ASR pipeline yet.
+    if (exercise.language != LearningLanguage.english) return false;
     final relative = 'audio/listening/${exercise.id}.mp3';
     final bundlePath = 'assets/$relative';
 

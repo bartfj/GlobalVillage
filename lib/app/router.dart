@@ -8,6 +8,7 @@ import '../features/learning_path/completed_lessons_page.dart';
 import '../features/learning_path/learning_path_page.dart';
 import '../features/learning_path/review_page.dart';
 import '../data/models/skill_practice.dart';
+import '../data/models/learning_language.dart';
 import '../features/lesson/lesson_page.dart';
 import '../features/lesson/result_page.dart';
 import '../features/rewards/rewards_page.dart';
@@ -25,6 +26,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final onAuth = _authLocations.contains(state.matchedLocation);
       if (!auth.hasSession && !onAuth) return '/welcome';
+      if (state.matchedLocation.startsWith('/practice/') &&
+          ref.read(selectedTrackProvider).language !=
+              LearningLanguage.english) {
+        return '/';
+      }
       if (auth.hasSession && onAuth) {
         // 游客允许进入登录/注册页升级账号
         if (auth.isGuest && state.matchedLocation != '/welcome') return null;

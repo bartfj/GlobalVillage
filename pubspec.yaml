@@ -21,6 +21,7 @@ dependencies:
   path_provider: ^2.1.5
   record: ^6.2.0
   http: ^1.2.2
+  unorm_dart: ^0.3.2
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +47,9 @@ flutter:
     - assets/phonetics/
     - assets/models/whisper/
   fonts:
+    - family: Sanskrit
+      fonts:
+        - asset: fonts/NotoSansDevanagari.ttf
     - family: NotoSans
       fonts:
         - asset: fonts/STIXTwoText-Regular.ttf
