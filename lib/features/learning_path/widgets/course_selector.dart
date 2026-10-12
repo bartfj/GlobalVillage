@@ -9,13 +9,11 @@ List<CourseTrack> _tracksOf(LearningLanguage language) =>
     CourseTrack.values.where((t) => t.language == language).toList();
 
 Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
-  final initial = ref.read(selectedTrackProvider);
-  var language = initial.language;
   var busy = false;
   String? error;
 
   Future<void> commit(
-    CourseTrack track,
+    LearningLanguage language,
     StateSetter setState,
     BuildContext sheetContext,
   ) async {
@@ -24,6 +22,10 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
       error = null;
     });
     try {
+      // 切到该语言上次记忆的课程；无记忆时回退到该语言首条课程。
+      final track = ref
+          .read(selectedTrackProvider.notifier)
+          .rememberedTrack(language);
       final courses = await ref.read(allCoursesProvider.future);
       if (!courses.any((c) => c.id == track.id)) {
         throw StateError('Missing course');
@@ -57,7 +59,7 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  '学习语言与课程',
+                  '学习语言',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 8),
@@ -65,64 +67,33 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
                   Builder(
                     builder: (context) {
                       final tracks = _tracksOf(value);
-                      final single = tracks.length == 1;
+                      final current =
+                          ref.read(selectedTrackProvider).language == value;
+                      final remembered = current
+                          ? ref.read(selectedTrackProvider)
+                          : ref
+                              .read(selectedTrackProvider.notifier)
+                              .rememberedTrack(value);
                       return ListTile(
                         title: Text(value.label),
-                        subtitle: single ? Text(tracks.first.label) : null,
-                        selected: language == value,
+                        subtitle: Text(
+                          tracks.length == 1
+                              ? remembered.label
+                              : '${remembered.label}（侧栏可换等级）',
+                        ),
+                        selected: current,
                         leading: Icon(
-                          language == value
+                          current
                               ? Icons.radio_button_checked
                               : Icons.radio_button_off,
                         ),
-                        trailing: single
-                            ? const Icon(Icons.chevron_right)
-                            : null,
+                        trailing: const Icon(Icons.chevron_right),
                         onTap: busy
                             ? null
-                            : () {
-                                if (single) {
-                                  commit(tracks.first, setState, sheetContext);
-                                } else {
-                                  setState(() {
-                                    language = value;
-                                    error = null;
-                                  });
-                                }
-                              },
+                            : () => commit(value, setState, sheetContext),
                       );
                     },
                   ),
-                if (_tracksOf(language).length > 1) ...[
-                  const Divider(),
-                  const Text(
-                    '系统课程',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  for (final track in _tracksOf(language))
-                    ListTile(
-                      title: Text(track.label),
-                      selected:
-                          track ==
-                          ref
-                              .read(selectedTrackProvider.notifier)
-                              .rememberedTrack(language),
-                      leading: Icon(
-                        track ==
-                                ref
-                                    .read(selectedTrackProvider.notifier)
-                                    .rememberedTrack(language)
-                            ? Icons.check_circle_outline
-                            : Icons.circle_outlined,
-                      ),
-                      onTap: busy
-                          ? null
-                          : () => commit(track, setState, sheetContext),
-                    ),
-                ],
                 if (busy) const Center(child: CircularProgressIndicator()),
                 if (error != null)
                   Text(

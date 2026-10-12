@@ -218,21 +218,31 @@ void main() {
     );
     await tester.tap(find.text('切换'));
     await tester.pumpAndSettle();
-    // 英语是多课程语言：展开等级列表，不直接提交。
-    expect(find.text('零基础'), findsOneWidget);
-    expect(container.read(selectedTrackProvider), CourseTrack.beginner);
-    Navigator.pop(tester.element(find.text('学习语言与课程')));
+    // 面板只选语言，不再展开系统课程列表。
+    expect(find.text('系统课程'), findsNothing);
+    Navigator.pop(tester.element(find.text('学习语言')));
     await tester.pumpAndSettle();
     expect(container.read(selectedTrackProvider), CourseTrack.beginner);
+    // 英语记忆切到中级，验证语言切换恢复各语言上次课程。
+    await container
+        .read(selectedTrackProvider.notifier)
+        .select(CourseTrack.intermediate);
     await tester.tap(find.text('切换'));
     await tester.pumpAndSettle();
-    // 中文只有一门课程：点语言即提交并关闭面板。
     await tester.tap(find.text('中文 Chinese'));
     await tester.runAsync(() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     });
     await tester.pumpAndSettle();
     expect(container.read(selectedTrackProvider), CourseTrack.chinese);
+    await tester.tap(find.text('切换'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('英语'));
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    });
+    await tester.pumpAndSettle();
+    expect(container.read(selectedTrackProvider), CourseTrack.intermediate);
     expect(tester.takeException(), isNull);
   });
 
