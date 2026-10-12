@@ -218,17 +218,16 @@ void main() {
     );
     await tester.tap(find.text('切换'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('中文 Chinese'));
-    await tester.pumpAndSettle();
+    // 英语是多课程语言：展开等级列表，不直接提交。
+    expect(find.text('零基础'), findsOneWidget);
     expect(container.read(selectedTrackProvider), CourseTrack.beginner);
-    Navigator.pop(tester.element(find.text('系统课程')));
+    Navigator.pop(tester.element(find.text('学习语言与课程')));
     await tester.pumpAndSettle();
     expect(container.read(selectedTrackProvider), CourseTrack.beginner);
     await tester.tap(find.text('切换'));
     await tester.pumpAndSettle();
+    // 中文只有一门课程：点语言即提交并关闭面板。
     await tester.tap(find.text('中文 Chinese'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('普通话入门'));
     await tester.runAsync(() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     });

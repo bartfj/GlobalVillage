@@ -168,12 +168,67 @@ class MainMenuDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 children: [
-                  ListTile(
-                    leading: const Icon(Icons.language),
-                    title: const Text('学习语言'),
-                    subtitle: Text(selectedTrack.language.label),
-                    trailing: const Icon(Icons.arrow_drop_down),
-                    onTap: () => showCourseSelector(context, ref),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 4, 12, 8),
+                    child: Material(
+                      color: AppColors.greenLight.withValues(alpha: 0.35),
+                      borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () => showCourseSelector(context, ref),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.language,
+                                color: AppColors.greenDark,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${selectedTrack.language.shortLabel} · ${selectedTrack.label}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800,
+                                        color: AppColors.greenDark,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      '已通关 $completed/$total',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Text(
+                                '切换',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.greenDark,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.chevron_right,
+                                color: AppColors.greenDark,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -214,19 +269,19 @@ class MainMenuDrawer extends ConsumerWidget {
                         if (context.mounted) Navigator.of(context).pop();
                       },
                     ),
-                  if (selectedTrack.language == LearningLanguage.english) ...[
-                    const Divider(height: 16),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 4, 20, 8),
-                      child: Text(
-                        '专项练习',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.textSecondary,
-                        ),
+                  const Divider(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(20, 4, 20, 8),
+                    child: Text(
+                      '专项练习',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textSecondary,
                       ),
                     ),
+                  ),
+                  if (selectedTrack.language == LearningLanguage.english) ...[
                     _MenuTile(
                       icon: Icons.hearing_rounded,
                       iconColor: AppColors.blue,
@@ -246,7 +301,22 @@ class MainMenuDrawer extends ConsumerWidget {
                       title: '口语练习',
                       onTap: () => _openRoute(context, '/practice/speaking'),
                     ),
-                  ],
+                  ] else
+                    const ListTile(
+                      enabled: false,
+                      leading: Icon(
+                        Icons.construction_rounded,
+                        color: AppColors.lockedDark,
+                      ),
+                      title: Text(
+                        '专项练习筹备中',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      subtitle: Text('当前语言完成系统课程后逐步开放'),
+                    ),
                   const Divider(height: 16),
                   _MenuTile(
                     icon: Icons.history_rounded,
