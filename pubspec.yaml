@@ -1,7 +1,7 @@
 name: english_village
 description: 地球村闯关式英语学习 App
 publish_to: 'none'
-version: 0.8.21+38
+version: 0.8.23+40
 
 environment:
   sdk: ^3.9.0
@@ -38,6 +38,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/courses/
+    - assets/practice/
     - assets/sounds/
     - assets/audio/listening/
     - assets/audio/dialogues/

@@ -74,8 +74,13 @@ class TtsService {
     return speak(exercise.sentence);
   }
 
+  /// Android flutter_tts：`1` 已入队；`0` 表示 QUEUE_FLUSH 下仍标记 speaking（常见于 stop 后立刻 speak）。
+  static bool speakResultOk(Object? result) =>
+      result == 1 || result == true;
+
   Future<bool> speak(String text) async {
     if (text.trim().isEmpty) return false;
+    final uttered = text.trim();
     try {
       // 先释放 AudioPlayer 焦点，否则部分机型 TTS 会无声
       try {
@@ -84,10 +89,17 @@ class TtsService {
       await _ensureInitialized();
       await _tts.stop();
       await _tts.setVolume(1.0);
-      final result = await _tts
-          .speak(text.trim())
-          .timeout(const Duration(seconds: 8));
-      return result == 1;
+      var result = await _tts.speak(uttered).timeout(const Duration(seconds: 8));
+      if (speakResultOk(result)) return true;
+
+      // stop→speak 竞态时引擎会回 0；短延迟后重试一次，避免误报「语音播放失败」
+      if (result == 0) {
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        await _tts.stop();
+        result = await _tts.speak(uttered).timeout(const Duration(seconds: 8));
+        if (speakResultOk(result)) return true;
+      }
+      return false;
     } catch (_) {
       return false;
     }

@@ -12,15 +12,9 @@ import '../../data/sources/learning_store.dart';
 import 'lesson_controller.dart';
 import 'result_page.dart';
 import 'widgets/answer_feedback_bar.dart';
-import 'widgets/fill_blank_widget.dart';
-import 'widgets/listening_choice_widget.dart';
+import 'widgets/exercise_widget_builder.dart';
 import 'widgets/lesson_style.dart';
-import 'widgets/match_pairs_widget.dart';
-import 'widgets/production_exercise_widget.dart';
-import 'widgets/speaking_widget.dart';
 import 'widgets/tappable_phonetic_text.dart';
-import 'widgets/translate_choice_widget.dart';
-import 'widgets/word_bank_widget.dart';
 
 /// 答题主流程页
 class LessonPage extends ConsumerStatefulWidget {
@@ -411,63 +405,14 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   }
 
   Widget _buildExercise(Exercise exercise, LessonState state, Key questionKey) {
-    final enabled = !state.checked;
-    switch (exercise.type) {
-      case ExerciseType.listeningWordBank:
-      case ExerciseType.dictation:
-      case ExerciseType.translateInput:
-        return ProductionExerciseWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-      case ExerciseType.translateChoice:
-        return TranslateChoiceWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          selected: _currentAnswer.isEmpty ? null : _currentAnswer,
-          checked: state.checked,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-      case ExerciseType.listeningChoice:
-        return ListeningChoiceWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          selected: _currentAnswer.isEmpty ? null : _currentAnswer,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-      case ExerciseType.wordBank:
-        return WordBankWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-      case ExerciseType.fillBlank:
-        return FillBlankWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-      case ExerciseType.speaking:
-        return SpeakingWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-          onSkip: _onSkipSpeaking,
-        );
-      case ExerciseType.matchPairs:
-        return MatchPairsWidget(
-          key: questionKey,
-          exercise: exercise,
-          enabled: enabled,
-          onChanged: (v) => setState(() => _currentAnswer = v),
-        );
-    }
+    return buildExerciseWidget(
+      exercise: exercise,
+      enabled: !state.checked,
+      checked: state.checked,
+      currentAnswer: _currentAnswer,
+      onChanged: (v) => setState(() => _currentAnswer = v),
+      questionKey: questionKey,
+      onSkipSpeaking: _onSkipSpeaking,
+    );
   }
 }

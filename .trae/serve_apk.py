@@ -3,6 +3,7 @@
 """在内网以 HTTP 共享 build/ 目录下的 APK（双 fork 守护进程，不随终端退出）。"""
 import http.server
 import os
+import re
 import socket
 import sys
 from pathlib import Path
@@ -23,6 +24,20 @@ def lan_ip():
         return '127.0.0.1'
     finally:
         s.close()
+
+
+def apk_name() -> str:
+    text = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')
+    match = re.search(r'^version:\s*([0-9]+(?:\.[0-9]+)*)', text, re.M)
+    if match:
+        named = f'earthvillage-{match.group(1)}.apk'
+        if (SERVE_DIR / named).is_file():
+            return named
+    versions = sorted(SERVE_DIR.glob('earthvillage-*.apk'), reverse=True)
+    for path in versions:
+        if path.name != 'earthvillage-latest.apk':
+            return path.name
+    return 'earthvillage-latest.apk'
 
 
 def already_running():
@@ -53,9 +68,10 @@ def main():
         print('missing build dir:', SERVE_DIR, file=sys.stderr)
         sys.exit(1)
 
+    url = f'http://{lan_ip()}:{PORT}/{apk_name()}'
     if already_running():
         print(f'already running pid={PID_FILE.read_text().strip()}')
-        print(f'http://{lan_ip()}:{PORT}/earthvillage-latest.apk')
+        print(url)
         return
 
     daemonize()

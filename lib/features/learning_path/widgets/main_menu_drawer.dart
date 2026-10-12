@@ -204,6 +204,36 @@ class MainMenuDrawer extends ConsumerWidget {
                       },
                     ),
                   const Divider(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(20, 4, 20, 8),
+                    child: Text(
+                      '专项练习',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                  _MenuTile(
+                    icon: Icons.hearing_rounded,
+                    iconColor: AppColors.blue,
+                    title: '发音练习',
+                    onTap: () => _openRoute(context, '/practice/pronunciation'),
+                  ),
+                  _MenuTile(
+                    icon: Icons.menu_book_rounded,
+                    iconColor: AppColors.goldDark,
+                    title: '单词练习',
+                    onTap: () => _openRoute(context, '/practice/vocabulary'),
+                  ),
+                  _MenuTile(
+                    icon: Icons.record_voice_over_rounded,
+                    iconColor: AppColors.green,
+                    title: '口语练习',
+                    onTap: () => _openRoute(context, '/practice/speaking'),
+                  ),
+                  const Divider(height: 16),
                   _MenuTile(
                     icon: Icons.history_rounded,
                     iconColor: AppColors.blue,

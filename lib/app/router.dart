@@ -7,10 +7,12 @@ import '../features/auth/welcome_page.dart';
 import '../features/learning_path/completed_lessons_page.dart';
 import '../features/learning_path/learning_path_page.dart';
 import '../features/learning_path/review_page.dart';
+import '../data/models/skill_practice.dart';
 import '../features/lesson/lesson_page.dart';
 import '../features/lesson/result_page.dart';
 import '../features/rewards/rewards_page.dart';
 import '../features/rewards/tree_page.dart';
+import '../features/skill_practice/skill_practice_page.dart';
 import 'providers.dart';
 
 const _authLocations = ['/welcome', '/login', '/register'];
@@ -33,6 +35,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/', builder: (context, state) => const LearningPathPage()),
       GoRoute(path: '/review', builder: (context, state) => const ReviewPage()),
+      GoRoute(
+        path: '/practice/:skill',
+        builder: (context, state) {
+          final skill = SkillPracticeKind.tryParse(
+            state.pathParameters['skill'] ?? '',
+          );
+          if (skill == null) {
+            return const LearningPathPage();
+          }
+          return SkillPracticePage(skill: skill);
+        },
+      ),
       GoRoute(
         path: '/badges',
         builder: (context, state) => const RewardsPage(),

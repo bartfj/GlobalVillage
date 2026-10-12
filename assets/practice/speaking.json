@@ -1,0 +1,406 @@
+{
+  "skill": "speaking",
+  "title": "口语练习",
+  "exercises": [
+    {
+      "id": "u1l1e9",
+      "type": "speaking",
+      "prompt": "早上好",
+      "sentence": "Good morning.",
+      "options": [],
+      "answer": "Good morning."
+    },
+    {
+      "id": "u10l1e9",
+      "type": "speaking",
+      "prompt": "她有一头长发",
+      "sentence": "She has long hair.",
+      "options": [],
+      "answer": "She has long hair."
+    },
+    {
+      "id": "u11l1e9",
+      "type": "speaking",
+      "prompt": "我的爸爸是医生",
+      "sentence": "My father is a doctor.",
+      "options": [],
+      "answer": "My father is a doctor."
+    },
+    {
+      "id": "u12l1e9",
+      "type": "speaking",
+      "prompt": "他收集旧硬币",
+      "sentence": "He collects old coins.",
+      "options": [],
+      "answer": "He collects old coins."
+    },
+    {
+      "id": "u13l1e9",
+      "type": "speaking",
+      "prompt": "谢谢你的邀请",
+      "sentence": "Thanks for inviting me.",
+      "options": [],
+      "answer": "Thanks for inviting me."
+    },
+    {
+      "id": "u14l1e9",
+      "type": "speaking",
+      "prompt": "中秋节我们吃月饼",
+      "sentence": "We eat mooncakes at Mid-Autumn Festival.",
+      "options": [],
+      "answer": "We eat mooncakes at Mid-Autumn Festival."
+    },
+    {
+      "id": "u15l1e9",
+      "type": "speaking",
+      "prompt": "我能试穿这个吗",
+      "sentence": "Can I try this on?",
+      "options": [],
+      "answer": "Can I try this on?"
+    },
+    {
+      "id": "u16l1e9",
+      "type": "speaking",
+      "prompt": "她每天早上跑步",
+      "sentence": "She runs every morning.",
+      "options": [],
+      "answer": "She runs every morning."
+    },
+    {
+      "id": "u17l1e9",
+      "type": "speaking",
+      "prompt": "这个周末你打算做什么？",
+      "sentence": "What are you going to do this weekend?",
+      "options": [],
+      "answer": "What are you going to do this weekend?"
+    },
+    {
+      "id": "u18l1e9",
+      "type": "speaking",
+      "prompt": "这个更好。",
+      "sentence": "This one is better.",
+      "options": [],
+      "answer": "This one is better."
+    },
+    {
+      "id": "u19l1e9",
+      "type": "speaking",
+      "prompt": "昨天我去了公园。",
+      "sentence": "I went to the park yesterday.",
+      "options": [],
+      "answer": "I went to the park yesterday."
+    },
+    {
+      "id": "u2l1e9",
+      "type": "speaking",
+      "prompt": "七",
+      "sentence": "seven",
+      "options": [],
+      "answer": "seven"
+    },
+    {
+      "id": "u20l1e9",
+      "type": "speaking",
+      "prompt": "你应该多喝水。",
+      "sentence": "You should drink more water.",
+      "options": [],
+      "answer": "You should drink more water."
+    },
+    {
+      "id": "u21l2e9",
+      "type": "speaking",
+      "prompt": "他很友好。",
+      "sentence": "He is friendly.",
+      "options": [],
+      "answer": "He is friendly."
+    },
+    {
+      "id": "u22l1e9",
+      "type": "speaking",
+      "prompt": "山很高。",
+      "sentence": "The mountains are high.",
+      "options": [],
+      "answer": "The mountains are high."
+    },
+    {
+      "id": "u23l1e9",
+      "type": "speaking",
+      "prompt": "我的手机没电了。",
+      "sentence": "My phone is out of battery.",
+      "options": [],
+      "answer": "My phone is out of battery."
+    },
+    {
+      "id": "u24l1e9",
+      "type": "speaking",
+      "prompt": "我今天很忙。",
+      "sentence": "I am busy today.",
+      "options": [],
+      "answer": "I am busy today."
+    },
+    {
+      "id": "u25l1e9",
+      "type": "speaking",
+      "prompt": "我每周跑步三次。",
+      "sentence": "I run three times a week.",
+      "options": [],
+      "answer": "I run three times a week."
+    },
+    {
+      "id": "u26l1e9",
+      "type": "speaking",
+      "prompt": "春节快乐！",
+      "sentence": "Happy Spring Festival!",
+      "options": [],
+      "answer": "Happy Spring Festival!"
+    },
+    {
+      "id": "u27l1e9",
+      "type": "speaking",
+      "prompt": "这部电影很感人。",
+      "sentence": "This movie is touching.",
+      "options": [],
+      "answer": "This movie is touching."
+    },
+    {
+      "id": "u28l1e9",
+      "type": "speaking",
+      "prompt": "邻居很友善。",
+      "sentence": "The neighbors are friendly.",
+      "options": [],
+      "answer": "The neighbors are friendly."
+    },
+    {
+      "id": "u29l1e9",
+      "type": "speaking",
+      "prompt": "我记账。",
+      "sentence": "I keep accounts.",
+      "options": [],
+      "answer": "I keep accounts."
+    },
+    {
+      "id": "u3l1e9",
+      "type": "speaking",
+      "prompt": "父亲",
+      "sentence": "father",
+      "options": [],
+      "answer": "father"
+    },
+    {
+      "id": "u30l1e9",
+      "type": "speaking",
+      "prompt": "我想订一张票。",
+      "sentence": "I want to book a ticket.",
+      "options": [],
+      "answer": "I want to book a ticket."
+    },
+    {
+      "id": "u31l1e9",
+      "type": "speaking",
+      "prompt": "我同意你的看法。",
+      "sentence": "I agree with you.",
+      "options": [],
+      "answer": "I agree with you."
+    },
+    {
+      "id": "u32l1e9",
+      "type": "speaking",
+      "prompt": "下周我有一场考试。",
+      "sentence": "I have an exam next week.",
+      "options": [],
+      "answer": "I have an exam next week."
+    },
+    {
+      "id": "u33l1e9",
+      "type": "speaking",
+      "prompt": "这是我的错",
+      "sentence": "That was my fault.",
+      "options": [],
+      "answer": "That was my fault."
+    },
+    {
+      "id": "u34l1e9",
+      "type": "speaking",
+      "prompt": "我打算去读研究生",
+      "sentence": "I plan to go to graduate school.",
+      "options": [],
+      "answer": "I plan to go to graduate school."
+    },
+    {
+      "id": "u35l1e9",
+      "type": "speaking",
+      "prompt": "请大家发表意见",
+      "sentence": "Please share your opinions.",
+      "options": [],
+      "answer": "Please share your opinions."
+    },
+    {
+      "id": "u36l1e9",
+      "type": "speaking",
+      "prompt": "主题是下周的会议",
+      "sentence": "The subject is next week's meeting.",
+      "options": [],
+      "answer": "The subject is next week's meeting."
+    },
+    {
+      "id": "u37l1e9",
+      "type": "speaking",
+      "prompt": "我想看一下菜单",
+      "sentence": "I would like to see the menu.",
+      "options": [],
+      "answer": "I would like to see the menu."
+    },
+    {
+      "id": "u38l1e9",
+      "type": "speaking",
+      "prompt": "房租一个月多少钱",
+      "sentence": "How much is the rent per month?",
+      "options": [],
+      "answer": "How much is the rent per month?"
+    },
+    {
+      "id": "u39l1e9",
+      "type": "speaking",
+      "prompt": "请帮我连上无线网",
+      "sentence": "Please help me connect to Wi-Fi.",
+      "options": [],
+      "answer": "Please help me connect to Wi-Fi."
+    },
+    {
+      "id": "u4l1e9",
+      "type": "speaking",
+      "prompt": "香蕉是黄色的。",
+      "sentence": "The banana is yellow.",
+      "options": [],
+      "answer": "The banana is yellow."
+    },
+    {
+      "id": "u40l1e9",
+      "type": "speaking",
+      "prompt": "今天去健身房吗",
+      "sentence": "Shall we go to the gym today?",
+      "options": [],
+      "answer": "Shall we go to the gym today?"
+    },
+    {
+      "id": "u41l1e9",
+      "type": "speaking",
+      "prompt": "进门前先敲门",
+      "sentence": "Knock before you enter.",
+      "options": [],
+      "answer": "Knock before you enter."
+    },
+    {
+      "id": "u42l1e9",
+      "type": "speaking",
+      "prompt": "这里发生了事故",
+      "sentence": "There has been an accident here.",
+      "options": [],
+      "answer": "There has been an accident here."
+    },
+    {
+      "id": "u43l1e9",
+      "type": "speaking",
+      "prompt": "不要浪费水",
+      "sentence": "Do not waste water.",
+      "options": [],
+      "answer": "Do not waste water."
+    },
+    {
+      "id": "u44l1e9",
+      "type": "speaking",
+      "prompt": "我们一起学习英语吧",
+      "sentence": "Let us study English together.",
+      "options": [],
+      "answer": "Let us study English together."
+    },
+    {
+      "id": "u45l1e9",
+      "type": "speaking",
+      "prompt": "我想办理航班登机手续。",
+      "sentence": "I would like to check in for my flight.",
+      "options": [],
+      "answer": "I would like to check in for my flight."
+    },
+    {
+      "id": "u46l1e9",
+      "type": "speaking",
+      "prompt": "我想开一个账户。",
+      "sentence": "I would like to open an account.",
+      "options": [],
+      "answer": "I would like to open an account."
+    },
+    {
+      "id": "u47l1e9",
+      "type": "speaking",
+      "prompt": "洗衣机无法启动。",
+      "sentence": "The washing machine will not start.",
+      "options": [],
+      "answer": "The washing machine will not start."
+    },
+    {
+      "id": "u48l1e9",
+      "type": "speaking",
+      "prompt": "我想在这里做志愿者。",
+      "sentence": "I would like to volunteer here.",
+      "options": [],
+      "answer": "I would like to volunteer here."
+    },
+    {
+      "id": "u49l1e9",
+      "type": "speaking",
+      "prompt": "你在哪里找到这个信息的？",
+      "sentence": "Where did you find this information?",
+      "options": [],
+      "answer": "Where did you find this information?"
+    },
+    {
+      "id": "u5l1e9",
+      "type": "speaking",
+      "prompt": "苹果是红色的。",
+      "sentence": "The apple is red.",
+      "options": [],
+      "answer": "The apple is red."
+    },
+    {
+      "id": "u50l1e9",
+      "type": "speaking",
+      "prompt": "我记录自己的支出。",
+      "sentence": "I keep a record of my spending.",
+      "options": [],
+      "answer": "I keep a record of my spending."
+    },
+    {
+      "id": "u51l1e9",
+      "type": "speaking",
+      "prompt": "我想参加晚间课程。",
+      "sentence": "I would like to join the evening class.",
+      "options": [],
+      "answer": "I would like to join the evening class."
+    },
+    {
+      "id": "u52l1e9",
+      "type": "speaking",
+      "prompt": "我们一大早就离开了家。",
+      "sentence": "We left home early in the morning.",
+      "options": [],
+      "answer": "We left home early in the morning."
+    },
+    {
+      "id": "u6l1e9",
+      "type": "speaking",
+      "prompt": "起立。",
+      "sentence": "Stand up.",
+      "options": [],
+      "answer": "Stand up."
+    },
+    {
+      "id": "u7l2e9",
+      "type": "speaking",
+      "prompt": "夏天很热",
+      "sentence": "Summer is hot.",
+      "options": [],
+      "answer": "Summer is hot."
+    }
+  ]
+}
