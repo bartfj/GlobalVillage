@@ -19,7 +19,14 @@ class RewardRepository {
   final RewardStore store;
   final Course course;
 
-  const RewardRepository({required this.store, required this.course});
+  /// 新奖励入账后触发（在线会话的同步防抖上传）
+  final void Function()? onAwarded;
+
+  const RewardRepository({
+    required this.store,
+    required this.course,
+    this.onAwarded,
+  });
 
   /// 某关徽章获得次数（存储值为 lessonId）
   int countFor(String lessonId) =>
@@ -74,7 +81,10 @@ class RewardRepository {
         existing != unit.id) {
       return null;
     }
-    if (existing == null) await store.save(attemptId, lesson.id);
+    if (existing == null) {
+      await store.save(attemptId, lesson.id);
+      onAwarded?.call();
+    }
     return RewardAward(
       lesson: lesson,
       unit: unit,

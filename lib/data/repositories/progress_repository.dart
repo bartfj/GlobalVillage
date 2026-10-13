@@ -8,7 +8,14 @@ class ProgressRepository {
   final ProgressStore store;
   final Course course;
 
-  const ProgressRepository({required this.store, required this.course});
+  /// 进度回写后触发（在线会话的同步防抖上传）
+  final void Function()? onSaved;
+
+  const ProgressRepository({
+    required this.store,
+    required this.course,
+    this.onSaved,
+  });
 
   bool isLessonCompleted(String lessonId) =>
       store.get(lessonId)?.completed ?? false;
@@ -45,6 +52,7 @@ class ProgressRepository {
       totalCount: 0,
       completedAt: DateTime.now(),
     ));
+    onSaved?.call();
     return lesson;
   }
 
@@ -73,6 +81,7 @@ class ProgressRepository {
               : existing?.completedAt,
         ),
       );
+      onSaved?.call();
     }
     return passed;
   }

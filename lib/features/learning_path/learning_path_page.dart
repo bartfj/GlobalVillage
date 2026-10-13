@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/auth_controller.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
@@ -428,10 +429,44 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     );
   }
 
+  /// 游客注册/登录在线账号后，单次确认是否导入本机游客进度。
+  Future<void> _maybePromptGuestImport(AuthState next) async {
+    final from = next.pendingImportFrom;
+    if (from == null || !mounted) return;
+    final sync = ref.read(syncServiceProvider);
+    if (sync == null) return;
+    final import = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('导入本机学习进度？'),
+        content: const Text('当前设备上的游客学习进度将与云端账号合并，多设备可接力学习。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('不导入'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('导入'),
+          ),
+        ],
+      ),
+    );
+    if (!mounted) return;
+    ref.read(authProvider.notifier).clearPendingImport();
+    if (import == true) {
+      final toUserKey = ref.read(authProvider).userKey;
+      if (toUserKey != null) await sync.copySlot(from, toUserKey);
+    }
+    await sync.pullMergePush();
+  }
+
   @override
   Widget build(BuildContext context) {
     // 进度变化时自动刷新路径
     ref.watch(progressRevisionProvider);
+    // 游客升级为在线账号：单次确认是否导入本机游客进度（§7.3）
+    ref.listen(authProvider, (_, next) => _maybePromptGuestImport(next));
     final auth = ref.watch(authProvider);
     // 登出瞬间会话已空，provider 为 null；等路由 redirect，避免空断言
     if (!auth.hasSession) {

@@ -1,0 +1,17 @@
+name: global_village_server
+description: Global Village 在线账号服务端（Phase A：注册/登录/刷新/登出）
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  shelf: ^1.4.0
+  shelf_router: ^1.1.0
+  dart_jsonwebtoken: ^2.14.0
+  cryptography: ^2.7.0
+  postgres: ^3.4.0
+
+dev_dependencies:
+  test: ^1.25.0

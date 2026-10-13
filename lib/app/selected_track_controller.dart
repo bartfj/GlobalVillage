@@ -9,14 +9,19 @@ class SelectedTrackController extends StateNotifier<CourseTrack> {
   SelectedTrackController({
     required SettingsStore settings,
     required String? Function() readUserKey,
+    void Function()? onChanged,
   }) : _settings = settings,
        _readUserKey = readUserKey,
+       _onChanged = onChanged,
        super(CourseTrack.beginner) {
     reload();
   }
 
   final SettingsStore _settings;
   final String? Function() _readUserKey;
+
+  /// 轨道切换后触发（在线会话的同步防抖上传）
+  final void Function()? _onChanged;
 
   void reload() {
     final userKey = _readUserKey();
@@ -32,6 +37,7 @@ class SelectedTrackController extends StateNotifier<CourseTrack> {
     if (userKey == null) return;
     await _settings.setTrack(userKey, track);
     state = track;
+    _onChanged?.call();
   }
 
   CourseTrack rememberedTrack(LearningLanguage language) {

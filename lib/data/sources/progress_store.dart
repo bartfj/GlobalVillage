@@ -19,6 +19,15 @@ class ProgressStore {
   Future<void> save(LessonProgress progress) =>
       _box.put(_key(progress.lessonId), progress);
 
+  /// 当前账号的全部进度（key 为去前缀的 lessonId），供同步快照/槽位复制
+  Map<String, LessonProgress> get entries {
+    final prefix = '$userKey|';
+    return {
+      for (final key in _box.keys.whereType<String>())
+        if (key.startsWith(prefix)) key.substring(prefix.length): _box.get(key)!,
+    };
+  }
+
   /// 把旧版（无 userKey 前缀）的进度 key 迁移到游客账号下，幂等
   static Future<void> migrateLegacy() async {
     final box = Hive.box<LessonProgress>(boxName);

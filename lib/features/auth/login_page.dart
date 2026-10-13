@@ -6,7 +6,9 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import 'widgets/auth_text_field.dart';
 
-/// 登录页
+enum _AuthTab { online, local }
+
+/// 登录页（在线账号 / 本地账号）
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
@@ -15,14 +17,17 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+  final _identifier = TextEditingController();
   final _nickname = TextEditingController();
   final _password = TextEditingController();
+  _AuthTab _tab = _AuthTab.online;
   String? _error;
   bool _busy = false;
 
   @override
   void initState() {
     super.initState();
+    _identifier.addListener(_onChanged);
     _nickname.addListener(_onChanged);
     _password.addListener(_onChanged);
   }
@@ -31,6 +36,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   void dispose() {
+    _identifier.dispose();
     _nickname.dispose();
     _password.dispose();
     super.dispose();
@@ -42,10 +48,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       _busy = true;
       _error = null;
     });
-    final error = await ref.read(authProvider.notifier).login(
-          nickname: _nickname.text,
-          password: _password.text,
-        );
+    final auth = ref.read(authProvider.notifier);
+    final String? error;
+    if (_tab == _AuthTab.online) {
+      final identifier = _identifier.text.trim();
+      error = await auth.loginOnline(
+        email: identifier.contains('@') ? identifier : null,
+        phone: identifier.contains('@') ? null : identifier,
+        password: _password.text,
+      );
+    } else {
+      error = await auth.login(
+        nickname: _nickname.text,
+        password: _password.text,
+      );
+    }
     if (!mounted) return;
     if (error != null) {
       setState(() {
@@ -58,7 +75,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final valid = _nickname.text.trim().isNotEmpty && _password.text.isNotEmpty;
+    final valid = _tab == _AuthTab.online
+        ? _identifier.text.trim().isNotEmpty && _password.text.isNotEmpty
+        : _nickname.text.trim().isNotEmpty && _password.text.isNotEmpty;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -85,8 +104,31 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 '登录后继续你的学习进度',
                 style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
               ),
-              const SizedBox(height: 28),
-              AuthTextField(label: '昵称', controller: _nickname),
+              const SizedBox(height: 24),
+              SegmentedButton<_AuthTab>(
+                segments: const [
+                  ButtonSegment(
+                    value: _AuthTab.online,
+                    label: Text('在线账号'),
+                    icon: Icon(Icons.cloud_outlined),
+                  ),
+                  ButtonSegment(
+                    value: _AuthTab.local,
+                    label: Text('本地账号'),
+                    icon: Icon(Icons.person_outline),
+                  ),
+                ],
+                selected: {_tab},
+                onSelectionChanged: (selection) => setState(() {
+                  _tab = selection.first;
+                  _error = null;
+                }),
+              ),
+              const SizedBox(height: 24),
+              if (_tab == _AuthTab.online)
+                AuthTextField(label: '邮箱或手机号', controller: _identifier)
+              else
+                AuthTextField(label: '昵称', controller: _nickname),
               const SizedBox(height: 16),
               AuthTextField(
                 label: '密码',

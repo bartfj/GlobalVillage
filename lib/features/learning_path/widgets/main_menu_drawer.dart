@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/providers.dart';
 import '../../../app/theme.dart';
+import '../../../core/services/sync_service.dart';
 import '../../../data/models/course_track.dart';
 import '../../../data/models/learning_language.dart';
+import '../../auth/bind_online_sheet.dart';
 import 'course_selector.dart';
 import '../../../data/models/tree_growth.dart';
 
@@ -57,7 +59,11 @@ class MainMenuDrawer extends ConsumerWidget {
     final badgeUnits = rewards.unlockedBadgeCount(allCourses);
 
     final isGuest = auth.isGuest;
-    final displayName = isGuest ? '游客' : (auth.userKey ?? '未登录');
+    final displayName = isGuest
+        ? '游客'
+        : auth.isOnline
+            ? (auth.displayName ?? '在线用户')
+            : (auth.userKey ?? '未登录');
     final initial = displayName.isNotEmpty
         ? String.fromCharCode(displayName.runes.first)
         : '?';
@@ -107,7 +113,11 @@ class MainMenuDrawer extends ConsumerWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          isGuest ? '游客模式' : '本地账号',
+                          isGuest
+                              ? '游客模式'
+                              : auth.isOnline
+                                  ? '在线账号'
+                                  : '本地账号',
                           style: const TextStyle(
                             fontSize: 13,
                             color: AppColors.textSecondary,
@@ -126,6 +136,24 @@ class MainMenuDrawer extends ConsumerWidget {
                               ),
                             ),
                           ),
+                        ],
+                        if (!isGuest && !auth.isOnline) ...[
+                          const SizedBox(height: 6),
+                          GestureDetector(
+                            onTap: () => showBindOnlineSheet(context),
+                            child: const Text(
+                              '绑定在线账号，多设备同步',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (auth.isOnline) ...[
+                          const SizedBox(height: 6),
+                          _SyncStatusLine(userKey: auth.userKey!),
                         ],
                       ],
                     ),
@@ -350,6 +378,43 @@ class MainMenuDrawer extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+/// 在线账号的同步状态行：同步中 / 上次同步时间 / 同步失败
+class _SyncStatusLine extends ConsumerWidget {
+  const _SyncStatusLine({required this.userKey});
+
+  final String userKey;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final status = ref.watch(syncStatusProvider);
+    final lastSyncAt =
+        ref.watch(settingsStoreProvider).lastSyncAt(userKey);
+    final (text, color) = switch (status) {
+      SyncStatus.syncing => ('同步中…', AppColors.textSecondary),
+      SyncStatus.failed => ('同步失败，稍后再试', AppColors.textSecondary),
+      _ when lastSyncAt != null => (
+          '上次同步 ${_format(lastSyncAt)}',
+          AppColors.textSecondary,
+        ),
+      _ => ('等待首次同步', AppColors.textSecondary),
+    };
+    return Row(
+      children: [
+        Icon(Icons.sync, size: 13, color: color),
+        const SizedBox(width: 4),
+        Text(text, style: TextStyle(fontSize: 12, color: color)),
+      ],
+    );
+  }
+
+  String _format(int milliseconds) {
+    final t = DateTime.fromMillisecondsSinceEpoch(milliseconds).toLocal();
+    final hh = t.hour.toString().padLeft(2, '0');
+    final mm = t.minute.toString().padLeft(2, '0');
+    return '$hh:$mm';
   }
 }
 

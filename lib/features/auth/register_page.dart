@@ -6,7 +6,9 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import 'widgets/auth_text_field.dart';
 
-/// 注册页：注册成功即登录
+enum _AuthTab { online, local }
+
+/// 注册页：注册成功即登录（在线账号 / 本地账号）
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
 
@@ -15,15 +17,18 @@ class RegisterPage extends ConsumerStatefulWidget {
 }
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
+  final _identifier = TextEditingController();
   final _nickname = TextEditingController();
   final _password = TextEditingController();
   final _confirm = TextEditingController();
+  _AuthTab _tab = _AuthTab.online;
   String? _error;
   bool _busy = false;
 
   @override
   void initState() {
     super.initState();
+    _identifier.addListener(_onChanged);
     _nickname.addListener(_onChanged);
     _password.addListener(_onChanged);
     _confirm.addListener(_onChanged);
@@ -33,6 +38,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   void dispose() {
+    _identifier.dispose();
     _nickname.dispose();
     _password.dispose();
     _confirm.dispose();
@@ -45,11 +51,23 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       _busy = true;
       _error = null;
     });
-    final error = await ref.read(authProvider.notifier).register(
-          nickname: _nickname.text,
-          password: _password.text,
-          confirm: _confirm.text,
-        );
+    final auth = ref.read(authProvider.notifier);
+    final String? error;
+    if (_tab == _AuthTab.online) {
+      final identifier = _identifier.text.trim();
+      error = await auth.registerOnline(
+        email: identifier.contains('@') ? identifier : null,
+        phone: identifier.contains('@') ? null : identifier,
+        password: _password.text,
+        confirm: _confirm.text,
+      );
+    } else {
+      error = await auth.register(
+        nickname: _nickname.text,
+        password: _password.text,
+        confirm: _confirm.text,
+      );
+    }
     if (!mounted) return;
     if (error != null) {
       setState(() {
@@ -62,7 +80,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final valid = _nickname.text.trim().isNotEmpty &&
+    final identifierValid = _tab == _AuthTab.online
+        ? _identifier.text.trim().isNotEmpty
+        : _nickname.text.trim().isNotEmpty;
+    final valid = identifierValid &&
         _password.text.isNotEmpty &&
         _confirm.text.isNotEmpty;
     return Scaffold(
@@ -87,12 +108,38 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                '保存你的专属学习进度',
-                style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
+              Text(
+                _tab == _AuthTab.online
+                    ? '进度云端同步，多设备可接力学习'
+                    : '仅保存在本设备，可稍后绑定在线账号',
+                style:
+                    const TextStyle(fontSize: 14, color: AppColors.textSecondary),
               ),
-              const SizedBox(height: 28),
-              AuthTextField(label: '昵称（2-12 个字符）', controller: _nickname),
+              const SizedBox(height: 24),
+              SegmentedButton<_AuthTab>(
+                segments: const [
+                  ButtonSegment(
+                    value: _AuthTab.online,
+                    label: Text('在线账号'),
+                    icon: Icon(Icons.cloud_outlined),
+                  ),
+                  ButtonSegment(
+                    value: _AuthTab.local,
+                    label: Text('本地账号'),
+                    icon: Icon(Icons.person_outline),
+                  ),
+                ],
+                selected: {_tab},
+                onSelectionChanged: (selection) => setState(() {
+                  _tab = selection.first;
+                  _error = null;
+                }),
+              ),
+              const SizedBox(height: 24),
+              if (_tab == _AuthTab.online)
+                AuthTextField(label: '邮箱或手机号', controller: _identifier)
+              else
+                AuthTextField(label: '昵称（2-12 个字符）', controller: _nickname),
               const SizedBox(height: 16),
               AuthTextField(
                 label: '密码（至少 6 位）',
