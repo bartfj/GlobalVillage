@@ -1,0 +1,6 @@
+# 将 your.domain.com 换成真实域名；DNS A 记录指向本机
+# 用法示例：sudo cp Caddyfile.example /etc/caddy/Caddyfile && sudo systemctl reload caddy
+your.domain.com {
+	encode gzip
+	reverse_proxy 127.0.0.1:8787
+}

@@ -9,7 +9,8 @@ import 'package:global_village_server/sync_repo.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 Future<void> main() async {
-  final port = int.tryParse(Platform.environment['PORT'] ?? '') ?? 8080;
+  // 默认 8787，避免与本机 APK 局域网分享占用的 8080 冲突
+  final port = int.tryParse(Platform.environment['PORT'] ?? '') ?? 8787;
   final secret = Platform.environment['JWT_SECRET'] ?? '';
   if (secret.isEmpty) {
     stderr.writeln('WARNING: JWT_SECRET 未设置，使用开发默认值，禁止用于生产');

@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-gv}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gvsecret}
+      POSTGRES_DB: ${POSTGRES_DB:-globalvillage}
+    volumes:
+      - gv_pgdata:/var/lib/postgresql/data
+    ports:
+      # 本地调试映射；生产建议删除本段，仅容器内网访问
+      - "5432:5432"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-gv} -d ${POSTGRES_DB:-globalvillage}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: ${PORT:-8787}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "${PORT:-8787}:${PORT:-8787}"
+    restart: unless-stopped
+
+volumes:
+  gv_pgdata:

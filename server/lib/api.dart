@@ -16,6 +16,11 @@ Handler buildRouter(
   final sync = syncRepo ?? InMemorySyncRepo();
   final router = Router();
 
+  // GET /v1/health：探活（无鉴权）
+  router.get('/v1/health', (Request request) async {
+    return _json(200, {'ok': true, 'service': 'global_village_server'});
+  });
+
   // POST /v1/auth/register
   router.post('/v1/auth/register', (Request request) async {
     final body = await _readJson(request);

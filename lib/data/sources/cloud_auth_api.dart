@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 /// 服务端 API 基址。打包/运行时用 --dart-define=API_BASE_URL=https://example.com/v1 覆盖。
 const kApiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'http://localhost:8080/v1',
+  defaultValue: 'http://localhost:8787/v1',
 );
 
 /// 在线账号公开信息。

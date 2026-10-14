@@ -26,6 +26,16 @@ void main() {
   Future<Map<String, dynamic>> json(Response response) async =>
       jsonDecode(await response.readAsString()) as Map<String, dynamic>;
 
+  test('GET /v1/health 无需鉴权', () async {
+    final response = await handler(
+      Request('GET', Uri.parse('http://localhost/v1/health')),
+    );
+    expect(response.statusCode, 200);
+    final body = await json(response);
+    expect(body['ok'], true);
+    expect(body['service'], 'global_village_server');
+  });
+
   group('register', () {
     test('邮箱注册成功并返回双 token', () async {
       final response = await post('/v1/auth/register', {

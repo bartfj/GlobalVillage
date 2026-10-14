@@ -47,6 +47,9 @@ app.*.map.json
 # Widget Preview related
 .widget_preview/
 
+# Server secrets / local env
+server/.env
+
 # Local tooling / SDK / caches
 .trae/sdk/
 .trae/tmp/
