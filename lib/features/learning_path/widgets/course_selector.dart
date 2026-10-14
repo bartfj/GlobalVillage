@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/providers.dart';
-import '../../../data/models/course_track.dart';
 import '../../../data/models/learning_language.dart';
-
-List<CourseTrack> _tracksOf(LearningLanguage language) =>
-    CourseTrack.values.where((t) => t.language == language).toList();
 
 Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
   var busy = false;
@@ -66,21 +62,10 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
                 for (final value in LearningLanguage.values)
                   Builder(
                     builder: (context) {
-                      final tracks = _tracksOf(value);
                       final current =
                           ref.read(selectedTrackProvider).language == value;
-                      final remembered = current
-                          ? ref.read(selectedTrackProvider)
-                          : ref
-                              .read(selectedTrackProvider.notifier)
-                              .rememberedTrack(value);
                       return ListTile(
                         title: Text(value.label),
-                        subtitle: Text(
-                          tracks.length == 1
-                              ? remembered.label
-                              : '${remembered.label}（侧栏可换等级）',
-                        ),
                         selected: current,
                         leading: Icon(
                           current
