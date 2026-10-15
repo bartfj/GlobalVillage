@@ -14,6 +14,7 @@ import 'result_page.dart';
 import 'widgets/answer_feedback_bar.dart';
 import 'widgets/exercise_widget_builder.dart';
 import 'widgets/lesson_style.dart';
+import 'widgets/lesson_study_card.dart';
 import 'widgets/tappable_phonetic_text.dart';
 
 /// 答题主流程页
@@ -47,6 +48,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   LearningStore? _learningStore;
   late String _courseId;
   bool _recording = false;
+  late bool _showStudyCard;
   final Set<String> _attempted = {};
   late DateTime _questionStart;
 
@@ -60,6 +62,11 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     _startTime = DateTime.now();
     _learningStore = ref.read(learningStoreProvider);
     _courseId = ref.read(courseProvider).id;
+    // 新文字系统课程（中文、梵文）先展示本课核心内容，避免零基础直接开考。
+    _showStudyCard =
+        widget.practiceLesson == null &&
+        widget.mode == 'lesson' &&
+        (_courseId == 'chinese' || _courseId == 'sanskrit');
     _questionStart = _startTime;
     final random = Random.secure();
     _attemptId = List.generate(
@@ -249,6 +256,12 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     final lesson = _lesson;
     if (lesson == null) {
       return const Scaffold(body: Center(child: Text('课程不存在')));
+    }
+    if (_showStudyCard) {
+      return LessonStudyCard(
+        lesson: lesson,
+        onStart: () => setState(() => _showStudyCard = false),
+      );
     }
     final state = ref.watch(lessonControllerProvider(lesson));
     if (state.finished) {

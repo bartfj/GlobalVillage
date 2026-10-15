@@ -9,6 +9,7 @@ import 'package:english_village/data/sources/course_loader.dart';
 import 'package:english_village/data/sources/settings_store.dart';
 import 'package:english_village/features/learning_path/widgets/course_selector.dart';
 import 'package:english_village/features/lesson/widgets/exercise_widget_builder.dart';
+import 'package:english_village/features/lesson/widgets/lesson_study_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -333,6 +334,73 @@ void main() {
     await tester.tap(find.widgetWithText(ActionChip, 'ḥ'));
     await tester.pump();
     expect(answer, 'īḥ');
+    expect(tester.takeException(), isNull);
+  });
+
+  test('Sanskrit corpus keeps letter dependencies across units', () async {
+    final course = await CourseLoader().load(CourseTrack.sanskrit);
+    // 单元 2 教会音节拼读所需的元音符号与全部后续用词字母。
+    expect(course.units[1].lessons.first.exercises.first.answer, 'ka');
+    // 单元 3 的词只用已教字母；namaste 为标注“整体认读”的例外。
+    final unit3 = course.units[2];
+    final answers = {
+      for (final lesson in unit3.lessons)
+        for (final e in lesson.exercises) e.answer,
+    };
+    expect(
+      answers,
+      containsAll([
+        'namaste',
+        'mama',
+        'nāma',
+        'mama nāma',
+        'āma',
+        'kāka',
+        'naṭa',
+        'maṭa',
+      ]),
+    );
+    final sightWord = unit3.lessons.first.exercises.firstWhere(
+      (e) => e.answer == 'namaste',
+    );
+    expect(sightWord.prompt, contains('整体认读'));
+    // 单元 4 做人称动词入门，复现单元 3 的 naṭa（主格 naṭaḥ）。
+    final unit4Answers = {
+      for (final lesson in course.units[3].lessons)
+        for (final e in lesson.exercises) e.answer,
+    };
+    expect(
+      unit4Answers,
+      containsAll(['ahaṃ paṭhāmi', 'tvam paṭhasi', 'naṭaḥ paṭhati']),
+    );
+  });
+
+  testWidgets('lesson study card lists core items before exercises', (
+    tester,
+  ) async {
+    final course = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.sanskrit),
+    ))!;
+    final lesson = course.units[2].lessons.first;
+    final items = lessonStudyItems(lesson);
+    // 每课 4 条核心内容，去重且保留顺序；含义从题干提取。
+    expect(items.length, 4);
+    expect(items.first.text, 'namaste');
+    expect(items.first.support, 'नमस्ते');
+    expect(items.first.meaning, '向你致敬（问候，整体认读）');
+
+    var started = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: LessonStudyCard(lesson: lesson, onStart: () => started = true),
+      ),
+    );
+    expect(find.text('先看本课内容，再开始练习'), findsOneWidget);
+    expect(find.text('नमस्ते'), findsOneWidget);
+    expect(find.text('namaste'), findsOneWidget);
+    expect(find.text('向你致敬（问候，整体认读）'), findsOneWidget);
+    await tester.tap(find.text('开始练习'));
+    expect(started, isTrue);
     expect(tester.takeException(), isNull);
   });
 }

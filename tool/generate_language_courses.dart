@@ -44,6 +44,8 @@ bà~dad (pinyin, fourth tone)~爸~bà
 我不明白~I do not understand~wǒ bù míngbai~我|不|明白
 可以帮我吗~Can you help me~kěyǐ bāng wǒ ma~可以|帮|我|吗
 ''',
+  // 梵文递进原则：后一单元的天城体词只使用前面单元教过的字母与元音符号；
+  // 含未教字母的词（如 namaste 的复合辅音 स्त）必须标注“整体认读”。
   'sanskrit': '''
 元音与长短音|元音识读
 a~短元音 a~अ~a
@@ -52,38 +54,38 @@ i~短元音 i~इ~i
 ī~长元音 ī~ई~ī
 u~短元音 u~उ~u
 ū~长元音 ū~ऊ~ū
-ṛ~元音 ṛ~ऋ~ṛ
 e~元音 e（长音）~ए~e
+o~元音 o（长音）~ओ~o
 
-辅音与文字|天城体与转写
-ka~不送气软腭音 ka~क~ka
-kha~送气软腭音 kha~ख~kha
-ga~浊软腭音 ga~ग~ga
-ca~不送气硬腭音 ca~च~ca
-ṭa~卷舌音 ṭa~ट~ṭa
-ta~齿音 ta~त~ta
-pa~唇音 pa~प~pa
+辅音与音节|辅音加元音拼成音节
+ka~辅音 ka（自带元音 a）~क~ka
+kā~k 加长 ā 是 kā~का~kā
+ki~k 加短 i 是 ki~कि~ki
+kī~k 加长 ī 是 kī~की~kī
 ma~鼻音 ma~म~ma
+na~鼻音 na~न~na
+ta~齿音 ta~त~ta
+ṭa~卷舌音 ṭa~ट~ṭa
 
-问候与自我介绍|基础交流
-namaste~向你致敬（问候）~नमस्ते~namaste
-mama nāma rāmaḥ~我的名字是罗摩~मम नाम रामः~mama|nāma|rāmaḥ
-ahaṃ chātraḥ~我是男学生~अहं छात्रः~ahaṃ|chātraḥ
-ahaṃ chātrā~我是女学生~अहं छात्रा~ahaṃ|chātrā
-tava nāma kim~你的名字是什么~तव नाम किम्~tava|nāma|kim
+单词与问候|只用已教字母组成的词
+namaste~向你致敬（问候，整体认读）~नमस्ते~namaste
+mama~我的~मम~mama
+nāma~名字~नाम~nāma
+mama nāma~我的名字~मम नाम~mama|nāma
+āma~芒果~आम~āma
+kāka~乌鸦~काक~kāka
+naṭa~演员~नट~naṭa
+maṭa~小屋~मट~maṭa
+
+人称与动作|我、你、他加动词
+ahaṃ~我~अहम्~ahaṃ
+tvam~你~त्वम्~tvam
 ahaṃ paṭhāmi~我读书~अहं पठामि~ahaṃ|paṭhāmi
-ahaṃ gacchāmi~我走（去）~अहं गच्छामि~ahaṃ|gacchāmi
-ahaṃ likhāmi~我写~अहं लिखामि~ahaṃ|likhāmi
-
-性别与基础语法|名词与动词
-bālaḥ~男孩（阳性主格单数）~बालः~bālaḥ
-bālā~女孩（阴性主格单数）~बाला~bālā
-phalam~果实（中性主格或宾格单数）~फलम्~phalam
-bālam~男孩（阳性宾格单数）~बालम्~bālam
-bālaḥ paṭhati~男孩读书~बालः पठति~bālaḥ|paṭhati
-bālā paṭhati~女孩读书~बाला पठति~bālā|paṭhati
-ahaṃ phalaṃ khādāmi~我吃果实~अहं फलं खादामि~ahaṃ|phalaṃ|khādāmi
-tvam paṭhasi~你读书（单数）~त्वम् पठसि~tvam|paṭhasi
+tvam paṭhasi~你读书~त्वं पठसि~tvam|paṭhasi
+naṭaḥ paṭhati~演员读书~नटः पठति~naṭaḥ|paṭhati
+ahaṃ gacchāmi~我去~अहं गच्छामि~ahaṃ|gacchāmi
+tvam gacchasi~你去~त्वं गच्छसि~tvam|gacchasi
+naṭaḥ gacchati~演员去~नटः गच्छति~naṭaḥ|gacchati
 ''',
 };
 
@@ -93,6 +95,8 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
     '# 中文与梵文试点课程台账\n\n'
     '两种语言各16课，每单元8条核心语料交错复现。中文英语解释，梵文中文解释。'
     '梵文题目要求IAST输入，天城体仅作识读支架。无听力、跟读或口语评分。'
+    '梵文单元间保持字母依赖：后单元天城体词只使用已教字母与元音符号，'
+    '例外词（namaste）标注整体认读。'
     '语料为初稿，专业教学审校、逐句发音及真实设备字体验收待完成。\n\n',
   );
   const selections = [
