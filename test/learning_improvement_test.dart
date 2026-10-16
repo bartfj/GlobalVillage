@@ -37,6 +37,16 @@ void main() {
         acceptedAnswers: ['I want to open an account.'],
       );
       expect(dictation.accepts('I want to open an account.'), isFalse);
+      const comma = Exercise(
+        id: 'comma',
+        type: ExerciseType.dictation,
+        prompt: '',
+        sentence: 'Luckily, we had booked tickets online.',
+        options: [],
+        answer: 'Luckily, we had booked tickets online.',
+      );
+      expect(comma.accepts('Luckily,we had booked tickets online.'), isTrue);
+      expect(comma.accepts('Luckily, we had bought tickets online.'), isFalse);
       final legacy = Exercise.fromJson({
         'id': 'old',
         'type': 'translateInput',

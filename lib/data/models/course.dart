@@ -126,8 +126,10 @@ class Exercise {
   static String normalizeAnswer(String text) => text
       .trim()
       .toLowerCase()
+      .replaceAll(RegExp(r'\s*[,;:]+\s*'), ' ')
       .replaceAll(RegExp(r'\s+'), ' ')
-      .replaceAll(RegExp(r'[.!?,;]+$'), '');
+      .replaceAll(RegExp(r'[.!?]+$'), '')
+      .trim();
 
   /// 填空题专用：带 ____ 的句子，其他题型为 null
   final String? sentenceWithBlank;
