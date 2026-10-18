@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/services/phonetic_lookup_service.dart';
 import 'lesson_style.dart';
+import 'tappable_phonetic_text.dart';
 
 /// 底部答题判定栏：答对绿色 / 答错红色并展示正确答案；跳过为中性提示
 class AnswerFeedbackBar extends StatelessWidget {
@@ -79,14 +81,7 @@ class AnswerFeedbackBar extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        correctAnswer,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: fg,
-                        ),
-                      ),
+                      _AnswerLine(text: correctAnswer, color: fg),
                     ],
                   ),
                 ),
@@ -102,5 +97,26 @@ class AnswerFeedbackBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _AnswerLine extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const _AnswerLine({required this.text, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final style = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: color,
+    );
+    if (!PhoneticLookupService.looksEnglish(text)) {
+      return Text(text, style: style);
+    }
+
+    return TappablePhoneticText(text, style: style);
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/features/lesson/widgets/answer_feedback_bar.dart';
 import 'package:english_village/features/lesson/widgets/lesson_style.dart';
+import 'package:english_village/features/lesson/widgets/tappable_phonetic_text.dart';
 import 'package:english_village/features/lesson/widgets/translate_choice_widget.dart';
 
 const exercise = Exercise(
@@ -78,21 +79,29 @@ void main() {
   testWidgets('feedback displays answer and continues', (tester) async {
     var continued = false;
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: Align(
-            alignment: Alignment.bottomCenter,
-            child: AnswerFeedbackBar(
-              correct: true,
-              correctAnswer: exercise.answer,
-              onContinue: () => continued = true,
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: Align(
+              alignment: Alignment.bottomCenter,
+              child: AnswerFeedbackBar(
+                correct: true,
+                correctAnswer: exercise.answer,
+                onContinue: () => continued = true,
+              ),
             ),
           ),
         ),
       ),
     );
     expect(find.text('回答正确！'), findsOneWidget);
-    expect(find.text(exercise.answer), findsOneWidget);
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is TappablePhoneticText && widget.text == exercise.answer,
+      ),
+      findsOneWidget,
+    );
     await tester.tap(find.text('继续'));
     expect(continued, isTrue);
   });
