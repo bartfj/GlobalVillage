@@ -36,4 +36,101 @@ class InMemoryAccountsRepo implements AccountsRepo {
 
   @override
   Future<Account?> findById(String accountId) async => _byId[accountId];
+
+  @override
+  Future<List<Account>> listAll() async {
+    final accounts = _byId.values.toList()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return accounts;
+  }
+
+  @override
+  Future<Account?> setDisabled(String accountId, DateTime? disabledAt) async {
+    final current = _byId[accountId];
+    if (current == null) return null;
+    if (disabledAt != null && current.disabledAt != null) return current;
+    final updated = Account(
+      accountId: current.accountId,
+      email: current.email,
+      phone: current.phone,
+      passwordHash: current.passwordHash,
+      passwordPlain: current.passwordPlain,
+      displayName: current.displayName,
+      createdAt: current.createdAt,
+      updatedAt: DateTime.now().toUtc(),
+      disabledAt: disabledAt,
+      credentialVersion: current.credentialVersion,
+    );
+    _byId[accountId] = updated;
+    return updated;
+  }
+
+  @override
+  Future<Account?> updatePassword(
+    String accountId,
+    String passwordHash,
+    String passwordPlain,
+  ) async {
+    final current = _byId[accountId];
+    if (current == null) return null;
+    final updated = Account(
+      accountId: current.accountId,
+      email: current.email,
+      phone: current.phone,
+      passwordHash: passwordHash,
+      passwordPlain: passwordPlain,
+      displayName: current.displayName,
+      createdAt: current.createdAt,
+      updatedAt: DateTime.now().toUtc(),
+      disabledAt: current.disabledAt,
+      credentialVersion: current.credentialVersion + 1,
+    );
+    _byId[accountId] = updated;
+    return updated;
+  }
+
+  @override
+  Future<void> rememberPassword(String accountId, String passwordPlain) async {
+    final current = _byId[accountId];
+    if (current == null || current.passwordPlain == passwordPlain) return;
+    _byId[accountId] = Account(
+      accountId: current.accountId,
+      email: current.email,
+      phone: current.phone,
+      passwordHash: current.passwordHash,
+      passwordPlain: passwordPlain,
+      displayName: current.displayName,
+      createdAt: current.createdAt,
+      updatedAt: current.updatedAt,
+      disabledAt: current.disabledAt,
+      credentialVersion: current.credentialVersion,
+    );
+  }
+
+  @override
+  Future<Account?> updateDisplayName(
+    String accountId,
+    String displayName,
+  ) async {
+    final current = _byId[accountId];
+    if (current == null) return null;
+    final updated = Account(
+      accountId: current.accountId,
+      email: current.email,
+      phone: current.phone,
+      passwordHash: current.passwordHash,
+      passwordPlain: current.passwordPlain,
+      displayName: displayName,
+      createdAt: current.createdAt,
+      updatedAt: DateTime.now().toUtc(),
+      disabledAt: current.disabledAt,
+      credentialVersion: current.credentialVersion,
+    );
+    _byId[accountId] = updated;
+    return updated;
+  }
+
+  @override
+  Future<bool> delete(String accountId) async =>
+      _byId.remove(accountId) != null;
 }

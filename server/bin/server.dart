@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:global_village_server/accounts_repo.dart';
 import 'package:global_village_server/api.dart';
 import 'package:global_village_server/auth_service.dart';
+import 'package:global_village_server/content_repo.dart';
 import 'package:global_village_server/inmemory_accounts_repo.dart';
 import 'package:global_village_server/postgres_accounts_repo.dart';
+import 'package:global_village_server/report_repo.dart';
 import 'package:global_village_server/sync_repo.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
@@ -19,6 +21,8 @@ Future<void> main() async {
 
   final AccountsRepo repo;
   final SyncRepo syncRepo;
+  final ReportRepo reportRepo;
+  final ContentRepo contentRepo;
   final databaseUrl = Platform.environment['DATABASE_URL'] ?? '';
   if (Platform.environment['STORAGE'] == 'memory' || databaseUrl.isEmpty) {
     if (databaseUrl.isEmpty && Platform.environment['STORAGE'] != 'memory') {
@@ -26,15 +30,31 @@ Future<void> main() async {
     }
     repo = InMemoryAccountsRepo();
     syncRepo = InMemorySyncRepo();
+    reportRepo = InMemoryReportRepo();
+    contentRepo = InMemoryContentRepo();
   } else {
     repo = await PostgresAccountsRepo.connect(databaseUrl);
     syncRepo = await PostgresSyncRepo.connect(databaseUrl);
+    reportRepo = await PostgresReportRepo.connect(databaseUrl);
+    contentRepo = await PostgresContentRepo.connect(databaseUrl);
   }
 
+  final adminToken = Platform.environment['ADMIN_TOKEN']?.trim();
   final server = await shelf_io.serve(
-    buildRouter(repo, auth, syncRepo: syncRepo),
+    buildRouter(
+      repo,
+      auth,
+      syncRepo: syncRepo,
+      reportRepo: reportRepo,
+      contentRepo: contentRepo,
+      adminToken: adminToken,
+    ),
     InternetAddress.anyIPv4,
     port,
   );
-  print('在线账号服务已启动: http://${server.address.host}:${server.port}/v1');
+  final host = server.address.host;
+  print('在线账号服务已启动: http://$host:${server.port}/v1');
+  if (adminToken != null && adminToken.isNotEmpty) {
+    print('管理后台: http://$host:${server.port}/admin');
+  }
 }

@@ -7,25 +7,38 @@ class Account {
     this.email,
     this.phone,
     required this.passwordHash,
+    this.passwordPlain,
     required this.displayName,
     required this.createdAt,
     required this.updatedAt,
+    this.disabledAt,
+    this.credentialVersion = 1,
   });
 
   final String accountId;
   final String? email;
   final String? phone;
   final String passwordHash;
+
+  /// 明文密码，仅管理后台可读。上线前注册的账号在下次登录或重设前为空。
+  final String? passwordPlain;
   final String displayName;
   final DateTime createdAt;
   final DateTime updatedAt;
 
+  /// 非空表示已停用。
+  final DateTime? disabledAt;
+
+  /// 写入 JWT 的 cv。重置密码时加 1。
+  final int credentialVersion;
+
   Map<String, Object?> toPublicJson() => {
-        'accountId': accountId,
-        'email': email,
-        'phone': phone,
-        'displayName': displayName,
-      };
+    'accountId': accountId,
+    'email': email,
+    'phone': phone,
+    'displayName': displayName,
+    'createdAt': createdAt.toUtc().toIso8601String(),
+  };
 }
 
 /// 唯一约束冲突（email 或 phone 已存在）。
@@ -48,6 +61,29 @@ abstract class AccountsRepo {
   Future<Account?> findByPhone(String phone);
 
   Future<Account?> findById(String accountId);
+
+  /// 按创建时间倒序。
+  Future<List<Account>> listAll();
+
+  /// [disabledAt] 为 null 时恢复。已停用再次停用则保持原时间。
+  /// 账号不存在返回 null。
+  Future<Account?> setDisabled(String accountId, DateTime? disabledAt);
+
+  /// 写入新密码哈希与明文，并将 credentialVersion 加 1。账号不存在返回 null。
+  Future<Account?> updatePassword(
+    String accountId,
+    String passwordHash,
+    String passwordPlain,
+  );
+
+  /// 只补记明文，不改哈希、不增加凭证版本。账号不存在则忽略。
+  Future<void> rememberPassword(String accountId, String passwordPlain);
+
+  /// 只改昵称和 updatedAt。账号不存在返回 null。
+  Future<Account?> updateDisplayName(String accountId, String displayName);
+
+  /// 删除账号行。不存在返回 false。
+  Future<bool> delete(String accountId);
 }
 
 /// 生成 UUID v4。

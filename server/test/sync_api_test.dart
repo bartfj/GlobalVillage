@@ -16,18 +16,17 @@ void main() {
     String path, {
     Map<String, Object?>? body,
     String? bearer,
-  }) async =>
-      handler(
-        Request(
-          method,
-          Uri.parse('http://localhost$path'),
-          body: body == null ? null : jsonEncode(body),
-          headers: {
-            if (body != null) 'content-type': 'application/json',
-            if (bearer != null) 'authorization': 'Bearer $bearer',
-          },
-        ),
-      );
+  }) async => handler(
+    Request(
+      method,
+      Uri.parse('http://localhost$path'),
+      body: body == null ? null : jsonEncode(body),
+      headers: {
+        if (body != null) 'content-type': 'application/json',
+        if (bearer != null) 'authorization': 'Bearer $bearer',
+      },
+    ),
+  );
 
   Future<Map<String, dynamic>> json(Response response) async =>
       jsonDecode(await response.readAsString()) as Map<String, dynamic>;
@@ -38,10 +37,17 @@ void main() {
       AuthService('test-secret'),
       syncRepo: InMemorySyncRepo(),
     );
-    final registered = await json(await request('POST', '/v1/auth/register', body: {
-      'email': 'a@example.com',
-      'password': 'secret6',
-    }));
+    final registered = await json(
+      await request(
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
     accessToken = registered['accessToken'] as String;
   });
 
@@ -51,29 +57,48 @@ void main() {
   });
 
   test('refresh token 不能当 access token 用', () async {
-    final registered = await json(await request('POST', '/v1/auth/login', body: {
-      'email': 'a@example.com',
-      'password': 'secret6',
-    }));
-    final response = await request('GET', '/v1/sync',
-        bearer: registered['refreshToken'] as String);
+    final registered = await json(
+      await request(
+        'POST',
+        '/v1/auth/login',
+        body: {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
+    final response = await request(
+      'GET',
+      '/v1/sync',
+      bearer: registered['refreshToken'] as String,
+    );
     expect(response.statusCode, 401);
   });
 
   test('首次拉取返回 204，上传后可取回', () async {
-    expect((await request('GET', '/v1/sync', bearer: accessToken)).statusCode,
-        204);
+    expect(
+      (await request('GET', '/v1/sync', bearer: accessToken)).statusCode,
+      204,
+    );
 
-    final put = await request('PUT', '/v1/sync', bearer: accessToken, body: {
-      'clientUpdatedAt': 1000,
-      'payload': {
-        'schemaVersion': 1,
+    final put = await request(
+      'PUT',
+      '/v1/sync',
+      bearer: accessToken,
+      body: {
         'clientUpdatedAt': 1000,
-        'progress': {'l1': {'completed': true, 'score': 90}},
-        'rewards': {'a1': 'l1'},
-        'track': {'selected': 'zero'},
+        'payload': {
+          'schemaVersion': 1,
+          'clientUpdatedAt': 1000,
+          'progress': {
+            'l1': {'completed': true, 'score': 90},
+          },
+          'rewards': {'a1': 'l1'},
+          'track': {'selected': 'zero'},
+        },
       },
-    });
+    );
     expect(put.statusCode, 200);
 
     final get = await request('GET', '/v1/sync', bearer: accessToken);
@@ -85,41 +110,70 @@ void main() {
   });
 
   test('baseClientUpdatedAt 不一致返回 409', () async {
-    await request('PUT', '/v1/sync', bearer: accessToken, body: {
-      'clientUpdatedAt': 1000,
-      'payload': {'schemaVersion': 1},
-    });
-    final conflict = await request('PUT', '/v1/sync', bearer: accessToken, body: {
-      'clientUpdatedAt': 2000,
-      'baseClientUpdatedAt': 999,
-      'payload': {'schemaVersion': 1},
-    });
+    await request(
+      'PUT',
+      '/v1/sync',
+      bearer: accessToken,
+      body: {
+        'clientUpdatedAt': 1000,
+        'payload': {'schemaVersion': 1},
+      },
+    );
+    final conflict = await request(
+      'PUT',
+      '/v1/sync',
+      bearer: accessToken,
+      body: {
+        'clientUpdatedAt': 2000,
+        'baseClientUpdatedAt': 999,
+        'payload': {'schemaVersion': 1},
+      },
+    );
     expect(conflict.statusCode, 409);
     final body = await json(conflict);
     expect(body['code'], 'sync_conflict');
     expect(body['currentClientUpdatedAt'], 1000);
 
-    final ok = await request('PUT', '/v1/sync', bearer: accessToken, body: {
-      'clientUpdatedAt': 2000,
-      'baseClientUpdatedAt': 1000,
-      'payload': {'schemaVersion': 1},
-    });
+    final ok = await request(
+      'PUT',
+      '/v1/sync',
+      bearer: accessToken,
+      body: {
+        'clientUpdatedAt': 2000,
+        'baseClientUpdatedAt': 1000,
+        'payload': {'schemaVersion': 1},
+      },
+    );
     expect(ok.statusCode, 200);
   });
 
   test('快照按账号隔离', () async {
-    await request('PUT', '/v1/sync', bearer: accessToken, body: {
-      'clientUpdatedAt': 1000,
-      'payload': {'schemaVersion': 1},
-    });
-    final other = await json(await request('POST', '/v1/auth/register', body: {
-      'email': 'b@example.com',
-      'password': 'secret6',
-    }));
+    await request(
+      'PUT',
+      '/v1/sync',
+      bearer: accessToken,
+      body: {
+        'clientUpdatedAt': 1000,
+        'payload': {'schemaVersion': 1},
+      },
+    );
+    final other = await json(
+      await request(
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'b@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
     expect(
-      (await request('GET', '/v1/sync',
-              bearer: other['accessToken'] as String))
-          .statusCode,
+      (await request(
+        'GET',
+        '/v1/sync',
+        bearer: other['accessToken'] as String,
+      )).statusCode,
       204,
     );
   });
