@@ -19,10 +19,23 @@ class SyncRecord {
   final DateTime serverUpdatedAt;
 
   Map<String, Object?> toJson() => {
-        'payload': payload,
-        'clientUpdatedAt': clientUpdatedAt,
-        'serverUpdatedAt': serverUpdatedAt.millisecondsSinceEpoch,
-      };
+    'payload': payload,
+    'clientUpdatedAt': clientUpdatedAt,
+    'serverUpdatedAt': serverUpdatedAt.millisecondsSinceEpoch,
+  };
+}
+
+/// 列表用的同步摘要，不含整包 payload。
+class SyncSummary {
+  SyncSummary({
+    required this.clientUpdatedAt,
+    required this.serverUpdatedAt,
+    required this.lessonCount,
+  });
+
+  final int clientUpdatedAt;
+  final DateTime serverUpdatedAt;
+  final int lessonCount;
 }
 
 abstract class SyncRepo {
@@ -36,6 +49,18 @@ abstract class SyncRepo {
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
   });
+
+  /// 删除该账号的快照。没有记录时也成功。
+  Future<void> delete(String accountId);
+
+  /// accountId → 摘要。
+  Future<Map<String, SyncSummary>> summaries();
+}
+
+int lessonCountOf(Map<String, dynamic> payload) {
+  final progress = payload['progress'];
+  if (progress is Map) return progress.length;
+  return 0;
 }
 
 /// 乐观并发冲突：客户端基于旧快照合并上传。
@@ -76,6 +101,21 @@ class InMemorySyncRepo implements SyncRepo {
     _records[accountId] = record;
     return record;
   }
+
+  @override
+  Future<void> delete(String accountId) async {
+    _records.remove(accountId);
+  }
+
+  @override
+  Future<Map<String, SyncSummary>> summaries() async => {
+    for (final entry in _records.entries)
+      entry.key: SyncSummary(
+        clientUpdatedAt: entry.value.clientUpdatedAt,
+        serverUpdatedAt: entry.value.serverUpdatedAt,
+        lessonCount: lessonCountOf(entry.value.payload),
+      ),
+  };
 }
 
 /// Postgres 实现（表 sync_snapshots，每账号一行）。
@@ -92,8 +132,9 @@ class PostgresSyncRepo implements SyncRepo {
       Endpoint(
         host: uri.host.isEmpty ? 'localhost' : uri.host,
         port: uri.port == 0 ? 5432 : uri.port,
-        database:
-            uri.pathSegments.isNotEmpty ? uri.pathSegments.first : 'postgres',
+        database: uri.pathSegments.isNotEmpty
+            ? uri.pathSegments.first
+            : 'postgres',
         username: userInfo.first.isEmpty ? null : userInfo.first,
         password: userInfo.length > 1 ? userInfo.sublist(1).join(':') : null,
       ),
@@ -144,8 +185,7 @@ CREATE TABLE IF NOT EXISTS sync_snapshots (
   }) async {
     if (baseClientUpdatedAt != null) {
       final current = await get(accountId);
-      if (current != null &&
-          current.clientUpdatedAt != baseClientUpdatedAt) {
+      if (current != null && current.clientUpdatedAt != baseClientUpdatedAt) {
         throw SyncConflictException(current.clientUpdatedAt);
       }
     }
@@ -168,7 +208,41 @@ RETURNING server_updated_at
     return SyncRecord(
       payload: payload,
       clientUpdatedAt: clientUpdatedAt,
-      serverUpdatedAt: result.first.toColumnMap()['server_updated_at'] as DateTime,
+      serverUpdatedAt:
+          result.first.toColumnMap()['server_updated_at'] as DateTime,
     );
+  }
+
+  @override
+  Future<void> delete(String accountId) async {
+    try {
+      await _conn.execute(
+        Sql.named('DELETE FROM sync_snapshots WHERE account_id = @id::uuid'),
+        parameters: {'id': accountId},
+      );
+    } on ServerException {
+      return;
+    }
+  }
+
+  @override
+  Future<Map<String, SyncSummary>> summaries() async {
+    final result = await _conn.execute(
+      Sql.named(
+        'SELECT account_id::text AS account_id, payload, client_updated_at, '
+        'server_updated_at FROM sync_snapshots',
+      ),
+    );
+    final map = <String, SyncSummary>{};
+    for (final row in result) {
+      final columns = row.toColumnMap();
+      final payload = Map<String, dynamic>.from(columns['payload'] as Map);
+      map[columns['account_id'] as String] = SyncSummary(
+        clientUpdatedAt: columns['client_updated_at'] as int,
+        serverUpdatedAt: columns['server_updated_at'] as DateTime,
+        lessonCount: lessonCountOf(payload),
+      );
+    }
+    return map;
   }
 }

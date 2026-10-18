@@ -184,6 +184,7 @@ void main() {
       );
       await auth.registerOnline(
         email: 'a@example.com',
+        displayName: 'ann',
         password: 'secret6',
         confirm: 'secret6',
       );
@@ -289,7 +290,7 @@ void main() {
         UserRepository(store: UserStore()),
         cloudAuth: _FakeCloudAuth(),
         tokenStore: MemoryTokenStore(),
-        onBoundToOnline: (from) async => migratedFrom = from,
+        onBoundToOnline: (from, to) async => migratedFrom = from,
       );
       addTearDown(bound.dispose);
       // 先恢复为本地会话
@@ -319,6 +320,7 @@ void main() {
       expect(guest.state.isGuest, isTrue);
       final error = await guest.registerOnline(
         email: 'a@example.com',
+        displayName: 'ann',
         password: 'secret6',
         confirm: 'secret6',
       );
@@ -326,6 +328,157 @@ void main() {
       expect(guest.state.pendingImportFrom, UserRepository.guestKey);
       guest.clearPendingImport();
       expect(guest.state.pendingImportFrom, isNull);
+    });
+
+    test('绑定先复制本地进度，再开始同步', () async {
+      await UserStore().putUser(User(
+        nickname: 'alice',
+        passwordHash: 'h',
+        salt: 's',
+        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+      ));
+      await ProgressStore(userKey: 'alice').save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().setSession('alice');
+      final events = <String>[];
+      late AuthController bound;
+      bound = AuthController(
+        UserRepository(store: UserStore()),
+        cloudAuth: _FakeCloudAuth(),
+        tokenStore: MemoryTokenStore(),
+        onOnlineSessionReady: () {
+          events.add('sync');
+          expect(
+            ProgressStore(userKey: 'online:acc-1').entries['l1']?.completed,
+            isTrue,
+          );
+        },
+        onBoundToOnline: (from, to) async {
+          events.add('copy');
+          expect(from, 'alice');
+          expect(to, 'online:acc-1');
+          await SyncService(
+            api: _FakeSyncApi(),
+            settings: SettingsStore(),
+            readAuth: () => bound.state,
+            refreshAccessToken: () async => false,
+          ).copySlot(from, to);
+        },
+      );
+      addTearDown(bound.dispose);
+      final error = await bound.loginAndBind(
+        email: 'a@example.com',
+        password: 'secret6',
+      );
+      expect(error, isNull);
+      expect(events, ['copy', 'sync']);
+    });
+
+    test('退出本地账号后登录在线，待导入该账号且先不同步', () async {
+      await UserStore().putUser(User(
+        nickname: 'alice',
+        passwordHash: 'h',
+        salt: 's',
+        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+      ));
+      await ProgressStore(userKey: 'alice').save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().setSession('alice');
+      var syncs = 0;
+      final auth = AuthController(
+        UserRepository(store: UserStore()),
+        cloudAuth: _FakeCloudAuth(),
+        tokenStore: MemoryTokenStore(),
+        onOnlineSessionReady: () => syncs++,
+      );
+      addTearDown(auth.dispose);
+      expect(auth.state.userKey, 'alice');
+      await auth.logout();
+      final error = await auth.loginOnline(
+        email: 'a@example.com',
+        password: 'secret6',
+      );
+      expect(error, isNull);
+      expect(auth.state.pendingImportFrom, 'alice');
+      expect(syncs, 0);
+    });
+
+    test('未退出记录时，在线登录仍发现本机本地进度', () async {
+      await UserStore().putUser(User(
+        nickname: 'alice',
+        passwordHash: 'h',
+        salt: 's',
+        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+      ));
+      await ProgressStore(userKey: 'alice').save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().clearSession();
+      var syncs = 0;
+      final auth = AuthController(
+        UserRepository(store: UserStore()),
+        cloudAuth: _FakeCloudAuth(),
+        tokenStore: MemoryTokenStore(),
+        onOnlineSessionReady: () => syncs++,
+      );
+      addTearDown(auth.dispose);
+      final error = await auth.loginOnline(
+        email: 'a@example.com',
+        password: 'secret6',
+      );
+      expect(error, isNull);
+      expect(auth.localAccountsToImport(), ['alice']);
+      expect(auth.state.pendingImportFrom, 'alice');
+      expect(syncs, 0);
+    });
+
+    test('已绑定但在线槽位缺少进度时仍可导入', () async {
+      await UserStore().putUser(User(
+        nickname: 'alice',
+        passwordHash: 'h',
+        salt: 's',
+        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        onlineAccountId: 'acc-1',
+        onlineBoundAt: 1,
+      ));
+      await ProgressStore(userKey: 'alice').save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      final auth = AuthController(
+        UserRepository(store: UserStore()),
+        cloudAuth: _FakeCloudAuth(),
+        tokenStore: MemoryTokenStore(),
+      );
+      addTearDown(auth.dispose);
+      expect(auth.state.userKey, 'online:acc-1');
+      expect(auth.localAccountsToImport(), ['alice']);
+    });
+
+    test('本机可重设本地账号密码', () async {
+      final repo = UserRepository(store: UserStore());
+      final auth = AuthController(
+        repo,
+        cloudAuth: _FakeCloudAuth(),
+        tokenStore: MemoryTokenStore(),
+      );
+      addTearDown(auth.dispose);
+      await UserStore().clearSession();
+      expect(
+        await repo.register(
+          nickname: 'bob',
+          password: 'secret6',
+          confirm: 'secret6',
+        ),
+        isNull,
+      );
+      expect(
+        await auth.resetLocalPassword(
+          nickname: 'bob',
+          password: 'newpass',
+          confirm: 'newpass',
+        ),
+        isNull,
+      );
+      expect(await auth.login(nickname: 'bob', password: 'secret6'), '密码错误');
+      expect(await auth.login(nickname: 'bob', password: 'newpass'), isNull);
     });
   });
 }

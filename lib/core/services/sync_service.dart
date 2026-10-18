@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../../app/auth_controller.dart';
+import 'diagnostic_log.dart';
 import '../../data/models/progress.dart';
 import '../../data/sources/cloud_auth_api.dart';
 import '../../data/sources/progress_store.dart';
@@ -32,21 +33,21 @@ class SyncSnapshot {
   final int clientUpdatedAt;
 
   Map<String, dynamic> toPayload() => {
-        'schemaVersion': 1,
-        'clientUpdatedAt': clientUpdatedAt,
-        'progress': {
-          for (final e in progress.entries)
-            e.key: {
-              'completed': e.value.completed,
-              'score': e.value.score,
-              'correctCount': e.value.correctCount,
-              'totalCount': e.value.totalCount,
-              'completedAt': e.value.completedAt?.millisecondsSinceEpoch,
-            },
+    'schemaVersion': 1,
+    'clientUpdatedAt': clientUpdatedAt,
+    'progress': {
+      for (final e in progress.entries)
+        e.key: {
+          'completed': e.value.completed,
+          'score': e.value.score,
+          'correctCount': e.value.correctCount,
+          'totalCount': e.value.totalCount,
+          'completedAt': e.value.completedAt?.millisecondsSinceEpoch,
         },
-        'rewards': rewards,
-        'track': track,
-      };
+    },
+    'rewards': rewards,
+    'track': track,
+  };
 
   static SyncSnapshot fromPayload(Map<String, dynamic> payload) {
     final progress = <String, LessonProgress>{};
@@ -65,7 +66,8 @@ class SyncSnapshot {
           completedAt: value['completedAt'] == null
               ? null
               : DateTime.fromMillisecondsSinceEpoch(
-                  (value['completedAt'] as num).toInt()),
+                  (value['completedAt'] as num).toInt(),
+                ),
         );
       }
     }
@@ -92,7 +94,10 @@ class SyncSnapshot {
 class SyncMerger {
   /// 完成优先；双完成取高分（同分取较新 completedAt）；
   /// 双未完成取正确数较多者。
-  static LessonProgress mergeLesson(LessonProgress local, LessonProgress remote) {
+  static LessonProgress mergeLesson(
+    LessonProgress local,
+    LessonProgress remote,
+  ) {
     if (local.completed != remote.completed) {
       return local.completed ? local : remote;
     }
@@ -114,8 +119,7 @@ class SyncMerger {
   static Map<String, String> mergeRewards(
     Map<String, String> local,
     Map<String, String> remote,
-  ) =>
-      {...remote, ...local};
+  ) => {...remote, ...local};
 
   /// 轨道取 updatedAt 较新一侧。
   static Map<String, dynamic> mergeTrack(
@@ -136,8 +140,8 @@ class SyncMerger {
           id: local.progress[id] == null
               ? remote.progress[id]!
               : remote.progress[id] == null
-                  ? local.progress[id]!
-                  : mergeLesson(local.progress[id]!, remote.progress[id]!),
+              ? local.progress[id]!
+              : mergeLesson(local.progress[id]!, remote.progress[id]!),
       },
       rewards: mergeRewards(local.rewards, remote.rewards),
       track: mergeTrack(local.track, remote.track),
@@ -156,13 +160,13 @@ class SyncService {
     void Function(SyncStatus status)? onStatus,
     void Function()? onMerged,
     Duration debounce = const Duration(seconds: 2),
-  })  : _api = api,
-        _settings = settings,
-        _readAuth = readAuth,
-        _refreshAccessToken = refreshAccessToken,
-        _onStatus = onStatus,
-        _onMerged = onMerged,
-        _debounce = debounce;
+  }) : _api = api,
+       _settings = settings,
+       _readAuth = readAuth,
+       _refreshAccessToken = refreshAccessToken,
+       _onStatus = onStatus,
+       _onMerged = onMerged,
+       _debounce = debounce;
 
   final SyncApi _api;
   final SettingsStore _settings;
@@ -178,11 +182,11 @@ class SyncService {
 
   /// 构建当前账号的本地快照。
   SyncSnapshot buildLocal(String userKey) => SyncSnapshot(
-        progress: ProgressStore(userKey: userKey).entries,
-        rewards: RewardStore(userKey: userKey).attempts,
-        track: _settings.exportTrackPrefs(userKey),
-        clientUpdatedAt: DateTime.now().millisecondsSinceEpoch,
-      );
+    progress: ProgressStore(userKey: userKey).entries,
+    rewards: RewardStore(userKey: userKey).attempts,
+    track: _settings.exportTrackPrefs(userKey),
+    clientUpdatedAt: DateTime.now().millisecondsSinceEpoch,
+  );
 
   /// 登录后/恢复会话后：拉取 → 合并 → 写本地 → 上传（失败不阻断学习）。
   Future<void> pullMergePush() async {
@@ -199,9 +203,12 @@ class SyncService {
       await _pullMergePushWithToken(userKey, token, allowRetry: true);
       _dirty = false;
       await _settings.setLastSyncAt(
-          userKey, DateTime.now().millisecondsSinceEpoch);
+        userKey,
+        DateTime.now().millisecondsSinceEpoch,
+      );
       _onStatus?.call(SyncStatus.synced);
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('sync', error, stack);
       _onStatus?.call(SyncStatus.failed);
     }
   }
@@ -217,7 +224,10 @@ class SyncService {
     } on CloudAuthException catch (e) {
       if (e.statusCode == 401 && allowRetry && await _refreshAccessToken()) {
         return _pullMergePushWithToken(
-            userKey, _readAuth().accessToken!, allowRetry: false);
+          userKey,
+          _readAuth().accessToken!,
+          allowRetry: false,
+        );
       }
       rethrow;
     }
@@ -261,8 +271,7 @@ class SyncService {
           await rewardStore.save(entry.key, entry.value);
         }
       }
-      final remoteTrackAt =
-          (snapshot.track['updatedAt'] as num?)?.toInt() ?? 0;
+      final remoteTrackAt = (snapshot.track['updatedAt'] as num?)?.toInt() ?? 0;
       if (remoteTrackAt > _settings.trackUpdatedAt(userKey)) {
         await _settings.importTrackPrefs(userKey, snapshot.track);
       }
@@ -304,7 +313,10 @@ class SyncService {
       }
     }
     await _settings.importTrackPrefs(
-        toUserKey, _settings.exportTrackPrefs(fromUserKey));
+      toUserKey,
+      _settings.exportTrackPrefs(fromUserKey),
+    );
+    _onMerged?.call();
   }
 
   /// 账号是否已有可同步的本地数据（游客导入确认前判断）。
