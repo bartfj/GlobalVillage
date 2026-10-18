@@ -52,15 +52,21 @@ void main() {
       expect(body['refreshToken'], isNotEmpty);
     });
 
-    test('手机号注册成功，默认显示名为学员', () async {
-      final response = await post('/v1/auth/register', {
+    test('缺昵称或超长返回 400', () async {
+      final missing = await post('/v1/auth/register', {
         'phone': '+8613800138000',
         'password': 'secret6',
       });
-      expect(response.statusCode, 200);
-      final body = await json(response);
-      expect(body['account']['phone'], '+8613800138000');
-      expect(body['account']['displayName'], '学员');
+      expect(missing.statusCode, 400);
+      expect((await json(missing))['code'], 'invalid_display_name');
+
+      final tooLong = await post('/v1/auth/register', {
+        'email': 'long@example.com',
+        'password': 'secret6',
+        'displayName': '这是一个超过十二个字的昵称',
+      });
+      expect(tooLong.statusCode, 400);
+      expect((await json(tooLong))['code'], 'invalid_display_name');
     });
 
     test('邮箱与手机号都缺返回 400', () async {
@@ -73,6 +79,7 @@ void main() {
       final response = await post('/v1/auth/register', {
         'email': 'a@example.com',
         'password': '12345',
+        'displayName': 'Ann',
       });
       expect(response.statusCode, 400);
       expect((await json(response))['code'], 'weak_password');
@@ -82,10 +89,12 @@ void main() {
       await post('/v1/auth/register', {
         'email': 'a@example.com',
         'password': 'secret6',
+        'displayName': 'Ann',
       });
       final response = await post('/v1/auth/register', {
         'email': 'a@example.com',
         'password': 'secret6',
+        'displayName': 'Ann',
       });
       expect(response.statusCode, 409);
       expect((await json(response))['code'], 'email_taken');
@@ -97,6 +106,7 @@ void main() {
       await post('/v1/auth/register', {
         'email': 'a@example.com',
         'password': 'secret6',
+        'displayName': 'Ann',
       });
     });
 
@@ -104,6 +114,7 @@ void main() {
       final response = await post('/v1/auth/login', {
         'email': 'a@example.com',
         'password': 'secret6',
+        'displayName': 'Ann',
       });
       expect(response.statusCode, 200);
       expect((await json(response))['account']['email'], 'a@example.com');
@@ -123,10 +134,13 @@ void main() {
 
   group('refresh / logout', () {
     test('refresh token 换取新 access token', () async {
-      final registered = await json(await post('/v1/auth/register', {
-        'email': 'a@example.com',
-        'password': 'secret6',
-      }));
+      final registered = await json(
+        await post('/v1/auth/register', {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        }),
+      );
       final response = await post('/v1/auth/refresh', {
         'refreshToken': registered['refreshToken'],
       });
@@ -135,10 +149,13 @@ void main() {
     });
 
     test('access token 不能当 refresh token 用', () async {
-      final registered = await json(await post('/v1/auth/register', {
-        'email': 'a@example.com',
-        'password': 'secret6',
-      }));
+      final registered = await json(
+        await post('/v1/auth/register', {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        }),
+      );
       final response = await post('/v1/auth/refresh', {
         'refreshToken': registered['accessToken'],
       });
@@ -155,6 +172,67 @@ void main() {
     test('logout 幂等返回 204', () async {
       final response = await post('/v1/auth/logout', {'refreshToken': 'x'});
       expect(response.statusCode, 204);
+    });
+  });
+
+  group('profile', () {
+    Future<Response> send(
+      String method,
+      String path, {
+      Map<String, Object?>? body,
+      String? bearer,
+    }) async {
+      return handler(
+        Request(
+          method,
+          Uri.parse('http://localhost$path'),
+          body: body == null ? null : jsonEncode(body),
+          headers: {
+            if (body != null) 'content-type': 'application/json',
+            if (bearer != null) 'authorization': 'Bearer $bearer',
+          },
+        ),
+      );
+    }
+
+    test('未登录访问资料返回 401', () async {
+      expect((await send('GET', '/v1/auth/me')).statusCode, 401);
+      expect(
+        (await send(
+          'PATCH',
+          '/v1/auth/profile',
+          body: {'displayName': '新昵称'},
+        )).statusCode,
+        401,
+      );
+    });
+
+    test('注册写入昵称，修改后 GET /me 读到新昵称', () async {
+      final registered = await json(
+        await post('/v1/auth/register', {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        }),
+      );
+      expect(registered['account']['displayName'], 'Ann');
+      expect(registered['account']['createdAt'], isNotEmpty);
+      final token = registered['accessToken'] as String;
+
+      final patched = await json(
+        await send(
+          'PATCH',
+          '/v1/auth/profile',
+          bearer: token,
+          body: {'displayName': ' 新昵称 '},
+        ),
+      );
+      expect(patched['account']['displayName'], '新昵称');
+
+      final me = await json(await send('GET', '/v1/auth/me', bearer: token));
+      expect(me['account']['displayName'], '新昵称');
+      expect(me['account']['email'], 'a@example.com');
+      expect(me['account']['createdAt'], registered['account']['createdAt']);
     });
   });
 }
