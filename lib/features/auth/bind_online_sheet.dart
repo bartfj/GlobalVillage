@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import 'api_base_url_dialog.dart';
 import 'widgets/auth_text_field.dart';
 
 /// 本地账号「绑定在线账号」底部面板（docs/在线账号功能设计.md §7.2）。
@@ -106,7 +107,8 @@ class _BindOnlineSheetState extends ConsumerState<BindOnlineSheet> {
               '当前设备的学习进度将与云端合并，多设备可接力学习',
               style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
-            const SizedBox(height: 20),
+            const ApiBaseUrlButton(),
+            const SizedBox(height: 8),
             AuthTextField(label: '邮箱或手机号', controller: _identifier),
             const SizedBox(height: 12),
             AuthTextField(
@@ -122,7 +124,9 @@ class _BindOnlineSheetState extends ConsumerState<BindOnlineSheet> {
             ),
             const SizedBox(height: 10),
             TextButton(
-              onPressed: valid && !_busy ? () => _submit(register: false) : null,
+              onPressed: valid && !_busy
+                  ? () => _submit(register: false)
+                  : null,
               child: const Text(
                 '已有在线账号？登录并绑定',
                 style: TextStyle(

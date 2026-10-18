@@ -1,6 +1,10 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/services/diagnostic_log.dart';
+
+import '../features/auth/account_page.dart';
 import '../features/auth/login_page.dart';
 import '../features/auth/register_page.dart';
 import '../features/auth/welcome_page.dart';
@@ -18,12 +22,21 @@ import 'providers.dart';
 
 const _authLocations = ['/welcome', '/login', '/register'];
 
-/// 路由：感知认证状态，无会话时重定向到欢迎页
+/// 路由：感知认证状态，无会话时重定向到欢迎页。
+/// 登录态变化只触发重定向，不重建路由器，避免当前页被 initialLocation 冲掉。
 final goRouterProvider = Provider<GoRouter>((ref) {
-  final auth = ref.watch(authProvider);
-  return GoRouter(
+  final refresh = ValueNotifier<int>(0);
+  ref.listen(authProvider, (_, __) {
+    refresh.value++;
+  });
+  ref.onDispose(refresh.dispose);
+
+  final router = GoRouter(
     initialLocation: '/',
+    refreshListenable: refresh,
+    observers: [_DiagnosticRouteObserver()],
     redirect: (context, state) {
+      final auth = ref.read(authProvider);
       final onAuth = _authLocations.contains(state.matchedLocation);
       if (!auth.hasSession && !onAuth) return '/welcome';
       if (state.matchedLocation.startsWith('/practice/') &&
@@ -73,6 +86,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const RegisterPage(),
       ),
       GoRoute(
+        path: '/account',
+        builder: (context, state) => const AccountPage(),
+      ),
+      GoRoute(
         path: '/lesson/:lessonId',
         builder: (context, state) =>
             LessonPage(lessonId: state.pathParameters['lessonId']!),
@@ -86,4 +103,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
+  ref.onDispose(router.dispose);
+  return router;
 });
+
+class _DiagnosticRouteObserver extends NavigatorObserver {
+  void _remember(Route<dynamic>? route) {
+    final name = route?.settings.name;
+    if (name == null || name.isEmpty) return;
+    final log = DiagnosticLog.instance;
+    if (log == null) return;
+    log.setRoute(name);
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    _remember(route);
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    _remember(newRoute);
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    _remember(previousRoute);
+  }
+}

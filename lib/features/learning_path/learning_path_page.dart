@@ -6,8 +6,11 @@ import 'package:go_router/go_router.dart';
 import '../../app/auth_controller.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import '../../app/widgets/app_version_label.dart';
 import '../../core/constants.dart';
 import '../../data/models/course_track.dart';
+import '../../data/repositories/user_repository.dart';
+import '../feedback/feedback_dialog.dart';
 import 'widgets/lesson_node.dart';
 import 'widgets/main_menu_drawer.dart';
 import 'widgets/unit_header.dart';
@@ -34,10 +37,17 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
       _lessonKeys.putIfAbsent(id, () => GlobalKey());
   GlobalKey _unitKey(String id) => _unitKeys.putIfAbsent(id, () => GlobalKey());
 
+  bool _guestPrompted = false;
+  bool _localImportPrompted = false;
+
   @override
   void initState() {
     super.initState();
     _scroll.addListener(_updateVisibility);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _maybePromptGuestImport(ref.read(authProvider));
+    });
   }
 
   void _updateVisibility() {
@@ -429,17 +439,42 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     );
   }
 
-  /// 游客注册/登录在线账号后，单次确认是否导入本机游客进度。
+  /// 在线会话下发现本机还有未合并的游客或本地账号进度时，确认一次再上传。
   Future<void> _maybePromptGuestImport(AuthState next) async {
-    final from = next.pendingImportFrom;
-    if (from == null || !mounted) return;
+    if (!mounted) return;
+    if (next.pendingImportFrom == UserRepository.guestKey && !_guestPrompted) {
+      _guestPrompted = true;
+      await _confirmImport(
+        title: '导入本机学习进度？',
+        message: '当前设备上的游客学习进度将与云端账号合并，多设备可接力学习。',
+        sources: const [UserRepository.guestKey],
+      );
+      if (!mounted) return;
+    }
+    if (!next.isOnline || _localImportPrompted) return;
+    final sources = ref.read(authProvider.notifier).localAccountsToImport();
+    if (sources.isEmpty) return;
+    _localImportPrompted = true;
+    final names = sources.join('、');
+    await _confirmImport(
+      title: '导入本地账号的学习进度？',
+      message: '本机本地账号「$names」的学习进度将与当前在线账号合并，多设备可接力学习。',
+      sources: sources,
+    );
+  }
+
+  Future<void> _confirmImport({
+    required String title,
+    required String message,
+    required List<String> sources,
+  }) async {
     final sync = ref.read(syncServiceProvider);
     if (sync == null) return;
     final import = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('导入本机学习进度？'),
-        content: const Text('当前设备上的游客学习进度将与云端账号合并，多设备可接力学习。'),
+        title: Text(title),
+        content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -453,11 +488,17 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
       ),
     );
     if (!mounted) return;
-    ref.read(authProvider.notifier).clearPendingImport();
     if (import == true) {
       final toUserKey = ref.read(authProvider).userKey;
-      if (toUserKey != null) await sync.copySlot(from, toUserKey);
+      if (toUserKey != null) {
+        for (final from in sources) {
+          await sync.copySlot(from, toUserKey);
+        }
+      }
     }
+    await ref
+        .read(authProvider.notifier)
+        .finishPendingImport(imported: import == true, nicknames: sources);
     await sync.pullMergePush();
   }
 
@@ -503,6 +544,10 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
         onBackupRestore: () {
           Navigator.of(context).pop();
           _showBackupRestore(context, ref);
+        },
+        onFeedback: () {
+          Navigator.of(context).pop();
+          showFeedbackDialog(context, ref);
         },
         onAbout: () {
           Navigator.of(context).pop();
@@ -620,15 +665,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
                     ),
                   const SizedBox(height: 12),
                 ],
-                Center(
-                  child: Text(
-                    'v$kAppVersion',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.lockedDark,
-                    ),
-                  ),
-                ),
+                const Center(child: AppVersionLabel()),
               ],
             ),
           );

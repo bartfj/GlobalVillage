@@ -1,6 +1,11 @@
+import 'dart:io' show Directory, Platform;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../core/services/backup_service.dart';
+import '../core/services/diagnostic_log.dart';
+import '../core/services/diagnostic_uploader.dart';
 import '../core/services/phonetic_lookup_service.dart';
 import '../core/services/sound_service.dart';
 import '../core/services/sync_service.dart';
@@ -12,14 +17,18 @@ import '../data/repositories/progress_repository.dart';
 import '../data/repositories/reward_repository.dart';
 import '../data/repositories/user_repository.dart';
 import '../data/sources/cloud_auth_api.dart';
+import '../data/sources/content_cache.dart';
+import '../data/sources/content_documents.dart';
 import '../data/sources/course_loader.dart';
 import '../data/sources/progress_store.dart';
 import '../data/sources/learning_store.dart';
+import '../data/sources/report_api.dart';
 import '../data/sources/reward_store.dart';
 import '../data/sources/settings_store.dart';
 import '../data/sources/sync_api.dart';
 import '../data/sources/token_store.dart';
 import '../data/sources/user_store.dart';
+import 'api_base_url_controller.dart';
 import 'auth_controller.dart';
 import 'selected_track_controller.dart';
 
@@ -35,21 +44,53 @@ final userRepositoryProvider = Provider<UserRepository>(
   (ref) => UserRepository(store: ref.watch(userStoreProvider)),
 );
 
-/// 在线账号 API 客户端（基址用 --dart-define=API_BASE_URL 覆盖）
-final cloudAuthApiProvider = Provider<CloudAuthApi>((ref) => CloudAuthApi());
+/// 当前在线服务地址（应用内配置优先，否则用编译期 API_BASE_URL）
+final apiBaseUrlProvider = StateNotifierProvider<ApiBaseUrlController, String>((
+  ref,
+) {
+  return ApiBaseUrlController(ref.watch(settingsStoreProvider));
+});
+
+/// 在线账号 API 客户端（每次请求读取当前服务地址）
+final cloudAuthApiProvider = Provider<CloudAuthApi>((ref) {
+  final settings = ref.watch(settingsStoreProvider);
+  return CloudAuthApi(readBaseUrl: () => settings.apiBaseUrl);
+});
 
 /// refresh token 安全存储
 final tokenStoreProvider = Provider<TokenStore>((ref) => SecureTokenStore());
 
 /// 进度同步 API
-final syncApiProvider = Provider<SyncApi>((ref) => SyncApi());
+final syncApiProvider = Provider<SyncApi>((ref) {
+  final settings = ref.watch(settingsStoreProvider);
+  return SyncApi(readBaseUrl: () => settings.apiBaseUrl);
+});
+
+/// 诊断报告上传
+final reportApiProvider = Provider<ReportApi>((ref) {
+  final settings = ref.watch(settingsStoreProvider);
+  return ReportApi(readBaseUrl: () => settings.apiBaseUrl);
+});
+
+/// 启动补发与用户反馈共用。日志本体在 [DiagnosticLog.instance]。
+final diagnosticUploaderProvider = Provider<DiagnosticUploader>((ref) {
+  final settings = ref.watch(settingsStoreProvider);
+  return DiagnosticUploader(
+    log: DiagnosticLog.instance ?? DiagnosticLog(),
+    api: ref.watch(reportApiProvider),
+    settings: settings,
+    readAuth: () => ref.read(authProvider),
+  );
+});
 
 /// 同步状态（抽屉展示）
 final syncStatusProvider = StateProvider<SyncStatus>((ref) => SyncStatus.idle);
 
 /// 进度同步服务（仅在线会话启用）
 // 显式声明变量类型：与 authProvider 相互引用，避免顶层类型推断循环
-final Provider<SyncService?> syncServiceProvider = Provider<SyncService?>((ref) {
+final Provider<SyncService?> syncServiceProvider = Provider<SyncService?>((
+  ref,
+) {
   final auth = ref.watch(authProvider);
   if (!auth.isOnline) return null;
   final service = SyncService(
@@ -73,21 +114,19 @@ final Provider<SyncService?> syncServiceProvider = Provider<SyncService?>((ref) 
 /// 认证状态（会话持久化，启动时自动恢复）
 final StateNotifierProvider<AuthController, AuthState> authProvider =
     StateNotifierProvider<AuthController, AuthState>(
-  (ref) => AuthController(
-    ref.watch(userRepositoryProvider),
-    cloudAuth: ref.watch(cloudAuthApiProvider),
-    tokenStore: ref.watch(tokenStoreProvider),
-    onOnlineSessionReady: () =>
-        ref.read(syncServiceProvider)?.pullMergePush(),
-    onBoundToOnline: (fromUserKey) async {
-      final sync = ref.read(syncServiceProvider);
-      final toUserKey = ref.read(authProvider).userKey;
-      if (sync == null || toUserKey == null) return;
-      await sync.copySlot(fromUserKey, toUserKey);
-      await sync.pullMergePush();
-    },
-  ),
-);
+      (ref) => AuthController(
+        ref.watch(userRepositoryProvider),
+        cloudAuth: ref.watch(cloudAuthApiProvider),
+        tokenStore: ref.watch(tokenStoreProvider),
+        onOnlineSessionReady: () =>
+            ref.read(syncServiceProvider)?.pullMergePush(),
+        onBoundToOnline: (fromUserKey, toUserKey) async {
+          final sync = ref.read(syncServiceProvider);
+          if (sync == null) return;
+          await sync.copySlot(fromUserKey, toUserKey);
+        },
+      ),
+    );
 
 /// 当前学习大类（按账号持久化）
 final selectedTrackProvider =
@@ -101,10 +140,30 @@ final selectedTrackProvider =
       return controller;
     });
 
-/// 全部大类课程（启动加载一次；徽章全局展示 / 切档同步取用）
-final allCoursesProvider = FutureProvider<List<Course>>(
-  (ref) => CourseLoader().loadAll(),
-);
+/// 已发布学习内容。测试里不访问网络，避免打到本机正在跑的服务。
+final contentCacheProvider = FutureProvider<ContentDocuments>((ref) async {
+  final settings = ref.watch(settingsStoreProvider);
+  try {
+    final support = await getApplicationSupportDirectory();
+    final cache = ContentCache(
+      root: Directory('${support.path}/content_cache'),
+      readBaseUrl: () => settings.apiBaseUrl,
+    );
+    await cache.sync(
+      allowNetwork: Platform.environment['FLUTTER_TEST'] != 'true',
+    );
+    ref.onDispose(cache.close);
+    return cache;
+  } catch (_) {
+    return const EmptyContentDocuments();
+  }
+});
+
+/// 全部大类课程（启动时先等一小段已发布内容，再加载）
+final allCoursesProvider = FutureProvider<List<Course>>((ref) async {
+  final documents = await ref.watch(contentCacheProvider.future);
+  return CourseLoader(documents: documents).loadAll();
+});
 
 /// 当前大类对应的课程（同步，依赖 allCourses 已加载）
 final courseProvider = Provider<Course>((ref) {
@@ -161,13 +220,17 @@ final soundServiceProvider = Provider<SoundService>((ref) {
 });
 
 final ttsServiceProvider = Provider<TtsService>((ref) {
-  final service = TtsService();
+  final service = TtsService(
+    documents: ref.watch(contentCacheProvider).asData?.value,
+  );
   ref.onDispose(service.dispose);
   return service;
 });
 
 final phoneticLookupProvider = Provider<PhoneticLookupService>((ref) {
-  final service = PhoneticLookupService();
+  final service = PhoneticLookupService(
+    documents: ref.watch(contentCacheProvider).asData?.value,
+  );
   ref.onDispose(service.dispose);
   return service;
 });

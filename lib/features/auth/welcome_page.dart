@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
-import '../../core/constants.dart';
+import '../../app/widgets/app_version_label.dart';
+import 'api_base_url_dialog.dart';
 
 /// 欢迎页：游客可直接进入，登录/注册可选
 class WelcomePage extends ConsumerWidget {
@@ -50,8 +51,7 @@ class WelcomePage extends ConsumerWidget {
               const Spacer(flex: 3),
               PushableButton(
                 label: '开始学习',
-                onPressed: () =>
-                    ref.read(authProvider.notifier).loginAsGuest(),
+                onPressed: () => ref.read(authProvider.notifier).loginAsGuest(),
               ),
               const SizedBox(height: 12),
               PushableButton(
@@ -60,14 +60,8 @@ class WelcomePage extends ConsumerWidget {
                 shadowColor: AppColors.blueDark,
                 onPressed: () => context.push('/login'),
               ),
-              const SizedBox(height: 16),
-              Text(
-                'v$kAppVersion',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: AppColors.lockedDark,
-                ),
-              ),
+              const ApiBaseUrlButton(),
+              const AppVersionLabel(),
             ],
           ),
         ),

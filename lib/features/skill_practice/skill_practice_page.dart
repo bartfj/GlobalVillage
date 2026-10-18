@@ -26,9 +26,6 @@ class SkillPracticePage extends ConsumerStatefulWidget {
 }
 
 class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
-  late final SkillPracticeLoader _loader =
-      widget.loader ?? SkillPracticeLoader();
-
   String _currentAnswer = '';
   String? _lastPhoneticExerciseId;
   int _questionSerial = 0;
@@ -78,9 +75,14 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   }
 
   Future<void> _bootstrap() async {
+    final loader =
+        widget.loader ??
+        SkillPracticeLoader(
+          documents: await ref.read(contentCacheProvider.future),
+        );
     try {
-      final bank = await _loader.load(widget.skill);
-      final picked = _loader.pickSession(bank.exercises);
+      final bank = await loader.load(widget.skill);
+      final picked = loader.pickSession(bank.exercises);
       if (!mounted) return;
       if (picked.isEmpty) {
         setState(() {

@@ -243,6 +243,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                 child: DialoguePerformance(
                   unitId: _award!.unit.id,
                   unitTitle: _award!.unit.title,
+                  documents: ref.watch(contentCacheProvider).asData?.value,
                   onFinished: () => setState(() {
                     _showDialogue = false;
                     _showCelebration = true;

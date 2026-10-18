@@ -45,7 +45,8 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
 
   Future<void> _dialogue(Unit unit) async {
     try {
-      final exercises = await buildDialoguePractice(unit);
+      final documents = await ref.read(contentCacheProvider.future);
+      final exercises = await buildDialoguePractice(unit, documents: documents);
       if (!mounted) return;
       await _practice('${unit.title} · 对话应用', exercises, 'dialogue');
     } catch (_) {

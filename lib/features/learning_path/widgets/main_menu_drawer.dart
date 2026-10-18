@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/providers.dart';
 import '../../../app/theme.dart';
+import '../../auth/api_base_url_dialog.dart';
 import '../../../core/services/sync_service.dart';
 import '../../../data/models/course_track.dart';
 import '../../../data/models/learning_language.dart';
@@ -16,12 +17,14 @@ class MainMenuDrawer extends ConsumerWidget {
   const MainMenuDrawer({
     super.key,
     required this.onBackupRestore,
+    required this.onFeedback,
     required this.onAbout,
     required this.onLogout,
     required this.onLogin,
   });
 
   final VoidCallback onBackupRestore;
+  final VoidCallback onFeedback;
   final VoidCallback onAbout;
   final VoidCallback onLogout;
   final VoidCallback onLogin;
@@ -64,8 +67,8 @@ class MainMenuDrawer extends ConsumerWidget {
     final displayName = isGuest
         ? '游客'
         : auth.isOnline
-            ? (auth.displayName ?? '在线用户')
-            : (auth.userKey ?? '未登录');
+        ? (auth.displayName ?? '在线用户')
+        : (auth.userKey ?? '未登录');
     final initial = displayName.isNotEmpty
         ? String.fromCharCode(displayName.runes.first)
         : '?';
@@ -87,6 +90,7 @@ class MainMenuDrawer extends ConsumerWidget {
               isOnline: auth.isOnline,
               userKey: auth.userKey,
               onLogin: onLogin,
+              onOpen: isGuest ? null : () => _openRoute(context, '/account'),
             ),
             const SizedBox(height: 10),
             _StatsCard(
@@ -191,10 +195,23 @@ class MainMenuDrawer extends ConsumerWidget {
                     onTap: () => _openRoute(context, '/review'),
                   ),
                   _MenuRow(
+                    icon: Icons.dns_outlined,
+                    color: AppColors.blue,
+                    title: '服务地址',
+                    subtitle: ref.watch(apiBaseUrlProvider),
+                    onTap: () => showApiBaseUrlDialog(context),
+                  ),
+                  _MenuRow(
                     icon: Icons.sync_alt_rounded,
                     color: AppColors.blueDark,
                     title: '备份 / 恢复',
                     onTap: onBackupRestore,
+                  ),
+                  _MenuRow(
+                    icon: Icons.feedback_outlined,
+                    color: AppColors.textSecondary,
+                    title: '反馈问题',
+                    onTap: onFeedback,
                   ),
                   _MenuRow(
                     icon: Icons.info_outline_rounded,
@@ -288,6 +305,7 @@ class _AccountCard extends StatelessWidget {
     required this.isOnline,
     required this.userKey,
     required this.onLogin,
+    required this.onOpen,
   });
 
   final String displayName;
@@ -296,15 +314,16 @@ class _AccountCard extends StatelessWidget {
   final bool isOnline;
   final String? userKey;
   final VoidCallback onLogin;
+  final VoidCallback? onOpen;
 
   @override
   Widget build(BuildContext context) {
     final (chipLabel, chipColor) = isGuest
         ? ('游客模式', AppColors.textSecondary)
         : isOnline
-            ? ('在线账号', AppColors.blue)
-            : ('本地账号', AppColors.goldDark);
-    return _Card(
+        ? ('在线账号', AppColors.blue)
+        : ('本地账号', AppColors.goldDark);
+    final card = _Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -388,6 +407,15 @@ class _AccountCard extends StatelessWidget {
             _SyncStatusLine(userKey: userKey!),
           ],
         ],
+      ),
+    );
+    if (onOpen == null) return card;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onOpen,
+        child: card,
       ),
     );
   }
@@ -645,8 +673,7 @@ class _CourseRow extends StatelessWidget {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
-                color:
-                    selected ? AppColors.greenDark : AppColors.textPrimary,
+                color: selected ? AppColors.greenDark : AppColors.textPrimary,
               ),
             ),
           ],
@@ -663,6 +690,7 @@ class _MenuRow extends StatelessWidget {
     required this.color,
     required this.title,
     required this.onTap,
+    this.subtitle,
     this.titleColor,
     this.showChevron = true,
   });
@@ -670,6 +698,7 @@ class _MenuRow extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String title;
+  final String? subtitle;
   final Color? titleColor;
   final bool showChevron;
   final VoidCallback onTap;
@@ -694,13 +723,28 @@ class _MenuRow extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: titleColor ?? AppColors.textPrimary,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: titleColor ?? AppColors.textPrimary,
+                    ),
+                  ),
+                  if (subtitle != null)
+                    Text(
+                      subtitle!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                ],
               ),
             ),
             if (showChevron)
@@ -785,9 +829,9 @@ class _SyncStatusLine extends ConsumerWidget {
       SyncStatus.syncing => ('同步中…', AppColors.textSecondary),
       SyncStatus.failed => ('同步失败，稍后再试', AppColors.textSecondary),
       _ when lastSyncAt != null => (
-          '上次同步 ${_format(lastSyncAt)}',
-          AppColors.textSecondary,
-        ),
+        '上次同步 ${_format(lastSyncAt)}',
+        AppColors.textSecondary,
+      ),
       _ => ('等待首次同步', AppColors.textSecondary),
     };
     return Row(

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import 'api_base_url_dialog.dart';
 import 'widgets/auth_text_field.dart';
 
 enum _AuthTab { online, local }
@@ -58,6 +59,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       error = await auth.registerOnline(
         email: identifier.contains('@') ? identifier : null,
         phone: identifier.contains('@') ? null : identifier,
+        displayName: _nickname.text,
         password: _password.text,
         confirm: _confirm.text,
       );
@@ -80,10 +82,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final identifierValid = _tab == _AuthTab.online
-        ? _identifier.text.trim().isNotEmpty
-        : _nickname.text.trim().isNotEmpty;
-    final valid = identifierValid &&
+    final nicknameOk = _nickname.text.trim().isNotEmpty;
+    final identifierOk =
+        _tab != _AuthTab.online || _identifier.text.trim().isNotEmpty;
+    final valid =
+        nicknameOk &&
+        identifierOk &&
         _password.text.isNotEmpty &&
         _confirm.text.isNotEmpty;
     return Scaffold(
@@ -112,8 +116,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 _tab == _AuthTab.online
                     ? '进度云端同步，多设备可接力学习'
                     : '仅保存在本设备，可稍后绑定在线账号',
-                style:
-                    const TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 24),
               SegmentedButton<_AuthTab>(
@@ -136,10 +142,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 }),
               ),
               const SizedBox(height: 24),
-              if (_tab == _AuthTab.online)
-                AuthTextField(label: '邮箱或手机号', controller: _identifier)
-              else
-                AuthTextField(label: '昵称（2-12 个字符）', controller: _nickname),
+              if (_tab == _AuthTab.online) ...[
+                AuthTextField(label: '邮箱或手机号', controller: _identifier),
+                const SizedBox(height: 16),
+              ],
+              AuthTextField(label: '昵称（2-12 个字符）', controller: _nickname),
               const SizedBox(height: 16),
               AuthTextField(
                 label: '密码（至少 6 位）',
@@ -153,7 +160,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 obscure: true,
                 errorText: _error,
               ),
-              const SizedBox(height: 28),
+              if (_tab == _AuthTab.online) const ApiBaseUrlButton(),
+              const SizedBox(height: 12),
               PushableButton(
                 label: _busy ? '注册中…' : '注册',
                 onPressed: valid && !_busy ? _submit : null,
