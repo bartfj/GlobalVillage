@@ -57,6 +57,28 @@ class UserRepository {
 
   Future<void> logout() => store.clearSession();
 
+  /// 本机重设本地账号密码。成功返回 null。
+  Future<String?> resetPassword({
+    required String nickname,
+    required String password,
+    required String confirm,
+  }) async {
+    final user = store.getUser(nickname.trim());
+    if (user == null) return '该昵称未注册';
+    if (password.length < 6) return '密码至少 6 位';
+    if (password != confirm) return '两次输入的密码不一致';
+    final salt = _randomSalt();
+    await store.putUser(User(
+      nickname: user.nickname,
+      passwordHash: _hash(salt, password),
+      salt: salt,
+      createdAt: user.createdAt,
+      onlineAccountId: user.onlineAccountId,
+      onlineBoundAt: user.onlineBoundAt,
+    ));
+    return null;
+  }
+
   static String _randomSalt() {
     final random = Random.secure();
     final bytes = List<int>.generate(16, (_) => random.nextInt(256));

@@ -6,6 +6,7 @@ import '../data/models/user.dart';
 import '../data/repositories/user_repository.dart';
 import '../data/sources/cloud_auth_api.dart';
 import '../data/sources/progress_store.dart';
+import '../data/sources/reward_store.dart';
 import '../data/sources/token_store.dart';
 
 /// 会话类型：无会话 / 游客 / 本地账号 / 在线账号
@@ -19,7 +20,7 @@ class AuthState {
   /// 在线会话的 access token（内存态，重启后经 refresh token 重新换取）
   final String? accessToken;
 
-  /// 在线账号的显示名（邮箱前缀或注册昵称）
+  /// 在线账号的昵称
   final String? displayName;
 
   /// 待确认导入的来源槽位（游客注册/登录在线账号后为 'guest'），处理后置 null
@@ -57,8 +58,12 @@ class AuthController extends StateNotifier<AuthState> {
   /// 在线会话就绪（登录/注册/静默刷新成功）后触发同步；由 providers 接线
   final void Function()? onOnlineSessionReady;
 
-  /// 本地账号绑定在线后触发槽位迁移与同步；由 providers 接线
-  final Future<void> Function(String fromUserKey)? onBoundToOnline;
+  /// 丢弃过期的资料请求，避免打开页面时的拉取盖住刚保存的昵称。
+  int _profileRequest = 0;
+
+  /// 本地账号绑定在线后、切换会话之前复制槽位；由 providers 接线
+  final Future<void> Function(String fromUserKey, String toUserKey)?
+      onBoundToOnline;
 
   AuthController(
     this.repository, {
@@ -137,12 +142,15 @@ class AuthController extends StateNotifier<AuthState> {
   Future<String?> registerOnline({
     String? email,
     String? phone,
+    required String displayName,
     required String password,
     required String confirm,
   }) async {
     if ((email == null || email.isEmpty) && (phone == null || phone.isEmpty)) {
       return '请输入邮箱或手机号';
     }
+    final nicknameError = _displayNameError(displayName);
+    if (nicknameError != null) return nicknameError;
     if (password.length < 6) return '密码至少 6 位';
     if (password != confirm) return '两次输入的密码不一致';
     try {
@@ -150,6 +158,7 @@ class AuthController extends StateNotifier<AuthState> {
         email: email,
         phone: phone,
         password: password,
+        displayName: displayName.trim(),
       );
       await _applyOnlineSession(result);
       return null;
@@ -181,16 +190,23 @@ class AuthController extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> _applyOnlineSession(OnlineAuthResult result) async {
-    // 游客升级为在线：若有游客进度，标记待确认导入（§7.3）
+  Future<void> _applyOnlineSession(
+    OnlineAuthResult result, {
+    bool adoptDeviceAccount = true,
+  }) async {
+    // 游客或刚退出的本地账号：有进度则等用户确认后再同步，避免先把空槽位上传
     final importFrom =
-        state.isGuest && ProgressStore(userKey: UserRepository.guestKey).entries.isNotEmpty
-            ? UserRepository.guestKey
-            : null;
+        adoptDeviceAccount ? _deviceImportSource(result.account.accountId) : null;
     await _tokenStore.writeRefreshToken(result.refreshToken);
     await repository.store.setSession(
       '${AuthState.onlineKeyPrefix}${result.account.accountId}',
       displayName: result.account.displayName,
+    );
+    await repository.store.cacheOnlineAccount(
+      displayName: result.account.displayName,
+      email: result.account.email,
+      phone: result.account.phone,
+      createdAt: result.account.createdAt,
     );
     state = AuthState(
       userKey: '${AuthState.onlineKeyPrefix}${result.account.accountId}',
@@ -198,8 +214,86 @@ class AuthController extends StateNotifier<AuthState> {
       displayName: result.account.displayName,
       pendingImportFrom: importFrom,
     );
-    onOnlineSessionReady?.call();
+    if (importFrom == null) onOnlineSessionReady?.call();
   }
+
+  /// 本机可导入的进度槽位：当前游客优先，否则本机仍有进度的本地账号。
+  /// 已绑定到其他在线账号的不再导入。已绑定到当前账号但在线槽位缺课的仍导入。
+  String? _deviceImportSource(String accountId) {
+    if (state.isGuest && _slotHasData(UserRepository.guestKey)) {
+      return UserRepository.guestKey;
+    }
+    final locals = localAccountsToImport(accountId: accountId);
+    if (locals.isEmpty) return null;
+    return locals.first;
+  }
+
+  /// 当前在线账号可以合并的本地账号。未登录在线时为空。
+  List<String> localAccountsToImport({String? accountId}) {
+    final id = accountId ?? _onlineAccountId();
+    if (id == null) return [];
+    final onlineKey = '${AuthState.onlineKeyPrefix}$id';
+    final dismissed = repository.store.dismissedImports;
+    final names = <String>[];
+    for (final user in repository.store.users) {
+      if (dismissed.contains(user.nickname)) continue;
+      if (user.onlineAccountId != null && user.onlineAccountId != id) {
+        continue;
+      }
+      if (!_slotHasData(user.nickname)) continue;
+      if (user.onlineAccountId == id &&
+          !_localAheadOf(user.nickname, onlineKey)) {
+        continue;
+      }
+      names.add(user.nickname);
+    }
+    names.sort();
+    return names;
+  }
+
+  List<String> localNicknames() {
+    final names = repository.store.users.map((user) => user.nickname).toList();
+    names.sort();
+    return names;
+  }
+
+  Future<String?> resetLocalPassword({
+    required String nickname,
+    required String password,
+    required String confirm,
+  }) =>
+      repository.resetPassword(
+        nickname: nickname,
+        password: password,
+        confirm: confirm,
+      );
+
+  String? _onlineAccountId() {
+    final key = state.userKey;
+    if (key == null || !key.startsWith(AuthState.onlineKeyPrefix)) return null;
+    return key.substring(AuthState.onlineKeyPrefix.length);
+  }
+
+  bool _localAheadOf(String localKey, String onlineKey) {
+    final local = ProgressStore(userKey: localKey).entries;
+    final online = ProgressStore(userKey: onlineKey).entries;
+    for (final entry in local.entries) {
+      final remote = online[entry.key];
+      if (remote == null) return true;
+      if (entry.value.completed && !remote.completed) return true;
+      if (entry.value.correctCount > remote.correctCount) return true;
+    }
+    final localRewards = RewardStore(userKey: localKey).attempts;
+    final onlineRewards = RewardStore(userKey: onlineKey).attempts;
+    for (final attemptId in localRewards.keys) {
+      if (!onlineRewards.containsKey(attemptId)) return true;
+    }
+    return false;
+  }
+
+  bool _slotHasData(String userKey) =>
+      ProgressStore(userKey: userKey).entries.isNotEmpty ||
+      RewardStore(userKey: userKey).attempts.isNotEmpty;
 
   /// 本地账号「注册并绑定」在线账号（§7.2），成功返回 null
   Future<String?> registerAndBind({
@@ -208,8 +302,66 @@ class AuthController extends StateNotifier<AuthState> {
     required String password,
   }) =>
       _bindOnline(
-        () => _cloudAuth.register(email: email, phone: phone, password: password),
+        () => _cloudAuth.register(
+          email: email,
+          phone: phone,
+          password: password,
+          displayName: state.userKey,
+        ),
       );
+
+  /// 拉取在线资料并写入会话缓存。离线时保留上次缓存。
+  Future<void> refreshProfile() async {
+    final token = state.accessToken;
+    if (!state.isOnline || token == null) return;
+    final request = ++_profileRequest;
+    try {
+      final account = await _cloudAuth.fetchMe(token);
+      if (request != _profileRequest) return;
+      await _rememberOnlineAccount(account);
+    } on CloudAuthException {
+      return;
+    }
+  }
+
+  /// 修改在线昵称。成功返回 null。
+  Future<String?> updateDisplayName(String displayName) async {
+    final nicknameError = _displayNameError(displayName);
+    if (nicknameError != null) return nicknameError;
+    final token = state.accessToken;
+    if (!state.isOnline || token == null) return '请先登录在线账号';
+    final request = ++_profileRequest;
+    try {
+      final account = await _cloudAuth.updateProfile(token, displayName.trim());
+      if (request != _profileRequest) return null;
+      await _rememberOnlineAccount(account);
+      return null;
+    } on CloudAuthException catch (e) {
+      return e.message;
+    }
+  }
+
+  Future<void> _rememberOnlineAccount(OnlineAccount account) async {
+    await repository.store.cacheOnlineAccount(
+      displayName: account.displayName,
+      email: account.email,
+      phone: account.phone,
+      createdAt: account.createdAt,
+    );
+    if (!mounted) return;
+    state = AuthState(
+      userKey: state.userKey,
+      accessToken: state.accessToken,
+      displayName: account.displayName,
+      pendingImportFrom: state.pendingImportFrom,
+    );
+  }
+
+  String? _displayNameError(String displayName) {
+    final length = displayName.trim().runes.length;
+    if (length < 2 || length > 12) return '昵称需为 2-12 个字符';
+    return null;
+  }
 
   /// 本地账号「登录并绑定」在线账号（§7.2），成功返回 null
   Future<String?> loginAndBind({
@@ -230,7 +382,10 @@ class AuthController extends StateNotifier<AuthState> {
     }
     try {
       final result = await action();
-      await _applyOnlineSession(result);
+      final toUserKey =
+          '${AuthState.onlineKeyPrefix}${result.account.accountId}';
+      await onBoundToOnline?.call(fromUserKey, toUserKey);
+      await _applyOnlineSession(result, adoptDeviceAccount: false);
       // 标记本地账号已绑定（§4.2）
       final localUser = repository.store.getUser(fromUserKey);
       if (localUser != null) {
@@ -243,11 +398,49 @@ class AuthController extends StateNotifier<AuthState> {
           onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
         ));
       }
-      await onBoundToOnline?.call(fromUserKey);
       return null;
     } on CloudAuthException catch (e) {
       return e.message;
     }
+  }
+
+  /// 导入确认处理完毕后清除标记。接受本地账号导入时记下已绑定。
+  Future<void> finishPendingImport({
+    required bool imported,
+    List<String> nicknames = const [],
+  }) async {
+    final names = <String>{...nicknames};
+    final from = state.pendingImportFrom;
+    if (from != null && from != UserRepository.guestKey) names.add(from);
+    names.remove(UserRepository.guestKey);
+    if (imported) {
+      for (final name in names) {
+        await _markLocalBound(name);
+      }
+    } else if (names.isNotEmpty) {
+      await repository.store.dismissImports(names);
+    }
+    if (names.isNotEmpty) await repository.store.clearLastLocalAccount();
+    clearPendingImport();
+  }
+
+  Future<void> _markLocalBound(String nickname) async {
+    final accountId = state.userKey;
+    if (accountId == null ||
+        !accountId.startsWith(AuthState.onlineKeyPrefix)) {
+      return;
+    }
+    final localUser = repository.store.getUser(nickname);
+    if (localUser == null) return;
+    await repository.store.putUser(User(
+      nickname: localUser.nickname,
+      passwordHash: localUser.passwordHash,
+      salt: localUser.salt,
+      createdAt: localUser.createdAt,
+      onlineAccountId:
+          accountId.substring(AuthState.onlineKeyPrefix.length),
+      onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
+    ));
   }
 
   /// 游客导入确认处理完毕后清除标记
@@ -266,6 +459,7 @@ class AuthController extends StateNotifier<AuthState> {
   }
 
   Future<void> logout() async {
+    final localKey = state.mode == AuthMode.local ? state.userKey : null;
     if (state.isOnline) {
       final refreshToken = await _tokenStore.readRefreshToken();
       if (refreshToken != null) {
@@ -274,6 +468,9 @@ class AuthController extends StateNotifier<AuthState> {
       await _tokenStore.clear();
     }
     await repository.logout();
+    if (localKey != null) {
+      await repository.store.rememberLocalAccount(localKey);
+    }
     state = const AuthState();
   }
 

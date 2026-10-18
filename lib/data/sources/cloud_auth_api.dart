@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-/// 服务端 API 基址。打包/运行时用 --dart-define=API_BASE_URL=https://example.com/v1 覆盖。
-const kApiBaseUrl = String.fromEnvironment(
-  'API_BASE_URL',
-  defaultValue: 'http://localhost:8787/v1',
-);
+import 'api_base_url.dart';
+
+export 'api_base_url.dart' show kApiBaseUrl;
 
 /// 在线账号公开信息。
 class OnlineAccount {
@@ -15,12 +13,14 @@ class OnlineAccount {
     this.email,
     this.phone,
     required this.displayName,
+    this.createdAt,
   });
 
   final String accountId;
   final String? email;
   final String? phone;
   final String displayName;
+  final DateTime? createdAt;
 }
 
 /// 注册/登录成功结果（账号 + 双 token）。
@@ -50,12 +50,19 @@ class CloudAuthException implements Exception {
 
 /// 在线账号 API 客户端（见 docs/在线账号功能设计.md §8）。
 class CloudAuthApi {
-  CloudAuthApi({http.Client? client, String baseUrl = kApiBaseUrl})
-      : _client = client ?? http.Client(),
-        _baseUrl = baseUrl;
+  CloudAuthApi({
+    http.Client? client,
+    String? baseUrl,
+    String Function()? readBaseUrl,
+  }) : _client = client ?? http.Client(),
+       _fixedBaseUrl = baseUrl,
+       _readBaseUrl = readBaseUrl;
 
   final http.Client _client;
-  final String _baseUrl;
+  final String? _fixedBaseUrl;
+  final String Function()? _readBaseUrl;
+
+  String get _baseUrl => _fixedBaseUrl ?? _readBaseUrl?.call() ?? kApiBaseUrl;
 
   Future<OnlineAuthResult> register({
     String? email,
@@ -99,6 +106,24 @@ class CloudAuthApi {
     return body['accessToken'] as String;
   }
 
+  Future<OnlineAccount> fetchMe(String accessToken) async {
+    final body = await _send('GET', '/auth/me', accessToken: accessToken);
+    return _parseAccount(body['account'] as Map<String, dynamic>);
+  }
+
+  Future<OnlineAccount> updateProfile(
+    String accessToken,
+    String displayName,
+  ) async {
+    final body = await _send(
+      'PATCH',
+      '/auth/profile',
+      accessToken: accessToken,
+      jsonBody: {'displayName': displayName},
+    );
+    return _parseAccount(body['account'] as Map<String, dynamic>);
+  }
+
   /// 登出（幂等，失败可忽略）。
   Future<void> logout(String refreshToken) async {
     try {
@@ -108,31 +133,46 @@ class CloudAuthApi {
     }
   }
 
-  OnlineAccount _parseAccount(Map<String, dynamic> json) => OnlineAccount(
-        accountId: json['accountId'] as String,
-        email: json['email'] as String?,
-        phone: json['phone'] as String?,
-        displayName: json['displayName'] as String,
-      );
+  OnlineAccount _parseAccount(Map<String, dynamic> json) {
+    final createdAt = json['createdAt'];
+    return OnlineAccount(
+      accountId: json['accountId'] as String,
+      email: json['email'] as String?,
+      phone: json['phone'] as String?,
+      displayName: json['displayName'] as String,
+      createdAt: createdAt is String ? DateTime.tryParse(createdAt) : null,
+    );
+  }
 
-  Future<Map<String, dynamic>> _post(
-    String path,
-    Map<String, Object?> body,
-  ) async {
+  Future<Map<String, dynamic>> _post(String path, Map<String, Object?> body) =>
+      _send('POST', path, jsonBody: body);
+
+  Future<Map<String, dynamic>> _send(
+    String method,
+    String path, {
+    Map<String, Object?>? jsonBody,
+    String? accessToken,
+  }) async {
     final http.Response response;
     try {
-      response = await _client.post(
-        Uri.parse('$_baseUrl$path'),
-        headers: {'content-type': 'application/json'},
-        body: jsonEncode(body),
-      );
+      response = await _client
+          .send(
+            http.Request(method, Uri.parse('$_baseUrl$path'))
+              ..headers.addAll({
+                if (jsonBody != null) 'content-type': 'application/json',
+                if (accessToken != null) 'authorization': 'Bearer $accessToken',
+              })
+              ..body = jsonBody == null ? '' : jsonEncode(jsonBody),
+          )
+          .then(http.Response.fromStream);
     } catch (_) {
       throw const CloudAuthException('网络连接失败，请稍后重试');
     }
     if (response.statusCode == 204) return const {};
     Map<String, dynamic> json;
     try {
-      json = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      json =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
     } catch (_) {
       throw CloudAuthException('服务响应异常', statusCode: response.statusCode);
     }
