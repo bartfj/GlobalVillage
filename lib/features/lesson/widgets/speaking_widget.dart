@@ -8,6 +8,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../../app/providers.dart';
 import '../../../app/theme.dart';
+import '../../../core/services/diagnostic_log.dart';
 import '../../../core/services/offline_asr_service.dart';
 import '../../../core/utils/similarity.dart';
 import '../../../data/models/course.dart';
@@ -100,7 +101,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     bool ok;
     try {
       ok = await _speech.initialize();
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
       ok = false;
     }
     if (!mounted) return;
@@ -112,7 +114,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     bool perm = false;
     try {
       perm = await _speech.hasPermission;
-    } catch (_) {}
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
+    }
     if (!mounted) return;
     if (!perm) {
       setState(() {
@@ -155,7 +159,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
           _onListenDone();
         }
       });
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
       if (mounted) {
         setState(() {
           _available = false;
@@ -179,7 +184,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     bool perm = false;
     try {
       perm = await _recorder.hasPermission();
-    } catch (_) {}
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
+    }
     if (!mounted) return;
     if (!perm) {
       setState(() {
@@ -214,7 +221,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
           }
         }
       });
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
       if (mounted) {
         setState(() {
           _available = false;
@@ -257,7 +265,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     _recSub = null;
     try {
       await _recorder.stop();
-    } catch (_) {}
+    } catch (error, stack) {
+      recordDiagnosticError('speech', error, stack);
+    }
     if (!mounted) return;
     setState(() => _listening = false);
     final bytes = Uint8List.fromList(_pcmChunks);
@@ -266,7 +276,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       // 至少 0.1 秒音频才识别
       try {
         text = (await OfflineAsrService.instance.recognize(bytes)).trim();
-      } catch (_) {}
+      } catch (error, stack) {
+        recordDiagnosticError('speech', error, stack);
+      }
     }
     if (!mounted) return;
     setState(() => _recognized = text);
@@ -287,9 +299,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     });
     if (spoken.isEmpty) return;
     // 达标则提交原句（判对）；不达标提交识别原文（判错，触发重做）
-    widget.onChanged(
-      score >= _passScore ? widget.exercise.sentence : spoken,
-    );
+    widget.onChanged(score >= _passScore ? widget.exercise.sentence : spoken);
   }
 
   /// 降级：识别服务不可用时，确认已跟读则跳过（不计满分）
@@ -400,10 +410,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
           ],
           if (_emptyResult) ...[
             const SizedBox(height: 16),
-            const Text(
-              '没听清，再试一次；或确认已跟读后点"跟读完成"',
-              textAlign: TextAlign.center,
-            ),
+            const Text('没听清，再试一次；或确认已跟读后点"跟读完成"', textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Center(
               child: TextButton.icon(
@@ -435,9 +442,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
                   TextButton.icon(
                     onPressed: widget.enabled
                         ? () => setState(() {
-                              _available = true;
-                              _failReason = null;
-                            })
+                            _available = true;
+                            _failReason = null;
+                          })
                         : null,
                     icon: const Icon(Icons.refresh),
                     label: const Text('重试'),

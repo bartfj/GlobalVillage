@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sherpa_onnx/sherpa_onnx.dart' as sherpa;
 
+import 'diagnostic_log.dart';
+
 /// 内置离线语音识别（sherpa-onnx + Whisper tiny.en int8，纯本地推理）。
 /// 用于设备没有系统语音识别服务（国产机无 Google 服务）时兜底打分。
 class OfflineAsrService {
@@ -58,7 +60,8 @@ class OfflineAsrService {
         ),
       );
       return true;
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('asr', error, stack);
       _failed = true;
       return false;
     }
