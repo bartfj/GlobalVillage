@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:hive/hive.dart';
 
 import '../models/course_track.dart';
 import '../models/learning_language.dart';
+import 'api_base_url.dart';
 
 /// 账号级偏好（当前学习大类等）
 class SettingsStore {
@@ -75,4 +78,36 @@ class SettingsStore {
 
   Future<void> setLastSyncAt(String userKey, int milliseconds) =>
       _box.put(_lastSyncKey(userKey), milliseconds.toString());
+
+  static const _installIdKey = 'installId';
+
+  /// 本机安装标识。首次调用时生成并写入设置，之后保持不变。
+  Future<String> ensureInstallId() async {
+    final saved = _box.get(_installIdKey);
+    if (saved != null && saved.isNotEmpty) return saved;
+    final random = Random.secure();
+    final id = List<int>.generate(
+      16,
+      (_) => random.nextInt(256),
+    ).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+    await _box.put(_installIdKey, id);
+    return id;
+  }
+
+  static const _apiBaseUrlKey = 'apiBaseUrl';
+
+  /// 当前在线服务地址。未配置时用编译期 [kApiBaseUrl]。
+  String get apiBaseUrl {
+    final saved = _box.get(_apiBaseUrlKey);
+    if (saved == null || saved.isEmpty) return kApiBaseUrl;
+    return saved;
+  }
+
+  /// [url] 为空时清除自定义地址，改回编译期默认值。
+  Future<void> setApiBaseUrl(String? url) {
+    if (url == null || url.isEmpty || url == kApiBaseUrl) {
+      return _box.delete(_apiBaseUrlKey);
+    }
+    return _box.put(_apiBaseUrlKey, url);
+  }
 }
