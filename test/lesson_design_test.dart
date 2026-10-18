@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/features/lesson/widgets/answer_feedback_bar.dart';
@@ -29,15 +30,17 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     String? selected;
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: TranslateChoiceWidget(
-              exercise: exercise,
-              enabled: true,
-              selected: null,
-              onChanged: (value) => selected = value,
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: TranslateChoiceWidget(
+                exercise: exercise,
+                enabled: true,
+                selected: null,
+                onChanged: (value) => selected = value,
+              ),
             ),
           ),
         ),
@@ -45,19 +48,21 @@ void main() {
     );
     expect(find.text('中文 → 英文'), findsOneWidget);
     expect(find.text('A'), findsOneWidget);
-    await tester.tap(find.text('Stand up, please.'));
+    await tester.tap(find.text('Stand'));
     expect(selected, 'Stand up, please.');
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: TranslateChoiceWidget(
-              exercise: exercise,
-              enabled: false,
-              selected: selected,
-              checked: true,
-              onChanged: (value) => selected = value,
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: TranslateChoiceWidget(
+                exercise: exercise,
+                enabled: false,
+                selected: selected,
+                checked: true,
+                onChanged: (value) => selected = value,
+              ),
             ),
           ),
         ),
@@ -65,7 +70,7 @@ void main() {
     );
     expect(find.byIcon(Icons.close_rounded), findsOneWidget);
     expect(find.byIcon(Icons.check_rounded), findsOneWidget);
-    await tester.tap(find.text('Listen, please.'));
+    await tester.tap(find.text('A'));
     expect(selected, 'Stand up, please.');
     expect(tester.takeException(), isNull);
   });

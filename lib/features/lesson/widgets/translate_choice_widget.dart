@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme.dart';
 import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
 import 'lesson_style.dart';
@@ -142,16 +141,6 @@ class _OptionCard extends StatelessWidget {
     required this.onTap,
   });
 
-  void _showPhonetic(BuildContext context) {
-    if (!PhoneticLookupService.looksEnglish(label)) return;
-    final box = context.findRenderObject() as RenderBox?;
-    if (box == null || !box.hasSize) return;
-    final word = label
-        .split(RegExp(r'\s+'))
-        .firstWhere(PhoneticLookupService.looksEnglish, orElse: () => label);
-    showPhoneticBubbleForBox(context, word, box);
-  }
-
   @override
   Widget build(BuildContext context) {
     final active = selected || correct || wrong;
@@ -183,7 +172,6 @@ class _OptionCard extends StatelessWidget {
       enabled: enabled,
       child: GestureDetector(
         onTap: enabled ? onTap : null,
-        onLongPress: english ? () => _showPhonetic(context) : null,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           constraints: const BoxConstraints(minHeight: 68),
@@ -226,21 +214,24 @@ class _OptionCard extends StatelessWidget {
               ),
               const SizedBox(width: 13),
               Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: foreground,
-                    decoration: english
-                        ? TextDecoration.underline
-                        : TextDecoration.none,
-                    decorationStyle: english
-                        ? TextDecorationStyle.dotted
-                        : null,
-                    decorationColor: AppColors.blue.withValues(alpha: 0.5),
-                  ),
-                ),
+                child: english
+                    ? TappablePhoneticText(
+                        label,
+                        lookupOnLongPress: enabled,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: foreground,
+                        ),
+                      )
+                    : Text(
+                        label,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: foreground,
+                        ),
+                      ),
               ),
               const SizedBox(width: 10),
               Container(
