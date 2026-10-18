@@ -5,18 +5,37 @@ import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
 import '../models/course.dart';
 import '../models/skill_practice.dart';
+import 'content_documents.dart';
 
 /// 加载专项练习题库并抽取会话题目
 class SkillPracticeLoader {
-  SkillPracticeLoader({AssetBundle? assetBundle, Random? random})
-    : _assetBundle = assetBundle ?? rootBundle,
-      _random = random ?? Random();
+  SkillPracticeLoader({
+    AssetBundle? assetBundle,
+    Random? random,
+    this.documents,
+  }) : _assetBundle = assetBundle ?? rootBundle,
+       _random = random ?? Random();
 
   final AssetBundle _assetBundle;
   final Random _random;
+  final ContentDocuments? documents;
 
   Future<SkillPracticeBank> load(SkillPracticeKind skill) async {
-    final jsonStr = await _assetBundle.loadString(skill.assetPath);
+    final jsonStr = await readOverlaidText(
+      documents: documents,
+      packId: 'practice/${skill.name}',
+      bundle: () => _assetBundle.loadString(skill.assetPath),
+      accept: (raw) {
+        try {
+          final decoded = jsonDecode(raw);
+          if (decoded is! Map) return false;
+          SkillPracticeBank.fromJson(Map<String, dynamic>.from(decoded));
+          return true;
+        } catch (_) {
+          return false;
+        }
+      },
+    );
     return SkillPracticeBank.fromJson(
       jsonDecode(jsonStr) as Map<String, dynamic>,
     );

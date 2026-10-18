@@ -3,18 +3,22 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../../data/models/course.dart';
+import '../../data/sources/content_documents.dart';
 import 'dialogue_script.dart';
 
-Future<List<Exercise>> buildDialoguePractice(Unit unit) async {
-  final script = await DialogueScript.load(unit.id);
+Future<List<Exercise>> buildDialoguePractice(
+  Unit unit, {
+  ContentDocuments? documents,
+}) async {
+  final script = await DialogueScript.load(unit.id, documents: documents);
   if (script == null) return [];
-  final data =
-      jsonDecode(
-            await rootBundle.loadString(
-              'assets/dialogues/application_tasks.json',
-            ),
-          )
-          as Map<String, dynamic>;
+  final raw = await readOverlaidText(
+    documents: documents,
+    packId: 'dialogues/application_tasks',
+    bundle: () =>
+        rootBundle.loadString('assets/dialogues/application_tasks.json'),
+  );
+  final data = jsonDecode(raw) as Map<String, dynamic>;
   final task = data[unit.id] as Map<String, dynamic>?;
   final lines = script.lines;
   if (lines.map((l) => l.english).toSet().length != lines.length ||

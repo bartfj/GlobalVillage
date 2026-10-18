@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import '../../data/sources/content_documents.dart';
+
 class DialogueLine {
   final int speaker;
   final String english;
@@ -26,14 +28,17 @@ class DialogueScript {
 
   const DialogueScript(this.unitId, this.lines);
 
-  static Future<DialogueScript?> load(String unitId) async {
-    final data =
-        jsonDecode(
-              await rootBundle.loadString(
-                'assets/dialogues/unit_dialogues.json',
-              ),
-            )
-            as Map<String, dynamic>;
+  static Future<DialogueScript?> load(
+    String unitId, {
+    ContentDocuments? documents,
+  }) async {
+    final raw = await readOverlaidText(
+      documents: documents,
+      packId: 'dialogues/units',
+      bundle: () =>
+          rootBundle.loadString('assets/dialogues/unit_dialogues.json'),
+    );
+    final data = jsonDecode(raw) as Map<String, dynamic>;
     final lines = data[unitId] as List<dynamic>?;
     if (lines == null || lines.isEmpty) return null;
     return DialogueScript(

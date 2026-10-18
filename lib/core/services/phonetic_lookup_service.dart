@@ -5,17 +5,15 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 import 'package:http/http.dart' as http;
 
+import '../../data/sources/content_documents.dart';
+
 /// 单词音标查询结果
 class PhoneticResult {
   final String word;
   final String? ipa;
   final String? audioUrl;
 
-  const PhoneticResult({
-    required this.word,
-    this.ipa,
-    this.audioUrl,
-  });
+  const PhoneticResult({required this.word, this.ipa, this.audioUrl});
 }
 
 /// 本地 IPA 优先，有道联网兜底；网络失败不写入否定缓存
@@ -24,6 +22,7 @@ class PhoneticLookupService {
     http.Client? client,
     Map<String, String>? localIpa,
     AssetBundle? assetBundle,
+    this.documents,
     this.maxCacheEntries = 200,
   }) : _client = client ?? http.Client(),
        _ownsClient = client == null,
@@ -37,6 +36,7 @@ class PhoneticLookupService {
   final bool _ownsClient;
   final Map<String, String>? _injectedLocal;
   final AssetBundle _assetBundle;
+  final ContentDocuments? documents;
   final int maxCacheEntries;
 
   Map<String, String>? _local;
@@ -57,8 +57,7 @@ class PhoneticLookupService {
   }
 
   /// 是否像可查的英文单词（含字母）
-  static bool looksEnglish(String token) =>
-      RegExp(r"[A-Za-z]").hasMatch(token);
+  static bool looksEnglish(String token) => RegExp(r"[A-Za-z]").hasMatch(token);
 
   Future<void> ensureLocalLoaded() {
     if (_local != null) return Future.value();
@@ -71,7 +70,11 @@ class PhoneticLookupService {
       return;
     }
     try {
-      final raw = await _assetBundle.loadString(_localAsset);
+      final raw = await readOverlaidText(
+        documents: documents,
+        packId: 'phonetics/en_ipa',
+        bundle: () => _assetBundle.loadString(_localAsset),
+      );
       final decoded = jsonDecode(raw);
       if (decoded is Map<String, dynamic>) {
         _local = {
@@ -173,8 +176,8 @@ class PhoneticLookupService {
     final phone = (us != null && us.isNotEmpty)
         ? us
         : (uk != null && uk.isNotEmpty)
-            ? uk
-            : null;
+        ? uk
+        : null;
     if (phone == null) return null;
     return PhoneticResult(word: word, ipa: _wrapIpa(phone));
   }

@@ -6,17 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../app/theme.dart';
+import '../../../data/sources/content_documents.dart';
 import '../dialogue_script.dart';
 
 class DialoguePerformance extends StatefulWidget {
   final String unitId;
   final String unitTitle;
+  final ContentDocuments? documents;
   final VoidCallback onFinished;
 
   const DialoguePerformance({
     super.key,
     required this.unitId,
     required this.unitTitle,
+    this.documents,
     required this.onFinished,
   });
 
@@ -51,7 +54,10 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
 
   Future<void> _load() async {
     try {
-      final script = await DialogueScript.load(widget.unitId);
+      final script = await DialogueScript.load(
+        widget.unitId,
+        documents: widget.documents,
+      );
       if (!mounted || _finished) return;
       if (script == null) {
         _finish();
@@ -90,8 +96,13 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
       await _player.stop();
       await _tts.stop();
       if (!mounted || _finished || generation != _generation) return;
+      final cached = await widget.documents?.audioFilePath(
+        'audio/dialogues/${widget.unitId}_$lineNumber.mp3',
+      );
       await _player.play(
-        AssetSource('audio/dialogues/${widget.unitId}_$lineNumber.mp3'),
+        cached == null
+            ? AssetSource('audio/dialogues/${widget.unitId}_$lineNumber.mp3')
+            : DeviceFileSource(cached),
       );
       if (!mounted || _finished || generation != _generation) return;
       _awaitingComplete = true;
