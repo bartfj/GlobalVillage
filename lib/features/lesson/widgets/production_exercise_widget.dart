@@ -45,7 +45,7 @@ class _ProductionExerciseWidgetState
     if (!mounted || ok) return;
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('语音播放失败，请检查媒体音量及英语语音服务后重试。')));
+    ).showSnackBar(const SnackBar(content: Text('语音播放失败，请安装英语语音数据，并检查媒体音量后重试。')));
   }
 
   @override

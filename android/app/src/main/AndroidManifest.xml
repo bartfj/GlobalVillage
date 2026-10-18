@@ -48,5 +48,9 @@
         <intent>
             <action android:name="android.speech.action.RecognitionService"/>
         </intent>
+        <!-- Android 11+ 包可见性：否则系统 TTS 引擎不可见，speak 会失败 -->
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE"/>
+        </intent>
     </queries>
 </manifest>
