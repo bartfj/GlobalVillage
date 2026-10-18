@@ -15,6 +15,7 @@ const _contextKeys = {
   'os',
   'osVersion',
   'route',
+  'lesson',
   'installId',
   'accountId',
 };
@@ -47,6 +48,7 @@ class ClientReport {
     'accountId': accountId,
     'appVersion': appVersion,
     'note': note,
+    'lesson': context['lesson'],
     'eventCount': events.length,
   };
 

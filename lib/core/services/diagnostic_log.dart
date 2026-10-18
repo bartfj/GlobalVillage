@@ -27,9 +27,42 @@ const diagnosticContextKeys = {
   'os',
   'osVersion',
   'route',
+  'lesson',
   'installId',
   'accountId',
 };
+
+/// 从已填好的路径里取出课号。模板 `/lesson/:lessonId` 不算具体课程。
+String? lessonIdFromRoute(String route) {
+  final match = RegExp(r'^/lesson/([^/?#]+)').firstMatch(route);
+  final id = match?.group(1);
+  if (id == null || id.isEmpty || id.startsWith(':')) return null;
+  return id;
+}
+
+/// 同一课的答题页和结算页视为同一位置。
+bool sameDiagnosticPlace(String previous, String next) {
+  if (previous == next) return true;
+  final previousId = lessonIdFromRoute(previous);
+  final nextId = lessonIdFromRoute(next);
+  return previousId != null && previousId == nextId;
+}
+
+/// 用路由参数替换模板，例如 `/lesson/:lessonId` 与 `i_u1l1` 得到 `/lesson/i_u1l1`。
+String fillDiagnosticRoute(String name, Object? arguments) {
+  if (name.isEmpty || arguments is! Map) return name;
+  final keys = arguments.keys.whereType<String>().toList()
+    ..sort((a, b) => b.length.compareTo(a.length));
+  var path = name;
+  for (final key in keys) {
+    final value = arguments[key];
+    final token = ':$key';
+    if (value is! String || value.isEmpty || value.startsWith(':')) continue;
+    if (!path.contains(token)) continue;
+    path = path.replaceAll(token, value);
+  }
+  return path;
+}
 
 const diagnosticEventKeys = {'at', 'level', 'kind', 'message', 'stack'};
 
@@ -132,12 +165,15 @@ class DiagnosticLog {
        clock = clock ?? DateTime.now {
     final saved = this.box.get(_routeKey);
     if (saved != null) route = saved;
+    final savedLesson = this.box.get(_lessonKey);
+    if (savedLesson != null) lesson = savedLesson;
   }
 
   static const boxName = 'diagnostics';
   static const _eventsKey = 'events';
   static const _pendingKey = 'pending';
   static const _routeKey = 'route';
+  static const _lessonKey = 'lesson';
 
   static DiagnosticLog? instance;
 
@@ -151,15 +187,39 @@ class DiagnosticLog {
   final String? osVersion;
 
   String route = '';
+
+  /// 具体课程，例如「英语中级 · 经历叙述 · 交代背景 · i_u1l1」。
+  String lesson = '';
   String? _lastCrashKey;
   DateTime? _lastCrashAt;
 
   Box<String> get box => _box ?? Hive.box<String>(boxName);
 
   Future<void> setRoute(String value) async {
+    if (value.contains(':') && route.isNotEmpty && !route.contains(':')) {
+      return;
+    }
+    if (!sameDiagnosticPlace(route, value)) {
+      lesson = '';
+    }
     route = value;
+    await _persistPlace();
+  }
+
+  /// 进入某一课时记下可读课名，并写成带课号的路径。
+  Future<void> rememberLesson({
+    required String route,
+    required String lesson,
+  }) async {
+    this.route = route;
+    this.lesson = lesson;
+    await _persistPlace();
+  }
+
+  Future<void> _persistPlace() async {
     try {
-      await box.put(_routeKey, value);
+      await box.put(_routeKey, route);
+      await box.put(_lessonKey, lesson);
     } catch (_) {}
   }
 
@@ -270,6 +330,7 @@ class DiagnosticLog {
         'os': os ?? Platform.operatingSystem,
         'osVersion': osVersion ?? Platform.operatingSystemVersion,
         'route': route,
+        if (lesson.isNotEmpty) 'lesson': lesson,
         'installId': installId,
         if (accountId != null && accountId.isNotEmpty) 'accountId': accountId,
       },

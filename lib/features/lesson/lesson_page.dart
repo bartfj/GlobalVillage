@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import '../../core/services/diagnostic_log.dart';
 import '../../data/models/course.dart';
 import '../../data/sources/learning_store.dart';
 import '../feedback/feedback_dialog.dart';
@@ -92,7 +93,24 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           'mode': widget.mode,
         }),
       );
+      _rememberFeedbackPlace();
     }
+  }
+
+  void _rememberFeedbackPlace() {
+    final log = DiagnosticLog.instance;
+    if (log == null) return;
+    final course = ref.read(courseProvider);
+    final known = course.lessonPlace(widget.lessonId);
+    final title = _lesson?.title;
+    final place =
+        known ??
+        (title == null || title.isEmpty
+            ? widget.lessonId
+            : '$title · ${widget.lessonId}');
+    unawaited(
+      log.rememberLesson(route: '/lesson/${widget.lessonId}', lesson: place),
+    );
   }
 
   Future<void> _log(Map<String, dynamic> event) async {

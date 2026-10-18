@@ -109,11 +109,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
 class _DiagnosticRouteObserver extends NavigatorObserver {
   void _remember(Route<dynamic>? route) {
-    final name = route?.settings.name;
-    if (name == null || name.isEmpty) return;
+    if (route == null) return;
     final log = DiagnosticLog.instance;
     if (log == null) return;
-    log.setRoute(name);
+    final value = fillDiagnosticRoute(
+      route.settings.name ?? '',
+      route.settings.arguments,
+    );
+    if (value.isEmpty) return;
+    log.setRoute(value);
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
+import '../../core/services/diagnostic_log.dart';
 import '../../data/models/lesson_badge.dart';
 import '../../data/models/learning_language.dart';
 import '../../data/repositories/reward_repository.dart';
@@ -57,6 +60,17 @@ class _ResultPageState extends ConsumerState<ResultPage> {
     super.initState();
     // 回写学习结果并驱动学习路径刷新
     WidgetsBinding.instance.addPostFrameCallback((_) => _saveResult());
+    final log = DiagnosticLog.instance;
+    if (log == null) return;
+    final place =
+        ref.read(courseProvider).lessonPlace(widget.lessonId) ??
+        widget.lessonId;
+    unawaited(
+      log.rememberLesson(
+        route: '/lesson/${widget.lessonId}/result',
+        lesson: place,
+      ),
+    );
   }
 
   Future<void> _saveResult() async {

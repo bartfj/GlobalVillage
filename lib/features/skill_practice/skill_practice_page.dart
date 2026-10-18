@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import '../../core/services/diagnostic_log.dart';
 import '../../data/models/course.dart';
 import '../../data/models/skill_practice.dart';
 import '../../data/sources/learning_store.dart';
@@ -72,6 +73,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     _questionStart = _startTime;
     _learningStore = ref.read(learningStoreProvider);
     _courseId = ref.read(courseProvider).id;
+    final place = '${ref.read(courseProvider).title} · ${widget.skill.title}';
+    unawaited(
+      DiagnosticLog.instance?.rememberLesson(
+        route: '/practice/${widget.skill.name}',
+        lesson: place,
+      ),
+    );
     unawaited(_bootstrap());
   }
 

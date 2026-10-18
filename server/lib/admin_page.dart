@@ -52,7 +52,7 @@ String adminPageHtml() => r'''<!DOCTYPE html>
   <h2>问题反馈</h2>
   <table>
     <thead>
-      <tr><th>时间</th><th>版本</th><th>说明</th><th>事件</th></tr>
+      <tr><th>时间</th><th>版本</th><th>课程</th><th>说明</th><th>事件</th></tr>
     </thead>
     <tbody id="report-rows"></tbody>
   </table>
@@ -155,12 +155,13 @@ async function loadReports() {
   for (const report of body.reports || []) {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
-    tr.innerHTML = '<td></td><td></td><td></td><td></td>';
+    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td>';
     const cells = tr.children;
     cells[0].textContent = localTime(report.receivedAt);
     cells[1].textContent = report.appVersion || '';
-    cells[2].textContent = (report.note || '').slice(0, 40);
-    cells[3].textContent = String(report.eventCount || 0);
+    cells[2].textContent = report.lesson || '';
+    cells[3].textContent = (report.note || '').slice(0, 40);
+    cells[4].textContent = String(report.eventCount || 0);
     tr.addEventListener('click', function () { openReport(report.reportId); });
     rows.appendChild(tr);
   }
@@ -184,6 +185,12 @@ async function openReport(id) {
     const note = document.createElement('p');
     note.textContent = report.note;
     box.appendChild(note);
+  }
+  const lesson = report.context && report.context.lesson;
+  if (lesson) {
+    const place = document.createElement('p');
+    place.textContent = lesson;
+    box.appendChild(place);
   }
   const context = document.createElement('pre');
   context.textContent = JSON.stringify(report.context || {}, null, 2);

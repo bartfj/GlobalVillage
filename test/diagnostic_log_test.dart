@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:english_village/app/auth_controller.dart';
 import 'package:english_village/core/services/diagnostic_log.dart';
+import 'package:english_village/data/models/course.dart';
+import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/core/services/diagnostic_uploader.dart';
 import 'package:english_village/data/sources/report_api.dart';
 import 'package:english_village/data/sources/settings_store.dart';
@@ -145,5 +147,48 @@ void main() {
     expect(await uploader.flush(), isTrue);
     expect(calls, 2);
     expect(log.pending, isEmpty);
+  });
+
+  test('反馈带上具体课程，离开该课后不再沿用', () async {
+    const course = Course(
+      id: 'intermediate',
+      title: '英语中级',
+      language: LearningLanguage.english,
+      units: [
+        Unit(
+          id: 'i_u1',
+          title: '经历叙述',
+          description: '',
+          lessons: [Lesson(id: 'i_u1l1', title: '交代背景', exercises: [])],
+        ),
+      ],
+    );
+    expect(course.lessonPlace('i_u1l1'), '英语中级 · 经历叙述 · 交代背景 · i_u1l1');
+    expect(
+      fillDiagnosticRoute('/lesson/:lessonId', {'lessonId': 'i_u1l1'}),
+      '/lesson/i_u1l1',
+    );
+    expect(
+      fillDiagnosticRoute('/lesson/:lessonId/result', {'lessonId': 'i_u1l1'}),
+      '/lesson/i_u1l1/result',
+    );
+
+    await log.rememberLesson(
+      route: '/lesson/i_u1l1',
+      lesson: course.lessonPlace('i_u1l1')!,
+    );
+    await log.setRoute('/lesson/i_u1l1/result');
+    expect(log.lesson, contains('交代背景'));
+    await log.setRoute('/lesson/:lessonId');
+    expect(log.route, '/lesson/i_u1l1/result');
+
+    await log.enqueueFeedback(note: '听不到', installId: 'install-1');
+    final context = log.pending.single['context'] as Map<String, dynamic>;
+    expect(context['lesson'], '英语中级 · 经历叙述 · 交代背景 · i_u1l1');
+    expect(context['route'], '/lesson/i_u1l1/result');
+
+    await log.setRoute('/');
+    expect(log.lesson, isEmpty);
+    expect(log.route, '/');
   });
 }

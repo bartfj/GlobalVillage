@@ -45,6 +45,7 @@ void main() {
     'context': {
       'appVersion': '0.8.32',
       'os': 'android',
+      'lesson': '英语中级 · 经历叙述 · 交代背景 · i_u1l1',
       'accessToken': 'secret-token',
     },
     'events': [
@@ -82,6 +83,7 @@ void main() {
       await send(handler, 'GET', '/admin/api/reports', bearer: adminToken),
     );
     expect(listed['reports'], hasLength(1));
+    expect(listed['reports'][0]['lesson'], '英语中级 · 经历叙述 · 交代背景 · i_u1l1');
     final detail = await json(
       await send(
         handler,
@@ -94,6 +96,10 @@ void main() {
     expect(text.contains('secret-token'), isFalse);
     expect(text.contains('answer'), isFalse);
     expect(detail['report']['events'][0]['message'], 'play failed');
+    expect(
+      detail['report']['context']['lesson'],
+      '英语中级 · 经历叙述 · 交代背景 · i_u1l1',
+    );
   });
 
   test('超大请求体拒绝', () async {

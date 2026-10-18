@@ -287,4 +287,15 @@ class Course {
     }
     return null;
   }
+
+  /// 反馈里标明具体课程：课程名 · 单元名 · 课名 · 课号。
+  String? lessonPlace(String lessonId) {
+    for (final unit in units) {
+      for (final lesson in unit.lessons) {
+        if (lesson.id != lessonId) continue;
+        return '$title · ${unit.title} · ${lesson.title} · ${lesson.id}';
+      }
+    }
+    return null;
+  }
 }
