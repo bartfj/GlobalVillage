@@ -60,10 +60,7 @@ void main() {
           headers: {'content-type': 'application/json'},
         );
       });
-      final service = PhoneticLookupService(
-        client: client,
-        localIpa: const {},
-      );
+      final service = PhoneticLookupService(client: client, localIpa: const {});
       final first = await service.lookup('Morning');
       expect(first?.ipa, '/ˈmɔːrnɪŋ/');
       await service.lookup('morning');
@@ -90,10 +87,7 @@ void main() {
           headers: {'content-type': 'application/json'},
         );
       });
-      final service = PhoneticLookupService(
-        client: client,
-        localIpa: const {},
-      );
+      final service = PhoneticLookupService(client: client, localIpa: const {});
       expect(await service.lookup('cat'), isNull);
       final second = await service.lookup('cat');
       expect(second?.ipa, '/kæt/');
@@ -111,10 +105,7 @@ void main() {
           headers: {'content-type': 'application/json'},
         );
       });
-      final service = PhoneticLookupService(
-        client: client,
-        localIpa: const {},
-      );
+      final service = PhoneticLookupService(client: client, localIpa: const {});
       expect(await service.lookup('xyzzyxyz'), isNull);
       expect(await service.lookup('xyzzyxyz'), isNull);
       expect(calls, 1);
@@ -138,10 +129,7 @@ void main() {
           headers: {'content-type': 'application/json'},
         );
       });
-      final service = PhoneticLookupService(
-        client: client,
-        localIpa: const {},
-      );
+      final service = PhoneticLookupService(client: client, localIpa: const {});
       final results = await Future.wait([
         service.lookup('cat'),
         service.lookup('Cat'),
@@ -168,12 +156,11 @@ void main() {
       expect(lexicon['please'], '/pliːz/');
       expect(lexicon['the'], '/ðə/');
       expect(lexicon['a'], '/ə/');
+      expect(lexicon['pharmacist'], '/ˈfɑːrməsɪst/');
     });
 
     test('lookup wraps local textbook IPA', () async {
-      final lexicon = loadLexicon().map(
-        (k, v) => MapEntry(k, v as String),
-      );
+      final lexicon = loadLexicon().map((k, v) => MapEntry(k, v as String));
       final service = PhoneticLookupService(
         client: MockClient((request) async => http.Response('nope', 500)),
         localIpa: lexicon,
