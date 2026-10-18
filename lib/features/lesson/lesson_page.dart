@@ -9,6 +9,7 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../data/models/course.dart';
 import '../../data/sources/learning_store.dart';
+import '../feedback/feedback_dialog.dart';
 import 'lesson_controller.dart';
 import 'result_page.dart';
 import 'widgets/answer_feedback_bar.dart';
@@ -323,7 +324,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                             semanticsValue: '${(state.progress * 100).round()}',
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 8),
                         Text(
                           '${state.totalCount - state.queue.length} / ${state.totalCount}',
                           style: const TextStyle(
@@ -331,6 +332,14 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                             fontWeight: FontWeight.w700,
                             color: LessonColors.muted,
                           ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.feedback_outlined,
+                            color: LessonColors.muted,
+                          ),
+                          tooltip: '反馈问题',
+                          onPressed: () => showFeedbackDialog(context, ref),
                         ),
                       ],
                     ),

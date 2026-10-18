@@ -8,6 +8,7 @@ import '../../data/models/course.dart';
 import '../../data/models/skill_practice.dart';
 import '../../data/sources/learning_store.dart';
 import '../../data/sources/skill_practice_loader.dart';
+import '../feedback/feedback_dialog.dart';
 import '../lesson/widgets/answer_feedback_bar.dart';
 import '../lesson/widgets/exercise_widget_builder.dart';
 import '../lesson/widgets/lesson_style.dart';
@@ -373,7 +374,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                             minHeight: 12,
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 8),
                         Text(
                           '${state.totalCount - state.queue.length} / ${state.totalCount}',
                           style: const TextStyle(
@@ -381,6 +382,14 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                             fontWeight: FontWeight.w700,
                             color: LessonColors.muted,
                           ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.feedback_outlined,
+                            color: LessonColors.muted,
+                          ),
+                          tooltip: '反馈问题',
+                          onPressed: () => showFeedbackDialog(context, ref),
                         ),
                       ],
                     ),
