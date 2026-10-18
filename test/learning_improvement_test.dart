@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:english_village/data/models/course.dart';
+import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/data/sources/learning_store.dart';
 import 'package:english_village/features/lesson/lesson_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -47,6 +48,91 @@ void main() {
       );
       expect(comma.accepts('Luckily,we had booked tickets online.'), isTrue);
       expect(comma.accepts('Luckily, we had bought tickets online.'), isFalse);
+      expect(comma.accepts('Luckilywehadboughtticketsonline.'), isFalse);
+      expect(dictation.accepts('Iwouldliketoopenanaccount'), isTrue);
+      expect(dictation.accepts('I  would   like to open an account.'), isTrue);
+      expect(
+        dictation.accepts('I\u3000would\u00A0like\u200Bto open an account.'),
+        isTrue,
+      );
+      expect(dictation.accepts('Iwouldliketocloseanaccount.'), isFalse);
+      expect(exercise.accepts('Iwouldliketoopenanaccount'), isFalse);
+      const bank = Exercise(
+        id: 'bank',
+        type: ExerciseType.wordBank,
+        prompt: '',
+        sentence: 'a part',
+        options: [],
+        answer: 'a part',
+      );
+      expect(bank.accepts('apart'), isFalse);
+      expect(bank.accepts('a  part'), isTrue);
+      const blank = Exercise(
+        id: 'blank',
+        type: ExerciseType.fillBlank,
+        prompt: '',
+        sentence: 'a part',
+        options: [],
+        answer: 'a part',
+      );
+      expect(blank.accepts('apart'), isFalse);
+      const pinyin = Exercise(
+        id: 'py',
+        type: ExerciseType.dictation,
+        prompt: '',
+        sentence: 'mǎ',
+        options: [],
+        answer: 'mǎ',
+        language: LearningLanguage.chinese,
+      );
+      expect(pinyin.accepts('ma 3'), isTrue);
+      expect(pinyin.accepts('ma 4'), isFalse);
+      expect(pinyin.accepts('ma'), isFalse);
+      const clock = Exercise(
+        id: 'clock',
+        type: ExerciseType.dictation,
+        prompt: '',
+        sentence: "It is seven o'clock.",
+        options: [],
+        answer: "It is seven o'clock.",
+      );
+      expect(clock.accepts("Itisseveno'clock."), isTrue);
+      expect(clock.accepts("Itisseveno’clock."), isTrue);
+      expect(clock.accepts('Itissevenoclock.'), isFalse);
+      const label = Exercise(
+        id: 'label',
+        type: ExerciseType.dictation,
+        prompt: '听写句子',
+        sentence: 'Please explain the instructions on the label.',
+        options: [],
+        answer: 'Please explain the instructions on the label.',
+      );
+      expect(
+        label.accepts('Please explain the instructions on the label-'),
+        isTrue,
+      );
+      expect(
+        label.accepts('Please explain the instructions on the label。'),
+        isTrue,
+      );
+      expect(
+        label.accepts('Please explain the instructions on the label·'),
+        isTrue,
+      );
+      expect(
+        label.accepts('Please explain the instructions on the table.'),
+        isFalse,
+      );
+      expect(exercise.accepts('I would like to open an account-'), isTrue);
+      const medicine = Exercise(
+        id: 'u53l2e7',
+        type: ExerciseType.dictation,
+        prompt: '听写句子',
+        sentence: 'I am already taking another medicine.',
+        options: [],
+        answer: 'I am already taking another medicine.',
+      );
+      expect(medicine.accepts('Iam already taking another medicine'), isTrue);
       final legacy = Exercise.fromJson({
         'id': 'old',
         'type': 'translateInput',
@@ -57,6 +143,21 @@ void main() {
       expect(legacy.acceptedAnswers, isEmpty);
     },
   );
+
+  test('english answers ignore a space or fullwidth mark before the question mark', () {
+    const sleepy = Exercise(
+      id: 'u53l2e5',
+      type: ExerciseType.translateInput,
+      prompt: '这种药会让人犯困吗？',
+      sentence: 'Does this medicine make people sleepy?',
+      options: [],
+      answer: 'Does this medicine make people sleepy?',
+    );
+    expect(sleepy.accepts('Does this medicine make people sleepy ?'), isTrue);
+    expect(sleepy.accepts('Does this medicine make people sleepy？'), isTrue);
+    expect(sleepy.accepts('Does this medicine make people sleepy ？'), isTrue);
+    expect(sleepy.accepts('Does this medicine make people tired?'), isFalse);
+  });
 
   group('local review schedule', () {
     late Directory temp;

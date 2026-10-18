@@ -82,7 +82,7 @@ class LessonState {
 class LessonController extends StateNotifier<LessonState> {
   LessonController(Lesson lesson) : super(LessonState.initial(lesson));
 
-  /// 提交答案，返回是否正确。答案做归一化比较（大小写/空格/句尾标点不敏感）。
+  /// 提交答案，返回是否正确。听写忽略全部空格；其他文本题只忽略首尾和连续空格。英文忽略大小写和标点，单词里的撇号仍须一致。
   bool submit(String answer) {
     if (state.checked || state.finished) {
       return state.lastAnswerCorrect ?? false;

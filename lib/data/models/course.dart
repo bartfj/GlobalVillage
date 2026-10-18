@@ -65,15 +65,22 @@ class Exercise {
       ? normalizeAnswer(text)
       : unicode.nfc(text.trim()).replaceAll(RegExp(r'\s+'), ' ');
 
+  /// 听写在现有归一化之后再删掉全部空白；其他题型保留词间空格。
+  String _forComparison(String text) {
+    final normalized = normalizeInput(text);
+    if (type != ExerciseType.dictation) return normalized;
+    return normalized.replaceAll(_dictationSpace, '');
+  }
+
   bool accepts(String input) {
-    final normalized = normalizeInput(input);
+    final normalized = _forComparison(input);
     if (normalized.isEmpty) return false;
     final alternatives = type == ExerciseType.translateInput
         ? acceptedAnswers
         : const <String>[];
     final folded = expandKeyboardAliases(normalized);
     return [answer, ...alternatives].any((a) {
-      final candidate = normalizeInput(a);
+      final candidate = _forComparison(a);
       return candidate == normalized || candidate == folded;
     });
   }
@@ -123,12 +130,23 @@ class Exercise {
     return out.replaceAll('v', 'ü');
   }
 
+  /// Unicode 空格，以及输入法可能插入的零宽空格。
+  static final _dictationSpace = RegExp(r'[\s\u200B]', unicode: true);
+
+  /// 输入法常把撇号打成弯引号；先折成直撇号，避免和标点一起删掉。
+  static final _curlyApostrophe = RegExp("[‘’´`]");
+
+  /// 句读、破折号、中圆点等不参与判题。单词内部的撇号（o'clock）不在此列。
+  static final _ignoredPunctuation = RegExp(
+    r'[\[\].,;:!?。，、；：！？．…·・•~～—–‐‑‒―"“”„«»「」『』()（）-]+',
+  );
+
   static String normalizeAnswer(String text) => text
       .trim()
       .toLowerCase()
-      .replaceAll(RegExp(r'\s*[,;:]+\s*'), ' ')
+      .replaceAll(_curlyApostrophe, "'")
+      .replaceAll(_ignoredPunctuation, ' ')
       .replaceAll(RegExp(r'\s+'), ' ')
-      .replaceAll(RegExp(r'[.!?]+$'), '')
       .trim();
 
   /// 填空题专用：带 ____ 的句子，其他题型为 null
