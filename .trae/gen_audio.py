@@ -15,6 +15,7 @@ import edge_tts  # noqa: E402
 COURSE_FILES = (
     ROOT / "assets" / "courses" / "course_beginner.json",
     ROOT / "assets" / "courses" / "course_zero.json",
+    ROOT / "assets" / "courses" / "course_intermediate.json",
 )
 OUTPUT = ROOT / "assets" / "audio" / "listening"
 VOICE = "en-US-JennyNeural"

@@ -35,13 +35,16 @@ flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 ### 已上传构建
 
 - IPA：`build/ios/ipa/english_village.ipa`（~118MB）
-- Version：`0.8.32` / Build：`49`
+- Version：`0.8.35` / Build：`52`
 - API：`https://validity-republican-suffering-acm.trycloudflare.com/v1`
-- Delivery UUID：`1d19f1cb-2165-4490-b0b9-901c462712c7`
+- Delivery UUID：`0164ccac-5b5f-48c4-942c-f221a9bfa1d2`
 - App ID：`6816596368`
 
 ### 历史构建
 
+- Version：`0.8.32` / Build：`49`
+- API：`https://validity-republican-suffering-acm.trycloudflare.com/v1`
+- Delivery UUID：`1d19f1cb-2165-4490-b0b9-901c462712c7`
 - Version：`0.8.31` / Build：`48`
 - Delivery UUID：`6e916b94-0a5b-448b-94f7-567e5c5c02af`
 - Version：`0.8.30` / Build：`47`
