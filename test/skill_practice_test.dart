@@ -14,6 +14,7 @@ import 'package:english_village/data/sources/course_loader.dart';
 import 'package:english_village/data/sources/learning_store.dart';
 import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/skill_practice_loader.dart';
+import 'package:english_village/features/lesson/widgets/tappable_phonetic_text.dart';
 import 'package:english_village/features/skill_practice/skill_practice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -205,8 +206,14 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('单词练习'), findsWidgets);
 
-    // Choose correct option
-    await tester.tap(find.text(first.answer).first);
+    // Choose correct option（选项现按词渲染音标文本，按 widget 内容查找）
+    await tester.tap(
+      find
+          .byWidgetPredicate(
+            (w) => w is TappablePhoneticText && w.text == first.answer,
+          )
+          .first,
+    );
     await tester.pump();
     await tester.runAsync(() async {
       await tester.tap(find.text('检查'));
