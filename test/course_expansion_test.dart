@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/course_track.dart';
+import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
 import 'package:english_village/data/sources/course_loader.dart';
@@ -43,15 +44,19 @@ void main() {
         'zero',
         'beginner',
         'intermediate',
+        'chineseZero',
         'chinese',
+        'sanskritZero',
         'sanskrit',
       ]);
       expect(courses.map((c) => c.orderedLessons.length), [
         232,
         272,
         64,
-        16,
-        16,
+        4,
+        12,
+        8,
+        8,
       ]);
       final ids = <String>{};
       for (final course in courses) {
@@ -117,7 +122,7 @@ void main() {
     () {
       final paths = [
         for (final track in CourseTrack.values.where(
-          (t) => t.id != 'chinese' && t.id != 'sanskrit',
+          (t) => t.language == LearningLanguage.english,
         ))
           track.assetPath,
         'assets/dialogues/unit_dialogues.json',

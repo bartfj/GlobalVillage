@@ -5,12 +5,14 @@ enum CourseTrack {
   zero,
   beginner,
   intermediate,
+  chineseZero,
   chinese,
+  sanskritZero,
   sanskrit;
 
   LearningLanguage get language => switch (this) {
-    chinese => LearningLanguage.chinese,
-    sanskrit => LearningLanguage.sanskrit,
+    chineseZero || chinese => LearningLanguage.chinese,
+    sanskritZero || sanskrit => LearningLanguage.sanskrit,
     _ => LearningLanguage.english,
   };
 
@@ -20,7 +22,9 @@ enum CourseTrack {
     CourseTrack.zero => '零基础',
     CourseTrack.beginner => '初级',
     CourseTrack.intermediate => '中级',
+    CourseTrack.chineseZero => '中文零基础',
     CourseTrack.chinese => '普通话入门',
+    CourseTrack.sanskritZero => '梵文零基础',
     CourseTrack.sanskrit => '梵文入门',
   };
 
@@ -28,7 +32,9 @@ enum CourseTrack {
     CourseTrack.zero => 'assets/courses/course_zero.json',
     CourseTrack.beginner => 'assets/courses/course_beginner.json',
     CourseTrack.intermediate => 'assets/courses/course_intermediate.json',
+    CourseTrack.chineseZero => 'assets/courses/course_chinese_zero.json',
     CourseTrack.chinese => 'assets/courses/course_chinese.json',
+    CourseTrack.sanskritZero => 'assets/courses/course_sanskrit_zero.json',
     CourseTrack.sanskrit => 'assets/courses/course_sanskrit.json',
   };
 

@@ -90,8 +90,12 @@ class S {
         return 'Beginner';
       case CourseTrack.intermediate:
         return 'Intermediate';
+      case CourseTrack.chineseZero:
+        return 'Chinese Starter';
       case CourseTrack.chinese:
         return 'Mandarin Intro';
+      case CourseTrack.sanskritZero:
+        return 'Sanskrit Starter';
       case CourseTrack.sanskrit:
         return 'Sanskrit Intro';
     }
@@ -219,12 +223,12 @@ class S {
 
   // ---- 界面语言设置 ----
   String get uiLanguageSuggestionTitle =>
-      isEn ? 'Switch to English interface?' : '切换到英文界面？';
+      isEn ? 'English interface on' : '界面已切换为英文';
   String get uiLanguageSuggestionBody => isEn
-      ? 'You are learning Chinese. The interface can switch to English. You can change this anytime.'
-      : '你正在学习中文。界面可以切换为英文，之后可随时改回。';
-  String get uiLanguageSwitch => isEn ? 'Switch to English' : '切换为英文';
-  String get uiLanguageKeep => isEn ? 'Keep Chinese' : '保持中文';
+      ? 'Chinese courses are explained in English, so the app switched to English. You can keep it or switch back to Chinese; change this anytime under More → Interface language.'
+      : '中文课程用英语讲解，界面已随之切换为英文。可以保留英文，或切回中文；之后可在“更多 → 界面语言”中修改。';
+  String get uiLanguageSwitch => isEn ? 'Switch to Chinese' : '切回中文';
+  String get uiLanguageKeep => isEn ? 'Keep English' : '保持英文';
   String get uiLanguageRowTitle => isEn ? 'Interface language' : '界面语言';
   String get uiLanguageAuto => isEn ? 'Auto (follow course)' : '自动（跟随课程）';
 }

@@ -37,10 +37,22 @@ const contentPackSpecs = <ContentPackSpec>[
     courseId: 'intermediate',
   ),
   ContentPackSpec(
+    id: 'course/chineseZero',
+    label: '中文零基础',
+    kind: 'course',
+    courseId: 'chineseZero',
+  ),
+  ContentPackSpec(
     id: 'course/chinese',
     label: '普通话入门',
     kind: 'course',
     courseId: 'chinese',
+  ),
+  ContentPackSpec(
+    id: 'course/sanskritZero',
+    label: '梵文零基础',
+    kind: 'course',
+    courseId: 'sanskritZero',
   ),
   ContentPackSpec(
     id: 'course/sanskrit',

@@ -9,6 +9,7 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
 import '../../data/models/course.dart';
+import '../../data/models/learning_language.dart';
 import '../../data/sources/learning_store.dart';
 import '../feedback/feedback_dialog.dart';
 import 'lesson_controller.dart';
@@ -68,7 +69,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     _showStudyCard =
         widget.practiceLesson == null &&
         widget.mode == 'lesson' &&
-        (_courseId == 'chinese' || _courseId == 'sanskrit');
+        ref.read(courseProvider).language != LearningLanguage.english;
     _questionStart = _startTime;
     final random = Random.secure();
     _attemptId = List.generate(

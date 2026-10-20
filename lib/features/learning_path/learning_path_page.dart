@@ -3,14 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app/app_strings.dart';
 import '../../app/auth_controller.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../app/widgets/app_version_label.dart';
 import '../../core/constants.dart';
 import '../../data/models/course_track.dart';
-import '../../data/models/learning_language.dart';
 import '../../data/repositories/user_repository.dart';
 import '../feedback/feedback_dialog.dart';
 import 'widgets/lesson_node.dart';
@@ -474,43 +472,6 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     );
   }
 
-  bool _uiLangPromptShowing = false;
-
-  /// 首次切到中文课程时建议切换英文界面（只问一次；文案用英文，面向外国学习者）。
-  void _maybeSuggestEnglishUi(CourseTrack track) {
-    if (_uiLangPromptShowing || !mounted) return;
-    if (track.language != LearningLanguage.chinese) return;
-    if (ref.read(uiLanguageOverrideProvider) != null) return;
-    final controller = ref.read(uiLanguageOverrideProvider.notifier);
-    if (controller.prompted) return;
-    _uiLangPromptShowing = true;
-    controller.markPrompted();
-    const s = S(UiLanguage.english);
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(s.uiLanguageSuggestionTitle),
-        content: Text(s.uiLanguageSuggestionBody),
-        actions: [
-          TextButton(
-            onPressed: () {
-              controller.apply(UiLanguage.chinese);
-              Navigator.of(dialogContext).pop();
-            },
-            child: Text(s.uiLanguageKeep),
-          ),
-          FilledButton(
-            onPressed: () {
-              controller.apply(UiLanguage.english);
-              Navigator.of(dialogContext).pop();
-            },
-            child: Text(s.uiLanguageSwitch),
-          ),
-        ],
-      ),
-    ).whenComplete(() => _uiLangPromptShowing = false);
-  }
-
   Future<void> _confirmImport({
     required String title,
     required String message,
@@ -556,8 +517,6 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     ref.watch(progressRevisionProvider);
     // 游客升级为在线账号：单次确认是否导入本机游客进度（§7.3）
     ref.listen(authProvider, (_, next) => _maybePromptGuestImport(next));
-    // 首次切到中文课程：建议切换英文界面（只问一次）
-    ref.listen(selectedTrackProvider, (_, next) => _maybeSuggestEnglishUi(next));
     final auth = ref.watch(authProvider);
     final s = ref.watch(stringsProvider);
     // 登出瞬间会话已空，provider 为 null；等路由 redirect，避免空断言

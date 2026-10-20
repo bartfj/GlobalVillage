@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:english_village/app/app_strings.dart';
 import 'package:english_village/app/auth_controller.dart';
 import 'package:english_village/app/providers.dart';
 import 'package:english_village/data/models/course.dart';
@@ -41,15 +42,22 @@ class MemoryLanguageSettings extends SettingsStore {
       remembered[language] ??
       CourseTrack.values.firstWhere((t) => t.language == language);
 
-  // 界面语言设置不依赖 Hive；固定中文界面，避免切中文课后标签变英文。
+  // 界面语言设置不依赖 Hive；默认固定中文界面，避免切中文课后标签变英文。
+  String? uiLanguageOverrideValue = 'chinese';
+  bool uiLanguagePromptedValue = true;
   @override
-  String? get uiLanguageOverride => 'chinese';
+  String? get uiLanguageOverride => uiLanguageOverrideValue;
   @override
-  Future<void> setUiLanguageOverride(String? value) async {}
+  Future<void> setUiLanguageOverride(String? value) async {
+    uiLanguageOverrideValue = value;
+  }
+
   @override
-  bool get uiLanguagePrompted => true;
+  bool get uiLanguagePrompted => uiLanguagePromptedValue;
   @override
-  Future<void> setUiLanguagePrompted() async {}
+  Future<void> setUiLanguagePrompted() async {
+    uiLanguagePromptedValue = true;
+  }
 }
 
 void main() {
@@ -58,10 +66,17 @@ void main() {
   test(
     'language courses have explicit tokens, strict answers and no audio tasks',
     () async {
-      for (final track in [CourseTrack.chinese, CourseTrack.sanskrit]) {
+      const expected = {
+        CourseTrack.chineseZero: (units: 1, lessons: 4),
+        CourseTrack.chinese: (units: 3, lessons: 12),
+        CourseTrack.sanskritZero: (units: 2, lessons: 8),
+        CourseTrack.sanskrit: (units: 2, lessons: 8),
+      };
+      for (final entry in expected.entries) {
+        final track = entry.key;
         final course = await CourseLoader().load(track);
-        expect(course.orderedLessons.length, 16);
-        expect(course.units.length, 4);
+        expect(course.orderedLessons.length, entry.value.lessons);
+        expect(course.units.length, entry.value.units);
         for (final lesson in course.orderedLessons) {
           expect(lesson.exercises.length, 9);
           for (final e in lesson.exercises) {
@@ -190,9 +205,10 @@ void main() {
         await Hive.box<String>(
           SettingsStore.boxName,
         ).put('alice|track|sanskrit', 'bad');
+        // 非法记忆值回退到该语言的默认（零基础）课程。
         expect(
           settings.getLanguageTrack('alice', LearningLanguage.sanskrit),
-          CourseTrack.sanskrit,
+          CourseTrack.sanskritZero,
         );
       },
     );
@@ -246,7 +262,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     });
     await tester.pumpAndSettle();
-    expect(container.read(selectedTrackProvider), CourseTrack.chinese);
+    expect(container.read(selectedTrackProvider), CourseTrack.chineseZero);
     await tester.tap(find.text('切换'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('英语'));
@@ -258,13 +274,65 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('switching to Chinese asks about the English UI after closing', (
+    tester,
+  ) async {
+    final settings = MemoryLanguageSettings()
+      ..uiLanguageOverrideValue = null
+      ..uiLanguagePromptedValue = false;
+    final container = ProviderContainer(
+      overrides: [
+        authProvider.overrideWith((ref) => LanguageTestAuth()),
+        settingsStoreProvider.overrideWithValue(settings),
+      ],
+    );
+    addTearDown(container.dispose);
+    await tester.runAsync(() => container.read(allCoursesProvider.future));
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          home: Consumer(
+            builder: (context, ref, _) => Scaffold(
+              body: TextButton(
+                onPressed: () => showCourseSelector(context, ref),
+                child: const Text('切换'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('切换'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('中文 Chinese'));
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    });
+    await tester.pumpAndSettle();
+
+    // 选择面板先关闭，不应残留转圈状态；随后才出现英文界面提示。
+    expect(find.text('学习语言'), findsNothing);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.text('English interface on'), findsOneWidget);
+    expect(container.read(selectedTrackProvider), CourseTrack.chineseZero);
+    expect(container.read(uiLanguageProvider), UiLanguage.english);
+
+    await tester.tap(find.text('Switch to Chinese'));
+    await tester.pumpAndSettle();
+    expect(settings.uiLanguageOverrideValue, 'chinese');
+    expect(container.read(uiLanguageProvider), UiLanguage.chinese);
+    expect(settings.uiLanguagePromptedValue, isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets(
     'Chinese tokens join without spaces and Sanskrit support renders',
     (tester) async {
       final course = (await tester.runAsync(
         () => CourseLoader().load(CourseTrack.chinese),
       ))!;
-      final e = course.units[1].lessons.first.exercises[4];
+      final e = course.units[0].lessons.first.exercises[4];
       var answer = '';
       await tester.pumpWidget(
         ProviderScope(
@@ -291,7 +359,7 @@ void main() {
       }
       expect(answer, e.answer);
       final sa = (await tester.runAsync(
-        () => CourseLoader().load(CourseTrack.sanskrit),
+        () => CourseLoader().load(CourseTrack.sanskritZero),
       ))!;
       await tester.pumpWidget(
         ProviderScope(
@@ -322,7 +390,7 @@ void main() {
     tester,
   ) async {
     final sa = (await tester.runAsync(
-      () => CourseLoader().load(CourseTrack.sanskrit),
+      () => CourseLoader().load(CourseTrack.sanskritZero),
     ))!;
     final e = sa.units.first.lessons.first.exercises.firstWhere(
       (ex) => ex.type == ExerciseType.translateInput && ex.answer == 'ī',
@@ -358,11 +426,13 @@ void main() {
   });
 
   test('Sanskrit corpus keeps letter dependencies across units', () async {
+    final zero = await CourseLoader().load(CourseTrack.sanskritZero);
     final course = await CourseLoader().load(CourseTrack.sanskrit);
-    // 单元 2 教会音节拼读所需的元音符号与全部后续用词字母。
-    expect(course.units[1].lessons.first.exercises.first.answer, 'ka');
+    // 零基础课先教元音（单元 1）与辅音拼读（单元 2），入门课承接词句。
+    final units = [...zero.units, ...course.units];
+    expect(units[1].lessons.first.exercises.first.answer, 'ka');
     // 单元 3 的词只用已教字母；namaste 为标注“整体认读”的例外。
-    final unit3 = course.units[2];
+    final unit3 = units[2];
     final answers = {
       for (final lesson in unit3.lessons)
         for (final e in lesson.exercises) e.answer,
@@ -386,7 +456,7 @@ void main() {
     expect(sightWord.prompt, contains('整体认读'));
     // 单元 4 做人称动词入门，复现单元 3 的 naṭa（主格 naṭaḥ）。
     final unit4Answers = {
-      for (final lesson in course.units[3].lessons)
+      for (final lesson in units[3].lessons)
         for (final e in lesson.exercises) e.answer,
     };
     expect(
@@ -398,10 +468,13 @@ void main() {
   testWidgets('lesson study card lists core items before exercises', (
     tester,
   ) async {
+    final zero = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.sanskritZero),
+    ))!;
     final course = (await tester.runAsync(
       () => CourseLoader().load(CourseTrack.sanskrit),
     ))!;
-    final lesson = course.units[2].lessons.first;
+    final lesson = [...zero.units, ...course.units][2].lessons.first;
     final items = lessonStudyItems(lesson);
     // 每课 4 条核心内容，去重且保留顺序；含义从题干提取。
     expect(items.length, 4);

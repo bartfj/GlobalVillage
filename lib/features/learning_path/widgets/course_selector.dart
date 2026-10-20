@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/app_strings.dart';
 import '../../../app/providers.dart';
 import '../../../data/models/learning_language.dart';
 
 Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
   var busy = false;
   String? error;
+  var switchedToChinese = false;
   final s = ref.read(stringsProvider);
 
   Future<void> commit(
@@ -28,6 +30,7 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
         throw StateError('Missing course');
       }
       await ref.read(selectedTrackProvider.notifier).select(track);
+      switchedToChinese = language == LearningLanguage.chinese;
       if (sheetContext.mounted) {
         Navigator.pop(sheetContext);
       }
@@ -97,5 +100,43 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
         ),
       ),
     ),
+  );
+  // 面板关闭后再询问，避免弹窗与选择面板争抢同一个路由栈。
+  if (switchedToChinese && context.mounted) {
+    await _suggestEnglishUi(context, ref);
+  }
+}
+
+/// 首次切到中文课程时说明界面已随解释语言切为英文，并允许切回（只问一次）。
+Future<void> _suggestEnglishUi(BuildContext context, WidgetRef ref) async {
+  if (ref.read(selectedTrackProvider).language != LearningLanguage.chinese) {
+    return;
+  }
+  if (ref.read(uiLanguageOverrideProvider) != null) return;
+  final controller = ref.read(uiLanguageOverrideProvider.notifier);
+  if (controller.prompted) return;
+  await controller.markPrompted();
+  if (!context.mounted) return;
+  const s = S(UiLanguage.english);
+  final keepEnglish = await showDialog<bool>(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      title: Text(s.uiLanguageSuggestionTitle),
+      content: Text(s.uiLanguageSuggestionBody),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogContext).pop(false),
+          child: Text(s.uiLanguageSwitch),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(dialogContext).pop(true),
+          child: Text(s.uiLanguageKeep),
+        ),
+      ],
+    ),
+  );
+  if (keepEnglish == null) return;
+  await controller.apply(
+    keepEnglish ? UiLanguage.english : UiLanguage.chinese,
   );
 }
