@@ -118,9 +118,9 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       await _learningStore?.log({...event, 'courseId': _courseId});
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('学习记录保存失败，请稍后重试。')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ref.read(stringsProvider).recordSaveFailed)),
+        );
       }
     }
   }
@@ -166,9 +166,9 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           );
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('学习记录保存失败，请稍后重试。')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ref.read(stringsProvider).recordSaveFailed)),
+        );
       }
     } finally {
       if (mounted) setState(() => _recording = false);
@@ -205,12 +205,13 @@ class _LessonPageState extends ConsumerState<LessonPage> {
         }),
       );
       if (widget.practiceLesson != null) {
+        final s = ref.read(stringsProvider);
         showDialog<void>(
           context: context,
           barrierDismissible: false,
           builder: (context) => AlertDialog(
-            title: const Text('练习完成'),
-            content: Text('首次答对 ${state.correctCount} / ${state.totalCount}'),
+            title: Text(s.practiceDone),
+            content: Text(s.firstCorrect(state.correctCount, state.totalCount)),
             actions: [
               TextButton(
                 onPressed: () {
@@ -220,7 +221,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                     if (mounted) Navigator.of(this.context).pop();
                   });
                 },
-                child: const Text('完成'),
+                child: Text(s.done),
               ),
             ],
           ),
@@ -242,19 +243,20 @@ class _LessonPageState extends ConsumerState<LessonPage> {
 
   Future<void> _onClose() async {
     dismissPhoneticBubble();
+    final s = ref.read(stringsProvider);
     final quit = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('退出练习？'),
-        content: const Text('本次练习的进度将不会保存。'),
+        title: Text(s.exitPracticeTitle),
+        content: Text(s.exitPracticeBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('继续学习'),
+            child: Text(s.keepPracticing),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('退出', style: TextStyle(color: AppColors.red)),
+            child: Text(s.exit, style: const TextStyle(color: AppColors.red)),
           ),
         ],
       ),
@@ -269,12 +271,13 @@ class _LessonPageState extends ConsumerState<LessonPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = ref.watch(stringsProvider);
     if (_locked) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     final lesson = _lesson;
     if (lesson == null) {
-      return const Scaffold(body: Center(child: Text('课程不存在')));
+      return Scaffold(body: Center(child: Text(s.lessonNotFound)));
     }
     if (_showStudyCard) {
       return LessonStudyCard(
@@ -328,7 +331,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                             Icons.close_rounded,
                             color: LessonColors.muted,
                           ),
-                          tooltip: '退出练习',
+                          tooltip: s.quitPractice,
                           onPressed: _onClose,
                         ),
                         Expanded(
@@ -338,7 +341,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                             backgroundColor: LessonColors.track,
                             borderRadius: BorderRadius.circular(6),
                             minHeight: 12,
-                            semanticsLabel: '已完成题数',
+                            semanticsLabel: s.questionsDone,
                             semanticsValue: '${(state.progress * 100).round()}',
                           ),
                         ),
@@ -356,7 +359,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                             Icons.feedback_outlined,
                             color: LessonColors.muted,
                           ),
-                          tooltip: '反馈问题',
+                          tooltip: s.feedbackRow,
                           onPressed: () => showFeedbackDialog(context, ref),
                         ),
                       ],
@@ -408,7 +411,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                     border: Border(top: BorderSide(color: LessonColors.track)),
                   ),
                   child: LessonActionButton(
-                    label: '检查',
+                    label: s.check,
                     onPressed: _currentAnswer.trim().isEmpty || _recording
                         ? null
                         : _onCheck,

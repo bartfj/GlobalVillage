@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'ui_test_overrides.dart';
+
 class TestAuth extends StateNotifier<AuthState> implements AuthController {
   TestAuth() : super(const AuthState(userKey: 'test'));
   @override
@@ -80,6 +82,7 @@ void main() {
           ),
           rewardRepositoryProvider.overrideWithValue(TestRewards()),
           allCoursesProvider.overrideWith((ref) async => [course]),
+          uiStringsOverride,
         ],
       );
       addTearDown(container.dispose);

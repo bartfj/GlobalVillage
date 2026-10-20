@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/providers.dart';
 import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
 import 'lesson_style.dart';
 import 'tappable_phonetic_text.dart';
 
 /// 翻译单选题：题干 + 4 个选项卡
-class TranslateChoiceWidget extends StatelessWidget {
+class TranslateChoiceWidget extends ConsumerWidget {
   final Exercise exercise;
   final bool enabled;
   final String? selected;
@@ -23,7 +25,8 @@ class TranslateChoiceWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -43,8 +46,8 @@ class TranslateChoiceWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              '翻译练习',
+            Text(
+              s.translatePractice,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
@@ -54,8 +57,8 @@ class TranslateChoiceWidget extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        const Text(
-          '选择正确的翻译',
+        Text(
+          s.chooseCorrectTranslation,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w800,
@@ -74,9 +77,9 @@ class TranslateChoiceWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                PhoneticLookupService.looksEnglish(exercise.prompt)
-                    ? '英文 → 中文'
-                    : '中文 → 英文',
+                s.translationDirection(
+                  PhoneticLookupService.looksEnglish(exercise.prompt),
+                ),
                 style: const TextStyle(fontSize: 12, color: LessonColors.muted),
               ),
               const SizedBox(height: 9),

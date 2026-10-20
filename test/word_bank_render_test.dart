@@ -2,7 +2,10 @@ import 'package:english_village/app/theme.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/features/lesson/widgets/word_bank_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'ui_test_overrides.dart';
 
 void main() {
   testWidgets('词块组件能渲染出词块', (tester) async {
@@ -15,13 +18,16 @@ void main() {
       answer: 'Good morning!',
     );
     await tester.pumpWidget(
-      MaterialApp(
-        theme: buildAppTheme(),
-        home: Scaffold(
-          body: WordBankWidget(
-            exercise: exercise,
-            enabled: true,
-            onChanged: (_) {},
+      ProviderScope(
+        overrides: [uiStringsOverride],
+        child: MaterialApp(
+          theme: buildAppTheme(),
+          home: Scaffold(
+            body: WordBankWidget(
+              exercise: exercise,
+              enabled: true,
+              onChanged: (_) {},
+            ),
           ),
         ),
       ),

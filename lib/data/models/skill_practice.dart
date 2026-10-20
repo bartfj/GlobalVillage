@@ -1,14 +1,39 @@
 import 'course.dart';
+import 'learning_language.dart';
 
-/// 专项练习技能：发音 / 单词 / 口语
+/// 专项练习技能：英语（发音/单词/口语）+ 中文（声调/汉字）+ 梵文（字母/元音）
 enum SkillPracticeKind {
   pronunciation,
   vocabulary,
-  speaking;
+  speaking,
+  chineseTones,
+  chineseCharacters,
+  sanskritLetters,
+  sanskritVowels;
 
   String get assetPath => 'assets/practice/$name.json';
 
   String get mode => 'skill-$name';
+
+  /// 该专项所属的学习语言；路由与侧栏按此过滤
+  LearningLanguage get language {
+    switch (this) {
+      case SkillPracticeKind.pronunciation:
+      case SkillPracticeKind.vocabulary:
+      case SkillPracticeKind.speaking:
+        return LearningLanguage.english;
+      case SkillPracticeKind.chineseTones:
+      case SkillPracticeKind.chineseCharacters:
+        return LearningLanguage.chinese;
+      case SkillPracticeKind.sanskritLetters:
+      case SkillPracticeKind.sanskritVowels:
+        return LearningLanguage.sanskrit;
+    }
+  }
+
+  /// 某语言可用的专项列表（保持枚举声明顺序）
+  static List<SkillPracticeKind> forLanguage(LearningLanguage language) =>
+      values.where((k) => k.language == language).toList();
 
   String get title {
     switch (this) {
@@ -18,6 +43,14 @@ enum SkillPracticeKind {
         return '单词练习';
       case SkillPracticeKind.speaking:
         return '口语练习';
+      case SkillPracticeKind.chineseTones:
+        return '声调练习';
+      case SkillPracticeKind.chineseCharacters:
+        return '汉字识读';
+      case SkillPracticeKind.sanskritLetters:
+        return '天城体辨认';
+      case SkillPracticeKind.sanskritVowels:
+        return '长短元音辨析';
     }
   }
 
@@ -29,6 +62,14 @@ enum SkillPracticeKind {
         return '巩固词义、拼写与搭配';
       case SkillPracticeKind.speaking:
         return '大声说出来，练受控输出';
+      case SkillPracticeKind.chineseTones:
+        return '四声对比，选准调号';
+      case SkillPracticeKind.chineseCharacters:
+        return '看字读音，见字知义';
+      case SkillPracticeKind.sanskritLetters:
+        return '认读天城体字母与音节';
+      case SkillPracticeKind.sanskritVowels:
+        return '分清长短元音，读准转写';
     }
   }
 
@@ -40,6 +81,14 @@ enum SkillPracticeKind {
         return '单词练习完成';
       case SkillPracticeKind.speaking:
         return '口语练习完成';
+      case SkillPracticeKind.chineseTones:
+        return '声调练习完成';
+      case SkillPracticeKind.chineseCharacters:
+        return '汉字识读完成';
+      case SkillPracticeKind.sanskritLetters:
+        return '天城体辨认完成';
+      case SkillPracticeKind.sanskritVowels:
+        return '长短元音辨析完成';
     }
   }
 

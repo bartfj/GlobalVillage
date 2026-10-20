@@ -15,6 +15,7 @@ import '../lesson/widgets/exercise_widget_builder.dart';
 import '../lesson/widgets/lesson_style.dart';
 import '../lesson/widgets/tappable_phonetic_text.dart';
 import 'skill_practice_controller.dart';
+import 'skill_practice_style.dart';
 
 /// 专项练习会话页（方案 C：独立壳，不走 LessonPage）
 class SkillPracticePage extends ConsumerStatefulWidget {
@@ -44,27 +45,9 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   LearningStore? _learningStore;
   late String _courseId;
 
-  Color get _accent {
-    switch (widget.skill) {
-      case SkillPracticeKind.pronunciation:
-        return AppColors.blue;
-      case SkillPracticeKind.vocabulary:
-        return AppColors.goldDark;
-      case SkillPracticeKind.speaking:
-        return AppColors.green;
-    }
-  }
+  Color get _accent => widget.skill.accent;
 
-  IconData get _icon {
-    switch (widget.skill) {
-      case SkillPracticeKind.pronunciation:
-        return Icons.hearing_rounded;
-      case SkillPracticeKind.vocabulary:
-        return Icons.menu_book_rounded;
-      case SkillPracticeKind.speaking:
-        return Icons.record_voice_over_rounded;
-    }
-  }
+  IconData get _icon => widget.skill.icon;
 
   @override
   void initState() {
@@ -96,7 +79,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       if (picked.isEmpty) {
         setState(() {
           _loading = false;
-          _loadError = '题库为空';
+          _loadError = ref.read(stringsProvider).bankEmpty;
         });
         return;
       }
@@ -131,9 +114,9 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       });
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('学习记录保存失败，请稍后重试。')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ref.read(stringsProvider).recordSaveFailed)),
+        );
       }
     }
   }
@@ -184,9 +167,9 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
           );
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('学习记录保存失败，请稍后重试。')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(ref.read(stringsProvider).recordSaveFailed)),
+        );
       }
     } finally {
       if (mounted) setState(() => _recording = false);
@@ -227,12 +210,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
           'elapsedMs': DateTime.now().difference(_startTime).inMilliseconds,
         }),
       );
+      final s = ref.read(stringsProvider);
       showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: Text(widget.skill.doneTitle),
-          content: Text('首次答对 ${state.correctCount} / ${state.totalCount}'),
+          title: Text(s.skillDoneTitle(widget.skill)),
+          content: Text(s.firstCorrect(state.correctCount, state.totalCount)),
           actions: [
             TextButton(
               onPressed: () {
@@ -242,7 +226,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                   if (mounted) Navigator.of(this.context).pop();
                 });
               },
-              child: const Text('完成'),
+              child: Text(s.done),
             ),
           ],
         ),
@@ -252,19 +236,20 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
 
   Future<void> _onClose() async {
     dismissPhoneticBubble();
+    final s = ref.read(stringsProvider);
     final quit = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('退出练习？'),
-        content: const Text('本次练习的进度将不会保存。'),
+        title: Text(s.exitPracticeTitle),
+        content: Text(s.exitPracticeBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('继续练习'),
+            child: Text(s.keepPracticing),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('退出', style: TextStyle(color: AppColors.red)),
+            child: Text(s.exit, style: const TextStyle(color: AppColors.red)),
           ),
         ],
       ),
@@ -301,12 +286,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = ref.watch(stringsProvider);
     if (_loading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     if (_loadError != null || _session == null) {
       return Scaffold(
-        appBar: AppBar(title: Text(widget.skill.title)),
+        appBar: AppBar(title: Text(s.skillTitle(widget.skill))),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -314,13 +300,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  _loadError?.toString() ?? '无法开始练习',
+                  _loadError?.toString() ?? s.cannotStart,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('返回'),
+                  child: Text(s.back),
                 ),
               ],
             ),
@@ -370,7 +356,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                             Icons.close_rounded,
                             color: LessonColors.muted,
                           ),
-                          tooltip: '退出练习',
+                          tooltip: s.quitPractice,
                           onPressed: _onClose,
                         ),
                         Expanded(
@@ -396,7 +382,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                             Icons.feedback_outlined,
                             color: LessonColors.muted,
                           ),
-                          tooltip: '反馈问题',
+                          tooltip: s.feedbackRow,
                           onPressed: () => showFeedbackDialog(context, ref),
                         ),
                       ],
@@ -409,7 +395,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              '${widget.skill.title} · ${widget.skill.subtitle}',
+                              '${s.skillTitle(widget.skill)} · ${s.skillSubtitle(widget.skill)}',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: LessonColors.muted,
@@ -420,13 +406,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                       ),
                     ),
                     if (widget.skill == SkillPracticeKind.speaking)
-                      const Padding(
-                        padding: EdgeInsets.only(left: 48, top: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 48, top: 6),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '提示：尽量大声说出来',
-                            style: TextStyle(
+                            s.speakingTip,
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: AppColors.greenDark,
@@ -436,13 +422,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                       ),
                     if (widget.skill == SkillPracticeKind.pronunciation &&
                         exercise.type == ExerciseType.speaking)
-                      const Padding(
-                        padding: EdgeInsets.only(left: 48, top: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 48, top: 6),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '听原音后跟读，注意语音相似度',
-                            style: TextStyle(
+                            s.pronunciationTip,
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blueDark,
@@ -483,7 +469,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                     border: Border(top: BorderSide(color: LessonColors.track)),
                   ),
                   child: LessonActionButton(
-                    label: '检查',
+                    label: s.check,
                     onPressed: _currentAnswer.trim().isEmpty || _recording
                         ? null
                         : _onCheck,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/providers.dart';
 import '../../../data/models/course.dart';
 import '../../../data/models/learning_language.dart';
 
@@ -42,7 +44,7 @@ List<StudyItem> lessonStudyItems(Lesson lesson) {
 }
 
 /// 新文字系统课程（中文、梵文）的课前学习卡：先看本课核心内容再开始做题。
-class LessonStudyCard extends StatelessWidget {
+class LessonStudyCard extends ConsumerWidget {
   const LessonStudyCard({
     super.key,
     required this.lesson,
@@ -53,7 +55,8 @@ class LessonStudyCard extends StatelessWidget {
   final VoidCallback onStart;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
     final items = lessonStudyItems(lesson);
     final isSanskrit =
         lesson.exercises.first.language == LearningLanguage.sanskrit;
@@ -71,7 +74,7 @@ class LessonStudyCard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: IconButton(
                 icon: const Icon(Icons.close),
-                tooltip: '返回',
+                tooltip: s.back,
                 onPressed: () => Navigator.of(context).maybePop(),
               ),
             ),
@@ -86,7 +89,7 @@ class LessonStudyCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '先看本课内容，再开始练习',
+                    s.studyCardHint,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -132,7 +135,7 @@ class LessonStudyCard extends StatelessWidget {
                 style: FilledButton.styleFrom(
                   minimumSize: const Size.fromHeight(48),
                 ),
-                child: const Text('开始练习'),
+                child: Text(s.startPractice),
               ),
             ),
           ],

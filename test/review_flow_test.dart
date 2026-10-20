@@ -17,6 +17,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
+import 'ui_test_overrides.dart';
+
 class SilentSound implements SoundService {
   @override
   Future<void> playCorrect() async {}
@@ -123,6 +125,7 @@ void main() {
               course: course,
             ),
           ),
+          uiStringsOverride,
         ],
         child: MaterialApp(
           home: Builder(

@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/app_strings.dart';
 import '../../app/auth_controller.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../app/widgets/app_version_label.dart';
 import '../../core/constants.dart';
 import '../../data/models/course_track.dart';
+import '../../data/models/learning_language.dart';
 import '../../data/repositories/user_repository.dart';
 import '../feedback/feedback_dialog.dart';
 import 'widgets/lesson_node.dart';
@@ -89,6 +91,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     final course = ref.read(courseProvider);
     final progress = ref.read(progressRepositoryProvider)!;
     final current = progress.currentLesson;
+    final s = ref.read(stringsProvider);
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -97,11 +100,14 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
           height: MediaQuery.sizeOf(sheetContext).height * 0.7,
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(16),
+              Padding(
+                padding: const EdgeInsets.all(16),
                 child: Text(
-                  '单元目录',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  s.unitDirectory,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
               Expanded(
@@ -116,7 +122,12 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
                               : Icons.menu_book_outlined,
                         ),
                         subtitle: Text(
-                          '${unit.lessons.where((l) => progress.isLessonCompleted(l.id)).length} / ${unit.lessons.length} 已完成',
+                          s.unitsProgress(
+                            unit.lessons
+                                .where((l) => progress.isLessonCompleted(l.id))
+                                .length,
+                            unit.lessons.length,
+                          ),
                         ),
                         onTap: () {
                           Navigator.pop(sheetContext);
@@ -463,6 +474,43 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     );
   }
 
+  bool _uiLangPromptShowing = false;
+
+  /// 首次切到中文课程时建议切换英文界面（只问一次；文案用英文，面向外国学习者）。
+  void _maybeSuggestEnglishUi(CourseTrack track) {
+    if (_uiLangPromptShowing || !mounted) return;
+    if (track.language != LearningLanguage.chinese) return;
+    if (ref.read(uiLanguageOverrideProvider) != null) return;
+    final controller = ref.read(uiLanguageOverrideProvider.notifier);
+    if (controller.prompted) return;
+    _uiLangPromptShowing = true;
+    controller.markPrompted();
+    const s = S(UiLanguage.english);
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(s.uiLanguageSuggestionTitle),
+        content: Text(s.uiLanguageSuggestionBody),
+        actions: [
+          TextButton(
+            onPressed: () {
+              controller.apply(UiLanguage.chinese);
+              Navigator.of(dialogContext).pop();
+            },
+            child: Text(s.uiLanguageKeep),
+          ),
+          FilledButton(
+            onPressed: () {
+              controller.apply(UiLanguage.english);
+              Navigator.of(dialogContext).pop();
+            },
+            child: Text(s.uiLanguageSwitch),
+          ),
+        ],
+      ),
+    ).whenComplete(() => _uiLangPromptShowing = false);
+  }
+
   Future<void> _confirmImport({
     required String title,
     required String message,
@@ -508,7 +556,10 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     ref.watch(progressRevisionProvider);
     // 游客升级为在线账号：单次确认是否导入本机游客进度（§7.3）
     ref.listen(authProvider, (_, next) => _maybePromptGuestImport(next));
+    // 首次切到中文课程：建议切换英文界面（只问一次）
+    ref.listen(selectedTrackProvider, (_, next) => _maybeSuggestEnglishUi(next));
     final auth = ref.watch(authProvider);
+    final s = ref.watch(stringsProvider);
     // 登出瞬间会话已空，provider 为 null；等路由 redirect，避免空断言
     if (!auth.hasSession) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -570,7 +621,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             children: [
               Expanded(
                 child: Text(
-                  '${course.language.shortLabel} · ${CourseTrack.fromId(course.id).label}',
+                  '${course.language.shortLabel} · ${s.trackLabel(CourseTrack.fromId(course.id))}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -587,7 +638,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.list_alt_rounded),
-            tooltip: '单元目录',
+            tooltip: s.unitDirectory,
             onPressed: () => _showDirectory(context, ref),
           ),
           IconButton(
@@ -595,7 +646,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
               Icons.military_tech_rounded,
               color: AppColors.goldDark,
             ),
-            tooltip: '徽章',
+            tooltip: s.statsBadges,
             onPressed: () => context.push('/badges'),
           ),
           Center(
@@ -674,7 +725,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
       floatingActionButton: target == null || _targetVisible
           ? null
           : FloatingActionButton.small(
-              tooltip: '回到当前课',
+              tooltip: s.backToCurrent,
               onPressed: () => _locate(_lessonKeys[target.id]),
               child: const Icon(Icons.my_location),
             ),
@@ -691,8 +742,14 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
               Expanded(
                 child: Text(
                   current == null
-                      ? '全部完成'
-                      : '第${course.orderedLessons.indexWhere((l) => l.id == current.id) + 1}节 · ${current.title}',
+                      ? s.pathAllDone
+                      : s.lessonOrdinal(
+                          course.orderedLessons.indexWhere(
+                                (l) => l.id == current.id,
+                              ) +
+                              1,
+                          current.title,
+                        ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w700),
@@ -706,7 +763,9 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
                 icon: Icon(
                   current == null ? Icons.refresh : Icons.arrow_forward,
                 ),
-                label: Text(current == null ? '复习' : '继续学习'),
+                label: Text(
+                  current == null ? s.allCompletedReview : s.continueLearning,
+                ),
               ),
             ],
           ),
@@ -717,9 +776,10 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
 }
 
 /// 游客横幅：引导游客注册账号保存进度，登录/注册后自动消失
-class _GuestBanner extends StatelessWidget {
+class _GuestBanner extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: GestureDetector(
@@ -730,21 +790,21 @@ class _GuestBanner extends StatelessWidget {
             color: AppColors.greenLight,
             borderRadius: BorderRadius.circular(14),
           ),
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.person_outline, color: AppColors.greenDark),
-              SizedBox(width: 10),
+              const Icon(Icons.person_outline, color: AppColors.greenDark),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  '以游客身份学习中 · 注册账号保存进度',
-                  style: TextStyle(
+                  s.guestBanner,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.greenDark,
                   ),
                 ),
               ),
-              Icon(Icons.chevron_right, color: AppColors.greenDark),
+              const Icon(Icons.chevron_right, color: AppColors.greenDark),
             ],
           ),
         ),

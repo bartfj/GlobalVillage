@@ -16,6 +16,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 import '../tool/generate_language_courses.dart';
+import 'ui_test_overrides.dart';
 
 class LanguageTestAuth extends StateNotifier<AuthState>
     implements AuthController {
@@ -39,6 +40,16 @@ class MemoryLanguageSettings extends SettingsStore {
   CourseTrack getLanguageTrack(String userKey, LearningLanguage language) =>
       remembered[language] ??
       CourseTrack.values.firstWhere((t) => t.language == language);
+
+  // 界面语言设置不依赖 Hive；固定中文界面，避免切中文课后标签变英文。
+  @override
+  String? get uiLanguageOverride => 'chinese';
+  @override
+  Future<void> setUiLanguageOverride(String? value) async {}
+  @override
+  bool get uiLanguagePrompted => true;
+  @override
+  Future<void> setUiLanguagePrompted() async {}
 }
 
 void main() {
@@ -256,16 +267,19 @@ void main() {
       final e = course.units[1].lessons.first.exercises[4];
       var answer = '';
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
-              child: buildExerciseWidget(
-                exercise: e,
-                enabled: true,
-                checked: false,
-                currentAnswer: '',
-                onChanged: (value) => answer = value,
-                questionKey: const ValueKey('zh'),
+        ProviderScope(
+          overrides: [uiStringsOverride],
+          child: MaterialApp(
+            home: Scaffold(
+              body: SingleChildScrollView(
+                child: buildExerciseWidget(
+                  exercise: e,
+                  enabled: true,
+                  checked: false,
+                  currentAnswer: '',
+                  onChanged: (value) => answer = value,
+                  questionKey: const ValueKey('zh'),
+                ),
               ),
             ),
           ),
@@ -280,16 +294,19 @@ void main() {
         () => CourseLoader().load(CourseTrack.sanskrit),
       ))!;
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
-              child: buildExerciseWidget(
-                exercise: sa.units.first.lessons.first.exercises.first,
-                enabled: true,
-                checked: false,
-                currentAnswer: '',
-                onChanged: (_) {},
-                questionKey: const ValueKey('sa'),
+        ProviderScope(
+          overrides: [uiStringsOverride],
+          child: MaterialApp(
+            home: Scaffold(
+              body: SingleChildScrollView(
+                child: buildExerciseWidget(
+                  exercise: sa.units.first.lessons.first.exercises.first,
+                  enabled: true,
+                  checked: false,
+                  currentAnswer: '',
+                  onChanged: (_) {},
+                  questionKey: const ValueKey('sa'),
+                ),
               ),
             ),
           ),
@@ -312,16 +329,19 @@ void main() {
     );
     var answer = '';
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: buildExerciseWidget(
-              exercise: e,
-              enabled: true,
-              checked: false,
-              currentAnswer: '',
-              onChanged: (value) => answer = value,
-              questionKey: const ValueKey('sa-input'),
+      ProviderScope(
+        overrides: [uiStringsOverride],
+        child: MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: buildExerciseWidget(
+                exercise: e,
+                enabled: true,
+                checked: false,
+                currentAnswer: '',
+                onChanged: (value) => answer = value,
+                questionKey: const ValueKey('sa-input'),
+              ),
             ),
           ),
         ),
@@ -391,8 +411,11 @@ void main() {
 
     var started = false;
     await tester.pumpWidget(
-      MaterialApp(
-        home: LessonStudyCard(lesson: lesson, onStart: () => started = true),
+      ProviderScope(
+        overrides: [uiStringsOverride],
+        child: MaterialApp(
+          home: LessonStudyCard(lesson: lesson, onStart: () => started = true),
+        ),
       ),
     );
     expect(find.text('先看本课内容，再开始练习'), findsOneWidget);

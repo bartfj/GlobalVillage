@@ -112,7 +112,9 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       }
       _saved = true;
     } catch (_) {
-      if (mounted) setState(() => _saveError = '保存失败，请重试');
+      if (mounted) {
+        setState(() => _saveError = ref.read(stringsProvider).saveFailed);
+      }
     } finally {
       _saving = false;
       if (mounted) setState(() {});
@@ -121,6 +123,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = ref.watch(stringsProvider);
     final result = widget.result;
     final passed = result.passed;
     final minutes = result.elapsedSeconds ~/ 60;
@@ -146,32 +149,32 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      passed ? '课程完成！' : '再练一次吧！',
+                      passed ? s.lessonPassed : s.lessonFailed,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      passed ? '下一课已解锁' : '正确率达到 70% 即可解锁下一课',
+                      passed ? s.nextUnlocked : s.passThresholdHint,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 28),
                     Row(
                       children: [
                         _StatCard(
-                          label: '得分',
+                          label: s.scoreLabel,
                           value: '${result.score}',
                           color: AppColors.gold,
                         ),
                         const SizedBox(width: 12),
                         _StatCard(
-                          label: '正确率',
+                          label: s.accuracyLabel,
                           value: '${(result.accuracy * 100).round()}%',
                           color: AppColors.green,
                         ),
                         const SizedBox(width: 12),
                         _StatCard(
-                          label: '用时',
-                          value: '$minutes分$seconds秒',
+                          label: s.timeLabel,
+                          value: s.minutesSeconds(minutes, seconds),
                           color: AppColors.blue,
                         ),
                       ],
@@ -197,11 +200,13 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                               ).color,
                             ),
                             Text(
-                              '${_award!.lesson.title}徽章 ${_award!.newlyAwarded ? '+1' : '已领取'}',
+                              s.badgeEarned(
+                                _award!.lesson.title,
+                                _award!.newlyAwarded,
+                              ),
                             ),
-                            Text('本关累计 ${_award!.count} 枚'),
-                            if (_treeCount > 0)
-                              Text('梭梭树 +1 · 累计 $_treeCount 棵'),
+                            Text(s.badgeTotal(_award!.count)),
+                            if (_treeCount > 0) Text(s.treePlusOne(_treeCount)),
                           ],
                         ),
                       ),
@@ -211,7 +216,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                         TextButton.icon(
                           onPressed: () => setState(() => _showDialogue = true),
                           icon: const Icon(Icons.replay_rounded),
-                          label: const Text('重播对话'),
+                          label: Text(s.replayDialogue),
                         ),
                     ],
                     if (_saveError != null) ...[
@@ -221,13 +226,13 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                       ),
                       TextButton(
                         onPressed: _saveResult,
-                        child: const Text('重试保存'),
+                        child: Text(s.retrySave),
                       ),
                     ],
                     const Spacer(),
                     if (!passed) ...[
                       PushableButton(
-                        label: '重新学习',
+                        label: s.relearn,
                         onPressed: () =>
                             context.replace('/lesson/${widget.lessonId}'),
                         color: AppColors.blue,
@@ -236,7 +241,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                       const SizedBox(height: 12),
                     ],
                     PushableButton(
-                      label: '返回学习路径',
+                      label: s.backToPath,
                       onPressed: _saving ? null : () => context.go('/'),
                     ),
                   ],

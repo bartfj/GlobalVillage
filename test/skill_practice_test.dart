@@ -22,6 +22,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
+import 'ui_test_overrides.dart';
+
 class SilentSound implements SoundService {
   @override
   Future<void> playCorrect() async {}
@@ -71,6 +73,10 @@ const _allowedTypes = {
     ExerciseType.speaking,
     ExerciseType.translateInput,
   },
+  SkillPracticeKind.chineseTones: {ExerciseType.translateChoice},
+  SkillPracticeKind.chineseCharacters: {ExerciseType.translateChoice},
+  SkillPracticeKind.sanskritLetters: {ExerciseType.translateChoice},
+  SkillPracticeKind.sanskritVowels: {ExerciseType.translateChoice},
 };
 
 void main() {
@@ -180,6 +186,7 @@ void main() {
               course: course,
             ),
           ),
+          uiStringsOverride,
         ],
         child: MaterialApp(
           home: Builder(

@@ -110,4 +110,26 @@ class SettingsStore {
     }
     return _box.put(_apiBaseUrlKey, url);
   }
+
+  static const _uiLanguageKey = 'uiLanguage';
+  static const _uiLanguagePromptedKey = 'uiLanguagePrompted';
+
+  /// 界面语言覆盖：'chinese' / 'english'；null 表示跟随解释语言自动决定。
+  String? get uiLanguageOverride {
+    final saved = _box.get(_uiLanguageKey);
+    if (saved == 'chinese' || saved == 'english') return saved;
+    return null;
+  }
+
+  /// [value] 为空时清除覆盖，恢复跟随解释语言。
+  Future<void> setUiLanguageOverride(String? value) {
+    if (value == null) return _box.delete(_uiLanguageKey);
+    return _box.put(_uiLanguageKey, value);
+  }
+
+  /// 是否已就"切换到英文界面"询问过用户（只问一次）。
+  bool get uiLanguagePrompted => _box.get(_uiLanguagePromptedKey) == '1';
+
+  Future<void> setUiLanguagePrompted() =>
+      _box.put(_uiLanguagePromptedKey, '1');
 }

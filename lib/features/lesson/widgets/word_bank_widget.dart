@@ -2,14 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/providers.dart';
 import '../../../app/theme.dart';
 import '../../../core/services/phonetic_lookup_service.dart';
 import '../../../data/models/course.dart';
 import 'tappable_phonetic_text.dart';
 
 /// 词块排序组句题：点击乱序词块拼出正确句子
-class WordBankWidget extends StatefulWidget {
+class WordBankWidget extends ConsumerStatefulWidget {
   final Exercise exercise;
   final bool enabled;
   final ValueChanged<String> onChanged;
@@ -24,10 +26,10 @@ class WordBankWidget extends StatefulWidget {
   });
 
   @override
-  State<WordBankWidget> createState() => _WordBankWidgetState();
+  ConsumerState<WordBankWidget> createState() => _WordBankWidgetState();
 }
 
-class _WordBankWidgetState extends State<WordBankWidget> {
+class _WordBankWidgetState extends ConsumerState<WordBankWidget> {
   late final List<String> _bank;
   final List<String> _selected = [];
   int? _dragIndex;
@@ -66,11 +68,12 @@ class _WordBankWidgetState extends State<WordBankWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final s = ref.watch(stringsProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (widget.showPrompt) ...[
-          Text('把词块排成句子', style: Theme.of(context).textTheme.headlineSmall),
+          Text(s.arrangeBlocks, style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),
@@ -124,11 +127,14 @@ class _WordBankWidgetState extends State<WordBankWidget> {
           ),
         ),
         if (_selected.length > 1)
-          const Padding(
-            padding: EdgeInsets.only(top: 6),
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
             child: Text(
-              '长按词块可拖动调整顺序；词库词块长按可查看音标',
-              style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              s.wordBankHint,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
             ),
           ),
         const SizedBox(height: 20),

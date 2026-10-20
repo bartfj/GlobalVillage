@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/providers.dart';
 import '../../../core/services/phonetic_lookup_service.dart';
 import 'lesson_style.dart';
 import 'tappable_phonetic_text.dart';
 
 /// 底部答题判定栏：答对绿色 / 答错红色并展示正确答案；跳过为中性提示
-class AnswerFeedbackBar extends StatelessWidget {
+class AnswerFeedbackBar extends ConsumerWidget {
   final bool correct;
   final bool skipped;
   final String correctAnswer;
@@ -20,7 +22,8 @@ class AnswerFeedbackBar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
     final Color bg;
     final Color fg;
     if (skipped) {
@@ -70,10 +73,10 @@ class AnswerFeedbackBar extends StatelessWidget {
                     children: [
                       Text(
                         skipped
-                            ? '已跳过（不计分）'
+                            ? s.skippedNoCredit
                             : correct
-                            ? '回答正确！'
-                            : '再记一下这句话',
+                            ? s.correct
+                            : s.reviewThis,
                         style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w800,
@@ -89,7 +92,7 @@ class AnswerFeedbackBar extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             LessonActionButton(
-              label: '继续',
+              label: s.continueLabel,
               onPressed: onContinue,
               error: !correct && !skipped,
             ),

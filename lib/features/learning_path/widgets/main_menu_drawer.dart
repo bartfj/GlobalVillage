@@ -3,14 +3,57 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/providers.dart';
+import '../../../app/app_strings.dart';
 import '../../../app/theme.dart';
-import '../../auth/api_base_url_dialog.dart';
 import '../../../core/services/sync_service.dart';
 import '../../../data/models/course_track.dart';
-import '../../../data/models/learning_language.dart';
+import '../../../data/models/skill_practice.dart';
 import '../../../data/models/tree_growth.dart';
+import '../../auth/api_base_url_dialog.dart';
 import '../../auth/bind_online_sheet.dart';
+import '../../skill_practice/skill_practice_style.dart';
 import 'course_selector.dart';
+
+String _uiLanguageSubtitle(WidgetRef ref, S s) {
+  final override = ref.watch(uiLanguageOverrideProvider);
+  return switch (override) {
+    UiLanguage.chinese => '中文',
+    UiLanguage.english => 'English',
+    null => s.uiLanguageAuto,
+  };
+}
+
+/// 界面语言选择：自动（跟随课程解释语言）/ 中文 / English
+Future<void> _showUiLanguageDialog(
+  BuildContext context,
+  WidgetRef ref,
+  S s,
+) async {
+  final current = ref.read(uiLanguageOverrideProvider);
+  final controller = ref.read(uiLanguageOverrideProvider.notifier);
+  await showDialog<void>(
+    context: context,
+    builder: (dialogContext) => SimpleDialog(
+      title: Text(s.uiLanguageRowTitle),
+      children: [
+        for (final (label, value) in [
+          (s.uiLanguageAuto, null),
+          ('中文', UiLanguage.chinese),
+          ('English', UiLanguage.english),
+        ])
+          RadioListTile<UiLanguage?>(
+            title: Text(label),
+            value: value,
+            groupValue: current,
+            onChanged: (v) {
+              Navigator.pop(dialogContext);
+              controller.apply(v);
+            },
+          ),
+      ],
+    ),
+  );
+}
 
 /// 学习路径侧滑主菜单（浅色卡片风）：账号卡 + 统计卡 + 当前学习卡 + 功能卡片
 class MainMenuDrawer extends ConsumerWidget {
@@ -47,6 +90,7 @@ class MainMenuDrawer extends ConsumerWidget {
     final rewards = ref.watch(rewardRepositoryProvider);
     final selectedTrack = ref.watch(selectedTrackProvider);
     final allCourses = ref.watch(allCoursesProvider).requireValue;
+    final s = ref.watch(stringsProvider);
 
     if (progress == null || rewards == null) {
       return const Drawer(
@@ -65,10 +109,10 @@ class MainMenuDrawer extends ConsumerWidget {
 
     final isGuest = auth.isGuest;
     final displayName = isGuest
-        ? '游客'
+        ? s.guest
         : auth.isOnline
-        ? (auth.displayName ?? '在线用户')
-        : (auth.userKey ?? '未登录');
+            ? (auth.displayName ?? s.onlineUser)
+            : (auth.userKey ?? s.notLoggedIn);
     final initial = displayName.isNotEmpty
         ? String.fromCharCode(displayName.runes.first)
         : '?';
@@ -89,6 +133,7 @@ class MainMenuDrawer extends ConsumerWidget {
               isGuest: isGuest,
               isOnline: auth.isOnline,
               userKey: auth.userKey,
+              s: s,
               onLogin: onLogin,
               onOpen: isGuest ? null : () => _openRoute(context, '/account'),
             ),
@@ -98,14 +143,14 @@ class MainMenuDrawer extends ConsumerWidget {
                 _StatData(
                   icon: Icons.flag_rounded,
                   color: AppColors.blue,
-                  label: '已通关',
+                  label: s.statsCompleted,
                   value: '$completed/$total',
                   onTap: () => _openRoute(context, '/completed'),
                 ),
                 _StatData(
                   icon: Icons.park_rounded,
                   color: AppColors.greenDark,
-                  label: '梭梭树',
+                  label: s.statsTree,
                   value: '$treeCount',
                   subtitle: treeStage.label,
                   onTap: () => _openRoute(context, '/tree'),
@@ -113,7 +158,7 @@ class MainMenuDrawer extends ConsumerWidget {
                 _StatData(
                   icon: Icons.emoji_events_rounded,
                   color: AppColors.goldDark,
-                  label: '徽章',
+                  label: s.statsBadges,
                   value: '×$badgeUnits',
                   onTap: () => _openRoute(context, '/badges'),
                 ),
@@ -121,22 +166,25 @@ class MainMenuDrawer extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             _CurrentCourseCard(
-              title:
-                  '${selectedTrack.language.shortLabel} · ${selectedTrack.label}',
+              title: s.isEn
+                  ? '${s.languageLabel(selectedTrack.language)} · ${s.trackLabel(selectedTrack)}'
+                  : '${selectedTrack.language.shortLabel} · ${selectedTrack.label}',
               completed: completed,
               total: total,
+              switchLabel: s.switchCourse,
+              completedText: s.completedCount(completed, total),
               onTap: () => showCourseSelector(context, ref),
             ),
             // 多课程语言（英语）显示等级快捷切换；单课程语言摘要卡已足够
             if (tracksOfLanguage.length > 1) ...[
               const SizedBox(height: 10),
               _SectionCard(
-                title: '系统课程',
+                title: s.sectionCourses,
                 child: Column(
                   children: [
                     for (final track in tracksOfLanguage)
                       _CourseRow(
-                        label: track.label,
+                        label: s.trackLabel(track),
                         selected: track == selectedTrack,
                         onTap: () async {
                           await ref
@@ -150,79 +198,70 @@ class MainMenuDrawer extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 10),
+            // 专项练习按当前学习语言显示：英语 3 项，中文/梵文各 2 项
             _SectionCard(
-              title: '专项练习',
-              child: selectedTrack.language == LearningLanguage.english
-                  ? Column(
-                      children: [
-                        _MenuRow(
-                          icon: Icons.hearing_rounded,
-                          color: AppColors.blue,
-                          title: '发音练习',
-                          onTap: () =>
-                              _openRoute(context, '/practice/pronunciation'),
-                        ),
-                        _MenuRow(
-                          icon: Icons.menu_book_rounded,
-                          color: AppColors.goldDark,
-                          title: '单词练习',
-                          onTap: () =>
-                              _openRoute(context, '/practice/vocabulary'),
-                        ),
-                        _MenuRow(
-                          icon: Icons.record_voice_over_rounded,
-                          color: AppColors.green,
-                          title: '口语练习',
-                          onTap: () =>
-                              _openRoute(context, '/practice/speaking'),
-                        ),
-                      ],
-                    )
-                  : const _DisabledRow(
-                      title: '专项练习筹备中',
-                      subtitle: '当前语言完成系统课程后逐步开放',
+              title: s.sectionPractice,
+              child: Column(
+                children: [
+                  for (final skill in SkillPracticeKind.forLanguage(
+                    selectedTrack.language,
+                  ))
+                    _MenuRow(
+                      icon: skill.icon,
+                      color: skill.accent,
+                      title: s.skillTitle(skill),
+                      onTap: () => _openRoute(context, '/practice/${skill.name}'),
                     ),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             _SectionCard(
-              title: '更多',
+              title: s.sectionMore,
               child: Column(
                 children: [
                   _MenuRow(
                     icon: Icons.history_rounded,
                     color: AppColors.blue,
-                    title: '复习与学习记录',
+                    title: s.reviewRecords,
                     onTap: () => _openRoute(context, '/review'),
+                  ),
+                  _MenuRow(
+                    icon: Icons.translate_rounded,
+                    color: AppColors.greenDark,
+                    title: s.uiLanguageRowTitle,
+                    subtitle: _uiLanguageSubtitle(ref, s),
+                    onTap: () => _showUiLanguageDialog(context, ref, s),
                   ),
                   _MenuRow(
                     icon: Icons.dns_outlined,
                     color: AppColors.blue,
-                    title: '服务地址',
+                    title: s.serverUrl,
                     subtitle: ref.watch(apiBaseUrlProvider),
                     onTap: () => showApiBaseUrlDialog(context),
                   ),
                   _MenuRow(
                     icon: Icons.sync_alt_rounded,
                     color: AppColors.blueDark,
-                    title: '备份 / 恢复',
+                    title: s.backupRestore,
                     onTap: onBackupRestore,
                   ),
                   _MenuRow(
                     icon: Icons.feedback_outlined,
                     color: AppColors.textSecondary,
-                    title: '反馈问题',
+                    title: s.feedbackRow,
                     onTap: onFeedback,
                   ),
                   _MenuRow(
                     icon: Icons.info_outline_rounded,
                     color: AppColors.textSecondary,
-                    title: '关于',
+                    title: s.about,
                     onTap: onAbout,
                   ),
                   _MenuRow(
                     icon: Icons.logout_rounded,
                     color: AppColors.red,
-                    title: '退出登录 / 切换账号',
+                    title: s.logoutSwitch,
                     titleColor: AppColors.red,
                     showChevron: false,
                     onTap: onLogout,
@@ -304,8 +343,9 @@ class _AccountCard extends StatelessWidget {
     required this.isGuest,
     required this.isOnline,
     required this.userKey,
+    required this.s,
     required this.onLogin,
-    required this.onOpen,
+    this.onOpen,
   });
 
   final String displayName;
@@ -313,16 +353,17 @@ class _AccountCard extends StatelessWidget {
   final bool isGuest;
   final bool isOnline;
   final String? userKey;
+  final S s;
   final VoidCallback onLogin;
   final VoidCallback? onOpen;
 
   @override
   Widget build(BuildContext context) {
     final (chipLabel, chipColor) = isGuest
-        ? ('游客模式', AppColors.textSecondary)
+        ? (s.chipGuest, AppColors.textSecondary)
         : isOnline
-        ? ('在线账号', AppColors.blue)
-        : ('本地账号', AppColors.goldDark);
+            ? (s.chipOnline, AppColors.blue)
+            : (s.chipLocal, AppColors.goldDark);
     final card = _Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -390,7 +431,7 @@ class _AccountCard extends StatelessWidget {
             const SizedBox(height: 10),
             _LinkRow(
               icon: Icons.login_rounded,
-              text: '注册 / 登录保存进度',
+              text: s.registerLoginCta,
               color: AppColors.greenDark,
               onTap: onLogin,
             ),
@@ -398,7 +439,7 @@ class _AccountCard extends StatelessWidget {
             const SizedBox(height: 10),
             _LinkRow(
               icon: Icons.cloud_upload_outlined,
-              text: '绑定在线账号，多设备同步',
+              text: s.bindOnlineCta,
               color: AppColors.blue,
               onTap: () => showBindOnlineSheet(context),
             ),
@@ -546,12 +587,16 @@ class _CurrentCourseCard extends StatelessWidget {
     required this.title,
     required this.completed,
     required this.total,
+    required this.switchLabel,
+    required this.completedText,
     required this.onTap,
   });
 
   final String title;
   final int completed;
   final int total;
+  final String switchLabel;
+  final String completedText;
   final VoidCallback onTap;
 
   @override
@@ -594,17 +639,17 @@ class _CurrentCourseCard extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Text(
-                          '切换',
-                          style: TextStyle(
+                          switchLabel,
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
                             color: AppColors.greenDark,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.chevron_right_rounded,
                           size: 16,
                           color: AppColors.greenDark,
@@ -626,7 +671,7 @@ class _CurrentCourseCard extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                '已通关 $completed/$total',
+                completedText,
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -760,61 +805,6 @@ class _MenuRow extends StatelessWidget {
   }
 }
 
-/// 不可用说明行（专项练习筹备中）
-class _DisabledRow extends StatelessWidget {
-  const _DisabledRow({required this.title, required this.subtitle});
-
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.locked.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(
-              Icons.construction_rounded,
-              size: 19,
-              color: AppColors.lockedDark,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 /// 在线账号的同步状态行：同步中 / 上次同步时间 / 同步失败
 class _SyncStatusLine extends ConsumerWidget {
   const _SyncStatusLine({required this.userKey});
@@ -823,16 +813,17 @@ class _SyncStatusLine extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
     final status = ref.watch(syncStatusProvider);
     final lastSyncAt = ref.watch(settingsStoreProvider).lastSyncAt(userKey);
     final (text, color) = switch (status) {
-      SyncStatus.syncing => ('同步中…', AppColors.textSecondary),
-      SyncStatus.failed => ('同步失败，稍后再试', AppColors.textSecondary),
+      SyncStatus.syncing => (s.syncNow, AppColors.textSecondary),
+      SyncStatus.failed => (s.syncFailed, AppColors.textSecondary),
       _ when lastSyncAt != null => (
-        '上次同步 ${_format(lastSyncAt)}',
+        s.syncLastAt(_format(lastSyncAt)),
         AppColors.textSecondary,
       ),
-      _ => ('等待首次同步', AppColors.textSecondary),
+      _ => (s.syncWaiting, AppColors.textSecondary),
     };
     return Row(
       children: [

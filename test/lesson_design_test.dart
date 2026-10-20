@@ -7,6 +7,8 @@ import 'package:english_village/features/lesson/widgets/lesson_style.dart';
 import 'package:english_village/features/lesson/widgets/tappable_phonetic_text.dart';
 import 'package:english_village/features/lesson/widgets/translate_choice_widget.dart';
 
+import 'ui_test_overrides.dart';
+
 const exercise = Exercise(
   id: 'design',
   type: ExerciseType.translateChoice,
@@ -32,6 +34,7 @@ void main() {
     String? selected;
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [uiStringsOverride],
         child: MaterialApp(
           home: Scaffold(
             body: SingleChildScrollView(
@@ -53,6 +56,7 @@ void main() {
     expect(selected, 'Stand up, please.');
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [uiStringsOverride],
         child: MaterialApp(
           home: Scaffold(
             body: SingleChildScrollView(
@@ -80,6 +84,7 @@ void main() {
     var continued = false;
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [uiStringsOverride],
         child: MaterialApp(
           home: Scaffold(
             body: Align(

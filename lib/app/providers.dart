@@ -12,6 +12,7 @@ import '../core/services/sync_service.dart';
 import '../core/services/tts_service.dart';
 import '../data/models/course.dart';
 import '../data/models/course_track.dart';
+import '../data/models/learning_language.dart';
 import '../data/repositories/course_repository.dart';
 import '../data/repositories/progress_repository.dart';
 import '../data/repositories/reward_repository.dart';
@@ -29,8 +30,10 @@ import '../data/sources/sync_api.dart';
 import '../data/sources/token_store.dart';
 import '../data/sources/user_store.dart';
 import 'api_base_url_controller.dart';
+import 'app_strings.dart';
 import 'auth_controller.dart';
 import 'selected_track_controller.dart';
+import 'ui_language_controller.dart';
 
 final settingsStoreProvider = Provider<SettingsStore>((ref) => SettingsStore());
 
@@ -50,6 +53,24 @@ final apiBaseUrlProvider = StateNotifierProvider<ApiBaseUrlController, String>((
 ) {
   return ApiBaseUrlController(ref.watch(settingsStoreProvider));
 });
+
+/// 界面语言覆盖（null = 自动跟随课程解释语言）
+final uiLanguageOverrideProvider =
+    StateNotifierProvider<UiLanguageController, UiLanguage?>((ref) {
+      return UiLanguageController(ref.watch(settingsStoreProvider));
+    });
+
+/// 实际生效的界面语言：覆盖优先；自动时中文课程用英文界面，其余用中文界面
+final uiLanguageProvider = Provider<UiLanguage>((ref) {
+  final override = ref.watch(uiLanguageOverrideProvider);
+  if (override != null) return override;
+  return ref.watch(selectedTrackProvider).language == LearningLanguage.chinese
+      ? UiLanguage.english
+      : UiLanguage.chinese;
+});
+
+/// 界面字符串表
+final stringsProvider = Provider<S>((ref) => S(ref.watch(uiLanguageProvider)));
 
 /// 在线账号 API 客户端（每次请求读取当前服务地址）
 final cloudAuthApiProvider = Provider<CloudAuthApi>((ref) {

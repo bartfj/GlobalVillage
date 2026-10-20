@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
+import 'ui_test_overrides.dart';
+
 const _sentence = 'Could I speak to the pharmacist?';
 
 const _exercise = Exercise(
@@ -47,7 +49,10 @@ void main() {
   }) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [phoneticLookupProvider.overrideWith((ref) => service)],
+        overrides: [
+          phoneticLookupProvider.overrideWith((ref) => service),
+          uiStringsOverride,
+        ],
         child: MaterialApp(
           home: Scaffold(
             body: SingleChildScrollView(

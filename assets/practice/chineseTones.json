@@ -1,0 +1,384 @@
+{
+  "skill": "chineseTones",
+  "title": "声调练习",
+  "exercises": [
+    {
+      "id": "zht01",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 妈 (mother)",
+      "sentence": "mā",
+      "options": [
+        "mā",
+        "má",
+        "mǎ",
+        "mà"
+      ],
+      "answer": "mā",
+      "language": "chinese"
+    },
+    {
+      "id": "zht02",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 麻 (hemp)",
+      "sentence": "má",
+      "options": [
+        "má",
+        "mǎ",
+        "mà",
+        "mā"
+      ],
+      "answer": "má",
+      "language": "chinese"
+    },
+    {
+      "id": "zht03",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 马 (horse)",
+      "sentence": "mǎ",
+      "options": [
+        "mǎ",
+        "mà",
+        "mā",
+        "má"
+      ],
+      "answer": "mǎ",
+      "language": "chinese"
+    },
+    {
+      "id": "zht04",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 骂 (to scold)",
+      "sentence": "mà",
+      "options": [
+        "mà",
+        "mā",
+        "má",
+        "mǎ"
+      ],
+      "answer": "mà",
+      "language": "chinese"
+    },
+    {
+      "id": "zht05",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 你 (you)",
+      "sentence": "nǐ",
+      "options": [
+        "nī",
+        "ní",
+        "nǐ",
+        "nì"
+      ],
+      "answer": "nǐ",
+      "language": "chinese"
+    },
+    {
+      "id": "zht06",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 好 (good)",
+      "sentence": "hǎo",
+      "options": [
+        "háo",
+        "hǎo",
+        "hào",
+        "hāo"
+      ],
+      "answer": "hǎo",
+      "language": "chinese"
+    },
+    {
+      "id": "zht07",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 我 (I; me)",
+      "sentence": "wǒ",
+      "options": [
+        "wǒ",
+        "wò",
+        "wō",
+        "wó"
+      ],
+      "answer": "wǒ",
+      "language": "chinese"
+    },
+    {
+      "id": "zht08",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 他 (he)",
+      "sentence": "tā",
+      "options": [
+        "tà",
+        "tā",
+        "tá",
+        "tǎ"
+      ],
+      "answer": "tā",
+      "language": "chinese"
+    },
+    {
+      "id": "zht09",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 是 (to be)",
+      "sentence": "shì",
+      "options": [
+        "shī",
+        "shí",
+        "shǐ",
+        "shì"
+      ],
+      "answer": "shì",
+      "language": "chinese"
+    },
+    {
+      "id": "zht10",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 叫 (to be called)",
+      "sentence": "jiào",
+      "options": [
+        "jiáo",
+        "jiǎo",
+        "jiào",
+        "jiāo"
+      ],
+      "answer": "jiào",
+      "language": "chinese"
+    },
+    {
+      "id": "zht11",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 老 (old)",
+      "sentence": "lǎo",
+      "options": [
+        "lǎo",
+        "lào",
+        "lāo",
+        "láo"
+      ],
+      "answer": "lǎo",
+      "language": "chinese"
+    },
+    {
+      "id": "zht12",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 学 (to study)",
+      "sentence": "xué",
+      "options": [
+        "xuè",
+        "xuē",
+        "xué",
+        "xuě"
+      ],
+      "answer": "xué",
+      "language": "chinese"
+    },
+    {
+      "id": "zht13",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 一 (one)",
+      "sentence": "yī",
+      "options": [
+        "yī",
+        "yí",
+        "yǐ",
+        "yì"
+      ],
+      "answer": "yī",
+      "language": "chinese"
+    },
+    {
+      "id": "zht14",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 二 (two)",
+      "sentence": "èr",
+      "options": [
+        "ér",
+        "ěr",
+        "èr",
+        "ēr"
+      ],
+      "answer": "èr",
+      "language": "chinese"
+    },
+    {
+      "id": "zht15",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 三 (three)",
+      "sentence": "sān",
+      "options": [
+        "sǎn",
+        "sàn",
+        "sān",
+        "sán"
+      ],
+      "answer": "sān",
+      "language": "chinese"
+    },
+    {
+      "id": "zht16",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 四 (four)",
+      "sentence": "sì",
+      "options": [
+        "sì",
+        "sī",
+        "sí",
+        "sǐ"
+      ],
+      "answer": "sì",
+      "language": "chinese"
+    },
+    {
+      "id": "zht17",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 五 (five)",
+      "sentence": "wǔ",
+      "options": [
+        "wū",
+        "wú",
+        "wǔ",
+        "wù"
+      ],
+      "answer": "wǔ",
+      "language": "chinese"
+    },
+    {
+      "id": "zht18",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 个 ((measure word))",
+      "sentence": "gè",
+      "options": [
+        "gé",
+        "gě",
+        "gè",
+        "gē"
+      ],
+      "answer": "gè",
+      "language": "chinese"
+    },
+    {
+      "id": "zht19",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 人 (person)",
+      "sentence": "rén",
+      "options": [
+        "rěn",
+        "rèn",
+        "rēn",
+        "rén"
+      ],
+      "answer": "rén",
+      "language": "chinese"
+    },
+    {
+      "id": "zht20",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 书 (book)",
+      "sentence": "shū",
+      "options": [
+        "shù",
+        "shū",
+        "shú",
+        "shǔ"
+      ],
+      "answer": "shū",
+      "language": "chinese"
+    },
+    {
+      "id": "zht21",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 茶 (tea)",
+      "sentence": "chá",
+      "options": [
+        "chā",
+        "chá",
+        "chǎ",
+        "chà"
+      ],
+      "answer": "chá",
+      "language": "chinese"
+    },
+    {
+      "id": "zht22",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 喝 (to drink)",
+      "sentence": "hē",
+      "options": [
+        "hé",
+        "hě",
+        "hè",
+        "hē"
+      ],
+      "answer": "hē",
+      "language": "chinese"
+    },
+    {
+      "id": "zht23",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 想 (to want; to think)",
+      "sentence": "xiǎng",
+      "options": [
+        "xiǎng",
+        "xiàng",
+        "xiāng",
+        "xiáng"
+      ],
+      "answer": "xiǎng",
+      "language": "chinese"
+    },
+    {
+      "id": "zht24",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 要 (to want; to order)",
+      "sentence": "yào",
+      "options": [
+        "yào",
+        "yāo",
+        "yáo",
+        "yǎo"
+      ],
+      "answer": "yào",
+      "language": "chinese"
+    },
+    {
+      "id": "zht25",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 米 (rice)",
+      "sentence": "mǐ",
+      "options": [
+        "mī",
+        "mí",
+        "mǐ",
+        "mì"
+      ],
+      "answer": "mǐ",
+      "language": "chinese"
+    },
+    {
+      "id": "zht26",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 饭 (meal; cooked rice)",
+      "sentence": "fàn",
+      "options": [
+        "fán",
+        "fǎn",
+        "fàn",
+        "fān"
+      ],
+      "answer": "fàn",
+      "language": "chinese"
+    },
+    {
+      "id": "zht27",
+      "type": "translateChoice",
+      "prompt": "Choose the correct pinyin for 吃 (to eat)",
+      "sentence": "chī",
+      "options": [
+        "chǐ",
+        "chì",
+        "chī",
+        "chí"
+      ],
+      "answer": "chī",
+      "language": "chinese"
+    }
+  ]
+}

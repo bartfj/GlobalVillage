@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/providers.dart';
 import '../../../data/models/course.dart';
 import '../../../data/models/learning_language.dart';
 
-class LanguageExerciseWidget extends StatefulWidget {
+class LanguageExerciseWidget extends ConsumerStatefulWidget {
   const LanguageExerciseWidget({
     super.key,
     required this.exercise,
@@ -21,10 +23,12 @@ class LanguageExerciseWidget extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   @override
-  State<LanguageExerciseWidget> createState() => _LanguageExerciseWidgetState();
+  ConsumerState<LanguageExerciseWidget> createState() =>
+      _LanguageExerciseWidgetState();
 }
 
-class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
+class _LanguageExerciseWidgetState
+    extends ConsumerState<LanguageExerciseWidget> {
   final _input = TextEditingController();
   late final List<int> _bank;
   final _selected = <int>[];
@@ -96,6 +100,7 @@ class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final s = ref.watch(stringsProvider);
     final ex = widget.exercise;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -171,11 +176,11 @@ class _LanguageExerciseWidgetState extends State<LanguageExerciseWidget> {
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: ex.language == LearningLanguage.chinese
-                  ? '汉字 / 拼音'
-                  : 'IAST / 天城体',
+                  ? s.scriptLabelsHanzi
+                  : s.scriptLabelsIast,
               helperText: ex.language == LearningLanguage.chinese
-                  ? '拼音可用数字声调：ma4 = mà，lv = lü'
-                  : '也可用键盘打法：aa = ā，R = ṛ，T = ṭ，H = ḥ',
+                  ? s.pinyinKeyboardHint
+                  : s.iastKeyboardHint,
             ),
             onChanged: widget.onChanged,
           ),

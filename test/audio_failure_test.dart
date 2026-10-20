@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'ui_test_overrides.dart';
+
 class UnavailableVoice implements TtsService {
   @override
   Future<bool> speakExercise(Exercise exercise) async => false;
@@ -35,6 +37,7 @@ void main() {
           ProviderScope(
             overrides: [
               ttsServiceProvider.overrideWithValue(UnavailableVoice()),
+              uiStringsOverride,
             ],
             child: MaterialApp(
               home: Scaffold(

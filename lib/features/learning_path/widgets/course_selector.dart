@@ -7,6 +7,7 @@ import '../../../data/models/learning_language.dart';
 Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
   var busy = false;
   String? error;
+  final s = ref.read(stringsProvider);
 
   Future<void> commit(
     LearningLanguage language,
@@ -34,7 +35,7 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
       if (sheetContext.mounted) {
         setState(() {
           busy = false;
-          error = '课程切换失败，请重试。';
+          error = s.courseSwitchFailed;
         });
       }
     }
@@ -54,9 +55,12 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  '学习语言',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                Text(
+                  s.chooseLanguageTitle,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 for (final value in LearningLanguage.values)
@@ -65,7 +69,7 @@ Future<void> showCourseSelector(BuildContext context, WidgetRef ref) async {
                       final current =
                           ref.read(selectedTrackProvider).language == value;
                       return ListTile(
-                        title: Text(value.label),
+                        title: Text(s.languageLabel(value)),
                         selected: current,
                         leading: Icon(
                           current
