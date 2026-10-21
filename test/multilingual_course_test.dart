@@ -3,11 +3,15 @@ import 'dart:io';
 import 'package:english_village/app/app_strings.dart';
 import 'package:english_village/app/auth_controller.dart';
 import 'package:english_village/app/providers.dart';
+import 'package:english_village/core/services/tts_service.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/learning_language.dart';
+import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/sources/course_loader.dart';
+import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/settings_store.dart';
+import 'package:english_village/features/learning_path/learning_path_page.dart';
 import 'package:english_village/features/learning_path/widgets/course_selector.dart';
 import 'package:english_village/features/lesson/widgets/exercise_widget_builder.dart';
 import 'package:english_village/features/lesson/widgets/lesson_study_card.dart';
@@ -18,6 +22,8 @@ import 'package:hive/hive.dart';
 
 import '../tool/generate_language_courses.dart';
 import 'ui_test_overrides.dart';
+
+final _hanzi = RegExp(r'[\u4e00-\u9fff]');
 
 class LanguageTestAuth extends StateNotifier<AuthState>
     implements AuthController {
@@ -60,11 +66,60 @@ class MemoryLanguageSettings extends SettingsStore {
   }
 }
 
+class CompletedIds implements ProgressStore {
+  CompletedIds(this.ids);
+  final Set<String> ids;
+
+  @override
+  LessonProgress? get(String lessonId) => ids.contains(lessonId)
+      ? LessonProgress(
+          lessonId: lessonId,
+          completed: true,
+          score: 100,
+          correctCount: 9,
+          totalCount: 9,
+          completedAt: DateTime(2026),
+        )
+      : null;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+/// 记录发音请求，避免测试触发真实平台 TTS。
+class RecordingTts implements TtsService {
+  RecordingTts({this.result = true});
+
+  bool result;
+  final exercises = <Exercise>[];
+  final spoken = <String>[];
+  final languages = <LearningLanguage>[];
+
+  @override
+  Future<bool> speakExercise(Exercise exercise) async {
+    exercises.add(exercise);
+    return result;
+  }
+
+  @override
+  Future<bool> speak(
+    String text, {
+    LearningLanguage language = LearningLanguage.english,
+  }) async {
+    spoken.add(text);
+    languages.add(language);
+    return result;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test(
-    'language courses have explicit tokens, strict answers and no audio tasks',
+    'language courses keep strict answers; only Chinese starter uses audio',
     () async {
       const expected = {
         CourseTrack.chineseZero: (units: 1, lessons: 4),
@@ -79,8 +134,19 @@ void main() {
         expect(course.units.length, entry.value.units);
         for (final lesson in course.orderedLessons) {
           expect(lesson.exercises.length, 9);
+          var listening = 0;
           for (final e in lesson.exercises) {
             expect(e.language, track.language);
+            if (e.type == ExerciseType.listeningChoice) {
+              listening++;
+              expect(track, CourseTrack.chineseZero);
+              // support 存汉字供 TTS 朗读，选项仍是带声调拼音。
+              expect(e.support, isNotNull);
+              expect(_hanzi.hasMatch(e.support!), isTrue);
+              expect(e.options.toSet().length, 4);
+              expect(e.options, contains(e.answer));
+              continue;
+            }
             expect(
               e.type,
               anyOf(
@@ -97,6 +163,12 @@ void main() {
               expect(e.options.toSet().length, 4);
               expect(e.options, contains(e.answer));
             }
+          }
+          final expectedListening = track == CourseTrack.chineseZero ? 1 : 0;
+          expect(listening, expectedListening);
+          if (expectedListening == 1) {
+            // 听辨固定为每课第 2 题，学习卡之后先听音再辨调。
+            expect(lesson.exercises[1].type, ExerciseType.listeningChoice);
           }
         }
       }
@@ -162,9 +234,9 @@ void main() {
       expect(nu.accepts('lv'), isFalse);
       final generated = generateLanguageCourses(write: false);
       for (final entry in generated.entries) {
-        final onDisk = File(entry.key)
-            .readAsStringSync()
-            .replaceAll('\r\n', '\n');
+        final onDisk = File(
+          entry.key,
+        ).readAsStringSync().replaceAll('\r\n', '\n');
         expect(onDisk, entry.value);
       }
     },
@@ -323,6 +395,54 @@ void main() {
     expect(settings.uiLanguageOverrideValue, 'chinese');
     expect(container.read(uiLanguageProvider), UiLanguage.chinese);
     expect(settings.uiLanguagePromptedValue, isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('starter completion offers the intro course', (tester) async {
+    tester.view.physicalSize = const Size(360, 780);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final zero = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chineseZero),
+    ))!;
+    final intro = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chinese),
+    ))!;
+    final settings = MemoryLanguageSettings()..track = CourseTrack.chineseZero;
+    final container = ProviderContainer(
+      overrides: [
+        authProvider.overrideWith((ref) => LanguageTestAuth()),
+        settingsStoreProvider.overrideWithValue(settings),
+        progressStoreProvider.overrideWithValue(
+          CompletedIds({for (final lesson in zero.orderedLessons) lesson.id}),
+        ),
+        allCoursesProvider.overrideWith((ref) async => [zero, intro]),
+        uiStringsOverride,
+      ],
+    );
+    addTearDown(container.dispose);
+    await tester.runAsync(() => container.read(allCoursesProvider.future));
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: LearningPathPage()),
+      ),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    expect(find.text('零基础课程已完成 · 接下来学普通话入门'), findsOneWidget);
+    expect(find.text('进入普通话入门'), findsOneWidget);
+
+    await tester.tap(find.text('进入普通话入门'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    expect(container.read(selectedTrackProvider), CourseTrack.chinese);
+    expect(settings.track, CourseTrack.chinese);
     expect(tester.takeException(), isNull);
   });
 
@@ -497,6 +617,177 @@ void main() {
     expect(find.text('向你致敬（问候，整体认读）'), findsOneWidget);
     await tester.tap(find.text('开始练习'));
     expect(started, isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
+  test('speakableText picks Chinese characters instead of pinyin', () {
+    const toneExercise = Exercise(
+      id: 'zh-tone',
+      type: ExerciseType.listeningChoice,
+      prompt: '',
+      sentence: 'má',
+      options: ['mā', 'má', 'mǎ', 'mà'],
+      answer: 'má',
+      language: LearningLanguage.chinese,
+      support: '麻',
+    );
+    expect(TtsService.speakableText(toneExercise), '麻');
+    const hanziExercise = Exercise(
+      id: 'zh-hanzi',
+      type: ExerciseType.translateChoice,
+      prompt: '',
+      sentence: '你好',
+      options: ['Hello'],
+      answer: '你好',
+      language: LearningLanguage.chinese,
+      support: 'nǐ hǎo',
+    );
+    expect(TtsService.speakableText(hanziExercise), '你好');
+    const sanskrit = Exercise(
+      id: 'sa',
+      type: ExerciseType.translateChoice,
+      prompt: '',
+      sentence: 'namaste',
+      options: ['你好'],
+      answer: 'namaste',
+      language: LearningLanguage.sanskrit,
+    );
+    // 梵文没有可靠语音，不交给 TTS。
+    expect(TtsService.speakableText(sanskrit), isNull);
+  });
+
+  testWidgets('Chinese listening exercise auto-plays and replays the tone', (
+    tester,
+  ) async {
+    final course = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chineseZero),
+    ))!;
+    final exercise = course.orderedLessons.first.exercises[1];
+    expect(exercise.type, ExerciseType.listeningChoice);
+    final tts = RecordingTts();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ttsServiceProvider.overrideWithValue(tts),
+          uiStringsOverride,
+        ],
+        child: MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: buildExerciseWidget(
+                exercise: exercise,
+                enabled: true,
+                checked: false,
+                currentAnswer: '',
+                onChanged: (_) {},
+                questionKey: const ValueKey('zh-listening'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('Listen and choose the tone you hear'), findsOneWidget);
+    expect(tts.exercises, [exercise]);
+
+    await tester.tap(find.byIcon(Icons.volume_up_rounded));
+    await tester.pump();
+    expect(tts.exercises.length, 2);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Chinese listening failure shows a localized hint', (
+    tester,
+  ) async {
+    final course = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chineseZero),
+    ))!;
+    final exercise = course.orderedLessons.first.exercises[1];
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ttsServiceProvider.overrideWithValue(RecordingTts(result: false)),
+          uiStringsOverride,
+        ],
+        child: MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: buildExerciseWidget(
+                exercise: exercise,
+                enabled: true,
+                checked: false,
+                currentAnswer: '',
+                onChanged: (_) {},
+                questionKey: const ValueKey('zh-listening-fail'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('语音播放失败，请检查系统中文语音包与媒体音量后重试。'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Chinese study card plays each item as characters', (
+    tester,
+  ) async {
+    final course = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chineseZero),
+    ))!;
+    final lesson = course.orderedLessons.first;
+    final tts = RecordingTts();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ttsServiceProvider.overrideWithValue(tts),
+          uiStringsOverride,
+        ],
+        child: MaterialApp(
+          home: LessonStudyCard(lesson: lesson, onStart: () {}),
+        ),
+      ),
+    );
+
+    final buttons = find.byIcon(Icons.volume_up_rounded);
+    expect(buttons, findsNWidgets(4));
+
+    await tester.tap(buttons.first);
+    await tester.pump();
+    expect(tts.spoken, ['妈']);
+    expect(tts.languages, [LearningLanguage.chinese]);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Chinese study card reports failed playback', (tester) async {
+    final course = (await tester.runAsync(
+      () => CourseLoader().load(CourseTrack.chineseZero),
+    ))!;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ttsServiceProvider.overrideWithValue(RecordingTts(result: false)),
+          uiStringsOverride,
+        ],
+        child: MaterialApp(
+          home: LessonStudyCard(
+            lesson: course.orderedLessons.first,
+            onStart: () {},
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.byIcon(Icons.volume_up_rounded).first);
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('语音播放失败，请检查系统中文语音包与媒体音量后重试。'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

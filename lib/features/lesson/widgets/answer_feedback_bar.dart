@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/providers.dart';
 import '../../../core/services/phonetic_lookup_service.dart';
+import '../../../data/models/learning_language.dart';
 import 'lesson_style.dart';
 import 'tappable_phonetic_text.dart';
 
@@ -12,6 +13,7 @@ class AnswerFeedbackBar extends ConsumerWidget {
   final bool skipped;
   final String correctAnswer;
   final VoidCallback onContinue;
+  final LearningLanguage language;
 
   const AnswerFeedbackBar({
     super.key,
@@ -19,6 +21,7 @@ class AnswerFeedbackBar extends ConsumerWidget {
     required this.correctAnswer,
     required this.onContinue,
     this.skipped = false,
+    this.language = LearningLanguage.english,
   });
 
   @override
@@ -84,7 +87,11 @@ class AnswerFeedbackBar extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      _AnswerLine(text: correctAnswer, color: fg),
+                      _AnswerLine(
+                        text: correctAnswer,
+                        color: fg,
+                        language: language,
+                      ),
                     ],
                   ),
                 ),
@@ -106,8 +113,13 @@ class AnswerFeedbackBar extends ConsumerWidget {
 class _AnswerLine extends StatelessWidget {
   final String text;
   final Color color;
+  final LearningLanguage language;
 
-  const _AnswerLine({required this.text, required this.color});
+  const _AnswerLine({
+    required this.text,
+    required this.color,
+    required this.language,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +128,9 @@ class _AnswerLine extends StatelessWidget {
       fontWeight: FontWeight.w600,
       color: color,
     );
-    if (!PhoneticLookupService.looksEnglish(text)) {
+    // 音标气泡只对英文有意义，中文拼音/梵文转写不查词。
+    if (language != LearningLanguage.english ||
+        !PhoneticLookupService.looksEnglish(text)) {
       return Text(text, style: style);
     }
 

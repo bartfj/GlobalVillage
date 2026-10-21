@@ -511,6 +511,22 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
     await sync.pullMergePush();
   }
 
+  Future<void> _startNextCourse(WidgetRef ref, CourseTrack next) async {
+    try {
+      // 学习路径已基于全部课程渲染，这里直接用已加载结果。
+      final courses = ref.read(allCoursesProvider).requireValue;
+      if (!courses.any((c) => c.id == next.id)) {
+        throw StateError('Missing course');
+      }
+      await ref.read(selectedTrackProvider.notifier).select(next);
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(ref.read(stringsProvider).courseSwitchFailed)),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // 进度变化时自动刷新路径
@@ -534,6 +550,10 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
         .where((l) => progress.isLessonCompleted(l.id))
         .length;
     final current = progress.currentLesson;
+    // 零基础全部完成后直接引导进入同语言的入门课程。
+    final nextTrack = current == null
+        ? CourseTrack.fromId(course.id).nextTrack
+        : null;
     final target =
         current ??
         (course.orderedLessons.isEmpty ? null : course.orderedLessons.last);
@@ -580,7 +600,10 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             children: [
               Expanded(
                 child: Text(
-                  '${course.language.shortLabel} · ${s.trackLabel(CourseTrack.fromId(course.id))}',
+                  s.courseTitle(
+                    course.language.shortLabel,
+                    s.trackLabel(CourseTrack.fromId(course.id)),
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -700,15 +723,17 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             children: [
               Expanded(
                 child: Text(
-                  current == null
-                      ? s.pathAllDone
-                      : s.lessonOrdinal(
+                  current != null
+                      ? s.lessonOrdinal(
                           course.orderedLessons.indexWhere(
                                 (l) => l.id == current.id,
                               ) +
                               1,
                           current.title,
-                        ),
+                        )
+                      : nextTrack != null
+                      ? s.starterDoneNext(s.trackLabel(nextTrack))
+                      : s.pathAllDone,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w700),
@@ -716,14 +741,22 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
               ),
               const SizedBox(width: 12),
               FilledButton.icon(
-                onPressed: () => context.push(
-                  current == null ? '/review' : '/lesson/${current.id}',
-                ),
+                onPressed: current != null
+                    ? () => context.push('/lesson/${current.id}')
+                    : nextTrack != null
+                    ? () => _startNextCourse(ref, nextTrack)
+                    : () => context.push('/review'),
                 icon: Icon(
-                  current == null ? Icons.refresh : Icons.arrow_forward,
+                  current == null && nextTrack == null
+                      ? Icons.refresh
+                      : Icons.arrow_forward,
                 ),
                 label: Text(
-                  current == null ? s.allCompletedReview : s.continueLearning,
+                  current != null
+                      ? s.continueLearning
+                      : nextTrack != null
+                      ? s.startNextCourse(s.trackLabel(nextTrack))
+                      : s.allCompletedReview,
                 ),
               ),
             ],

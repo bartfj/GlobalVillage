@@ -21,7 +21,11 @@ Widget buildExerciseWidget({
   required Key questionKey,
   VoidCallback? onSkipSpeaking,
 }) {
-  if (exercise.language != LearningLanguage.english) {
+  // 中文听辨题复用听力组件；其余非英语题仍走纯文字组件。
+  final spokenChinese =
+      exercise.language == LearningLanguage.chinese &&
+      exercise.type == ExerciseType.listeningChoice;
+  if (exercise.language != LearningLanguage.english && !spokenChinese) {
     return LanguageExerciseWidget(
       key: questionKey,
       exercise: exercise,

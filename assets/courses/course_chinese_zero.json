@@ -32,9 +32,9 @@
             },
             {
               "id": "zh_u1l1e2",
-              "type": "translateChoice",
+              "type": "listeningChoice",
               "language": "chinese",
-              "prompt": "Choose: hemp (pinyin, second tone)",
+              "prompt": "Listen and choose the tone you hear",
               "sentence": "má",
               "answer": "má",
               "options": [
@@ -167,9 +167,9 @@
             },
             {
               "id": "zh_u1l2e2",
-              "type": "translateChoice",
+              "type": "listeningChoice",
               "language": "chinese",
-              "prompt": "Choose: pull out (pinyin, second tone)",
+              "prompt": "Listen and choose the tone you hear",
               "sentence": "bá",
               "answer": "bá",
               "options": [
@@ -302,9 +302,9 @@
             },
             {
               "id": "zh_u1l3e2",
-              "type": "translateChoice",
+              "type": "listeningChoice",
               "language": "chinese",
-              "prompt": "Choose: horse (pinyin, third tone)",
+              "prompt": "Listen and choose the tone you hear",
               "sentence": "mǎ",
               "answer": "mǎ",
               "options": [
@@ -437,9 +437,9 @@
             },
             {
               "id": "zh_u1l4e2",
-              "type": "translateChoice",
+              "type": "listeningChoice",
               "language": "chinese",
-              "prompt": "Choose: scold (pinyin, fourth tone)",
+              "prompt": "Listen and choose the tone you hear",
               "sentence": "mà",
               "answer": "mà",
               "options": [

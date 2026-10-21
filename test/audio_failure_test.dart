@@ -58,7 +58,7 @@ void main() {
           ),
         );
         await tester.pump();
-        expect(find.text('语音播放失败，请安装英语语音数据，并检查媒体音量后重试。'), findsOneWidget);
+        expect(find.text('语音播放失败，请检查系统英文语音包与媒体音量后重试。'), findsOneWidget);
         expect(find.text(exercise.sentence), findsNothing);
         expect(tester.takeException(), isNull);
       },

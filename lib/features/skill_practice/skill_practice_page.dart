@@ -461,6 +461,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                       ? MatchPair.formatForDisplay(exercise.answer)
                       : exercise.answer,
                   onContinue: _onContinue,
+                  language: exercise.language,
                 )
               else
                 Container(

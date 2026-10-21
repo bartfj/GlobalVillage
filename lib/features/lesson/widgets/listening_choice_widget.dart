@@ -40,9 +40,10 @@ class _ListeningChoiceWidgetState extends ConsumerState<ListeningChoiceWidget> {
         .read(ttsServiceProvider)
         .speakExercise(widget.exercise);
     if (!mounted || ok) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('语音播放失败，请安装英语语音数据，并检查媒体音量后重试。')));
+    final s = ref.read(stringsProvider);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(s.audioPlaybackFailed(widget.exercise.language))),
+    );
   }
 
   @override

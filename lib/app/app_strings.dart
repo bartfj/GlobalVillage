@@ -81,6 +81,10 @@ class S {
     }
   }
 
+  /// 当前课程标题；课程名已含语言名时不再重复（梵文 · 梵文入门 → 梵文）。
+  String courseTitle(String language, String track) =>
+      track.startsWith(language) ? language : '$language · $track';
+
   String trackLabel(CourseTrack track) {
     if (!isEn) return track.label;
     switch (track) {
@@ -109,6 +113,9 @@ class S {
   String get backToCurrent => isEn ? 'Current lesson' : '回到当前课';
   String get allCompletedReview => isEn ? 'Review' : '复习';
   String get pathAllDone => isEn ? 'All done' : '全部完成';
+  String starterDoneNext(String next) =>
+      isEn ? 'Starter course complete · Next: $next' : '零基础课程已完成 · 接下来学$next';
+  String startNextCourse(String next) => isEn ? 'Start $next' : '进入$next';
   String lessonOrdinal(int n, String title) =>
       isEn ? 'Lesson $n · $title' : '第$n节 · $title';
   String get guestBanner => isEn
@@ -127,6 +134,13 @@ class S {
   String get studyCardHint =>
       isEn ? 'Read this first, then start' : '先看本课内容，再开始练习';
   String get startPractice => isEn ? 'Start' : '开始练习';
+  String get playPronunciation => isEn ? 'Play pronunciation' : '播放发音';
+  String audioPlaybackFailed(LearningLanguage language) {
+    final name = language == LearningLanguage.chinese ? '中文' : '英文';
+    return isEn
+        ? 'Audio playback failed. Check the ${language == LearningLanguage.chinese ? 'Chinese' : 'English'} voice data and media volume, then try again.'
+        : '语音播放失败，请检查系统$name语音包与媒体音量后重试。';
+  }
 
   // ---- 题型组件 ----
   String get translatePractice => isEn ? 'Translation' : '翻译练习';

@@ -38,6 +38,13 @@ enum CourseTrack {
     CourseTrack.sanskrit => 'assets/courses/course_sanskrit.json',
   };
 
+  /// 零基础课程完成后推荐的下一级课程；其余轨道没有默认后续。
+  CourseTrack? get nextTrack => switch (this) {
+    CourseTrack.chineseZero => CourseTrack.chinese,
+    CourseTrack.sanskritZero => CourseTrack.sanskrit,
+    _ => null,
+  };
+
   static CourseTrack fromId(String? id) {
     if (id == null) return CourseTrack.beginner;
     // 兼容旧设置里的 elementary → 初级

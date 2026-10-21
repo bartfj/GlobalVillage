@@ -166,9 +166,12 @@ class MainMenuDrawer extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             _CurrentCourseCard(
-              title: s.isEn
-                  ? '${s.languageLabel(selectedTrack.language)} · ${s.trackLabel(selectedTrack)}'
-                  : '${selectedTrack.language.shortLabel} · ${selectedTrack.label}',
+              title: s.courseTitle(
+                s.isEn
+                    ? s.languageLabel(selectedTrack.language)
+                    : selectedTrack.language.shortLabel,
+                s.isEn ? s.trackLabel(selectedTrack) : selectedTrack.label,
+              ),
               completed: completed,
               total: total,
               switchLabel: s.switchCourse,

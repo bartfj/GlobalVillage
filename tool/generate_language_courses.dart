@@ -150,7 +150,8 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
     '# 中文与梵文课程台账\n\n'
     '中文、梵文各分两条系统课程：零基础课只含拼音/字母单元，入门课承接词句与使用场景。'
     '每单元8条核心语料交错复现。中文英语解释，梵文中文解释。'
-    '梵文题目要求IAST输入，天城体仅作识读支架。无听力、跟读或口语评分。'
+    '梵文题目要求IAST输入，天城体仅作识读支架。'
+    '中文零基础单元含听音辨调题（系统中文语音或内置音频）；两者均无跟读与口语评分。'
     '梵文单元间保持字母依赖：后单元天城体词只使用已教字母与元音符号，'
     '例外词（namaste）标注整体认读。'
     '语料为初稿，专业教学审校、逐句发音及真实设备字体验收待完成。\n\n',
@@ -187,12 +188,18 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
           final exercises = <Map<String, dynamic>>[];
           for (var e = 0; e < 9; e++) {
             final row = selected[e % 4];
-            final type = e < 4
+            // 中文零基础第 2 题改为听音辨调：播放汉字读音，选带声调拼音。
+            final listening = chinese && u == 0 && e == 1;
+            final type = listening
+                ? 'listeningChoice'
+                : e < 4
                 ? 'translateChoice'
                 : e < 7
                 ? 'wordBank'
                 : 'translateInput';
-            final prompt = type == 'translateChoice'
+            final prompt = listening
+                ? 'Listen and choose the tone you hear'
+                : type == 'translateChoice'
                 ? (chinese ? 'Choose: ${row[1]}' : '选择IAST：${row[1]}')
                 : (chinese
                       ? 'Write ${u == 0 ? "tone-marked pinyin" : "simplified Chinese"}: ${row[1]}'
@@ -206,12 +213,13 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
               'prompt': prompt,
               'sentence': row[0],
               'answer': row[0],
-              'options': type == 'translateChoice'
+              'options': type == 'translateChoice' || listening
                   ? [...options.skip(rotation), ...options.take(rotation)]
                   : [],
               'tokens': type == 'wordBank' ? row[3].split('|') : [],
               'tokenSeparator': chinese ? '' : ' ',
-              if (type == 'translateChoice' && (!chinese || u == 0))
+              if ((type == 'translateChoice' || listening) &&
+                  (!chinese || u == 0))
                 'support': row[2],
             });
           }
@@ -223,6 +231,7 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
             '## ${spec.id} / $id ${title[0]} · $lessonTitle\n\n'
             '- 阶段：${l < 2 ? "新授与应用" : "复现"}。\n'
             '- 输入要求：${chinese ? (u == 0 ? "带声调拼音" : "简体汉字") : "IAST，保留长短音、送气、卷舌及鼻音区别"}。\n'
+            '${chinese && u == 0 ? "- 听辨：第2题播放汉字读音，选出带声调拼音（依赖系统中文语音包，缺失时可下载音频）。\n" : ""}'
             '- 核心语料：${selected.map((r) => "${r[0]} / ${r[2]} / ${r[1]}").join("；")}\n'
             '- 审校状态：待专业复核。\n',
           );

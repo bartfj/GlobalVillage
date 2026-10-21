@@ -404,6 +404,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                       ? MatchPair.formatForDisplay(exercise.answer)
                       : exercise.answer,
                   onContinue: _onContinue,
+                  language: exercise.language,
                 )
               else
                 Container(

@@ -43,6 +43,16 @@ List<StudyItem> lessonStudyItems(Lesson lesson) {
   return items;
 }
 
+/// 朗读文本：优先取含汉字的识读支架，其次取含汉字的目标语文本。
+String? _spokenText(StudyItem item) {
+  final support = item.support;
+  if (support != null && _hanzi.hasMatch(support)) return support;
+  if (_hanzi.hasMatch(item.text)) return item.text;
+  return null;
+}
+
+final RegExp _hanzi = RegExp(r'[\u4e00-\u9fff]');
+
 /// 新文字系统课程（中文、梵文）的课前学习卡：先看本课核心内容再开始做题。
 class LessonStudyCard extends ConsumerWidget {
   const LessonStudyCard({
@@ -58,8 +68,9 @@ class LessonStudyCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final s = ref.watch(stringsProvider);
     final items = lessonStudyItems(lesson);
-    final isSanskrit =
-        lesson.exercises.first.language == LearningLanguage.sanskrit;
+    final language = lesson.exercises.first.language;
+    final isSanskrit = language == LearningLanguage.sanskrit;
+    final canPlay = language == LearningLanguage.chinese;
     final targetStyle = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
@@ -104,24 +115,52 @@ class LessonStudyCard extends ConsumerWidget {
                 separatorBuilder: (_, __) => const Divider(height: 1),
                 itemBuilder: (context, i) {
                   final item = items[i];
+                  final spoken = canPlay ? _spokenText(item) : null;
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (item.support != null) ...[
-                          Text(item.support!, style: targetStyle),
-                          const SizedBox(height: 2),
-                        ],
-                        Text(
-                          item.text,
-                          style: item.support == null ? targetStyle : null,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (item.support != null) ...[
+                                Text(item.support!, style: targetStyle),
+                                const SizedBox(height: 2),
+                              ],
+                              Text(
+                                item.text,
+                                style: item.support == null
+                                    ? targetStyle
+                                    : null,
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                item.meaning,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          item.meaning,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
+                        if (spoken != null)
+                          IconButton(
+                            onPressed: () async {
+                              final ok = await ref
+                                  .read(ttsServiceProvider)
+                                  .speak(spoken, language: language);
+                              if (!context.mounted || ok) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    s.audioPlaybackFailed(language),
+                                  ),
+                                ),
+                              );
+                            },
+                            tooltip: s.playPronunciation,
+                            icon: const Icon(Icons.volume_up_rounded),
+                          ),
                       ],
                     ),
                   );

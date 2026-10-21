@@ -10,7 +10,7 @@ import '../../data/models/learning_language.dart';
 import '../../data/sources/content_documents.dart';
 import 'diagnostic_log.dart';
 
-/// 英文发音服务：优先播放内置/网络音频，缺失时回退系统 TTS
+/// 发音服务：优先播放内置/已下载音频，缺失时回退系统 TTS（英语、中文）。
 class TtsService {
   TtsService({this.documents});
 
@@ -18,8 +18,10 @@ class TtsService {
   final FlutterTts _tts = FlutterTts();
   final AudioPlayer _player = AudioPlayer();
   static const englishLanguageCandidates = ['en-US', 'en-GB', 'en'];
+  static const chineseLanguageCandidates = ['zh-CN', 'zh-TW', 'zh'];
 
-  bool _initialized = false;
+  final Map<LearningLanguage, String> _resolvedVoices = {};
+  LearningLanguage? _activeLanguage;
   bool _playerReady = false;
 
   Future<void> _ensurePlayerReady() async {
@@ -44,36 +46,49 @@ class TtsService {
     _playerReady = true;
   }
 
-  Future<bool> _ensureInitialized() async {
-    if (_initialized) return true;
+  Future<bool> _ensureInitialized(LearningLanguage language) async {
+    // 梵文没有可靠语音，只播放本地录音。
+    if (language == LearningLanguage.sanskrit) return false;
+    if (_resolvedVoices.containsKey(language) && _activeLanguage == language) {
+      return true;
+    }
 
-    final language = await _installedEnglishLanguage();
-    if (language == null) return false;
+    final voice =
+        _resolvedVoices[language] ?? await _installedLanguage(language);
+    if (voice == null) return false;
 
-    final result = await _tts.setLanguage(language);
+    final result = await _tts.setLanguage(voice);
     if (!speakResultOk(result)) return false;
 
+    _resolvedVoices[language] = voice;
+    _activeLanguage = language;
     await _tts.setSpeechRate(0.45);
     await _tts.setVolume(1.0);
-    _initialized = true;
     return true;
   }
 
-  /// 已安装的英语语音。Android 用语音包是否落地判断，其它平台用系统是否提供该语言。
-  Future<String?> _installedEnglishLanguage() async {
-    for (final language in englishLanguageCandidates) {
-      if (await _englishVoiceReady(language)) return language;
+  /// 已安装的系统语音。Android 用语音包是否落地判断，其它平台用系统是否提供该语言。
+  Future<String?> _installedLanguage(LearningLanguage language) async {
+    for (final voice in _languageCandidates(language)) {
+      if (await _voiceReady(voice)) return voice;
     }
 
     return null;
   }
 
-  Future<bool> _englishVoiceReady(String language) async {
+  static List<String> _languageCandidates(LearningLanguage language) =>
+      switch (language) {
+        LearningLanguage.chinese => chineseLanguageCandidates,
+        LearningLanguage.english => englishLanguageCandidates,
+        LearningLanguage.sanskrit => const [],
+      };
+
+  Future<bool> _voiceReady(String voice) async {
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return await _tts.isLanguageInstalled(language) == true;
+      return await _tts.isLanguageInstalled(voice) == true;
     }
 
-    return await _tts.isLanguageAvailable(language) == true;
+    return await _tts.isLanguageAvailable(voice) == true;
   }
 
   Future<bool> _assetExists(String assetPath) async {
@@ -85,10 +100,8 @@ class TtsService {
     }
   }
 
-  /// 播放题目发音：内置 mp3 优先，缺失/失败回退系统 TTS
+  /// 播放题目发音：内置/已下载 mp3 优先，缺失时回退对应语言的系统 TTS。
   Future<bool> speakExercise(Exercise exercise) async {
-    // Non-English pilot courses have no verified audio or ASR pipeline yet.
-    if (exercise.language != LearningLanguage.english) return false;
     final relative = 'audio/listening/${exercise.id}.mp3';
     final bundlePath = 'assets/$relative';
     final cached = await documents?.audioFilePath(relative);
@@ -122,13 +135,36 @@ class TtsService {
       }
     }
 
-    return speak(exercise.sentence);
+    final spoken = speakableText(exercise);
+    if (spoken == null) return false;
+    return speak(spoken, language: exercise.language);
+  }
+
+  static final RegExp _hanzi = RegExp(r'[\u4e00-\u9fff]');
+
+  /// 供 TTS 朗读的文本。中文必须读汉字，拼音字母串会被引擎逐字母念出来。
+  static String? speakableText(Exercise exercise) {
+    switch (exercise.language) {
+      case LearningLanguage.chinese:
+        if (_hanzi.hasMatch(exercise.sentence)) return exercise.sentence;
+        final support = exercise.support;
+        if (support != null && _hanzi.hasMatch(support)) return support;
+        return null;
+      case LearningLanguage.sanskrit:
+        return null;
+      case LearningLanguage.english:
+        final sentence = exercise.sentence.trim();
+        return sentence.isEmpty ? null : sentence;
+    }
   }
 
   /// Android flutter_tts：`1` 已入队；`0` 表示 QUEUE_FLUSH 下仍标记 speaking（常见于 stop 后立刻 speak）。
   static bool speakResultOk(Object? result) => result == 1 || result == true;
 
-  Future<bool> speak(String text) async {
+  Future<bool> speak(
+    String text, {
+    LearningLanguage language = LearningLanguage.english,
+  }) async {
     if (text.trim().isEmpty) return false;
     final uttered = text.trim();
     try {
@@ -136,7 +172,7 @@ class TtsService {
       try {
         await _player.stop();
       } catch (_) {}
-      if (!await _ensureInitialized()) return false;
+      if (!await _ensureInitialized(language)) return false;
       await _tts.stop();
       await _tts.setVolume(1.0);
       var result = await _tts
