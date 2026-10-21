@@ -112,8 +112,8 @@ final syncStatusProvider = StateProvider<SyncStatus>((ref) => SyncStatus.idle);
 final Provider<SyncService?> syncServiceProvider = Provider<SyncService?>((
   ref,
 ) {
-  final auth = ref.watch(authProvider);
-  if (!auth.isOnline) return null;
+  final online = ref.watch(authProvider.select((auth) => auth.isOnline));
+  if (!online) return null;
   final service = SyncService(
     api: ref.watch(syncApiProvider),
     settings: ref.watch(settingsStoreProvider),

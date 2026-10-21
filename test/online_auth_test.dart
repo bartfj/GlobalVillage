@@ -293,10 +293,12 @@ void main() {
         confirm: 'secret6',
       );
       cloud.nextAccessToken = 'access-token-v2';
+      var syncs = 0;
       final restored = AuthController(
         UserRepository(store: store),
         cloudAuth: cloud,
         tokenStore: tokens,
+        onOnlineSessionReady: () => syncs++,
       );
       addTearDown(restored.dispose);
       // 构造函数中静默刷新，等待微任务完成
@@ -305,6 +307,7 @@ void main() {
       expect(restored.state.userKey, 'online:acc-123');
       expect(restored.state.displayName, 'ann');
       expect(restored.state.accessToken, 'access-token-v2');
+      expect(syncs, 1);
     });
   });
 

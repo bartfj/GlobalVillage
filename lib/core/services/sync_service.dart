@@ -92,6 +92,46 @@ class SyncSnapshot {
       clientUpdatedAt: (payload['clientUpdatedAt'] as num?)?.toInt() ?? 0,
     );
   }
+
+  /// 进度、奖励、轨道是否相同（不计 clientUpdatedAt）。
+  static bool sameContent(SyncSnapshot a, SyncSnapshot b) {
+    if (a.progress.length != b.progress.length) return false;
+    for (final entry in a.progress.entries) {
+      final other = b.progress[entry.key];
+      if (other == null || !_sameLesson(entry.value, other)) return false;
+    }
+    if (a.rewards.length != b.rewards.length) return false;
+    for (final entry in a.rewards.entries) {
+      if (b.rewards[entry.key] != entry.value) return false;
+    }
+    return _sameValue(a.track, b.track);
+  }
+
+  static bool _sameLesson(LessonProgress a, LessonProgress b) =>
+      a.completed == b.completed &&
+      a.score == b.score &&
+      a.correctCount == b.correctCount &&
+      a.totalCount == b.totalCount &&
+      a.completedAt?.millisecondsSinceEpoch ==
+          b.completedAt?.millisecondsSinceEpoch;
+
+  static bool _sameValue(Object? a, Object? b) {
+    if (a is Map && b is Map) {
+      if (a.length != b.length) return false;
+      for (final key in a.keys) {
+        if (!b.containsKey(key) || !_sameValue(a[key], b[key])) return false;
+      }
+      return true;
+    }
+    if (a is List && b is List) {
+      if (a.length != b.length) return false;
+      for (var i = 0; i < a.length; i++) {
+        if (!_sameValue(a[i], b[i])) return false;
+      }
+      return true;
+    }
+    return a == b;
+  }
 }
 
 /// 合并规则（docs/在线账号功能设计.md §6，确定性无弹窗）。
@@ -154,7 +194,7 @@ class SyncMerger {
   }
 }
 
-/// 进度同步：登录后 pull→merge→push；本地变更防抖上传（§9）。
+/// 进度同步：登录后 pull→merge→push；本地变更防抖上传；前台轮询拉取。
 class SyncService {
   SyncService({
     required SyncApi api,
@@ -164,13 +204,15 @@ class SyncService {
     void Function(SyncStatus status)? onStatus,
     void Function()? onMerged,
     Duration debounce = const Duration(seconds: 2),
+    Duration pollInterval = const Duration(seconds: 15),
   }) : _api = api,
        _settings = settings,
        _readAuth = readAuth,
        _refreshAccessToken = refreshAccessToken,
        _onStatus = onStatus,
        _onMerged = onMerged,
-       _debounce = debounce;
+       _debounce = debounce,
+       _pollInterval = pollInterval;
 
   final SyncApi _api;
   final SettingsStore _settings;
@@ -179,10 +221,22 @@ class SyncService {
   final void Function(SyncStatus status)? _onStatus;
   final void Function()? _onMerged;
   final Duration _debounce;
+  final Duration _pollInterval;
 
   Timer? _debounceTimer;
+  Timer? _pollTimer;
+  Future<void>? _inFlight;
+  bool _followUp = false;
+  int _changeEpoch = 0;
   bool _applyingRemote = false;
   bool _dirty = false;
+
+  bool _canSync() {
+    final auth = _readAuth();
+    return auth.isOnline &&
+        auth.userKey != null &&
+        auth.pendingImportFrom == null;
+  }
 
   /// 构建当前账号的本地快照。
   SyncSnapshot buildLocal(String userKey) => SyncSnapshot(
@@ -200,11 +254,48 @@ class SyncService {
     'installId': await _settings.ensureInstallId(),
   };
 
-  /// 登录后/恢复会话后：拉取 → 合并 → 写本地 → 上传（失败不阻断学习）。
-  Future<void> pullMergePush() async {
+  /// 登录后/恢复会话后：拉取 → 合并 → 写本地 → 必要时上传（失败不阻断学习）。
+  /// 进行中的同步会串行；本轮期间又有本地变更则结束后再跑一轮。
+  Future<void> pullMergePush() {
+    if (!_canSync()) return Future<void>.value();
+    if (_inFlight != null) {
+      _followUp = true;
+      return _inFlight!;
+    }
+    final run = _drain();
+    _inFlight = run;
+    return run;
+  }
+
+  Future<void> _drain() async {
+    try {
+      while (true) {
+        _followUp = false;
+        final epoch = _changeEpoch;
+        final ok = await _pullMergePushOnce();
+        if (!ok) return;
+        if (_changeEpoch != epoch || _followUp) continue;
+        _dirty = false;
+        return;
+      }
+    } finally {
+      _inFlight = null;
+      if (_dirty && _followUp && _canSync()) {
+        _followUp = false;
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(_debounce, () {
+          unawaited(flushUpload());
+        });
+      }
+    }
+  }
+
+  Future<bool> _pullMergePushOnce() async {
     final auth = _readAuth();
     final userKey = auth.userKey;
-    if (!auth.isOnline || userKey == null) return;
+    if (!auth.isOnline || userKey == null || auth.pendingImportFrom != null) {
+      return true;
+    }
     _onStatus?.call(SyncStatus.syncing);
     try {
       var token = auth.accessToken;
@@ -213,15 +304,16 @@ class SyncService {
         throw const CloudAuthException('登录已过期', statusCode: 401);
       }
       await _pullMergePushWithToken(userKey, token, allowRetry: true);
-      _dirty = false;
       await _settings.setLastSyncAt(
         userKey,
         DateTime.now().millisecondsSinceEpoch,
       );
       _onStatus?.call(SyncStatus.synced);
+      return true;
     } catch (error, stack) {
       recordDiagnosticError('sync', error, stack);
       _onStatus?.call(SyncStatus.failed);
+      return false;
     }
   }
 
@@ -257,7 +349,10 @@ class SyncService {
     }
     final remoteSnapshot = SyncSnapshot.fromPayload(remote.payload);
     final merged = SyncMerger.merge(local, remoteSnapshot);
-    await _writeLocal(userKey, merged);
+    if (!SyncSnapshot.sameContent(merged, local)) {
+      await _writeLocal(userKey, merged);
+    }
+    if (SyncSnapshot.sameContent(merged, remoteSnapshot)) return;
     try {
       await _api.push(
         token,
@@ -300,20 +395,46 @@ class SyncService {
     _onMerged?.call();
   }
 
-  /// 本地进度/奖励/轨道变更后调用（防抖上传；在线会话才生效）。
+  /// 本地进度/奖励/轨道变更后调用（防抖上传；在线且无待导入时才生效）。
   void scheduleUpload() {
     if (_applyingRemote) return;
-    if (!(_readAuth().isOnline)) return;
+    if (!_canSync()) return;
     _dirty = true;
+    _changeEpoch++;
+    if (_inFlight != null) {
+      _followUp = true;
+      return;
+    }
     _debounceTimer?.cancel();
-    _debounceTimer = Timer(_debounce, flushUpload);
+    _debounceTimer = Timer(_debounce, () {
+      unawaited(flushUpload());
+    });
   }
 
-  /// 立即上传（App 回前台/退出时调用）。
+  /// 立即上传尚未发出的本地变更。
   Future<void> flushUpload() async {
     _debounceTimer?.cancel();
     if (!_dirty) return;
     await pullMergePush();
+  }
+
+  /// 前台：立刻拉一次，之后按间隔拉取。重复调用会重新计时并再拉一次。
+  void startForegroundSync() {
+    _pollTimer?.cancel();
+    _pollTimer = null;
+    if (!_canSync()) return;
+    _pollTimer = Timer.periodic(_pollInterval, (_) {
+      if (!_canSync()) return;
+      unawaited(pullMergePush());
+    });
+    unawaited(pullMergePush());
+  }
+
+  /// 离开前台：停止轮询。[flushPending] 为真时立刻上传未发出的本地变更。
+  void stopForegroundSync({bool flushPending = true}) {
+    _pollTimer?.cancel();
+    _pollTimer = null;
+    if (flushPending) unawaited(flushUpload());
   }
 
   /// 槽位复制（绑定升级/游客导入）：progress + rewards + track，保留源槽位。
@@ -343,5 +464,8 @@ class SyncService {
       ProgressStore(userKey: userKey).entries.isNotEmpty ||
       RewardStore(userKey: userKey).attempts.isNotEmpty;
 
-  void dispose() => _debounceTimer?.cancel();
+  void dispose() {
+    _debounceTimer?.cancel();
+    _pollTimer?.cancel();
+  }
 }

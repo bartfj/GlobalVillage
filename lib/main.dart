@@ -67,18 +67,58 @@ class EnglishVillageApp extends ConsumerStatefulWidget {
   ConsumerState<EnglishVillageApp> createState() => _EnglishVillageAppState();
 }
 
-class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp> {
+class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       unawaited(ref.read(diagnosticUploaderProvider).flush());
+      _alignForegroundSync();
     });
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _alignForegroundSync(state);
+  }
+
+  /// 前台立刻拉取并开始轮询；离开前台停止并上传未发出的变更。
+  /// 下拉通知栏（inactive）不打断。待导入确认前不拉取。
+  void _alignForegroundSync([AppLifecycleState? state]) {
+    final lifecycle = state ?? WidgetsBinding.instance.lifecycleState;
+    final sync = ref.read(syncServiceProvider);
+    final pending = ref.read(authProvider).pendingImportFrom;
+    if (sync == null || pending != null) {
+      sync?.stopForegroundSync(flushPending: false);
+      return;
+    }
+    if (lifecycle == AppLifecycleState.inactive) return;
+    if (lifecycle == AppLifecycleState.paused ||
+        lifecycle == AppLifecycleState.hidden ||
+        lifecycle == AppLifecycleState.detached) {
+      sync.stopForegroundSync();
+      return;
+    }
+    sync.startForegroundSync();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ref.listen(
+      authProvider.select(
+        (auth) => (online: auth.isOnline, pending: auth.pendingImportFrom),
+      ),
+      (_, _) => _alignForegroundSync(),
+    );
     final courses = ref.watch(allCoursesProvider);
     return courses.when(
       loading: () => const MaterialApp(

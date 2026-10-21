@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:english_village/app/auth_controller.dart';
@@ -43,10 +44,13 @@ class _FakeSyncApi extends SyncApi {
   int? pushedBase;
   int pullCalls = 0;
   int pushCalls = 0;
+  Future<void> Function()? onPull;
 
   @override
   Future<RemoteSnapshot?> pull(String accessToken) async {
     pullCalls++;
+    final hook = onPull;
+    if (hook != null) await hook();
     return remote;
   }
 
@@ -264,6 +268,118 @@ void main() {
       final pushed = SyncSnapshot.fromPayload(api.pushedPayload!);
       expect(pushed.progress.keys, containsAll(['l1', 'l2']));
       expect(pushed.rewards.keys, containsAll(['a1', 'a2']));
+    });
+
+    test('内容与云端一致时不上传也不刷新界面', () async {
+      await ProgressStore(userKey: userKey).save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      var merges = 0;
+      final watching = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+        onMerged: () => merges++,
+      );
+      addTearDown(watching.dispose);
+      final local = watching.buildLocal(userKey);
+      api.remote = RemoteSnapshot(
+        clientUpdatedAt: 500,
+        payload: local.toPayload(),
+      );
+      await watching.pullMergePush();
+      expect(api.pullCalls, 1);
+      expect(api.pushCalls, 0);
+      expect(merges, 0);
+      expect(settings.lastSyncAt(userKey), isNotNull);
+    });
+
+    test('本机落后于云端时写入本地且不上传', () async {
+      var merges = 0;
+      final watching = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+        onMerged: () => merges++,
+      );
+      addTearDown(watching.dispose);
+      api.remote = RemoteSnapshot(
+        clientUpdatedAt: 500,
+        payload: SyncSnapshot(
+          progress: {
+            'l1': _lesson('l1', completed: true, score: 90, completedAtMs: 400),
+          },
+          rewards: const {},
+          track: settings.exportTrackPrefs(userKey),
+          clientUpdatedAt: 500,
+        ).toPayload(),
+      );
+      await watching.pullMergePush();
+      expect(ProgressStore(userKey: userKey).entries['l1']!.score, 90);
+      expect(api.pushCalls, 0);
+      expect(merges, 1);
+    });
+
+    test('同步进行中又有本地变更时会再跑一轮', () async {
+      final gate = Completer<void>();
+      api.onPull = () async {
+        if (api.pullCalls == 1) await gate.future;
+      };
+      final pending = service.pullMergePush();
+      for (var i = 0; i < 10 && api.pullCalls == 0; i++) {
+        await Future<void>.delayed(Duration.zero);
+      }
+      expect(api.pullCalls, 1);
+      await ProgressStore(userKey: userKey).save(
+          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      service.scheduleUpload();
+      gate.complete();
+      await pending;
+      expect(api.pullCalls, 2);
+      final pushed = SyncSnapshot.fromPayload(api.pushedPayload!);
+      expect(pushed.progress['l1']!.completed, isTrue);
+    });
+
+    test('前台按间隔拉取，停止后不再拉', () async {
+      final polling = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+        pollInterval: const Duration(milliseconds: 40),
+      );
+      addTearDown(polling.dispose);
+      polling.startForegroundSync();
+      await Future<void>.delayed(const Duration(milliseconds: 130));
+      expect(api.pullCalls, greaterThanOrEqualTo(2));
+      polling.stopForegroundSync(flushPending: false);
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      final calls = api.pullCalls;
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(api.pullCalls, calls);
+    });
+
+    test('待导入时不拉取也不轮询', () async {
+      final held = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => const AuthState(
+          userKey: userKey,
+          accessToken: 'at',
+          pendingImportFrom: 'guest',
+        ),
+        refreshAccessToken: () async => true,
+        debounce: const Duration(milliseconds: 10),
+        pollInterval: const Duration(milliseconds: 20),
+      );
+      addTearDown(held.dispose);
+      await held.pullMergePush();
+      held.scheduleUpload();
+      held.startForegroundSync();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      expect(api.pullCalls, 0);
+      expect(api.pushCalls, 0);
     });
 
     test('scheduleUpload 防抖后自动上传', () async {

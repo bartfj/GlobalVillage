@@ -55,7 +55,8 @@ class AuthController extends StateNotifier<AuthState> {
   final CloudAuthApi _cloudAuth;
   final TokenStore _tokenStore;
 
-  /// 在线会话就绪（登录/注册/静默刷新成功）后触发同步；由 providers 接线
+  /// 在线会话就绪（登录/注册/冷启动静默刷新成功）后触发同步；由 providers 接线。
+  /// [refreshAccessToken] 不再回调，避免同步过程中换 token 时重入。
   final void Function()? onOnlineSessionReady;
 
   /// 丢弃过期的资料请求，避免打开页面时的拉取盖住刚保存的昵称。
@@ -80,11 +81,14 @@ class AuthController extends StateNotifier<AuthState> {
     unawaited(_refreshOnlineSession());
   }
 
-  /// 用安全存储的 refresh token 换取新 access token；成功返回 true
-  Future<bool> refreshAccessToken() => _refreshOnlineSession();
+  /// 用安全存储的 refresh token 换取新 access token；成功返回 true。
+  /// 不触发同步，供同步过程中的 401 重试使用。
+  Future<bool> refreshAccessToken() =>
+      _refreshOnlineSession(notifyReady: false);
 
-  /// 在线会话重启后静默换取新 access token（断网或 token 失效时保持已登录状态）
-  Future<bool> _refreshOnlineSession() async {
+  /// 在线会话重启后静默换取新 access token（断网或 token 失效时保持已登录状态）。
+  /// 冷启动成功时通知同步；由同步服务主动调用时不再通知。
+  Future<bool> _refreshOnlineSession({bool notifyReady = true}) async {
     final session = state.userKey;
     if (session == null || !session.startsWith(AuthState.onlineKeyPrefix)) {
       return false;
@@ -98,7 +102,11 @@ class AuthController extends StateNotifier<AuthState> {
         userKey: session,
         accessToken: accessToken,
         displayName: state.displayName,
+        pendingImportFrom: state.pendingImportFrom,
       );
+      if (notifyReady && state.pendingImportFrom == null) {
+        onOnlineSessionReady?.call();
+      }
       return true;
     } catch (_) {
       // 静默失败：保持本地会话，下次操作时再提示
