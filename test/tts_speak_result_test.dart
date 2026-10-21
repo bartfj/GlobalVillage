@@ -9,4 +9,15 @@ void main() {
     expect(TtsService.speakResultOk(false), isFalse);
     expect(TtsService.speakResultOk(null), isFalse);
   });
+
+  test('languageResultOk accepts Android availability codes', () {
+    expect(TtsService.languageResultOk(0), isTrue);
+    expect(TtsService.languageResultOk(1), isTrue);
+    expect(TtsService.languageResultOk(2), isTrue);
+    expect(TtsService.languageResultOk(true), isTrue);
+    expect(TtsService.languageResultOk(-1), isFalse);
+    expect(TtsService.languageResultOk(-2), isFalse);
+    expect(TtsService.languageResultOk(false), isFalse);
+    expect(TtsService.languageResultOk(null), isFalse);
+  });
 }

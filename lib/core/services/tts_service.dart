@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -49,32 +48,47 @@ class TtsService {
   Future<bool> _ensureInitialized(LearningLanguage language) async {
     // 梵文没有可靠语音，只播放本地录音。
     if (language == LearningLanguage.sanskrit) return false;
-    if (_resolvedVoices.containsKey(language) && _activeLanguage == language) {
-      return true;
+    if (_activeLanguage == language) return true;
+
+    final cached = _resolvedVoices[language];
+    if (cached != null) {
+      if (await _applyLanguage(cached)) {
+        _activeLanguage = language;
+        return true;
+      }
+      _resolvedVoices.remove(language);
     }
 
-    final voice =
-        _resolvedVoices[language] ?? await _installedLanguage(language);
-    if (voice == null) return false;
-
-    final result = await _tts.setLanguage(voice);
-    if (!speakResultOk(result)) return false;
-
-    _resolvedVoices[language] = voice;
-    _activeLanguage = language;
-    await _tts.setSpeechRate(0.45);
-    await _tts.setVolume(1.0);
-    return true;
-  }
-
-  /// 已安装的系统语音。Android 用语音包是否落地判断，其它平台用系统是否提供该语言。
-  Future<String?> _installedLanguage(LearningLanguage language) async {
+    // 不预判语音包是否“已安装”：部分引擎能联网合成却报未安装，
+    // 以 setLanguage 的实际结果为准。
     for (final voice in _languageCandidates(language)) {
-      if (await _voiceReady(voice)) return voice;
+      if (await _applyLanguage(voice)) {
+        _resolvedVoices[language] = voice;
+        _activeLanguage = language;
+        return true;
+      }
     }
 
-    return null;
+    return false;
   }
+
+  Future<bool> _applyLanguage(String voice) async {
+    try {
+      final result = await _tts.setLanguage(voice);
+      if (!languageResultOk(result)) return false;
+      await _tts.setSpeechRate(0.45);
+      await _tts.setVolume(1.0);
+      return true;
+    } catch (error, stack) {
+      recordDiagnosticError('tts', error, stack);
+      return false;
+    }
+  }
+
+  /// Android `setLanguage` 返回 LANG_AVAILABLE=0、LANG_COUNTRY_AVAILABLE=1、
+  /// LANG_COUNTRY_VAR_AVAILABLE=2，负数才是缺失或不支持。
+  static bool languageResultOk(Object? result) =>
+      result == true || (result is int && result >= 0);
 
   static List<String> _languageCandidates(LearningLanguage language) =>
       switch (language) {
@@ -82,14 +96,6 @@ class TtsService {
         LearningLanguage.english => englishLanguageCandidates,
         LearningLanguage.sanskrit => const [],
       };
-
-  Future<bool> _voiceReady(String voice) async {
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return await _tts.isLanguageInstalled(voice) == true;
-    }
-
-    return await _tts.isLanguageAvailable(voice) == true;
-  }
 
   Future<bool> _assetExists(String assetPath) async {
     try {

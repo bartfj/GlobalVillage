@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/providers.dart';
 import '../../../data/models/course.dart';
 import '../../../data/models/learning_language.dart';
+import '../../feedback/feedback_dialog.dart';
 
 /// 课前学习卡上的一条核心内容。
 class StudyItem {
@@ -81,13 +82,20 @@ class LessonStudyCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: const Icon(Icons.close),
-                tooltip: s.back,
-                onPressed: () => Navigator.of(context).maybePop(),
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  tooltip: s.back,
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.feedback_outlined),
+                  tooltip: s.feedbackRow,
+                  onPressed: () => showFeedbackDialog(context, ref),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
