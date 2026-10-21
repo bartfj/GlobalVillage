@@ -7,6 +7,7 @@ import '../../../app/app_strings.dart';
 import '../../../app/theme.dart';
 import '../../../core/services/sync_service.dart';
 import '../../../data/models/course_track.dart';
+import '../../../data/models/learning_language.dart';
 import '../../../data/models/skill_practice.dart';
 import '../../../data/models/tree_growth.dart';
 import '../../auth/api_base_url_dialog.dart';
@@ -201,11 +202,19 @@ class MainMenuDrawer extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 10),
-            // 专项练习按当前学习语言显示：英语 3 项，中文 2 项，梵文 3 项
+            // 专项练习按当前学习语言显示；梵文另有参考录音入口
             _SectionCard(
               title: s.sectionPractice,
               child: Column(
                 children: [
+                  if (selectedTrack.language == LearningLanguage.sanskrit)
+                    _MenuRow(
+                      icon: Icons.record_voice_over_rounded,
+                      color: AppColors.goldDark,
+                      title: s.sanskritAudioTitle,
+                      subtitle: s.sanskritAudioSubtitle,
+                      onTap: () => _openRoute(context, '/sanskrit-audio'),
+                    ),
                   for (final skill in SkillPracticeKind.forLanguage(
                     selectedTrack.language,
                   ))

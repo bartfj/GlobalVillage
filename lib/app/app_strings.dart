@@ -50,6 +50,9 @@ class S {
   String get statsBadges => isEn ? 'Badges' : '徽章';
   String get sectionCourses => isEn ? 'Courses' : '系统课程';
   String get sectionPractice => isEn ? 'Skill practice' : '专项练习';
+  String get sanskritAudioTitle => isEn ? 'Sanskrit pronunciation' : '梵文发音';
+  String get sanskritAudioSubtitle =>
+      isEn ? 'Reference recordings · offline listening' : '参考录音 · 可离线听读';
   String get sectionMore => isEn ? 'More' : '更多';
   String get reviewRecords => isEn ? 'Review & records' : '复习与学习记录';
   String get backupRestore => isEn ? 'Backup / Restore' : '备份 / 恢复';
