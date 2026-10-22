@@ -102,7 +102,8 @@ void main() {
           headers: {'content-type': 'application/json'},
         );
       }),
-      localIpa: {'swimming': '/ˈswɪmɪŋ/'},
+      localIpa: const {},
+      localGloss: const {},
     );
     addTearDown(service.dispose);
     addTearDown(dismissPhoneticBubble);
@@ -134,8 +135,9 @@ void main() {
     await tester.tap(find.text('open'));
     await tester.pump();
     await tester.pump();
+    await tester.pump();
 
     expect(find.text('\u2066/ˈswɪmɪŋ/\u2069'), findsOneWidget);
-    expect(find.text('游泳'), findsOneWidget);
+    expect(find.text('n. 游泳，游泳运动'), findsOneWidget);
   });
 }
