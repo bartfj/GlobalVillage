@@ -211,6 +211,7 @@ Handler buildRouter(
         payload,
         clientUpdatedAt,
         baseClientUpdatedAt: base is int ? base : null,
+        device: _readDevice(body['device']),
       );
       return _json(200, {
         'clientUpdatedAt': record.clientUpdatedAt,
@@ -448,6 +449,7 @@ Map<String, Object?> _adminAccountJson(Account account, SyncSummary? summary) =>
       'credentialVersion': account.credentialVersion,
       'serverUpdatedAt': summary?.serverUpdatedAt.toUtc().toIso8601String(),
       'lessonCount': summary?.lessonCount ?? 0,
+      'device': summary?.device,
     };
 
 SyncSummary? _summaryOf(SyncRecord? record) {
@@ -456,6 +458,7 @@ SyncSummary? _summaryOf(SyncRecord? record) {
     clientUpdatedAt: record.clientUpdatedAt,
     serverUpdatedAt: record.serverUpdatedAt,
     lessonCount: lessonCountOf(record.payload),
+    device: record.device,
   );
 }
 
@@ -558,6 +561,30 @@ Future<Map<String, dynamic>?> _readJson(Request request) async {
   } catch (_) {
     return null;
   }
+}
+
+/// 只保留后台需要的设备字段，限制长度并丢弃未知键，避免客户端塞入任意 JSON。
+Map<String, dynamic>? _readDevice(Object? value) {
+  if (value is! Map) return null;
+  String? field(String key, int max) {
+    final text = value[key];
+    if (text is! String) return null;
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return null;
+    return trimmed.length > max ? trimmed.substring(0, max) : trimmed;
+  }
+
+  final platform = field('platform', 24);
+  final osVersion = field('osVersion', 120);
+  final appVersion = field('appVersion', 32);
+  final installId = field('installId', 64);
+  final device = <String, dynamic>{
+    if (platform != null) 'platform': platform,
+    if (osVersion != null) 'osVersion': osVersion,
+    if (appVersion != null) 'appVersion': appVersion,
+    if (installId != null) 'installId': installId,
+  };
+  return device.isEmpty ? null : device;
 }
 
 /// 去掉首尾空白后按字符数校验。空、过短、过长返回 null。

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:english_village/app/auth_controller.dart';
+import 'package:english_village/core/constants.dart';
 import 'package:english_village/core/services/sync_service.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/progress.dart';
@@ -38,6 +39,7 @@ LessonProgress _lesson(
 class _FakeSyncApi extends SyncApi {
   RemoteSnapshot? remote;
   Map<String, dynamic>? pushedPayload;
+  Map<String, dynamic>? pushedDevice;
   int? pushedBase;
   int pullCalls = 0;
   int pushCalls = 0;
@@ -54,10 +56,12 @@ class _FakeSyncApi extends SyncApi {
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
+    Map<String, dynamic>? device,
   }) async {
     pushCalls++;
     pushedPayload = payload;
     pushedBase = baseClientUpdatedAt;
+    pushedDevice = device;
   }
 }
 
@@ -218,6 +222,14 @@ void main() {
       final pushed = SyncSnapshot.fromPayload(api.pushedPayload!);
       expect(pushed.progress['l1']!.completed, isTrue);
       expect(settings.lastSyncAt(userKey), isNotNull);
+    });
+
+    test('上传附带设备信息，安装 ID 与本地一致', () async {
+      await service.pullMergePush();
+      final device = api.pushedDevice!;
+      expect(device['platform'], isNotEmpty);
+      expect(device['appVersion'], kAppVersion);
+      expect(device['installId'], await settings.ensureInstallId());
     });
 
     test('拉取合并：云端已完成的课写入本地并回传并集', () async {

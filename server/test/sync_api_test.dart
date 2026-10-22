@@ -88,6 +88,7 @@ void main() {
       bearer: accessToken,
       body: {
         'clientUpdatedAt': 1000,
+        'device': {'platform': 'android', 'appVersion': '0.8.38'},
         'payload': {
           'schemaVersion': 1,
           'clientUpdatedAt': 1000,
@@ -107,6 +108,8 @@ void main() {
     expect(body['clientUpdatedAt'], 1000);
     expect(body['payload']['progress']['l1']['score'], 90);
     expect(body['payload']['rewards']['a1'], 'l1');
+    // 设备信息只供后台使用，不进入客户端同步协议
+    expect(body.containsKey('device'), false);
   });
 
   test('baseClientUpdatedAt 不一致返回 409', () async {

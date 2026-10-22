@@ -64,11 +64,14 @@ class SyncApi {
   }
 
   /// 上传整包快照；409 sync_conflict 时抛 [CloudAuthException]（code=sync_conflict）。
+  ///
+  /// [device] 仅用于管理后台展示，不参与合并。
   Future<void> push(
     String accessToken,
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
+    Map<String, dynamic>? device,
   }) async {
     final http.Response response;
     try {
@@ -80,6 +83,7 @@ class SyncApi {
           'clientUpdatedAt': clientUpdatedAt,
           if (baseClientUpdatedAt != null)
             'baseClientUpdatedAt': baseClientUpdatedAt,
+          if (device != null) 'device': device,
         }),
       );
     } catch (_) {

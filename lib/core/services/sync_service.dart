@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 
 import '../../app/auth_controller.dart';
+import '../constants.dart';
 import 'diagnostic_log.dart';
 import '../../data/models/progress.dart';
 import '../../data/sources/cloud_auth_api.dart';
@@ -188,6 +192,14 @@ class SyncService {
     clientUpdatedAt: DateTime.now().millisecondsSinceEpoch,
   );
 
+  /// 上传时附带设备信息，仅供管理后台展示；web 上不读取 [Platform]。
+  Future<Map<String, dynamic>> _deviceInfo() async => {
+    'platform': kIsWeb ? 'web' : Platform.operatingSystem,
+    if (!kIsWeb) 'osVersion': Platform.operatingSystemVersion,
+    'appVersion': kAppVersion,
+    'installId': await _settings.ensureInstallId(),
+  };
+
   /// 登录后/恢复会话后：拉取 → 合并 → 写本地 → 上传（失败不阻断学习）。
   Future<void> pullMergePush() async {
     final auth = _readAuth();
@@ -218,6 +230,7 @@ class SyncService {
     String token, {
     required bool allowRetry,
   }) async {
+    final device = await _deviceInfo();
     RemoteSnapshot? remote;
     try {
       remote = await _api.pull(token);
@@ -234,7 +247,12 @@ class SyncService {
     final local = buildLocal(userKey);
     if (remote == null) {
       // 云端无快照：首次同步，直接上传本地
-      await _api.push(token, local.toPayload(), local.clientUpdatedAt);
+      await _api.push(
+        token,
+        local.toPayload(),
+        local.clientUpdatedAt,
+        device: device,
+      );
       return;
     }
     final remoteSnapshot = SyncSnapshot.fromPayload(remote.payload);
@@ -246,6 +264,7 @@ class SyncService {
         merged.toPayload(),
         merged.clientUpdatedAt,
         baseClientUpdatedAt: remote.clientUpdatedAt,
+        device: device,
       );
     } on CloudAuthException catch (e) {
       if (e.code == 'sync_conflict' && allowRetry) {

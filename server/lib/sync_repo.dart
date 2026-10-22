@@ -8,6 +8,7 @@ class SyncRecord {
     required this.payload,
     required this.clientUpdatedAt,
     required this.serverUpdatedAt,
+    this.device,
   });
 
   /// SyncSnapshot JSON（progress/rewards/track，schemaVersion=1）
@@ -17,6 +18,9 @@ class SyncRecord {
   final int clientUpdatedAt;
 
   final DateTime serverUpdatedAt;
+
+  /// 最后一次上传设备信息（platform/osVersion/appVersion/installId），仅供后台展示。
+  final Map<String, dynamic>? device;
 
   Map<String, Object?> toJson() => {
     'payload': payload,
@@ -31,11 +35,13 @@ class SyncSummary {
     required this.clientUpdatedAt,
     required this.serverUpdatedAt,
     required this.lessonCount,
+    this.device,
   });
 
   final int clientUpdatedAt;
   final DateTime serverUpdatedAt;
   final int lessonCount;
+  final Map<String, dynamic>? device;
 }
 
 abstract class SyncRepo {
@@ -43,11 +49,13 @@ abstract class SyncRepo {
   Future<SyncRecord?> get(String accountId);
 
   /// 整包替换快照；[baseClientUpdatedAt] 提供且与现值不一致时抛 [SyncConflictException]。
+  /// [device] 为空时保留上一次记录，避免旧客户端或后台同步清空设备信息。
   Future<SyncRecord> put(
     String accountId,
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
+    Map<String, dynamic>? device,
   });
 
   /// 删除该账号的快照。没有记录时也成功。
@@ -86,6 +94,7 @@ class InMemorySyncRepo implements SyncRepo {
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
+    Map<String, dynamic>? device,
   }) async {
     final current = _records[accountId];
     if (baseClientUpdatedAt != null &&
@@ -97,6 +106,7 @@ class InMemorySyncRepo implements SyncRepo {
       payload: payload,
       clientUpdatedAt: clientUpdatedAt,
       serverUpdatedAt: DateTime.now().toUtc(),
+      device: device ?? current?.device,
     );
     _records[accountId] = record;
     return record;
@@ -114,6 +124,7 @@ class InMemorySyncRepo implements SyncRepo {
         clientUpdatedAt: entry.value.clientUpdatedAt,
         serverUpdatedAt: entry.value.serverUpdatedAt,
         lessonCount: lessonCountOf(entry.value.payload),
+        device: entry.value.device,
       ),
   };
 }
@@ -156,13 +167,16 @@ CREATE TABLE IF NOT EXISTS sync_snapshots (
   server_updated_at timestamptz NOT NULL DEFAULT now()
 )
 ''');
+    await _conn.execute('''
+ALTER TABLE sync_snapshots ADD COLUMN IF NOT EXISTS device jsonb
+''');
   }
 
   @override
   Future<SyncRecord?> get(String accountId) async {
     final result = await _conn.execute(
       Sql.named(
-        'SELECT payload, client_updated_at, server_updated_at '
+        'SELECT payload, client_updated_at, server_updated_at, device '
         'FROM sync_snapshots WHERE account_id = @id::uuid LIMIT 1',
       ),
       parameters: {'id': accountId},
@@ -173,6 +187,7 @@ CREATE TABLE IF NOT EXISTS sync_snapshots (
       payload: Map<String, dynamic>.from(row['payload'] as Map),
       clientUpdatedAt: row['client_updated_at'] as int,
       serverUpdatedAt: row['server_updated_at'] as DateTime,
+      device: _deviceOf(row['device']),
     );
   }
 
@@ -182,6 +197,7 @@ CREATE TABLE IF NOT EXISTS sync_snapshots (
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
+    Map<String, dynamic>? device,
   }) async {
     if (baseClientUpdatedAt != null) {
       final current = await get(accountId);
@@ -191,25 +207,28 @@ CREATE TABLE IF NOT EXISTS sync_snapshots (
     }
     final result = await _conn.execute(
       Sql.named('''
-INSERT INTO sync_snapshots (account_id, payload, client_updated_at)
-VALUES (@id::uuid, @payload::jsonb, @clientUpdatedAt)
+INSERT INTO sync_snapshots (account_id, payload, client_updated_at, device)
+VALUES (@id::uuid, @payload::jsonb, @clientUpdatedAt, @device::jsonb)
 ON CONFLICT (account_id) DO UPDATE
 SET payload = EXCLUDED.payload,
     client_updated_at = EXCLUDED.client_updated_at,
+    device = COALESCE(EXCLUDED.device, sync_snapshots.device),
     server_updated_at = now()
-RETURNING server_updated_at
+RETURNING server_updated_at, device
 '''),
       parameters: {
         'id': accountId,
         'payload': jsonEncode(payload),
         'clientUpdatedAt': clientUpdatedAt,
+        'device': device == null ? null : jsonEncode(device),
       },
     );
+    final row = result.first.toColumnMap();
     return SyncRecord(
       payload: payload,
       clientUpdatedAt: clientUpdatedAt,
-      serverUpdatedAt:
-          result.first.toColumnMap()['server_updated_at'] as DateTime,
+      serverUpdatedAt: row['server_updated_at'] as DateTime,
+      device: _deviceOf(row['device']),
     );
   }
 
@@ -230,7 +249,7 @@ RETURNING server_updated_at
     final result = await _conn.execute(
       Sql.named(
         'SELECT account_id::text AS account_id, payload, client_updated_at, '
-        'server_updated_at FROM sync_snapshots',
+        'server_updated_at, device FROM sync_snapshots',
       ),
     );
     final map = <String, SyncSummary>{};
@@ -241,8 +260,14 @@ RETURNING server_updated_at
         clientUpdatedAt: columns['client_updated_at'] as int,
         serverUpdatedAt: columns['server_updated_at'] as DateTime,
         lessonCount: lessonCountOf(payload),
+        device: _deviceOf(columns['device']),
       );
     }
     return map;
   }
+}
+
+Map<String, dynamic>? _deviceOf(Object? value) {
+  if (value is! Map) return null;
+  return Map<String, dynamic>.from(value);
 }

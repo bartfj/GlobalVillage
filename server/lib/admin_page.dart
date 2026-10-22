@@ -14,6 +14,7 @@ String adminPageHtml() => r'''<!DOCTYPE html>
   tr.clickable:hover { background: #f6f6f6; }
   button { margin-right: 8px; }
   .muted { color: #666; }
+  .sub { color: #666; font-size: 12px; margin-top: 2px; }
   #detail { margin-top: 24px; }
   input, select, textarea { padding: 6px; margin-right: 8px; }
   textarea { width: 100%; min-height: 72px; box-sizing: border-box; }
@@ -94,6 +95,24 @@ function localTime(value) {
   return date.toLocaleString();
 }
 
+function deviceLabel(device) {
+  if (!device) return '';
+  const parts = [];
+  if (device.platform) parts.push(device.platform);
+  if (device.appVersion) parts.push('v' + device.appVersion);
+  return parts.join(' · ');
+}
+
+function deviceDetail(device) {
+  if (!device) return '设备未上报（旧版本客户端）';
+  const parts = [];
+  if (device.platform) parts.push(device.platform);
+  if (device.osVersion) parts.push(device.osVersion);
+  if (device.appVersion) parts.push('v' + device.appVersion);
+  if (device.installId) parts.push('安装 ' + device.installId);
+  return parts.join(' · ');
+}
+
 async function api(path, options) {
   const headers = Object.assign({
     'authorization': 'Bearer ' + token()
@@ -134,7 +153,15 @@ async function loadList() {
     cells[3].textContent = localTime(account.createdAt);
     cells[4].textContent = account.disabledAt ? '已停用' : '可用';
     cells[5].textContent = String(account.lessonCount || 0);
-    cells[6].textContent = localTime(account.serverUpdatedAt);
+    cells[6].textContent = '';
+    cells[6].appendChild(document.createTextNode(localTime(account.serverUpdatedAt)));
+    const device = deviceLabel(account.device);
+    if (device) {
+      const sub = document.createElement('div');
+      sub.className = 'sub';
+      sub.textContent = device;
+      cells[6].appendChild(sub);
+    }
     tr.addEventListener('click', function () { openDetail(account.accountId); });
     rows.appendChild(tr);
   }
@@ -281,6 +308,17 @@ async function openDetail(id) {
     ' · 线路 ' + (track.selected || '未选') +
     ' · 奖励 ' + rewardCount + ' 条 · 凭证版本 ' + account.credentialVersion;
   detail.appendChild(meta);
+  const syncTitle = document.createElement('h3');
+  syncTitle.textContent = '同步信息';
+  detail.appendChild(syncTitle);
+  const syncInfo = document.createElement('p');
+  syncInfo.className = 'muted';
+  syncInfo.textContent = '最近同步 ' +
+    (account.serverUpdatedAt ? localTime(account.serverUpdatedAt) : '未同步') +
+    ' · 客户端时间 ' +
+    (current.clientUpdatedAt ? localTime(current.clientUpdatedAt) : '未上报') +
+    ' · ' + deviceDetail(account.device);
+  detail.appendChild(syncInfo);
   for (const pair of [['英语', progress.english], ['梵文', progress.sanskrit], ['中文', progress.chinese], ['其他', progress.other]]) {
     const h = document.createElement('h3');
     h.textContent = pair[0];

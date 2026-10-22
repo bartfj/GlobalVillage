@@ -438,6 +438,80 @@ void main() {
     expect(await page.readAsString(), contains('>密码<'));
   });
 
+  test('后台展示同步设备信息，缺省时保留上次值并清洗未知字段', () async {
+    final handler = open(token: adminToken);
+    final registered = await json(
+      await send(
+        handler,
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'e@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
+    final id = registered['account']['accountId'] as String;
+    final access = registered['accessToken'] as String;
+
+    Future<Map<String, dynamic>> upload(
+      int clientUpdatedAt, {
+      Map<String, Object?>? device,
+    }) async => json(
+      await send(
+        handler,
+        'PUT',
+        '/v1/sync',
+        bearer: access,
+        body: {
+          'clientUpdatedAt': clientUpdatedAt,
+          if (device != null) 'device': device,
+          'payload': {'schemaVersion': 1, 'progress': {}, 'track': {}},
+        },
+      ),
+    );
+
+    await upload(
+      10,
+      device: {
+        'platform': ' android ',
+        'osVersion': '13',
+        'appVersion': '0.8.38',
+        'installId': 'i-1',
+        'model': 'should-be-dropped',
+      },
+    );
+
+    Future<Map<String, dynamic>> listed() async => json(
+      await send(handler, 'GET', '/admin/api/accounts', bearer: adminToken),
+    );
+
+    var device = (await listed())['accounts'][0]['device'] as Map;
+    expect(device['platform'], 'android');
+    expect(device['osVersion'], '13');
+    expect(device['appVersion'], '0.8.38');
+    expect(device['installId'], 'i-1');
+    expect(device.containsKey('model'), false);
+
+    final detail = await json(
+      await send(handler, 'GET', '/admin/api/accounts/$id', bearer: adminToken),
+    );
+    expect((detail['account']['device'] as Map)['installId'], 'i-1');
+
+    // 旧客户端或后台同步不带 device 时，保留上一次记录
+    await upload(20);
+    device = (await listed())['accounts'][0]['device'] as Map;
+    expect(device['platform'], 'android');
+
+    // 超长字段截断，未知字段丢弃；本次带 device 时整体替换
+    await upload(30, device: {'platform': 'x' * 40, 'os': 'linux'});
+    device = (await listed())['accounts'][0]['device'] as Map;
+    expect((device['platform'] as String).length, 24);
+    expect(device.containsKey('os'), false);
+    expect(device.containsKey('installId'), false);
+  });
+
   test('没有 cv 的旧 token 不能同步', () async {
     final handler = open(token: adminToken);
     final registered = await json(
