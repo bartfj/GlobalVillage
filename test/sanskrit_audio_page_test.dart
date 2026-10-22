@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:english_village/core/services/sanskrit_audio_service.dart';
 import 'package:english_village/data/models/sanskrit_sound.dart';
-import 'package:english_village/data/repositories/sanskrit_audio_repository.dart';
 import 'package:english_village/features/sanskrit_audio/sanskrit_audio_page.dart';
 import 'package:english_village/features/sanskrit_audio/sanskrit_audio_providers.dart';
 import 'package:flutter/material.dart';
@@ -12,22 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'ui_test_overrides.dart';
-
-class _Repository implements SanskritAudioRepository {
-  final cached = <String>{};
-  @override
-  Future<Set<String>> cachedIds(Iterable<SanskritSound> sounds) async => {
-    ...cached,
-  };
-  @override
-  Future<String> fileFor(SanskritSound sound) async {
-    cached.add(sound.id);
-    return '/audio/${sound.id}.mp3';
-  }
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-}
 
 class _Audio implements SanskritAudioService {
   final calls = <(String, double, int)>[];
@@ -67,7 +50,6 @@ void main() {
   Future<void> show(
     WidgetTester tester,
     _Audio audio, {
-    _Repository? repo,
     double scale = 1,
   }) async {
     tester.view.physicalSize = const Size(360, 780);
@@ -79,9 +61,6 @@ void main() {
         overrides: [
           uiStringsOverride,
           sanskritSoundCatalogProvider.overrideWith((ref) async => catalog),
-          sanskritAudioRepositoryProvider.overrideWith(
-            (ref) async => repo ?? _Repository(),
-          ),
           sanskritAudioServiceProvider.overrideWithValue(audio),
         ],
         child: MaterialApp(
@@ -124,29 +103,25 @@ void main() {
       await tester.tap(find.byTooltip('音频来源'));
       await tester.pumpAndSettle();
       expect(find.text(catalog.source['pageUrl'] as String), findsOneWidget);
-      expect(find.textContaining('再分发授权尚未确认'), findsOneWidget);
+      expect(find.textContaining('已包含在安装包中'), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );
 
-  testWidgets(
-    'bulk download reports all files offline and leaving stops playback',
-    (tester) async {
-      final audio = _Audio();
-      final repo = _Repository();
-      await show(tester, audio, repo: repo);
-      await tester.tap(find.text('下载全部 · 约 300 KB'));
-      await tester.pumpAndSettle();
-      expect(repo.cached.length, 48);
-      expect(find.text('已离线 48/48'), findsOneWidget);
-      audio.pending = Completer<SanskritPlaybackResult>();
-      await tester.tap(find.byKey(const ValueKey('sound-a')));
-      await tester.pump();
-      expect(find.text('停止播放'), findsOneWidget);
-      await tester.pumpWidget(const MaterialApp(home: SizedBox()));
-      await tester.pumpAndSettle();
-      expect(audio.stops, greaterThan(0));
-      expect(tester.takeException(), isNull);
-    },
-  );
+  testWidgets('included recordings need no download and leaving stops playback', (
+    tester,
+  ) async {
+    final audio = _Audio();
+    await show(tester, audio);
+    expect(find.text('录音已内置，无需下载'), findsOneWidget);
+    expect(find.text('下载全部 · 约 300 KB'), findsNothing);
+    audio.pending = Completer<SanskritPlaybackResult>();
+    await tester.tap(find.byKey(const ValueKey('sound-a')));
+    await tester.pump();
+    expect(find.text('停止播放'), findsOneWidget);
+    await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+    await tester.pumpAndSettle();
+    expect(audio.stops, greaterThan(0));
+    expect(tester.takeException(), isNull);
+  });
 }

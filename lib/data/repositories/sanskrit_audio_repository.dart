@@ -1,16 +1,15 @@
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-import 'package:http/http.dart' as http;
 
 import '../models/sanskrit_sound.dart';
 
-/// 原站录音按需下载到应用私有目录；安装包仅携带来源与校验清单。
+/// 安装包内的参考录音。校验后写入应用私有目录，供播放器按文件路径读取。
 class SanskritAudioRepository {
-  SanskritAudioRepository({required this.root, required this.client});
+  SanskritAudioRepository({required this.root, required this.readBundled});
 
   final Directory root;
-  final http.Client client;
+  final Future<List<int>> Function(SanskritSound sound) readBundled;
   final Map<String, Future<String>> _pending = {};
 
   File _file(SanskritSound sound) =>
@@ -48,27 +47,7 @@ class SanskritAudioRepository {
     final file = _file(sound);
     if (await _valid(file, sound)) return file.path;
 
-    final response = await client
-        .send(http.Request('GET', sound.url)..followRedirects = false)
-        .timeout(const Duration(seconds: 12));
-    if (response.statusCode != 200 ||
-        !(response.headers['content-type'] ?? '').toLowerCase().startsWith(
-          'audio/',
-        ) ||
-        (response.contentLength != null &&
-            response.contentLength != sound.byteLength)) {
-      await response.stream.listen(null).cancel();
-      throw const FormatException('Unexpected Sanskrit audio response');
-    }
-    final bytes = <int>[];
-    await for (final chunk in response.stream.timeout(
-      const Duration(seconds: 8),
-    )) {
-      bytes.addAll(chunk);
-      if (bytes.length > sound.byteLength) {
-        throw const FormatException('Sanskrit audio exceeds expected size');
-      }
-    }
+    final bytes = await readBundled(sound);
     if (bytes.length != sound.byteLength ||
         sha256.convert(bytes).toString() != sound.sha256) {
       throw const FormatException('Sanskrit audio checksum mismatch');

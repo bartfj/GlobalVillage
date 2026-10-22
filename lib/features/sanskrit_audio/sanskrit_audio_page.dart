@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
-import '../../core/services/diagnostic_log.dart';
 import '../../core/services/sanskrit_audio_service.dart';
 import '../../data/models/sanskrit_sound.dart';
 import 'sanskrit_audio_providers.dart';
@@ -24,12 +23,9 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
   String _group = 'vowel';
   String _selectedId = 'a';
   String? _playingId;
-  Set<String> _cached = {};
   bool _slow = false;
   bool _repeat = false;
-  bool _downloading = false;
   int _playSerial = 0;
-  int _downloadSerial = 0;
   late final SanskritAudioService _audio;
 
   String _t(String zh, String en) => ref.read(stringsProvider).isEn ? en : zh;
@@ -39,18 +35,6 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _audio = ref.read(sanskritAudioServiceProvider);
-    unawaited(_refreshCache());
-  }
-
-  Future<void> _refreshCache() async {
-    try {
-      final catalog = await ref.read(sanskritSoundCatalogProvider.future);
-      final repo = await ref.read(sanskritAudioRepositoryProvider.future);
-      final cached = await repo.cachedIds(catalog.sounds);
-      if (mounted) setState(() => _cached = cached);
-    } catch (error, stack) {
-      recordDiagnosticError('sanskrit-audio-cache', error, stack);
-    }
   }
 
   @override
@@ -62,7 +46,6 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     ++_playSerial;
-    ++_downloadSerial;
     unawaited(_audio.stop());
     super.dispose();
   }
@@ -96,51 +79,10 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
     if (result == SanskritPlaybackResult.failed) {
       _message(
         _t(
-          '音频播放失败，请检查网络和媒体音量后重试。已下载的录音可离线播放。',
-          'Audio unavailable. Check your connection and media volume, then retry. Downloaded recordings work offline.',
+          '音频播放失败，请检查媒体音量后重试。',
+          'Audio unavailable. Check the media volume, then retry.',
         ),
       );
-    }
-    await _refreshCache();
-  }
-
-  Future<void> _downloadAll(SanskritSoundCatalog catalog) async {
-    final serial = ++_downloadSerial;
-    setState(() => _downloading = true);
-    var failed = 0;
-    try {
-      final repo = await ref.read(sanskritAudioRepositoryProvider.future);
-      for (final sound in catalog.sounds) {
-        if (!mounted || serial != _downloadSerial) return;
-        try {
-          await repo.fileFor(sound);
-          if (mounted) setState(() => _cached.add(sound.id));
-        } catch (error, stack) {
-          recordDiagnosticError('sanskrit-audio-download', error, stack);
-          failed++;
-        }
-      }
-      if (!mounted || serial != _downloadSerial) return;
-      _message(
-        failed == 0
-            ? _t(
-                '录音已下载，可以离线听读。',
-                'Recordings downloaded for offline listening.',
-              )
-            : _t(
-                '$failed 个录音未下载成功，可稍后重试；其余已保留。',
-                '$failed recordings could not be downloaded. Retry later; other files were kept.',
-              ),
-      );
-    } catch (error, stack) {
-      recordDiagnosticError('sanskrit-audio-download', error, stack);
-      _message(
-        _t('无法准备离线音频，请稍后重试。', 'Cannot prepare offline audio. Please retry.'),
-      );
-    } finally {
-      if (mounted && serial == _downloadSerial) {
-        setState(() => _downloading = false);
-      }
     }
   }
 
@@ -187,8 +129,8 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
               const SizedBox(height: 12),
               Text(
                 _t(
-                  '再分发授权尚未确认。安装包只包含来源清单；录音从原站按需下载至当前设备。',
-                  'Redistribution permission is unconfirmed. The app bundles a source catalog; recordings are downloaded from the original site to this device.',
+                  '这 48 段录音已包含在安装包中，打开即可听，无需下载。',
+                  'These 48 recordings are included in the app and play without a download.',
                 ),
               ),
               const SizedBox(height: 12),
@@ -276,48 +218,13 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
                   style: const TextStyle(fontSize: 12),
                 ),
                 const SizedBox(height: 8),
-                Wrap(
-                  spacing: 12,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      _t(
-                        '已离线 ${_cached.length}/${catalog.sounds.length}',
-                        'Offline ${_cached.length}/${catalog.sounds.length}',
-                      ),
-                      style: const TextStyle(
-                        color: AppColors.greenDark,
-                        fontSize: 12,
-                      ),
-                    ),
-                    TextButton.icon(
-                      icon: Icon(
-                        _downloading
-                            ? Icons.stop_circle_outlined
-                            : Icons.download_for_offline_outlined,
-                        size: 18,
-                      ),
-                      label: Text(
-                        _downloading
-                            ? _t('停止下载', 'Stop download')
-                            : _t('下载全部 · 约 300 KB', 'Download all · ~300 KB'),
-                      ),
-                      onPressed: () {
-                        if (_downloading) {
-                          ++_downloadSerial;
-                          setState(() => _downloading = false);
-                        } else {
-                          unawaited(_downloadAll(catalog));
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                if (_downloading)
-                  LinearProgressIndicator(
-                    value: _cached.length / catalog.sounds.length,
-                    minHeight: 3,
+                Text(
+                  _t('录音已内置，无需下载', 'Recordings are included. No download'),
+                  style: const TextStyle(
+                    color: AppColors.greenDark,
+                    fontSize: 12,
                   ),
+                ),
               ],
             ),
           ),
@@ -408,12 +315,10 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
                       fontSize: 15,
                     ),
                   ),
-                  if (playing || _cached.contains(sound.id)) ...[
+                  if (playing) ...[
                     const SizedBox(width: 4),
-                    Icon(
-                      playing
-                          ? Icons.volume_up_rounded
-                          : Icons.offline_pin_outlined,
+                    const Icon(
+                      Icons.volume_up_rounded,
                       size: 12,
                       color: AppColors.greenDark,
                     ),
@@ -577,12 +482,7 @@ class _SanskritAudioPageState extends ConsumerState<SanskritAudioPage>
             ),
           ),
           Text(
-            _cached.contains(sound.id)
-                ? _t('该录音已下载，可离线播放', 'This recording is available offline')
-                : _t(
-                    '首次播放需联网，成功下载后可离线听读',
-                    'First play requires internet; downloaded recordings work offline',
-                  ),
+            _t('该录音已随安装包提供', 'This recording is included in the app'),
             style: const TextStyle(
               fontSize: 10,
               color: AppColors.textSecondary,

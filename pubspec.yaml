@@ -41,6 +41,7 @@ flutter:
   assets:
     - assets/courses/
     - assets/practice/
+    - assets/practice/sanskrit_audio/
     - assets/sounds/
     - assets/audio/listening/
     - assets/audio/dialogues/

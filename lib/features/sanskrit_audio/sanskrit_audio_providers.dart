@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/services/sanskrit_audio_service.dart';
@@ -23,12 +22,18 @@ final sanskritSoundCatalogProvider = FutureProvider<SanskritSoundCatalog>((
 
 final sanskritAudioRepositoryProvider =
     FutureProvider.autoDispose<SanskritAudioRepository>((ref) async {
-      final client = http.Client();
-      ref.onDispose(client.close);
       final support = await getApplicationSupportDirectory();
       return SanskritAudioRepository(
         root: Directory('${support.path}/sanskrit_audio_v1'),
-        client: client,
+        readBundled: (sound) async {
+          final data = await rootBundle.load(
+            'assets/practice/sanskrit_audio/${sound.id}.mp3',
+          );
+          return data.buffer.asUint8List(
+            data.offsetInBytes,
+            data.lengthInBytes,
+          );
+        },
       );
     });
 
