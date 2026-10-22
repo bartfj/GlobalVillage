@@ -200,10 +200,13 @@ void main() {
     );
   });
 
-  test('后台页面包含学习内容', () async {
+  test('后台页面包含内容包模块', () async {
     final handler = open();
     final page = await send(handler, 'GET', '/admin');
-    expect(await page.readAsString(), contains('学习内容'));
+    final html = await page.readAsString();
+    expect(html, contains('内容包'));
+    expect(html, contains('data-view="content"'));
+    expect(html, contains('data-view="audio"'));
   });
 
   test('结构不合法不能发布', () async {

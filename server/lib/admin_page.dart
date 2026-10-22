@@ -6,87 +6,184 @@ String adminPageHtml() => r'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>地球村后台</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 24px; color: #1a1a1a; }
-  h1 { font-size: 20px; }
-  table { border-collapse: collapse; width: 100%; margin-top: 12px; }
-  th, td { border-bottom: 1px solid #ddd; text-align: left; padding: 8px; font-size: 14px; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; color: #1a1a1a; background: #f4f6f8; }
+  h1 { font-size: 20px; margin: 0; }
+  h2 { font-size: 18px; margin: 0 0 8px; }
+  h3 { font-size: 15px; margin: 20px 0 6px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 12px; background: #fff; }
+  th, td { border-bottom: 1px solid #e4e4e4; text-align: left; padding: 8px; font-size: 14px; vertical-align: top; }
   tr.clickable { cursor: pointer; }
   tr.clickable:hover { background: #f6f6f6; }
-  button { margin-right: 8px; }
+  button { margin-right: 8px; padding: 6px 10px; }
   .muted { color: #666; }
   .sub { color: #666; font-size: 12px; margin-top: 2px; }
-  #detail { margin-top: 24px; }
-  input, select, textarea { padding: 6px; margin-right: 8px; }
-  textarea { width: 100%; min-height: 72px; box-sizing: border-box; }
-  #sync-box { margin: 16px 0; padding: 12px; border: 1px solid #ddd; }
+  input, select, textarea { padding: 6px; margin: 2px 8px 2px 0; }
+  textarea { width: 100%; min-height: 72px; }
   pre { white-space: pre-wrap; font-size: 12px; background: #f6f6f6; padding: 8px; }
+  #login { max-width: 320px; margin: 18vh auto; padding: 24px; background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; }
+  #login h1 { margin-bottom: 14px; }
+  #app { min-height: 100vh; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; background: #fff; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 2; }
+  .layout { display: grid; grid-template-columns: 208px minmax(0, 1fr); min-height: calc(100vh - 57px); }
+  .side { background: #fff; border-right: 1px solid #e0e0e0; padding: 12px 8px; }
+  .nav-item { display: block; width: 100%; text-align: left; margin: 0 0 4px; padding: 10px 12px; border: 0; border-radius: 8px; background: transparent; font-size: 14px; color: #333; cursor: pointer; }
+  .nav-item:hover { background: #f0f0f0; }
+  .nav-item.active { background: #e8f3ff; color: #0b65c2; font-weight: 600; }
+  .main { padding: 20px 24px 48px; min-width: 0; }
+  .view[hidden] { display: none; }
+  .panel { background: #fff; border: 1px solid #e4e4e4; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .detail-wrap { background: #fff; border: 1px solid #e4e4e4; border-radius: 12px; padding: 16px; }
+  .table-wrap { overflow-x: auto; }
+  .dlg-line { border: 1px solid #e4e4e4; border-radius: 8px; padding: 8px; margin-bottom: 8px; }
+  @media (max-width: 760px) {
+    .layout { display: block; }
+    .side { display: flex; gap: 4px; overflow-x: auto; padding: 8px; border-right: 0; border-bottom: 1px solid #e0e0e0; }
+    .nav-item { width: auto; white-space: nowrap; margin: 0; }
+    .main { padding: 16px; }
+  }
 </style>
 </head>
 <body>
-<h1>地球村后台</h1>
 <div id="login">
+  <h1>地球村后台</h1>
   <input id="token" type="password" placeholder="管理口令" autocomplete="current-password">
   <button id="enter">进入</button>
   <p id="login-error" class="muted"></p>
 </div>
 <div id="app" hidden>
-  <button id="logout">退出</button>
-  <div id="sync-box">
-    <h2>两个账号同步</h2>
-    <p class="muted">从来源同步到目标，只改目标。进度按完成优先、高分优先合并；奖励冲突以来源为准；线路用来源的。来源账号不变。</p>
-    <label>来源 <select id="sync-source"></select></label>
-    <span>→</span>
-    <label>目标 <select id="sync-target"></select></label>
-    <button id="sync-run">同步到目标</button>
-    <p id="sync-msg" class="muted"></p>
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>手机 / 邮箱</th><th>密码</th><th>昵称</th><th>注册时间</th>
-        <th>状态</th><th>课数</th><th>最近同步</th>
-      </tr>
-    </thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div id="detail"></div>
-  <h2>问题反馈</h2>
-  <table>
-    <thead>
-      <tr><th>时间</th><th>版本</th><th>课程</th><th>说明</th><th>事件</th></tr>
-    </thead>
-    <tbody id="report-rows"></tbody>
-  </table>
-  <div id="report-detail"></div>
-  <h2>学习内容</h2>
-  <p class="muted">保存只写入草稿。发布后，App 下次打开会优先使用这一份；撤回后回到 App 内置内容。修改题目 id 不会迁移已有学习进度。</p>
-  <div id="content-box">
-    <label>内容包 <select id="content-pack"></select></label>
-    <button id="content-open" type="button">打开</button>
-    <button id="content-publish" type="button">发布</button>
-    <button id="content-unpublish" type="button">撤回</button>
-    <label>导入 JSON <input id="content-file" type="file" accept="application/json,.json"></label>
-    <p id="content-status" class="muted"></p>
-    <div id="content-editor"></div>
-    <h3>音频覆盖</h3>
-    <input id="audio-path" placeholder="audio/listening/u1l1e6.mp3">
-    <input id="audio-file" type="file" accept="audio/mpeg,.mp3">
-    <button id="audio-upload" type="button">上传为草稿</button>
-    <button id="audio-publish" type="button">发布该音频</button>
-    <button id="audio-unpublish" type="button">撤回该音频</button>
-    <p id="audio-msg" class="muted"></p>
-    <table>
-      <thead><tr><th>路径</th><th>修订</th><th>草稿</th><th>已发布</th></tr></thead>
-      <tbody id="audio-rows"></tbody>
-    </table>
+  <header class="topbar">
+    <h1>地球村后台</h1>
+    <button id="logout">退出</button>
+  </header>
+  <div class="layout">
+    <nav class="side" id="side-nav">
+      <button type="button" class="nav-item" data-view="accounts">账号</button>
+      <button type="button" class="nav-item" data-view="sync">同步</button>
+      <button type="button" class="nav-item" data-view="reports">问题反馈</button>
+      <button type="button" class="nav-item" data-view="content">内容包</button>
+      <button type="button" class="nav-item" data-view="audio">音频覆盖</button>
+    </nav>
+    <main class="main">
+      <section class="view" id="view-accounts">
+        <div class="panel">
+          <h2>账号</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>手机 / 邮箱</th><th>密码</th><th>昵称</th><th>注册时间</th>
+                  <th>状态</th><th>课数</th><th>最近同步</th>
+                </tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="detail" class="detail-wrap" style="margin-top:16px" hidden></div>
+      </section>
+      <section class="view" id="view-sync" hidden>
+        <div class="panel" id="sync-box">
+          <h2>两个账号同步</h2>
+          <p class="muted">从来源同步到目标，只改目标。进度按完成优先、高分优先合并；奖励冲突以来源为准；线路用来源的。来源账号不变。</p>
+          <label>来源 <select id="sync-source"></select></label>
+          <span>→</span>
+          <label>目标 <select id="sync-target"></select></label>
+          <button id="sync-run">同步到目标</button>
+          <p id="sync-msg" class="muted"></p>
+        </div>
+      </section>
+      <section class="view" id="view-reports" hidden>
+        <div class="panel">
+          <h2>问题反馈</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>时间</th><th>版本</th><th>课程</th><th>说明</th><th>事件</th></tr>
+              </thead>
+              <tbody id="report-rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="report-detail" class="detail-wrap" style="margin-top:16px" hidden></div>
+      </section>
+      <section class="view" id="view-content" hidden>
+        <div class="panel" id="content-box">
+          <h2>内容包</h2>
+          <p class="muted">保存只写入草稿。发布后，App 下次打开会优先使用这一份；撤回后回到 App 内置内容。修改题目 id 不会迁移已有学习进度。</p>
+          <label>内容包 <select id="content-pack"></select></label>
+          <button id="content-open" type="button">打开</button>
+          <button id="content-publish" type="button">发布</button>
+          <button id="content-unpublish" type="button">撤回</button>
+          <label>导入 JSON <input id="content-file" type="file" accept="application/json,.json"></label>
+          <p id="content-status" class="muted"></p>
+          <div id="content-editor"></div>
+        </div>
+      </section>
+      <section class="view" id="view-audio" hidden>
+        <div class="panel">
+          <h2>音频覆盖</h2>
+          <input id="audio-path" placeholder="audio/listening/u1l1e6.mp3">
+          <input id="audio-file" type="file" accept="audio/mpeg,.mp3">
+          <button id="audio-upload" type="button">上传为草稿</button>
+          <button id="audio-publish" type="button">发布该音频</button>
+          <button id="audio-unpublish" type="button">撤回该音频</button>
+          <p id="audio-msg" class="muted"></p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>路径</th><th>修订</th><th>草稿</th><th>已发布</th></tr></thead>
+              <tbody id="audio-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
 <script>
 const TOKEN_KEY = 'gv_admin_token';
 let accounts = [];
 let current = null;
+let currentView = 'accounts';
+const loadedViews = {};
+const VIEW_IDS = ['accounts', 'sync', 'reports', 'content', 'audio'];
+const VIEW_LOADERS = {
+  accounts: loadAccounts,
+  sync: loadAccounts,
+  reports: loadReports,
+  content: loadContentPacks,
+  audio: loadAudioFiles,
+};
 
 function token() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+
+function viewFromHash() {
+  const hash = (window.location.hash || '').replace('#', '');
+  return VIEW_IDS.indexOf(hash) >= 0 ? hash : 'accounts';
+}
+
+async function showView(name) {
+  currentView = VIEW_IDS.indexOf(name) >= 0 ? name : 'accounts';
+  for (const id of VIEW_IDS) {
+    const section = document.getElementById('view-' + id);
+    if (section) section.hidden = id !== currentView;
+  }
+  const nav = document.getElementById('side-nav');
+  if (nav) {
+    for (const button of nav.querySelectorAll('.nav-item')) {
+      button.classList.toggle('active', button.dataset.view === currentView);
+    }
+  }
+  if (window.location.hash !== '#' + currentView) {
+    history.replaceState(null, '', '#' + currentView);
+  }
+  if (currentView === 'sync') fillSyncSelects();
+  const loader = VIEW_LOADERS[currentView];
+  if (loader && !loadedViews[currentView]) {
+    loadedViews[currentView] = true;
+    try { await loader(); } catch (_) { loadedViews[currentView] = false; }
+  }
+}
 
 function localTime(value) {
   if (!value) return '';
@@ -130,16 +227,31 @@ function showLogin(message) {
   document.getElementById('login').hidden = false;
   document.getElementById('app').hidden = true;
   document.getElementById('login-error').textContent = message || '';
+  for (const id of VIEW_IDS) delete loadedViews[id];
+}
+
+async function loadAccounts() {
+  const response = await api('/admin/api/accounts');
+  const body = await response.json();
+  accounts = body.accounts || [];
+  renderAccountRows();
+  if (current) {
+    const exists = accounts.some(function (account) {
+      return account.accountId === current.account.accountId;
+    });
+    if (!exists) {
+      current = null;
+      document.getElementById('detail').innerHTML = '';
+      document.getElementById('detail').hidden = true;
+    }
+  }
 }
 
 function identity(account) {
   return account.phone || account.email || account.accountId;
 }
 
-async function loadList() {
-  const response = await api('/admin/api/accounts');
-  const body = await response.json();
-  accounts = body.accounts || [];
+function renderAccountRows() {
   const rows = document.getElementById('rows');
   rows.innerHTML = '';
   for (const account of accounts) {
@@ -165,12 +277,6 @@ async function loadList() {
     tr.addEventListener('click', function () { openDetail(account.accountId); });
     rows.appendChild(tr);
   }
-  fillSyncSelects();
-  document.getElementById('login').hidden = true;
-  document.getElementById('app').hidden = false;
-  await loadReports();
-  await loadContentPacks();
-  await loadAudioFiles();
 }
 
 async function loadReports() {
@@ -178,7 +284,9 @@ async function loadReports() {
   const body = await response.json();
   const rows = document.getElementById('report-rows');
   rows.innerHTML = '';
-  document.getElementById('report-detail').innerHTML = '';
+  const detail = document.getElementById('report-detail');
+  detail.innerHTML = '';
+  detail.hidden = true;
   for (const report of body.reports || []) {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
@@ -201,6 +309,7 @@ async function openReport(id) {
   const report = body.report || {};
   const box = document.getElementById('report-detail');
   box.innerHTML = '';
+  box.hidden = false;
   const title = document.createElement('h3');
   title.textContent = '反馈 ' + (report.appVersion || '');
   box.appendChild(title);
@@ -275,7 +384,7 @@ document.getElementById('sync-run').addEventListener('click', async function () 
     return;
   }
   msg.textContent = '已写入目标，合并后 ' + body.lessonCount + ' 课';
-  await loadList();
+  await loadAccounts();
 });
 
 function lessonRows(items) {
@@ -299,6 +408,7 @@ async function openDetail(id) {
   const rewardCount = Object.keys(current.rewards || {}).length;
   const detail = document.getElementById('detail');
   detail.innerHTML = '';
+  detail.hidden = false;
   const title = document.createElement('h2');
   title.textContent = identity(account);
   detail.appendChild(title);
@@ -333,7 +443,7 @@ async function openDetail(id) {
   toggle.addEventListener('click', async function () {
     const action = account.disabledAt ? 'enable' : 'disable';
     await api('/admin/api/accounts/' + id + '/' + action, { method: 'POST' });
-    await loadList();
+    await loadAccounts();
     await openDetail(id);
   });
   const password = document.createElement('input');
@@ -364,7 +474,8 @@ async function openDetail(id) {
     if (response.status !== 204) { alert('删除失败'); return; }
     current = null;
     detail.innerHTML = '';
-    await loadList();
+    detail.hidden = true;
+    await loadAccounts();
   });
   actions.appendChild(toggle);
   actions.appendChild(password);
@@ -864,15 +975,30 @@ document.getElementById('audio-unpublish').addEventListener('click', async funct
   if (response.ok) await loadAudioFiles();
 });
 
-document.getElementById('enter').addEventListener('click', async function () {
+document.getElementById('side-nav').addEventListener('click', function (event) {
+  const button = event.target.closest('.nav-item');
+  if (button) showView(button.dataset.view);
+});
+window.addEventListener('hashchange', function () {
+  if (!document.getElementById('app').hidden) showView(viewFromHash());
+});
+document.getElementById('enter').addEventListener('click', function () {
   sessionStorage.setItem(TOKEN_KEY, document.getElementById('token').value);
-  try { await loadList(); } catch (_) {}
+  enterApp();
 });
 document.getElementById('logout').addEventListener('click', function () {
   sessionStorage.removeItem(TOKEN_KEY);
   showLogin('');
 });
-if (token()) { loadList().catch(function () {}); }
+
+async function enterApp() {
+  try { await loadAccounts(); } catch (_) { return; }
+  document.getElementById('login').hidden = true;
+  document.getElementById('app').hidden = false;
+  showView(viewFromHash());
+}
+
+if (token()) { enterApp(); }
 </script>
 </body>
 </html>
