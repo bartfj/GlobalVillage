@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:english_village/app/providers.dart';
 import 'package:english_village/core/services/phonetic_lookup_service.dart';
 import 'package:english_village/features/lesson/widgets/tappable_phonetic_text.dart';
@@ -70,5 +72,70 @@ void main() {
     expect(find.text('支持；支撑'), findsOneWidget);
 
     dismissPhoneticBubble();
+  });
+
+  testWidgets('bubble shows the Chinese gloss under the IPA', (tester) async {
+    final service = PhoneticLookupService(
+      client: MockClient((request) async {
+        return http.Response(
+          jsonEncode({
+            'ec': {
+              'word': [
+                {
+                  'usphone': 'ˈswɪmɪŋ',
+                  'trs': [
+                    {
+                      'tr': [
+                        {
+                          'l': {
+                            'i': ['n. 游泳，游泳运动'],
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          }),
+          200,
+          headers: {'content-type': 'application/json'},
+        );
+      }),
+      localIpa: {'swimming': '/ˈswɪmɪŋ/'},
+    );
+    addTearDown(service.dispose);
+    addTearDown(dismissPhoneticBubble);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          phoneticLookupProvider.overrideWith((ref) => service),
+        ],
+        child: MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) {
+                return TextButton(
+                  onPressed: () => showPhoneticBubble(
+                    context,
+                    word: 'swimming',
+                    globalPosition: const Offset(40, 120),
+                    anchorSize: const Size(72, 24),
+                  ),
+                  child: const Text('open'),
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open'));
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('\u2066/ˈswɪmɪŋ/\u2069'), findsOneWidget);
+    expect(find.text('游泳'), findsOneWidget);
   });
 }
