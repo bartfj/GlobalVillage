@@ -94,12 +94,20 @@ class Exercise {
     LearningLanguage.english => text,
   };
 
-  static const _sanskritDigraphs = {
-    'aa': 'ā', 'ii': 'ī', 'uu': 'ū', 'sh': 'ś',
-  };
+  static const _sanskritDigraphs = {'aa': 'ā', 'ii': 'ī', 'uu': 'ū', 'sh': 'ś'};
   static const _sanskritCapitals = {
-    'A': 'ā', 'I': 'ī', 'U': 'ū', 'R': 'ṛ', 'G': 'ṅ', 'J': 'ñ',
-    'T': 'ṭ', 'D': 'ḍ', 'N': 'ṇ', 'S': 'ṣ', 'M': 'ṃ', 'H': 'ḥ',
+    'A': 'ā',
+    'I': 'ī',
+    'U': 'ū',
+    'R': 'ṛ',
+    'G': 'ṅ',
+    'J': 'ñ',
+    'T': 'ṭ',
+    'D': 'ḍ',
+    'N': 'ṇ',
+    'S': 'ṣ',
+    'M': 'ṃ',
+    'H': 'ḥ',
   };
 
   static String _expandSanskritAliases(String text) {
@@ -107,10 +115,7 @@ class Exercise {
     for (final entry in _sanskritDigraphs.entries) {
       out = out.replaceAll(entry.key, entry.value);
     }
-    return out
-        .split('')
-        .map((c) => _sanskritCapitals[c] ?? c)
-        .join();
+    return out.split('').map((c) => _sanskritCapitals[c] ?? c).join();
   }
 
   static const _pinyinTones = {
@@ -155,6 +160,9 @@ class Exercise {
   /// 连线题左右项；其他题型为 []
   final List<MatchPair> pairs;
 
+  /// 本地发音片段 id（瑜伽梵文练习使用），其他题目为 null
+  final String? audioId;
+
   const Exercise({
     required this.id,
     required this.type,
@@ -169,6 +177,7 @@ class Exercise {
     this.support,
     this.tokens = const [],
     this.tokenSeparator = ' ',
+    this.audioId,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -194,6 +203,7 @@ class Exercise {
       pairs: (json['pairs'] as List<dynamic>? ?? [])
           .map((e) => MatchPair.fromJson(e as Map<String, dynamic>))
           .toList(),
+      audioId: json['audioId'] as String?,
     );
   }
 }

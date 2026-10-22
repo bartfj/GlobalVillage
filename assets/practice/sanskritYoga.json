@@ -14,6 +14,7 @@
         "āsana"
       ],
       "answer": "namaste",
+      "audioId": "namaste",
       "language": "sanskrit"
     },
     {
@@ -28,6 +29,7 @@
         "合十礼"
       ],
       "answer": "合十礼",
+      "audioId": "namaste",
       "language": "sanskrit"
     },
     {
@@ -42,6 +44,7 @@
         "oṃ"
       ],
       "answer": "oṃ",
+      "audioId": "om",
       "language": "sanskrit"
     },
     {
@@ -56,6 +59,7 @@
         "瑜伽"
       ],
       "answer": "唵（神圣音节）",
+      "audioId": "om",
       "language": "sanskrit"
     },
     {
@@ -70,6 +74,7 @@
         "āsana"
       ],
       "answer": "yoga",
+      "audioId": "yoga",
       "language": "sanskrit"
     },
     {
@@ -84,6 +89,7 @@
         "调息"
       ],
       "answer": "瑜伽",
+      "audioId": "yoga",
       "language": "sanskrit"
     },
     {
@@ -98,6 +104,7 @@
         "śvāsa"
       ],
       "answer": "āsana",
+      "audioId": "asana",
       "language": "sanskrit"
     },
     {
@@ -112,6 +119,7 @@
         "和平"
       ],
       "answer": "体式",
+      "audioId": "asana",
       "language": "sanskrit"
     },
     {
@@ -126,6 +134,7 @@
         "guru"
       ],
       "answer": "prāṇāyāma",
+      "audioId": "pranayama",
       "language": "sanskrit"
     },
     {
@@ -140,6 +149,7 @@
         "调息"
       ],
       "answer": "调息",
+      "audioId": "pranayama",
       "language": "sanskrit"
     },
     {
@@ -154,6 +164,7 @@
         "śvāsa"
       ],
       "answer": "śvāsa",
+      "audioId": "shvasa",
       "language": "sanskrit"
     },
     {
@@ -168,6 +179,7 @@
         "和平"
       ],
       "answer": "呼吸",
+      "audioId": "shvasa",
       "language": "sanskrit"
     },
     {
@@ -182,6 +194,7 @@
         "guru"
       ],
       "answer": "śāntiḥ",
+      "audioId": "shanti",
       "language": "sanskrit"
     },
     {
@@ -196,6 +209,7 @@
         "曼陀罗"
       ],
       "answer": "和平",
+      "audioId": "shanti",
       "language": "sanskrit"
     },
     {
@@ -210,6 +224,7 @@
         "dhyāna"
       ],
       "answer": "guru",
+      "audioId": "guru",
       "language": "sanskrit"
     },
     {
@@ -224,6 +239,7 @@
         "手印"
       ],
       "answer": "上师",
+      "audioId": "guru",
       "language": "sanskrit"
     },
     {
@@ -238,6 +254,7 @@
         "bandha"
       ],
       "answer": "mantra",
+      "audioId": "mantra",
       "language": "sanskrit"
     },
     {
@@ -252,6 +269,7 @@
         "曼陀罗"
       ],
       "answer": "曼陀罗",
+      "audioId": "mantra",
       "language": "sanskrit"
     },
     {
@@ -266,6 +284,7 @@
         "dhyāna"
       ],
       "answer": "dhyāna",
+      "audioId": "dhyana",
       "language": "sanskrit"
     },
     {
@@ -280,6 +299,7 @@
         "手印"
       ],
       "answer": "冥想",
+      "audioId": "dhyana",
       "language": "sanskrit"
     },
     {
@@ -294,6 +314,7 @@
         "bandha"
       ],
       "answer": "mudrā",
+      "audioId": "mudra",
       "language": "sanskrit"
     },
     {
@@ -308,6 +329,7 @@
         "脉轮"
       ],
       "answer": "手印",
+      "audioId": "mudra",
       "language": "sanskrit"
     },
     {
@@ -322,6 +344,7 @@
         "sūryanamaskāra"
       ],
       "answer": "bandha",
+      "audioId": "bandha",
       "language": "sanskrit"
     },
     {
@@ -336,6 +359,7 @@
         "山式"
       ],
       "answer": "收束法",
+      "audioId": "bandha",
       "language": "sanskrit"
     },
     {
@@ -350,6 +374,7 @@
         "vṛkṣāsana"
       ],
       "answer": "chakra",
+      "audioId": "chakra",
       "language": "sanskrit"
     },
     {
@@ -364,6 +389,7 @@
         "脉轮"
       ],
       "answer": "脉轮",
+      "audioId": "chakra",
       "language": "sanskrit"
     },
     {
@@ -378,6 +404,7 @@
         "sūryanamaskāra"
       ],
       "answer": "sūryanamaskāra",
+      "audioId": "suryanamaskara",
       "language": "sanskrit"
     },
     {
@@ -392,6 +419,7 @@
         "山式"
       ],
       "answer": "拜日式",
+      "audioId": "suryanamaskara",
       "language": "sanskrit"
     },
     {
@@ -406,6 +434,7 @@
         "vṛkṣāsana"
       ],
       "answer": "tāḍāsana",
+      "audioId": "tadasana",
       "language": "sanskrit"
     },
     {
@@ -420,6 +449,7 @@
         "战士式"
       ],
       "answer": "山式",
+      "audioId": "tadasana",
       "language": "sanskrit"
     },
     {
@@ -434,6 +464,7 @@
         "śavāsana"
       ],
       "answer": "vṛkṣāsana",
+      "audioId": "vrikshasana",
       "language": "sanskrit"
     },
     {
@@ -448,6 +479,7 @@
         "婴儿式"
       ],
       "answer": "树式",
+      "audioId": "vrikshasana",
       "language": "sanskrit"
     },
     {
@@ -462,6 +494,7 @@
         "bhujaṅgāsana"
       ],
       "answer": "vīrabhadrāsana",
+      "audioId": "virabhadrasana",
       "language": "sanskrit"
     },
     {
@@ -476,6 +509,7 @@
         "战士式"
       ],
       "answer": "战士式",
+      "audioId": "virabhadrasana",
       "language": "sanskrit"
     },
     {
@@ -490,6 +524,7 @@
         "śavāsana"
       ],
       "answer": "śavāsana",
+      "audioId": "shavasana",
       "language": "sanskrit"
     },
     {
@@ -504,6 +539,7 @@
         "婴儿式"
       ],
       "answer": "挺尸式",
+      "audioId": "shavasana",
       "language": "sanskrit"
     },
     {
@@ -518,6 +554,7 @@
         "bhujaṅgāsana"
       ],
       "answer": "bālāsana",
+      "audioId": "balasana",
       "language": "sanskrit"
     },
     {
@@ -532,6 +569,7 @@
         "合十礼"
       ],
       "answer": "婴儿式",
+      "audioId": "balasana",
       "language": "sanskrit"
     },
     {
@@ -546,6 +584,7 @@
         "oṃ"
       ],
       "answer": "bhujaṅgāsana",
+      "audioId": "bhujangasana",
       "language": "sanskrit"
     },
     {
@@ -560,6 +599,7 @@
         "瑜伽"
       ],
       "answer": "眼镜蛇式",
+      "audioId": "bhujangasana",
       "language": "sanskrit"
     }
   ]

@@ -16,6 +16,7 @@ import '../lesson/widgets/lesson_style.dart';
 import '../lesson/widgets/tappable_phonetic_text.dart';
 import 'skill_practice_controller.dart';
 import 'skill_practice_style.dart';
+import 'yoga_audio_button.dart';
 
 /// 专项练习会话页（方案 C：独立壳，不走 LessonPage）
 class SkillPracticePage extends ConsumerStatefulWidget {
@@ -450,6 +451,11 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                     onChanged: (v) => setState(() => _currentAnswer = v),
                     questionKey: questionKey,
                     onSkipSpeaking: _onSkipSpeaking,
+                    promptAction:
+                        widget.skill == SkillPracticeKind.sanskritYoga &&
+                            exercise.audioId != null
+                        ? YogaAudioButton(audioId: exercise.audioId!)
+                        : null,
                   ),
                 ),
               ),

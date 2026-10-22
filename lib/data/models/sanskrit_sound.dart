@@ -1,5 +1,7 @@
+import 'audio_clip.dart';
+
 /// 逐字母参考录音。独立于题库，不参与课程判分或解锁。
-class SanskritSound {
+class SanskritSound implements AudioClip {
   const SanskritSound({
     required this.id,
     required this.devanagari,
@@ -12,6 +14,7 @@ class SanskritSound {
     required this.byteLength,
   });
 
+  @override
   final String id;
   final String devanagari;
   final String iast;
@@ -19,7 +22,9 @@ class SanskritSound {
   final String description;
   final String hint;
   final Uri url;
+  @override
   final String sha256;
+  @override
   final int byteLength;
 
   static const groups = [

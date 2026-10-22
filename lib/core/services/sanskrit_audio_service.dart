@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 
-import '../../data/models/sanskrit_sound.dart';
+import '../../data/models/audio_clip.dart';
 import '../../data/repositories/sanskrit_audio_repository.dart';
 import 'diagnostic_log.dart';
 
@@ -93,7 +93,7 @@ class SanskritAudioService {
   bool _disposed = false;
 
   Future<SanskritPlaybackResult> play(
-    SanskritSound sound, {
+    AudioClip clip, {
     double rate = 1,
     int repetitions = 1,
   }) {
@@ -106,7 +106,7 @@ class SanskritAudioService {
     final cancel = Completer<void>();
     _cancel = cancel;
     final result = _tail.then(
-      (_) => _play(sound, rate, repetitions, generation, cancel),
+      (_) => _play(clip, rate, repetitions, generation, cancel),
     );
     _tail = result.then<void>((_) {}, onError: (Object _, StackTrace __) {});
     return result;
@@ -115,7 +115,7 @@ class SanskritAudioService {
   bool _current(int generation) => !_disposed && generation == _generation;
 
   Future<SanskritPlaybackResult> _play(
-    SanskritSound sound,
+    AudioClip clip,
     double rate,
     int repetitions,
     int generation,
@@ -124,7 +124,7 @@ class SanskritAudioService {
     if (!_current(generation)) return SanskritPlaybackResult.cancelled;
     try {
       final path = await Future.any<String?>([
-        repository.then((repo) => repo.fileFor(sound)),
+        repository.then((repo) => repo.fileFor(clip)),
         cancel.future.then((_) => null),
       ]);
       if (!_current(generation) || path == null) {

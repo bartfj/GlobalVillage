@@ -18,10 +18,7 @@ const _skillTypes = <String, Set<ExerciseType>>{
     ExerciseType.translateChoice,
     ExerciseType.wordBank,
   },
-  'speaking': {
-    ExerciseType.speaking,
-    ExerciseType.translateInput,
-  },
+  'speaking': {ExerciseType.speaking, ExerciseType.translateInput},
 };
 
 const _skillTitles = <String, String>{
@@ -44,6 +41,7 @@ Map<String, dynamic> exerciseToJson(Exercise e) {
       'pairs': [
         for (final p in e.pairs) {'left': p.left, 'right': p.right},
       ],
+    if (e.audioId != null) 'audioId': e.audioId,
   };
 }
 
@@ -97,9 +95,7 @@ List<Exercise> sampleEvenly(List<Exercise> pool, int limit) {
   final withAudio = pool.where(hasListeningAudio).toList();
   final withoutAudio = pool.where((e) => !hasListeningAudio(e)).toList();
   final seen = <String>{};
-  final result = <Exercise>[
-    ..._sampleByUnit(withAudio, limit, seen),
-  ];
+  final result = <Exercise>[..._sampleByUnit(withAudio, limit, seen)];
   if (result.length < limit) {
     result.addAll(_sampleByUnit(withoutAudio, limit - result.length, seen));
   }

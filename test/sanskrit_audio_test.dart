@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:english_village/core/services/sanskrit_audio_service.dart';
+import 'package:english_village/data/models/audio_clip.dart';
 import 'package:english_village/data/models/sanskrit_sound.dart';
 import 'package:english_village/data/repositories/sanskrit_audio_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -56,8 +57,8 @@ class _Player implements SanskritSoundPlayer {
 class _PendingRepository implements SanskritAudioRepository {
   final first = Completer<String>();
   @override
-  Future<String> fileFor(SanskritSound sound) =>
-      sound.id == 'a' ? first.future : Future.value('/audio/${sound.id}.mp3');
+  Future<String> fileFor(AudioClip clip) =>
+      clip.id == 'a' ? first.future : Future.value('/audio/${clip.id}.mp3');
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
@@ -151,7 +152,11 @@ void main() {
         final file = File('assets/practice/sanskrit_audio/${sound.id}.mp3');
         final bytes = file.readAsBytesSync();
         expect(bytes.length, sound.byteLength, reason: sound.id);
-        expect(sha256.convert(bytes).toString(), sound.sha256, reason: sound.id);
+        expect(
+          sha256.convert(bytes).toString(),
+          sound.sha256,
+          reason: sound.id,
+        );
       }
     });
   });

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:english_village/core/services/sanskrit_audio_service.dart';
+import 'package:english_village/data/models/audio_clip.dart';
 import 'package:english_village/data/models/sanskrit_sound.dart';
 import 'package:english_village/features/sanskrit_audio/sanskrit_audio_page.dart';
 import 'package:english_village/features/sanskrit_audio/sanskrit_audio_providers.dart';
@@ -20,7 +21,7 @@ class _Audio implements SanskritAudioService {
 
   @override
   Future<SanskritPlaybackResult> play(
-    SanskritSound sound, {
+    AudioClip sound, {
     double rate = 1,
     int repetitions = 1,
   }) async {

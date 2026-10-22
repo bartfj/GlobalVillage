@@ -15,12 +15,16 @@ class LanguageExerciseWidget extends ConsumerStatefulWidget {
     required this.checked,
     required this.answer,
     required this.onChanged,
+    this.promptAction,
   });
   final Exercise exercise;
   final bool enabled;
   final bool checked;
   final String answer;
   final ValueChanged<String> onChanged;
+
+  /// 题干右侧的附加操作（如参考发音按钮）
+  final Widget? promptAction;
 
   @override
   ConsumerState<LanguageExerciseWidget> createState() =>
@@ -55,18 +59,51 @@ class _LanguageExerciseWidgetState
 
   /// 普通键盘打不出的字符，点按插入光标处。
   static const _sanskritChars = [
-    'ā', 'ī', 'ū', 'ṛ', 'ṅ', 'ñ', 'ṭ', 'ḍ', 'ṇ', 'ś', 'ṣ', 'ṃ', 'ḥ',
+    'ā',
+    'ī',
+    'ū',
+    'ṛ',
+    'ṅ',
+    'ñ',
+    'ṭ',
+    'ḍ',
+    'ṇ',
+    'ś',
+    'ṣ',
+    'ṃ',
+    'ḥ',
   ];
   static const _chineseChars = [
-    'ā', 'á', 'ǎ', 'à', 'ē', 'é', 'ě', 'è',
-    'ī', 'í', 'ǐ', 'ì', 'ō', 'ó', 'ǒ', 'ò',
-    'ū', 'ú', 'ǔ', 'ù', 'ǖ', 'ǘ', 'ǚ', 'ǜ',
+    'ā',
+    'á',
+    'ǎ',
+    'à',
+    'ē',
+    'é',
+    'ě',
+    'è',
+    'ī',
+    'í',
+    'ǐ',
+    'ì',
+    'ō',
+    'ó',
+    'ǒ',
+    'ò',
+    'ū',
+    'ú',
+    'ǔ',
+    'ù',
+    'ǖ',
+    'ǘ',
+    'ǚ',
+    'ǜ',
   ];
 
   List<String> get _specialChars =>
       widget.exercise.language == LearningLanguage.sanskrit
-          ? _sanskritChars
-          : _chineseChars;
+      ? _sanskritChars
+      : _chineseChars;
 
   void _insertChar(String char) {
     final text = _input.text;
@@ -105,7 +142,18 @@ class _LanguageExerciseWidgetState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(ex.prompt, style: Theme.of(context).textTheme.titleMedium),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                ex.prompt,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            if (widget.promptAction != null) widget.promptAction!,
+          ],
+        ),
         const SizedBox(height: 16),
         if (ex.support != null) ...[
           Text(ex.support!, style: _targetStyle),
@@ -193,8 +241,7 @@ class _LanguageExerciseWidgetState
                 ActionChip(
                   label: Text(char),
                   visualDensity: VisualDensity.compact,
-                  onPressed:
-                      widget.enabled ? () => _insertChar(char) : null,
+                  onPressed: widget.enabled ? () => _insertChar(char) : null,
                 ),
             ],
           ),

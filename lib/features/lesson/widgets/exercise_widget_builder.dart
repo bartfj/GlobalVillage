@@ -20,6 +20,7 @@ Widget buildExerciseWidget({
   required ValueChanged<String> onChanged,
   required Key questionKey,
   VoidCallback? onSkipSpeaking,
+  Widget? promptAction,
 }) {
   // 中文听辨题复用听力组件；其余非英语题仍走纯文字组件。
   final spokenChinese =
@@ -33,6 +34,7 @@ Widget buildExerciseWidget({
       checked: checked,
       answer: currentAnswer,
       onChanged: onChanged,
+      promptAction: promptAction,
     );
   }
   switch (exercise.type) {
