@@ -222,7 +222,7 @@ class _PhoneticBubbleOverlayState extends ConsumerState<_PhoneticBubbleOverlay> 
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
     final padding = MediaQuery.paddingOf(context);
-    const bubbleMaxWidth = 220.0;
+    const bubbleMaxWidth = 240.0;
     final left = (widget.globalPosition.dx)
         .clamp(8.0, media.width - bubbleMaxWidth - 8);
     var top = widget.globalPosition.dy - 56;
@@ -231,6 +231,7 @@ class _PhoneticBubbleOverlayState extends ConsumerState<_PhoneticBubbleOverlay> 
     }
 
     final ipaLabel = formatIpaLabel(_result?.ipa, loading: _loading);
+    final meaning = _result?.meaning?.trim();
 
     return Stack(
       children: [
@@ -295,6 +296,20 @@ class _PhoneticBubbleOverlayState extends ConsumerState<_PhoneticBubbleOverlay> 
                                   : AppColors.textPrimary,
                             ),
                           ),
+                          if (meaning != null && meaning.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4, right: 6),
+                              child: Text(
+                                meaning,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  height: 1.25,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

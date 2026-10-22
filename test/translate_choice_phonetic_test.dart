@@ -33,6 +33,7 @@ void main() {
     service = PhoneticLookupService(
       client: MockClient((request) async => http.Response('nope', 500)),
       localIpa: {'could': '/kʊd/', 'pharmacist': '/ˈfɑːrməsɪst/'},
+      localGloss: {'could': 'aux. 能；可以', 'pharmacist': 'n. 药剂师'},
     );
   });
 

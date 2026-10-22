@@ -51,6 +51,7 @@ app.*.map.json
 server/.env
 
 # Local tooling / SDK / caches
+tools/.cache/
 .trae/sdk/
 .trae/tmp/
 .trae/__pycache__/

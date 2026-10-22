@@ -15,6 +15,7 @@ const contentPackAssets = <String, String>{
   'practice/vocabulary': 'assets/practice/vocabulary.json',
   'practice/speaking': 'assets/practice/speaking.json',
   'phonetics/en_ipa': 'assets/phonetics/en_ipa.json',
+  'phonetics/en_zh': 'assets/phonetics/en_zh.json',
 };
 
 final contentAudioPath = RegExp(

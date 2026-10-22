@@ -85,6 +85,7 @@ const contentPackSpecs = <ContentPackSpec>[
     skill: 'speaking',
   ),
   ContentPackSpec(id: 'phonetics/en_ipa', label: '英语音标', kind: 'phonetics'),
+  ContentPackSpec(id: 'phonetics/en_zh', label: '英语释义', kind: 'phonetics'),
 ];
 
 ContentPackSpec? contentPackById(String id) {

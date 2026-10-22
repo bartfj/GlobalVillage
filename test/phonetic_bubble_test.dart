@@ -21,6 +21,10 @@ void main() {
         'reply': '/rɪˈplaɪ/',
         'support': '/səˈpɔːrt/',
       },
+      localGloss: {
+        'reply': '回答；回复',
+        'support': '支持；支撑',
+      },
     );
     addTearDown(service.dispose);
 
@@ -56,12 +60,14 @@ void main() {
 
     await openWord('reply');
     expect(find.text('\u2066/rɪˈplaɪ/\u2069'), findsOneWidget);
+    expect(find.text('回答；回复'), findsOneWidget);
 
     dismissPhoneticBubble();
     await tester.pump();
 
     await openWord('support.');
     expect(find.text('\u2066/səˈpɔːrt/\u2069'), findsOneWidget);
+    expect(find.text('支持；支撑'), findsOneWidget);
 
     dismissPhoneticBubble();
   });
