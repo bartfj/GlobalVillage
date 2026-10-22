@@ -14,6 +14,9 @@ String _stripMarks(String text) => unicode
     .nfd(text)
     .replaceAll(RegExp('[\\u0300\\u0301\\u0304\\u030C]'), '');
 
+/// 天城体字符（用于确认选项里没有夹带原文）
+final _devanagari = RegExp(r'[\u0900-\u097F]');
+
 SkillPracticeBank _load(String path) => SkillPracticeBank.fromJson(
   jsonDecodeMap(File(path).readAsStringSync()),
 );
@@ -38,7 +41,11 @@ void main() {
       );
       expect(
         SkillPracticeKind.forLanguage(LearningLanguage.sanskrit),
-        [SkillPracticeKind.sanskritLetters, SkillPracticeKind.sanskritVowels],
+        [
+          SkillPracticeKind.sanskritLetters,
+          SkillPracticeKind.sanskritVowels,
+          SkillPracticeKind.sanskritYoga,
+        ],
       );
     });
   });
@@ -54,7 +61,7 @@ void main() {
       }
     });
 
-    test('四个题库可解析且题型安全', () {
+    test('五个题库可解析且题型安全', () {
       for (final path in generated.keys) {
         final bank = _load(path);
         expect(bank.exercises.length, greaterThanOrEqualTo(10), reason: path);
@@ -80,6 +87,9 @@ void main() {
         expect(e.language, LearningLanguage.sanskrit, reason: e.id);
       }
       for (final e in _load('assets/practice/sanskritVowels.json').exercises) {
+        expect(e.language, LearningLanguage.sanskrit, reason: e.id);
+      }
+      for (final e in _load('assets/practice/sanskritYoga.json').exercises) {
         expect(e.language, LearningLanguage.sanskrit, reason: e.id);
       }
     });
@@ -118,6 +128,24 @@ void main() {
       for (final e in bank.exercises) {
         expect(taught, contains(e.answer), reason: e.id);
       }
+    });
+
+    test('瑜伽梵文：识读与意义成对，术语不重复', () {
+      final bank = _load('assets/practice/sanskritYoga.json');
+      expect(bank.exercises.length, 40);
+      final terms = <String>{};
+      for (var i = 0; i < bank.exercises.length; i += 2) {
+        final reading = bank.exercises[i];
+        final meaning = bank.exercises[i + 1];
+        // 识读题给出天城体，意义题用 IAST 提问；选项都不含天城体
+        expect(reading.prompt, startsWith('选择 IAST：'), reason: reading.id);
+        expect(meaning.prompt, contains(reading.answer), reason: meaning.id);
+        for (final options in [reading.options, meaning.options]) {
+          expect(options.any(_devanagari.hasMatch), isFalse);
+        }
+        expect(terms.add(reading.answer), isTrue, reason: reading.answer);
+      }
+      expect(terms.length, 20);
     });
   });
 }

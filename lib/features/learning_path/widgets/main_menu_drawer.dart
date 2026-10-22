@@ -201,7 +201,7 @@ class MainMenuDrawer extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 10),
-            // 专项练习按当前学习语言显示：英语 3 项，中文/梵文各 2 项
+            // 专项练习按当前学习语言显示：英语 3 项，中文 2 项，梵文 3 项
             _SectionCard(
               title: s.sectionPractice,
               child: Column(

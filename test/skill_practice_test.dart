@@ -77,6 +77,7 @@ const _allowedTypes = {
   SkillPracticeKind.chineseCharacters: {ExerciseType.translateChoice},
   SkillPracticeKind.sanskritLetters: {ExerciseType.translateChoice},
   SkillPracticeKind.sanskritVowels: {ExerciseType.translateChoice},
+  SkillPracticeKind.sanskritYoga: {ExerciseType.translateChoice},
 };
 
 void main() {

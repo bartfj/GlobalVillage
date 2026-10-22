@@ -21,6 +21,8 @@ extension SkillPracticeStyle on SkillPracticeKind {
         return AppColors.goldDark;
       case SkillPracticeKind.sanskritVowels:
         return AppColors.greenDark;
+      case SkillPracticeKind.sanskritYoga:
+        return AppColors.gold;
     }
   }
 
@@ -40,6 +42,8 @@ extension SkillPracticeStyle on SkillPracticeKind {
         return Icons.language_rounded;
       case SkillPracticeKind.sanskritVowels:
         return Icons.swap_horiz_rounded;
+      case SkillPracticeKind.sanskritYoga:
+        return Icons.self_improvement_rounded;
     }
   }
 }

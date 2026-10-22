@@ -209,6 +209,8 @@ class S {
         return 'Devanagari';
       case SkillPracticeKind.sanskritVowels:
         return 'Vowel length';
+      case SkillPracticeKind.sanskritYoga:
+        return 'Yoga Sanskrit';
     }
   }
 
@@ -229,6 +231,8 @@ class S {
         return 'Read Devanagari letters and syllables';
       case SkillPracticeKind.sanskritVowels:
         return 'Tell short and long vowels apart';
+      case SkillPracticeKind.sanskritYoga:
+        return 'Read common yoga terms from class';
     }
   }
 

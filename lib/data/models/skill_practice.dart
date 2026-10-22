@@ -1,7 +1,7 @@
 import 'course.dart';
 import 'learning_language.dart';
 
-/// 专项练习技能：英语（发音/单词/口语）+ 中文（声调/汉字）+ 梵文（字母/元音）
+/// 专项练习技能：英语（发音/单词/口语）+ 中文（声调/汉字）+ 梵文（字母/元音/瑜伽）
 enum SkillPracticeKind {
   pronunciation,
   vocabulary,
@@ -9,7 +9,8 @@ enum SkillPracticeKind {
   chineseTones,
   chineseCharacters,
   sanskritLetters,
-  sanskritVowels;
+  sanskritVowels,
+  sanskritYoga;
 
   String get assetPath => 'assets/practice/$name.json';
 
@@ -27,6 +28,7 @@ enum SkillPracticeKind {
         return LearningLanguage.chinese;
       case SkillPracticeKind.sanskritLetters:
       case SkillPracticeKind.sanskritVowels:
+      case SkillPracticeKind.sanskritYoga:
         return LearningLanguage.sanskrit;
     }
   }
@@ -51,6 +53,8 @@ enum SkillPracticeKind {
         return '天城体辨认';
       case SkillPracticeKind.sanskritVowels:
         return '长短元音辨析';
+      case SkillPracticeKind.sanskritYoga:
+        return '瑜伽梵文';
     }
   }
 
@@ -70,6 +74,8 @@ enum SkillPracticeKind {
         return '认读天城体字母与音节';
       case SkillPracticeKind.sanskritVowels:
         return '分清长短元音，读准转写';
+      case SkillPracticeKind.sanskritYoga:
+        return '认读课堂常用瑜伽术语';
     }
   }
 
@@ -89,6 +95,8 @@ enum SkillPracticeKind {
         return '天城体辨认完成';
       case SkillPracticeKind.sanskritVowels:
         return '长短元音辨析完成';
+      case SkillPracticeKind.sanskritYoga:
+        return '瑜伽梵文完成';
     }
   }
 

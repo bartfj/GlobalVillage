@@ -20,7 +20,8 @@ Map<String, dynamic> _exerciseJson(Exercise e) => {
 /// - 中文声调练习：选项为同一音节的四个声调变体（最小对立对）；
 /// - 中文汉字识读：双向（字→义、义→字），干扰项取同批已学词；
 /// - 梵文天城体辨认：只考课程已教字母与音节；
-/// - 梵文长短元音：选项只在元音长短上不同，字母均来自已教集合。
+/// - 梵文长短元音：选项只在元音长短上不同，字母均来自已教集合；
+/// - 瑜伽梵文：课堂常用术语，识读（天城体 → IAST）与意义（IAST → 中文）各一题。
 
 // ---------------------------------------------------------------------------
 // 中文声调练习
@@ -324,16 +325,102 @@ List<Exercise> _buildSanskritVowels() {
 }
 
 // ---------------------------------------------------------------------------
+// 瑜伽梵文（课堂常用术语：识读 + 意义）
+// ---------------------------------------------------------------------------
+
+/// （天城体, IAST, 中文释义）——均为瑜伽课堂常见术语。
+const _saYogaTerms = <(String, String, String)>[
+  ('नमस्ते', 'namaste', '合十礼'),
+  ('ॐ', 'oṃ', '唵（神圣音节）'),
+  ('योग', 'yoga', '瑜伽'),
+  ('आसन', 'āsana', '体式'),
+  ('प्राणायाम', 'prāṇāyāma', '调息'),
+  ('श्वास', 'śvāsa', '呼吸'),
+  ('शान्तिः', 'śāntiḥ', '和平'),
+  ('गुरु', 'guru', '上师'),
+  ('मन्त्र', 'mantra', '曼陀罗'),
+  ('ध्यान', 'dhyāna', '冥想'),
+  ('मुद्रा', 'mudrā', '手印'),
+  ('बन्ध', 'bandha', '收束法'),
+  ('चक्र', 'chakra', '脉轮'),
+  ('सूर्यनमस्कार', 'sūryanamaskāra', '拜日式'),
+  ('ताडासन', 'tāḍāsana', '山式'),
+  ('वृक्षासन', 'vṛkṣāsana', '树式'),
+  ('वीरभद्रासन', 'vīrabhadrāsana', '战士式'),
+  ('शवासन', 'śavāsana', '挺尸式'),
+  ('बालासन', 'bālāsana', '婴儿式'),
+  ('भुजङ्गासन', 'bhujaṅgāsana', '眼镜蛇式'),
+];
+
+List<Exercise> _buildSanskritYoga() {
+  final exercises = <Exercise>[];
+  final n = _saYogaTerms.length;
+  for (var i = 0; i < n; i++) {
+    final (sign, iast, gloss) = _saYogaTerms[i];
+    String nextId() =>
+        'syg${(exercises.length + 1).toString().padLeft(2, '0')}';
+
+    // 识读：天城体 → IAST
+    final iastOptions = [
+      iast,
+      _saYogaTerms[(i + 1) % n].$2,
+      _saYogaTerms[(i + 2) % n].$2,
+      _saYogaTerms[(i + 3) % n].$2,
+    ];
+    final iastShift = i % 4;
+    exercises.add(
+      Exercise(
+        id: nextId(),
+        type: ExerciseType.translateChoice,
+        prompt: '选择 IAST：$sign',
+        sentence: iast,
+        options: [
+          ...iastOptions.sublist(iastShift),
+          ...iastOptions.sublist(0, iastShift),
+        ],
+        answer: iast,
+        language: LearningLanguage.sanskrit,
+      ),
+    );
+
+    // 意义：IAST → 中文
+    final glossOptions = [
+      gloss,
+      _saYogaTerms[(i + 1) % n].$3,
+      _saYogaTerms[(i + 2) % n].$3,
+      _saYogaTerms[(i + 3) % n].$3,
+    ];
+    final glossShift = (i + 1) % 4;
+    exercises.add(
+      Exercise(
+        id: nextId(),
+        type: ExerciseType.translateChoice,
+        prompt: '“$iast” 是什么意思？',
+        sentence: gloss,
+        options: [
+          ...glossOptions.sublist(glossShift),
+          ...glossOptions.sublist(0, glossShift),
+        ],
+        answer: gloss,
+        language: LearningLanguage.sanskrit,
+      ),
+    );
+  }
+  return exercises;
+}
+
+// ---------------------------------------------------------------------------
 // 输出
 // ---------------------------------------------------------------------------
 
-/// 生成 4 个题库，返回 {路径: 内容}；write 为 true 时同时写盘。
+/// 生成 5 个题库，返回 {路径: 内容}；write 为 true 时同时写盘。
 Map<String, String> generateLanguagePractice({bool write = true}) {
   final banks = <SkillPracticeKind, List<Exercise>>{
     SkillPracticeKind.chineseTones: _buildChineseTones(),
     SkillPracticeKind.chineseCharacters: _buildChineseCharacters(),
     SkillPracticeKind.sanskritLetters: _buildSanskritLetters(),
     SkillPracticeKind.sanskritVowels: _buildSanskritVowels(),
+    SkillPracticeKind.sanskritYoga: _buildSanskritYoga(),
   };
   final out = <String, String>{};
   for (final entry in banks.entries) {
