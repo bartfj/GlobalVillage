@@ -352,12 +352,13 @@ class SyncService {
     if (!SyncSnapshot.sameContent(merged, local)) {
       await _writeLocal(userKey, merged);
     }
-    if (SyncSnapshot.sameContent(merged, remoteSnapshot)) return;
+    // 内容没变时仍上报设备并刷新后台的同步时间。版本保持云端原值，避免两台互相改写快照。
+    final contentChanged = !SyncSnapshot.sameContent(merged, remoteSnapshot);
     try {
       await _api.push(
         token,
-        merged.toPayload(),
-        merged.clientUpdatedAt,
+        contentChanged ? merged.toPayload() : remote.payload,
+        contentChanged ? merged.clientUpdatedAt : remote.clientUpdatedAt,
         baseClientUpdatedAt: remote.clientUpdatedAt,
         device: device,
       );

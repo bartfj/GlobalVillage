@@ -42,6 +42,7 @@ class _FakeSyncApi extends SyncApi {
   Map<String, dynamic>? pushedPayload;
   Map<String, dynamic>? pushedDevice;
   int? pushedBase;
+  int? pushedClientUpdatedAt;
   int pullCalls = 0;
   int pushCalls = 0;
   Future<void> Function()? onPull;
@@ -65,6 +66,7 @@ class _FakeSyncApi extends SyncApi {
     pushCalls++;
     pushedPayload = payload;
     pushedBase = baseClientUpdatedAt;
+    pushedClientUpdatedAt = clientUpdatedAt;
     pushedDevice = device;
   }
 }
@@ -270,7 +272,7 @@ void main() {
       expect(pushed.rewards.keys, containsAll(['a1', 'a2']));
     });
 
-    test('内容与云端一致时不上传也不刷新界面', () async {
+    test('内容与云端一致时只上报设备，不改版本也不刷新界面', () async {
       await ProgressStore(userKey: userKey).save(
           _lesson('l1', completed: true, score: 80, completedAtMs: 100));
       var merges = 0;
@@ -289,12 +291,15 @@ void main() {
       );
       await watching.pullMergePush();
       expect(api.pullCalls, 1);
-      expect(api.pushCalls, 0);
+      expect(api.pushCalls, 1);
+      expect(api.pushedBase, 500);
+      expect(api.pushedClientUpdatedAt, 500);
+      expect(api.pushedDevice, isNotNull);
       expect(merges, 0);
       expect(settings.lastSyncAt(userKey), isNotNull);
     });
 
-    test('本机落后于云端时写入本地且不上传', () async {
+    test('本机落后于云端时写入本地，并只上报设备', () async {
       var merges = 0;
       final watching = SyncService(
         api: api,
@@ -317,7 +322,14 @@ void main() {
       );
       await watching.pullMergePush();
       expect(ProgressStore(userKey: userKey).entries['l1']!.score, 90);
-      expect(api.pushCalls, 0);
+      expect(api.pushCalls, 1);
+      expect(api.pushedBase, 500);
+      expect(api.pushedClientUpdatedAt, 500);
+      expect(api.pushedDevice, isNotNull);
+      expect(
+        SyncSnapshot.fromPayload(api.pushedPayload!).progress['l1']!.score,
+        90,
+      );
       expect(merges, 1);
     });
 
