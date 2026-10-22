@@ -124,7 +124,9 @@ class SanskritAudioService {
     if (!_current(generation)) return SanskritPlaybackResult.cancelled;
     try {
       final path = await Future.any<String?>([
-        repository.then((repo) => repo.fileFor(clip)),
+        repository
+            .then((repo) => repo.fileFor(clip))
+            .timeout(const Duration(seconds: 10)),
         cancel.future.then((_) => null),
       ]);
       if (!_current(generation) || path == null) {

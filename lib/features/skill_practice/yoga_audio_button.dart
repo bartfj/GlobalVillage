@@ -22,7 +22,12 @@ class _YogaAudioButtonState extends ConsumerState<YogaAudioButton> {
 
   Future<void> _play(YogaTermAudio term) async {
     setState(() => _playing = true);
-    final result = await ref.read(yogaAudioServiceProvider).play(term);
+    SanskritPlaybackResult result;
+    try {
+      result = await ref.read(yogaAudioServiceProvider).play(term);
+    } catch (_) {
+      result = SanskritPlaybackResult.failed;
+    }
     if (!mounted) return;
     setState(() => _playing = false);
     if (result == SanskritPlaybackResult.failed) {
@@ -40,6 +45,8 @@ class _YogaAudioButtonState extends ConsumerState<YogaAudioButton> {
 
   @override
   Widget build(BuildContext context) {
+    // 自动销毁的播放资源要跟着按钮一起存活，否则点按后会被立刻释放。
+    ref.watch(yogaAudioServiceProvider);
     final term = ref
         .watch(yogaTermAudioCatalogProvider)
         .maybeWhen(

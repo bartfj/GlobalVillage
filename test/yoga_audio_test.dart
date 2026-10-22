@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -34,6 +35,13 @@ class _Player implements SanskritSoundPlayer {
 class _Repository implements SanskritAudioRepository {
   @override
   Future<String> fileFor(AudioClip clip) async => '/audio/${clip.id}.mp3';
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _HangingRepository implements SanskritAudioRepository {
+  @override
+  Future<String> fileFor(AudioClip clip) => Completer<String>().future;
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
@@ -113,5 +121,40 @@ void main() {
 
     expect(player.calls, ['/audio/namaste.mp3']);
     expect(find.byIcon(Icons.volume_up_rounded), findsOneWidget);
+  });
+
+  testWidgets('audio button recovers when the recording never resolves', (
+    tester,
+  ) async {
+    final service = SanskritAudioService(
+      repository: Future.value(_HangingRepository()),
+      player: _Player(),
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          yogaTermAudioCatalogProvider.overrideWith((ref) async => _catalog()),
+          yogaAudioServiceProvider.overrideWith((ref) => service),
+          uiStringsOverride,
+        ],
+        child: const MaterialApp(
+          home: Scaffold(body: YogaAudioButton(audioId: 'namaste')),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    await tester.tap(find.byIcon(Icons.volume_up_rounded));
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 11));
+    expect(find.byIcon(Icons.volume_up_rounded), findsOneWidget);
+
+    // 让失败提示自己消失，避免测试结束时留下定时器。
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pump(const Duration(seconds: 1));
   });
 }
