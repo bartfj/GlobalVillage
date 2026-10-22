@@ -84,10 +84,6 @@ class S {
     }
   }
 
-  /// 当前课程标题；课程名已含语言名时不再重复（梵文 · 梵文入门 → 梵文）。
-  String courseTitle(String language, String track) =>
-      track.startsWith(language) ? language : '$language · $track';
-
   String trackLabel(CourseTrack track) {
     if (!isEn) return track.label;
     switch (track) {

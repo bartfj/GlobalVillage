@@ -600,10 +600,9 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             children: [
               Expanded(
                 child: Text(
-                  s.courseTitle(
-                    course.language.shortLabel,
-                    s.trackLabel(CourseTrack.fromId(course.id)),
-                  ),
+                  s.isEn
+                      ? s.languageLabel(course.language)
+                      : course.language.shortLabel,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
