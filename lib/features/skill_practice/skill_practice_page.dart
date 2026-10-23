@@ -14,6 +14,7 @@ import '../lesson/widgets/answer_feedback_bar.dart';
 import '../lesson/widgets/exercise_widget_builder.dart';
 import '../lesson/widgets/lesson_style.dart';
 import '../lesson/widgets/tappable_phonetic_text.dart';
+import 'english_tts_button.dart';
 import 'skill_practice_controller.dart';
 import 'skill_practice_style.dart';
 import 'yoga_audio_button.dart';
@@ -455,6 +456,8 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                         widget.skill == SkillPracticeKind.sanskritYoga &&
                             exercise.audioId != null
                         ? YogaAudioButton(audioId: exercise.audioId!)
+                        : widget.skill == SkillPracticeKind.englishYoga
+                        ? EnglishTtsButton(text: exercise.sentence)
                         : null,
                   ),
                 ),

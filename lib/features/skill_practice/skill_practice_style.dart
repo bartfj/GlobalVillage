@@ -13,6 +13,8 @@ extension SkillPracticeStyle on SkillPracticeKind {
         return AppColors.goldDark;
       case SkillPracticeKind.speaking:
         return AppColors.green;
+      case SkillPracticeKind.englishYoga:
+        return AppColors.greenDark;
       case SkillPracticeKind.chineseTones:
         return AppColors.red;
       case SkillPracticeKind.chineseCharacters:
@@ -34,6 +36,8 @@ extension SkillPracticeStyle on SkillPracticeKind {
         return Icons.menu_book_rounded;
       case SkillPracticeKind.speaking:
         return Icons.record_voice_over_rounded;
+      case SkillPracticeKind.englishYoga:
+        return Icons.sports_gymnastics_rounded;
       case SkillPracticeKind.chineseTones:
         return Icons.graphic_eq_rounded;
       case SkillPracticeKind.chineseCharacters:

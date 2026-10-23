@@ -200,6 +200,8 @@ class S {
         return 'Vocabulary';
       case SkillPracticeKind.speaking:
         return 'Speaking';
+      case SkillPracticeKind.englishYoga:
+        return 'Yoga English';
       case SkillPracticeKind.chineseTones:
         return 'Tones';
       case SkillPracticeKind.chineseCharacters:
@@ -222,6 +224,8 @@ class S {
         return 'Meanings, spelling and usage';
       case SkillPracticeKind.speaking:
         return 'Say it out loud, controlled output';
+      case SkillPracticeKind.englishYoga:
+        return 'Understand class terms and cues';
       case SkillPracticeKind.chineseTones:
         return 'Four tones, pick the right mark';
       case SkillPracticeKind.chineseCharacters:

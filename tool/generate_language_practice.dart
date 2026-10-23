@@ -438,10 +438,125 @@ List<Exercise> _buildSanskritYoga() {
 }
 
 // ---------------------------------------------------------------------------
+// 瑜伽英文（课堂术语与指令：听音识义 + 译英）
+// ---------------------------------------------------------------------------
+
+/// （英文名, 中文释义）——与 _saYogaTerms 顺序一一对应。
+const _enYogaTerms = <(String, String)>[
+  ('namaste', '合十礼'),
+  ('om', '唵（神圣音节）'),
+  ('yoga', '瑜伽'),
+  ('pose', '体式'),
+  ('breath control', '调息'),
+  ('breath', '呼吸'),
+  ('peace', '和平'),
+  ('teacher', '上师'),
+  ('mantra', '曼陀罗'),
+  ('meditation', '冥想'),
+  ('hand gesture', '手印'),
+  ('energy lock', '收束法'),
+  ('energy center', '脉轮'),
+  ('sun salutation', '拜日式'),
+  ('mountain pose', '山式'),
+  ('tree pose', '树式'),
+  ('warrior pose', '战士式'),
+  ('corpse pose', '挺尸式'),
+  ("child's pose", '婴儿式'),
+  ('cobra pose', '眼镜蛇式'),
+];
+
+/// （英文指令句, 中文释义）——瑜伽课堂高频口令。
+const _enYogaCues = <(String, String)>[
+  ('Breathe in.', '吸气'),
+  ('Breathe out.', '呼气'),
+  ('Hold the pose.', '保持体式'),
+  ('Relax your shoulders.', '放松肩膀'),
+  ('Straighten your spine.', '挺直脊柱'),
+  ('Look at your hands.', '看你的手'),
+  ('Close your eyes.', '闭上眼睛'),
+  ('Sit cross-legged.', '盘腿坐'),
+  ('Place your hands on your knees.', '把手放在膝盖上'),
+  ('Lift your arms.', '抬起手臂'),
+  ('Bend your knees.', '弯曲膝盖'),
+  ('Stretch your legs.', '伸展双腿'),
+  ('Turn to the left.', '向左转'),
+  ('Come back to center.', '回到中间'),
+  ('Rest for a moment.', '休息片刻'),
+  ("Let's begin.", '我们开始吧'),
+];
+
+/// 同一批条目出两题：英文题干选中文释义、中文题干选英文表达。
+List<Exercise> _englishYogaExercises(
+  List<(String, String)> entries,
+  List<Exercise> sink,
+) {
+  final n = entries.length;
+  final out = <Exercise>[];
+  for (var i = 0; i < n; i++) {
+    final (english, gloss) = entries[i];
+    String nextId() => 'eyg${(sink.length + out.length + 1).toString().padLeft(2, '0')}';
+
+    // 听音识义：英文 → 中文
+    final glossOptions = [
+      gloss,
+      entries[(i + 1) % n].$2,
+      entries[(i + 2) % n].$2,
+      entries[(i + 3) % n].$2,
+    ];
+    final glossShift = i % 4;
+    out.add(
+      Exercise(
+        id: nextId(),
+        type: ExerciseType.translateChoice,
+        prompt: english,
+        sentence: english,
+        options: [
+          ...glossOptions.sublist(glossShift),
+          ...glossOptions.sublist(0, glossShift),
+        ],
+        answer: gloss,
+        language: LearningLanguage.english,
+      ),
+    );
+
+    // 译英：中文 → 英文
+    final englishOptions = [
+      english,
+      entries[(i + 1) % n].$1,
+      entries[(i + 2) % n].$1,
+      entries[(i + 3) % n].$1,
+    ];
+    final englishShift = (i + 1) % 4;
+    out.add(
+      Exercise(
+        id: nextId(),
+        type: ExerciseType.translateChoice,
+        prompt: '“$gloss” 用英语怎么说？',
+        sentence: english,
+        options: [
+          ...englishOptions.sublist(englishShift),
+          ...englishOptions.sublist(0, englishShift),
+        ],
+        answer: english,
+        language: LearningLanguage.english,
+      ),
+    );
+  }
+  return out;
+}
+
+List<Exercise> _buildEnglishYoga() {
+  final exercises = <Exercise>[];
+  exercises.addAll(_englishYogaExercises(_enYogaTerms, exercises));
+  exercises.addAll(_englishYogaExercises(_enYogaCues, exercises));
+  return exercises;
+}
+
+// ---------------------------------------------------------------------------
 // 输出
 // ---------------------------------------------------------------------------
 
-/// 生成 5 个题库，返回 {路径: 内容}；write 为 true 时同时写盘。
+/// 生成 6 个题库，返回 {路径: 内容}；write 为 true 时同时写盘。
 Map<String, String> generateLanguagePractice({bool write = true}) {
   final banks = <SkillPracticeKind, List<Exercise>>{
     SkillPracticeKind.chineseTones: _buildChineseTones(),
@@ -449,6 +564,7 @@ Map<String, String> generateLanguagePractice({bool write = true}) {
     SkillPracticeKind.sanskritLetters: _buildSanskritLetters(),
     SkillPracticeKind.sanskritVowels: _buildSanskritVowels(),
     SkillPracticeKind.sanskritYoga: _buildSanskritYoga(),
+    SkillPracticeKind.englishYoga: _buildEnglishYoga(),
   };
   final out = <String, String>{};
   for (final entry in banks.entries) {

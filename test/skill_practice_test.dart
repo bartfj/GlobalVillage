@@ -73,6 +73,7 @@ const _allowedTypes = {
     ExerciseType.speaking,
     ExerciseType.translateInput,
   },
+  SkillPracticeKind.englishYoga: {ExerciseType.translateChoice},
   SkillPracticeKind.chineseTones: {ExerciseType.translateChoice},
   SkillPracticeKind.chineseCharacters: {ExerciseType.translateChoice},
   SkillPracticeKind.sanskritLetters: {ExerciseType.translateChoice},
@@ -91,7 +92,7 @@ void main() {
         jsonDecode(file.readAsStringSync()) as Map<String, dynamic>,
       );
       expect(bank.skill, skill);
-      expect(bank.exercises.length, inInclusiveRange(10, 60));
+      expect(bank.exercises.length, inInclusiveRange(10, 80));
       for (final e in bank.exercises) {
         expect(_allowedTypes[skill]!.contains(e.type), isTrue, reason: e.id);
         expect(e.id, isNotEmpty);

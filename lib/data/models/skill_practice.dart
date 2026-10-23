@@ -6,6 +6,7 @@ enum SkillPracticeKind {
   pronunciation,
   vocabulary,
   speaking,
+  englishYoga,
   chineseTones,
   chineseCharacters,
   sanskritLetters,
@@ -22,6 +23,7 @@ enum SkillPracticeKind {
       case SkillPracticeKind.pronunciation:
       case SkillPracticeKind.vocabulary:
       case SkillPracticeKind.speaking:
+      case SkillPracticeKind.englishYoga:
         return LearningLanguage.english;
       case SkillPracticeKind.chineseTones:
       case SkillPracticeKind.chineseCharacters:
@@ -45,6 +47,8 @@ enum SkillPracticeKind {
         return '单词练习';
       case SkillPracticeKind.speaking:
         return '口语练习';
+      case SkillPracticeKind.englishYoga:
+        return '瑜伽英文';
       case SkillPracticeKind.chineseTones:
         return '声调练习';
       case SkillPracticeKind.chineseCharacters:
@@ -66,6 +70,8 @@ enum SkillPracticeKind {
         return '巩固词义、拼写与搭配';
       case SkillPracticeKind.speaking:
         return '大声说出来，练受控输出';
+      case SkillPracticeKind.englishYoga:
+        return '听懂课堂术语与指令';
       case SkillPracticeKind.chineseTones:
         return '四声对比，选准调号';
       case SkillPracticeKind.chineseCharacters:
@@ -87,6 +93,8 @@ enum SkillPracticeKind {
         return '单词练习完成';
       case SkillPracticeKind.speaking:
         return '口语练习完成';
+      case SkillPracticeKind.englishYoga:
+        return '瑜伽英文完成';
       case SkillPracticeKind.chineseTones:
         return '声调练习完成';
       case SkillPracticeKind.chineseCharacters:

@@ -1,0 +1,1014 @@
+{
+  "skill": "englishYoga",
+  "title": "瑜伽英文",
+  "exercises": [
+    {
+      "id": "eyg01",
+      "type": "translateChoice",
+      "prompt": "namaste",
+      "sentence": "namaste",
+      "options": [
+        "合十礼",
+        "唵（神圣音节）",
+        "瑜伽",
+        "体式"
+      ],
+      "answer": "合十礼",
+      "language": "english"
+    },
+    {
+      "id": "eyg02",
+      "type": "translateChoice",
+      "prompt": "“合十礼” 用英语怎么说？",
+      "sentence": "namaste",
+      "options": [
+        "om",
+        "yoga",
+        "pose",
+        "namaste"
+      ],
+      "answer": "namaste",
+      "language": "english"
+    },
+    {
+      "id": "eyg03",
+      "type": "translateChoice",
+      "prompt": "om",
+      "sentence": "om",
+      "options": [
+        "瑜伽",
+        "体式",
+        "调息",
+        "唵（神圣音节）"
+      ],
+      "answer": "唵（神圣音节）",
+      "language": "english"
+    },
+    {
+      "id": "eyg04",
+      "type": "translateChoice",
+      "prompt": "“唵（神圣音节）” 用英语怎么说？",
+      "sentence": "om",
+      "options": [
+        "pose",
+        "breath control",
+        "om",
+        "yoga"
+      ],
+      "answer": "om",
+      "language": "english"
+    },
+    {
+      "id": "eyg05",
+      "type": "translateChoice",
+      "prompt": "yoga",
+      "sentence": "yoga",
+      "options": [
+        "调息",
+        "呼吸",
+        "瑜伽",
+        "体式"
+      ],
+      "answer": "瑜伽",
+      "language": "english"
+    },
+    {
+      "id": "eyg06",
+      "type": "translateChoice",
+      "prompt": "“瑜伽” 用英语怎么说？",
+      "sentence": "yoga",
+      "options": [
+        "breath",
+        "yoga",
+        "pose",
+        "breath control"
+      ],
+      "answer": "yoga",
+      "language": "english"
+    },
+    {
+      "id": "eyg07",
+      "type": "translateChoice",
+      "prompt": "pose",
+      "sentence": "pose",
+      "options": [
+        "和平",
+        "体式",
+        "调息",
+        "呼吸"
+      ],
+      "answer": "体式",
+      "language": "english"
+    },
+    {
+      "id": "eyg08",
+      "type": "translateChoice",
+      "prompt": "“体式” 用英语怎么说？",
+      "sentence": "pose",
+      "options": [
+        "pose",
+        "breath control",
+        "breath",
+        "peace"
+      ],
+      "answer": "pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg09",
+      "type": "translateChoice",
+      "prompt": "breath control",
+      "sentence": "breath control",
+      "options": [
+        "调息",
+        "呼吸",
+        "和平",
+        "上师"
+      ],
+      "answer": "调息",
+      "language": "english"
+    },
+    {
+      "id": "eyg10",
+      "type": "translateChoice",
+      "prompt": "“调息” 用英语怎么说？",
+      "sentence": "breath control",
+      "options": [
+        "breath",
+        "peace",
+        "teacher",
+        "breath control"
+      ],
+      "answer": "breath control",
+      "language": "english"
+    },
+    {
+      "id": "eyg11",
+      "type": "translateChoice",
+      "prompt": "breath",
+      "sentence": "breath",
+      "options": [
+        "和平",
+        "上师",
+        "曼陀罗",
+        "呼吸"
+      ],
+      "answer": "呼吸",
+      "language": "english"
+    },
+    {
+      "id": "eyg12",
+      "type": "translateChoice",
+      "prompt": "“呼吸” 用英语怎么说？",
+      "sentence": "breath",
+      "options": [
+        "teacher",
+        "mantra",
+        "breath",
+        "peace"
+      ],
+      "answer": "breath",
+      "language": "english"
+    },
+    {
+      "id": "eyg13",
+      "type": "translateChoice",
+      "prompt": "peace",
+      "sentence": "peace",
+      "options": [
+        "曼陀罗",
+        "冥想",
+        "和平",
+        "上师"
+      ],
+      "answer": "和平",
+      "language": "english"
+    },
+    {
+      "id": "eyg14",
+      "type": "translateChoice",
+      "prompt": "“和平” 用英语怎么说？",
+      "sentence": "peace",
+      "options": [
+        "meditation",
+        "peace",
+        "teacher",
+        "mantra"
+      ],
+      "answer": "peace",
+      "language": "english"
+    },
+    {
+      "id": "eyg15",
+      "type": "translateChoice",
+      "prompt": "teacher",
+      "sentence": "teacher",
+      "options": [
+        "手印",
+        "上师",
+        "曼陀罗",
+        "冥想"
+      ],
+      "answer": "上师",
+      "language": "english"
+    },
+    {
+      "id": "eyg16",
+      "type": "translateChoice",
+      "prompt": "“上师” 用英语怎么说？",
+      "sentence": "teacher",
+      "options": [
+        "teacher",
+        "mantra",
+        "meditation",
+        "hand gesture"
+      ],
+      "answer": "teacher",
+      "language": "english"
+    },
+    {
+      "id": "eyg17",
+      "type": "translateChoice",
+      "prompt": "mantra",
+      "sentence": "mantra",
+      "options": [
+        "曼陀罗",
+        "冥想",
+        "手印",
+        "收束法"
+      ],
+      "answer": "曼陀罗",
+      "language": "english"
+    },
+    {
+      "id": "eyg18",
+      "type": "translateChoice",
+      "prompt": "“曼陀罗” 用英语怎么说？",
+      "sentence": "mantra",
+      "options": [
+        "meditation",
+        "hand gesture",
+        "energy lock",
+        "mantra"
+      ],
+      "answer": "mantra",
+      "language": "english"
+    },
+    {
+      "id": "eyg19",
+      "type": "translateChoice",
+      "prompt": "meditation",
+      "sentence": "meditation",
+      "options": [
+        "手印",
+        "收束法",
+        "脉轮",
+        "冥想"
+      ],
+      "answer": "冥想",
+      "language": "english"
+    },
+    {
+      "id": "eyg20",
+      "type": "translateChoice",
+      "prompt": "“冥想” 用英语怎么说？",
+      "sentence": "meditation",
+      "options": [
+        "energy lock",
+        "energy center",
+        "meditation",
+        "hand gesture"
+      ],
+      "answer": "meditation",
+      "language": "english"
+    },
+    {
+      "id": "eyg21",
+      "type": "translateChoice",
+      "prompt": "hand gesture",
+      "sentence": "hand gesture",
+      "options": [
+        "脉轮",
+        "拜日式",
+        "手印",
+        "收束法"
+      ],
+      "answer": "手印",
+      "language": "english"
+    },
+    {
+      "id": "eyg22",
+      "type": "translateChoice",
+      "prompt": "“手印” 用英语怎么说？",
+      "sentence": "hand gesture",
+      "options": [
+        "sun salutation",
+        "hand gesture",
+        "energy lock",
+        "energy center"
+      ],
+      "answer": "hand gesture",
+      "language": "english"
+    },
+    {
+      "id": "eyg23",
+      "type": "translateChoice",
+      "prompt": "energy lock",
+      "sentence": "energy lock",
+      "options": [
+        "山式",
+        "收束法",
+        "脉轮",
+        "拜日式"
+      ],
+      "answer": "收束法",
+      "language": "english"
+    },
+    {
+      "id": "eyg24",
+      "type": "translateChoice",
+      "prompt": "“收束法” 用英语怎么说？",
+      "sentence": "energy lock",
+      "options": [
+        "energy lock",
+        "energy center",
+        "sun salutation",
+        "mountain pose"
+      ],
+      "answer": "energy lock",
+      "language": "english"
+    },
+    {
+      "id": "eyg25",
+      "type": "translateChoice",
+      "prompt": "energy center",
+      "sentence": "energy center",
+      "options": [
+        "脉轮",
+        "拜日式",
+        "山式",
+        "树式"
+      ],
+      "answer": "脉轮",
+      "language": "english"
+    },
+    {
+      "id": "eyg26",
+      "type": "translateChoice",
+      "prompt": "“脉轮” 用英语怎么说？",
+      "sentence": "energy center",
+      "options": [
+        "sun salutation",
+        "mountain pose",
+        "tree pose",
+        "energy center"
+      ],
+      "answer": "energy center",
+      "language": "english"
+    },
+    {
+      "id": "eyg27",
+      "type": "translateChoice",
+      "prompt": "sun salutation",
+      "sentence": "sun salutation",
+      "options": [
+        "山式",
+        "树式",
+        "战士式",
+        "拜日式"
+      ],
+      "answer": "拜日式",
+      "language": "english"
+    },
+    {
+      "id": "eyg28",
+      "type": "translateChoice",
+      "prompt": "“拜日式” 用英语怎么说？",
+      "sentence": "sun salutation",
+      "options": [
+        "tree pose",
+        "warrior pose",
+        "sun salutation",
+        "mountain pose"
+      ],
+      "answer": "sun salutation",
+      "language": "english"
+    },
+    {
+      "id": "eyg29",
+      "type": "translateChoice",
+      "prompt": "mountain pose",
+      "sentence": "mountain pose",
+      "options": [
+        "战士式",
+        "挺尸式",
+        "山式",
+        "树式"
+      ],
+      "answer": "山式",
+      "language": "english"
+    },
+    {
+      "id": "eyg30",
+      "type": "translateChoice",
+      "prompt": "“山式” 用英语怎么说？",
+      "sentence": "mountain pose",
+      "options": [
+        "corpse pose",
+        "mountain pose",
+        "tree pose",
+        "warrior pose"
+      ],
+      "answer": "mountain pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg31",
+      "type": "translateChoice",
+      "prompt": "tree pose",
+      "sentence": "tree pose",
+      "options": [
+        "婴儿式",
+        "树式",
+        "战士式",
+        "挺尸式"
+      ],
+      "answer": "树式",
+      "language": "english"
+    },
+    {
+      "id": "eyg32",
+      "type": "translateChoice",
+      "prompt": "“树式” 用英语怎么说？",
+      "sentence": "tree pose",
+      "options": [
+        "tree pose",
+        "warrior pose",
+        "corpse pose",
+        "child's pose"
+      ],
+      "answer": "tree pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg33",
+      "type": "translateChoice",
+      "prompt": "warrior pose",
+      "sentence": "warrior pose",
+      "options": [
+        "战士式",
+        "挺尸式",
+        "婴儿式",
+        "眼镜蛇式"
+      ],
+      "answer": "战士式",
+      "language": "english"
+    },
+    {
+      "id": "eyg34",
+      "type": "translateChoice",
+      "prompt": "“战士式” 用英语怎么说？",
+      "sentence": "warrior pose",
+      "options": [
+        "corpse pose",
+        "child's pose",
+        "cobra pose",
+        "warrior pose"
+      ],
+      "answer": "warrior pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg35",
+      "type": "translateChoice",
+      "prompt": "corpse pose",
+      "sentence": "corpse pose",
+      "options": [
+        "婴儿式",
+        "眼镜蛇式",
+        "合十礼",
+        "挺尸式"
+      ],
+      "answer": "挺尸式",
+      "language": "english"
+    },
+    {
+      "id": "eyg36",
+      "type": "translateChoice",
+      "prompt": "“挺尸式” 用英语怎么说？",
+      "sentence": "corpse pose",
+      "options": [
+        "cobra pose",
+        "namaste",
+        "corpse pose",
+        "child's pose"
+      ],
+      "answer": "corpse pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg37",
+      "type": "translateChoice",
+      "prompt": "child's pose",
+      "sentence": "child's pose",
+      "options": [
+        "合十礼",
+        "唵（神圣音节）",
+        "婴儿式",
+        "眼镜蛇式"
+      ],
+      "answer": "婴儿式",
+      "language": "english"
+    },
+    {
+      "id": "eyg38",
+      "type": "translateChoice",
+      "prompt": "“婴儿式” 用英语怎么说？",
+      "sentence": "child's pose",
+      "options": [
+        "om",
+        "child's pose",
+        "cobra pose",
+        "namaste"
+      ],
+      "answer": "child's pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg39",
+      "type": "translateChoice",
+      "prompt": "cobra pose",
+      "sentence": "cobra pose",
+      "options": [
+        "瑜伽",
+        "眼镜蛇式",
+        "合十礼",
+        "唵（神圣音节）"
+      ],
+      "answer": "眼镜蛇式",
+      "language": "english"
+    },
+    {
+      "id": "eyg40",
+      "type": "translateChoice",
+      "prompt": "“眼镜蛇式” 用英语怎么说？",
+      "sentence": "cobra pose",
+      "options": [
+        "cobra pose",
+        "namaste",
+        "om",
+        "yoga"
+      ],
+      "answer": "cobra pose",
+      "language": "english"
+    },
+    {
+      "id": "eyg41",
+      "type": "translateChoice",
+      "prompt": "Breathe in.",
+      "sentence": "Breathe in.",
+      "options": [
+        "吸气",
+        "呼气",
+        "保持体式",
+        "放松肩膀"
+      ],
+      "answer": "吸气",
+      "language": "english"
+    },
+    {
+      "id": "eyg42",
+      "type": "translateChoice",
+      "prompt": "“吸气” 用英语怎么说？",
+      "sentence": "Breathe in.",
+      "options": [
+        "Breathe out.",
+        "Hold the pose.",
+        "Relax your shoulders.",
+        "Breathe in."
+      ],
+      "answer": "Breathe in.",
+      "language": "english"
+    },
+    {
+      "id": "eyg43",
+      "type": "translateChoice",
+      "prompt": "Breathe out.",
+      "sentence": "Breathe out.",
+      "options": [
+        "保持体式",
+        "放松肩膀",
+        "挺直脊柱",
+        "呼气"
+      ],
+      "answer": "呼气",
+      "language": "english"
+    },
+    {
+      "id": "eyg44",
+      "type": "translateChoice",
+      "prompt": "“呼气” 用英语怎么说？",
+      "sentence": "Breathe out.",
+      "options": [
+        "Relax your shoulders.",
+        "Straighten your spine.",
+        "Breathe out.",
+        "Hold the pose."
+      ],
+      "answer": "Breathe out.",
+      "language": "english"
+    },
+    {
+      "id": "eyg45",
+      "type": "translateChoice",
+      "prompt": "Hold the pose.",
+      "sentence": "Hold the pose.",
+      "options": [
+        "挺直脊柱",
+        "看你的手",
+        "保持体式",
+        "放松肩膀"
+      ],
+      "answer": "保持体式",
+      "language": "english"
+    },
+    {
+      "id": "eyg46",
+      "type": "translateChoice",
+      "prompt": "“保持体式” 用英语怎么说？",
+      "sentence": "Hold the pose.",
+      "options": [
+        "Look at your hands.",
+        "Hold the pose.",
+        "Relax your shoulders.",
+        "Straighten your spine."
+      ],
+      "answer": "Hold the pose.",
+      "language": "english"
+    },
+    {
+      "id": "eyg47",
+      "type": "translateChoice",
+      "prompt": "Relax your shoulders.",
+      "sentence": "Relax your shoulders.",
+      "options": [
+        "闭上眼睛",
+        "放松肩膀",
+        "挺直脊柱",
+        "看你的手"
+      ],
+      "answer": "放松肩膀",
+      "language": "english"
+    },
+    {
+      "id": "eyg48",
+      "type": "translateChoice",
+      "prompt": "“放松肩膀” 用英语怎么说？",
+      "sentence": "Relax your shoulders.",
+      "options": [
+        "Relax your shoulders.",
+        "Straighten your spine.",
+        "Look at your hands.",
+        "Close your eyes."
+      ],
+      "answer": "Relax your shoulders.",
+      "language": "english"
+    },
+    {
+      "id": "eyg49",
+      "type": "translateChoice",
+      "prompt": "Straighten your spine.",
+      "sentence": "Straighten your spine.",
+      "options": [
+        "挺直脊柱",
+        "看你的手",
+        "闭上眼睛",
+        "盘腿坐"
+      ],
+      "answer": "挺直脊柱",
+      "language": "english"
+    },
+    {
+      "id": "eyg50",
+      "type": "translateChoice",
+      "prompt": "“挺直脊柱” 用英语怎么说？",
+      "sentence": "Straighten your spine.",
+      "options": [
+        "Look at your hands.",
+        "Close your eyes.",
+        "Sit cross-legged.",
+        "Straighten your spine."
+      ],
+      "answer": "Straighten your spine.",
+      "language": "english"
+    },
+    {
+      "id": "eyg51",
+      "type": "translateChoice",
+      "prompt": "Look at your hands.",
+      "sentence": "Look at your hands.",
+      "options": [
+        "闭上眼睛",
+        "盘腿坐",
+        "把手放在膝盖上",
+        "看你的手"
+      ],
+      "answer": "看你的手",
+      "language": "english"
+    },
+    {
+      "id": "eyg52",
+      "type": "translateChoice",
+      "prompt": "“看你的手” 用英语怎么说？",
+      "sentence": "Look at your hands.",
+      "options": [
+        "Sit cross-legged.",
+        "Place your hands on your knees.",
+        "Look at your hands.",
+        "Close your eyes."
+      ],
+      "answer": "Look at your hands.",
+      "language": "english"
+    },
+    {
+      "id": "eyg53",
+      "type": "translateChoice",
+      "prompt": "Close your eyes.",
+      "sentence": "Close your eyes.",
+      "options": [
+        "把手放在膝盖上",
+        "抬起手臂",
+        "闭上眼睛",
+        "盘腿坐"
+      ],
+      "answer": "闭上眼睛",
+      "language": "english"
+    },
+    {
+      "id": "eyg54",
+      "type": "translateChoice",
+      "prompt": "“闭上眼睛” 用英语怎么说？",
+      "sentence": "Close your eyes.",
+      "options": [
+        "Lift your arms.",
+        "Close your eyes.",
+        "Sit cross-legged.",
+        "Place your hands on your knees."
+      ],
+      "answer": "Close your eyes.",
+      "language": "english"
+    },
+    {
+      "id": "eyg55",
+      "type": "translateChoice",
+      "prompt": "Sit cross-legged.",
+      "sentence": "Sit cross-legged.",
+      "options": [
+        "弯曲膝盖",
+        "盘腿坐",
+        "把手放在膝盖上",
+        "抬起手臂"
+      ],
+      "answer": "盘腿坐",
+      "language": "english"
+    },
+    {
+      "id": "eyg56",
+      "type": "translateChoice",
+      "prompt": "“盘腿坐” 用英语怎么说？",
+      "sentence": "Sit cross-legged.",
+      "options": [
+        "Sit cross-legged.",
+        "Place your hands on your knees.",
+        "Lift your arms.",
+        "Bend your knees."
+      ],
+      "answer": "Sit cross-legged.",
+      "language": "english"
+    },
+    {
+      "id": "eyg57",
+      "type": "translateChoice",
+      "prompt": "Place your hands on your knees.",
+      "sentence": "Place your hands on your knees.",
+      "options": [
+        "把手放在膝盖上",
+        "抬起手臂",
+        "弯曲膝盖",
+        "伸展双腿"
+      ],
+      "answer": "把手放在膝盖上",
+      "language": "english"
+    },
+    {
+      "id": "eyg58",
+      "type": "translateChoice",
+      "prompt": "“把手放在膝盖上” 用英语怎么说？",
+      "sentence": "Place your hands on your knees.",
+      "options": [
+        "Lift your arms.",
+        "Bend your knees.",
+        "Stretch your legs.",
+        "Place your hands on your knees."
+      ],
+      "answer": "Place your hands on your knees.",
+      "language": "english"
+    },
+    {
+      "id": "eyg59",
+      "type": "translateChoice",
+      "prompt": "Lift your arms.",
+      "sentence": "Lift your arms.",
+      "options": [
+        "弯曲膝盖",
+        "伸展双腿",
+        "向左转",
+        "抬起手臂"
+      ],
+      "answer": "抬起手臂",
+      "language": "english"
+    },
+    {
+      "id": "eyg60",
+      "type": "translateChoice",
+      "prompt": "“抬起手臂” 用英语怎么说？",
+      "sentence": "Lift your arms.",
+      "options": [
+        "Stretch your legs.",
+        "Turn to the left.",
+        "Lift your arms.",
+        "Bend your knees."
+      ],
+      "answer": "Lift your arms.",
+      "language": "english"
+    },
+    {
+      "id": "eyg61",
+      "type": "translateChoice",
+      "prompt": "Bend your knees.",
+      "sentence": "Bend your knees.",
+      "options": [
+        "向左转",
+        "回到中间",
+        "弯曲膝盖",
+        "伸展双腿"
+      ],
+      "answer": "弯曲膝盖",
+      "language": "english"
+    },
+    {
+      "id": "eyg62",
+      "type": "translateChoice",
+      "prompt": "“弯曲膝盖” 用英语怎么说？",
+      "sentence": "Bend your knees.",
+      "options": [
+        "Come back to center.",
+        "Bend your knees.",
+        "Stretch your legs.",
+        "Turn to the left."
+      ],
+      "answer": "Bend your knees.",
+      "language": "english"
+    },
+    {
+      "id": "eyg63",
+      "type": "translateChoice",
+      "prompt": "Stretch your legs.",
+      "sentence": "Stretch your legs.",
+      "options": [
+        "休息片刻",
+        "伸展双腿",
+        "向左转",
+        "回到中间"
+      ],
+      "answer": "伸展双腿",
+      "language": "english"
+    },
+    {
+      "id": "eyg64",
+      "type": "translateChoice",
+      "prompt": "“伸展双腿” 用英语怎么说？",
+      "sentence": "Stretch your legs.",
+      "options": [
+        "Stretch your legs.",
+        "Turn to the left.",
+        "Come back to center.",
+        "Rest for a moment."
+      ],
+      "answer": "Stretch your legs.",
+      "language": "english"
+    },
+    {
+      "id": "eyg65",
+      "type": "translateChoice",
+      "prompt": "Turn to the left.",
+      "sentence": "Turn to the left.",
+      "options": [
+        "向左转",
+        "回到中间",
+        "休息片刻",
+        "我们开始吧"
+      ],
+      "answer": "向左转",
+      "language": "english"
+    },
+    {
+      "id": "eyg66",
+      "type": "translateChoice",
+      "prompt": "“向左转” 用英语怎么说？",
+      "sentence": "Turn to the left.",
+      "options": [
+        "Come back to center.",
+        "Rest for a moment.",
+        "Let's begin.",
+        "Turn to the left."
+      ],
+      "answer": "Turn to the left.",
+      "language": "english"
+    },
+    {
+      "id": "eyg67",
+      "type": "translateChoice",
+      "prompt": "Come back to center.",
+      "sentence": "Come back to center.",
+      "options": [
+        "休息片刻",
+        "我们开始吧",
+        "吸气",
+        "回到中间"
+      ],
+      "answer": "回到中间",
+      "language": "english"
+    },
+    {
+      "id": "eyg68",
+      "type": "translateChoice",
+      "prompt": "“回到中间” 用英语怎么说？",
+      "sentence": "Come back to center.",
+      "options": [
+        "Let's begin.",
+        "Breathe in.",
+        "Come back to center.",
+        "Rest for a moment."
+      ],
+      "answer": "Come back to center.",
+      "language": "english"
+    },
+    {
+      "id": "eyg69",
+      "type": "translateChoice",
+      "prompt": "Rest for a moment.",
+      "sentence": "Rest for a moment.",
+      "options": [
+        "吸气",
+        "呼气",
+        "休息片刻",
+        "我们开始吧"
+      ],
+      "answer": "休息片刻",
+      "language": "english"
+    },
+    {
+      "id": "eyg70",
+      "type": "translateChoice",
+      "prompt": "“休息片刻” 用英语怎么说？",
+      "sentence": "Rest for a moment.",
+      "options": [
+        "Breathe out.",
+        "Rest for a moment.",
+        "Let's begin.",
+        "Breathe in."
+      ],
+      "answer": "Rest for a moment.",
+      "language": "english"
+    },
+    {
+      "id": "eyg71",
+      "type": "translateChoice",
+      "prompt": "Let's begin.",
+      "sentence": "Let's begin.",
+      "options": [
+        "保持体式",
+        "我们开始吧",
+        "吸气",
+        "呼气"
+      ],
+      "answer": "我们开始吧",
+      "language": "english"
+    },
+    {
+      "id": "eyg72",
+      "type": "translateChoice",
+      "prompt": "“我们开始吧” 用英语怎么说？",
+      "sentence": "Let's begin.",
+      "options": [
+        "Let's begin.",
+        "Breathe in.",
+        "Breathe out.",
+        "Hold the pose."
+      ],
+      "answer": "Let's begin.",
+      "language": "english"
+    }
+  ]
+}

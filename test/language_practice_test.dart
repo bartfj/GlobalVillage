@@ -17,6 +17,9 @@ String _stripMarks(String text) => unicode
 /// 天城体字符（用于确认选项里没有夹带原文）
 final _devanagari = RegExp(r'[\u0900-\u097F]');
 
+/// 汉字（用于区分中/英文选项）
+final _hanzi = RegExp(r'[\u4e00-\u9fff]');
+
 SkillPracticeBank _load(String path) => SkillPracticeBank.fromJson(
   jsonDecodeMap(File(path).readAsStringSync()),
 );
@@ -33,6 +36,7 @@ void main() {
           SkillPracticeKind.pronunciation,
           SkillPracticeKind.vocabulary,
           SkillPracticeKind.speaking,
+          SkillPracticeKind.englishYoga,
         ],
       );
       expect(
@@ -61,7 +65,7 @@ void main() {
       }
     });
 
-    test('五个题库可解析且题型安全', () {
+    test('六个题库可解析且题型安全', () {
       for (final path in generated.keys) {
         final bank = _load(path);
         expect(bank.exercises.length, greaterThanOrEqualTo(10), reason: path);
@@ -91,6 +95,9 @@ void main() {
       }
       for (final e in _load('assets/practice/sanskritYoga.json').exercises) {
         expect(e.language, LearningLanguage.sanskrit, reason: e.id);
+      }
+      for (final e in _load('assets/practice/englishYoga.json').exercises) {
+        expect(e.language, LearningLanguage.english, reason: e.id);
       }
     });
 
@@ -146,6 +153,32 @@ void main() {
         expect(terms.add(reading.answer), isTrue, reason: reading.answer);
       }
       expect(terms.length, 20);
+    });
+
+    test('瑜伽英文：听音识义与译英成对，选项语言不混排', () {
+      final bank = _load('assets/practice/englishYoga.json');
+      expect(bank.exercises.length, 72);
+      final englishAnswers = <String>{};
+      for (var i = 0; i < bank.exercises.length; i += 2) {
+        final listening = bank.exercises[i];
+        final translating = bank.exercises[i + 1];
+        // 听音识义：题干为英文，选项为中文
+        expect(_hanzi.hasMatch(listening.prompt), isFalse, reason: listening.id);
+        for (final option in listening.options) {
+          expect(_hanzi.hasMatch(option), isTrue, reason: listening.id);
+        }
+        // 译英：题干为中文，选项为英文，且答案等于前一题朗读文本
+        expect(translating.prompt, contains('用英语怎么说'), reason: translating.id);
+        expect(_hanzi.hasMatch(translating.answer), isFalse, reason: translating.id);
+        for (final option in translating.options) {
+          expect(_hanzi.hasMatch(option), isFalse, reason: translating.id);
+        }
+        expect(translating.answer, listening.sentence, reason: translating.id);
+        expect(translating.sentence, listening.sentence, reason: translating.id);
+        expect(englishAnswers.add(listening.sentence), isTrue, reason: listening.id);
+      }
+      // 20 个术语 + 16 条指令
+      expect(englishAnswers.length, 36);
     });
   });
 }
