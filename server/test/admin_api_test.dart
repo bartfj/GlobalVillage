@@ -89,7 +89,7 @@ void main() {
     expect(text.contains('password_hash'), false);
     expect(text.contains('passwordPlain'), false);
     expect(body['accounts'][0]['email'], 'a@example.com');
-    expect(body['accounts'][0]['password'], 'secret6');
+    expect(body['accounts'][0].containsKey('password'), false);
     expect(registered['account'].containsKey('password'), false);
   });
 
@@ -194,7 +194,7 @@ void main() {
     final afterReset = await json(
       await send(handler, 'GET', '/admin/api/accounts/$id', bearer: adminToken),
     );
-    expect(afterReset['account']['password'], 'new-secret');
+    expect(afterReset['account'].containsKey('password'), false);
 
     expect(
       (await send(handler, 'GET', '/v1/sync', bearer: access)).statusCode,
@@ -262,7 +262,7 @@ void main() {
     expect(detail['progress']['english'][0]['lessonId'], 'u1l1');
     expect(detail['progress']['sanskrit'][0]['lessonId'], 'sa_u1l1');
     expect(detail['account'].containsKey('passwordHash'), false);
-    expect(detail['account']['password'], 'secret6');
+    expect(detail['account'].containsKey('password'), false);
 
     expect(
       (await send(
@@ -398,7 +398,7 @@ void main() {
     expect(target['payload']['track']['selected'], 'sanskrit');
   });
 
-  test('登录会补记上线前没有明文的密码，登录响应本身不含密码', () async {
+  test('旧账号仍可登录，登录和后台响应均不含密码', () async {
     final auth = AuthService('test-secret');
     final repo = InMemoryAccountsRepo();
     final now = DateTime.now().toUtc();
@@ -432,10 +432,7 @@ void main() {
     final listed = await json(
       await send(handler, 'GET', '/admin/api/accounts', bearer: adminToken),
     );
-    expect(listed['accounts'][0]['password'], 'secret6');
-
-    final page = await send(handler, 'GET', '/admin');
-    expect(await page.readAsString(), contains('>密码<'));
+    expect(listed['accounts'][0].containsKey('password'), false);
   });
 
   test('后台展示同步设备信息，缺省时保留上次值并清洗未知字段', () async {

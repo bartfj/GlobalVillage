@@ -115,7 +115,11 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
   Widget build(BuildContext context) {
     ref.listen(
       authProvider.select(
-        (auth) => (online: auth.isOnline, pending: auth.pendingImportFrom),
+        (auth) => (
+          userKey: auth.userKey,
+          token: auth.accessToken,
+          pending: auth.pendingImportFrom,
+        ),
       ),
       (_, _) => _alignForegroundSync(),
     );

@@ -128,10 +128,24 @@ class Exercise {
   };
 
   static String _expandPinyinAliases(String text) {
-    final out = text.replaceAllMapped(
-      RegExp(r'([aeiouv])([1-4])'),
-      (m) => _pinyinTones[m[1]!]![int.parse(m[2]!) - 1],
-    );
+    final out = text.replaceAllMapped(RegExp(r'([a-zü]+)([1-4])'), (m) {
+      final syllable = m[1]!.replaceAll('ü', 'v');
+      // a、e 优先；ou 标在 o 上，其余复韵母标在最后一个元音上。
+      var index = syllable.indexOf('a');
+      if (index < 0) index = syllable.indexOf('e');
+      if (index < 0) index = syllable.indexOf('ou');
+      if (index < 0) {
+        for (var i = syllable.length - 1; i >= 0; i--) {
+          if (_pinyinTones.containsKey(syllable[i])) {
+            index = i;
+            break;
+          }
+        }
+      }
+      if (index < 0) return m[0]!;
+      final toned = _pinyinTones[syllable[index]]![int.parse(m[2]!) - 1];
+      return syllable.replaceRange(index, index + 1, toned);
+    });
     return out.replaceAll('v', 'ü');
   }
 

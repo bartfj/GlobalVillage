@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS accounts (
       'ALTER TABLE accounts ADD COLUMN IF NOT EXISTS credential_version int NOT NULL DEFAULT 1',
     );
     await _conn.execute(
-      'ALTER TABLE accounts ADD COLUMN IF NOT EXISTS password_plain text',
+      'ALTER TABLE accounts DROP COLUMN IF EXISTS password_plain',
     );
     await _conn.execute(
       'CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique '
@@ -73,9 +73,9 @@ CREATE TABLE IF NOT EXISTS accounts (
       final result = await _conn.execute(
         Sql.named('''
 INSERT INTO accounts (
-  account_id, email, phone, password_hash, password_plain, display_name
+  account_id, email, phone, password_hash, display_name
 )
-VALUES (@id::uuid, @email, @phone, @passwordHash, @passwordPlain, @displayName)
+VALUES (@id::uuid, @email, @phone, @passwordHash, @displayName)
 RETURNING $_accountColumns
 '''),
         parameters: {
@@ -83,7 +83,6 @@ RETURNING $_accountColumns
           'email': account.email,
           'phone': account.phone,
           'passwordHash': account.passwordHash,
-          'passwordPlain': account.passwordPlain,
           'displayName': account.displayName,
         },
       );
@@ -138,39 +137,17 @@ RETURNING $_accountColumns
   }
 
   @override
-  Future<Account?> updatePassword(
-    String accountId,
-    String passwordHash,
-    String passwordPlain,
-  ) async {
+  Future<Account?> updatePassword(String accountId, String passwordHash) async {
     return _update(
       '''
 UPDATE accounts
 SET password_hash = @passwordHash,
-    password_plain = @passwordPlain,
     credential_version = credential_version + 1,
     updated_at = now()
 WHERE account_id = @id::uuid
 RETURNING $_accountColumns
 ''',
-      {
-        'id': accountId,
-        'passwordHash': passwordHash,
-        'passwordPlain': passwordPlain,
-      },
-    );
-  }
-
-  @override
-  Future<void> rememberPassword(String accountId, String passwordPlain) async {
-    await _conn.execute(
-      Sql.named('''
-UPDATE accounts
-SET password_plain = @passwordPlain
-WHERE account_id = @id::uuid
-  AND password_plain IS DISTINCT FROM @passwordPlain
-'''),
-      parameters: {'id': accountId, 'passwordPlain': passwordPlain},
+      {'id': accountId, 'passwordHash': passwordHash},
     );
   }
 
@@ -234,7 +211,6 @@ RETURNING $_accountColumns
     email: row['email'] as String?,
     phone: row['phone'] as String?,
     passwordHash: row['password_hash'] as String,
-    passwordPlain: row['password_plain'] as String?,
     displayName: row['display_name'] as String,
     createdAt: row['created_at'] as DateTime,
     updatedAt: row['updated_at'] as DateTime,
@@ -244,6 +220,6 @@ RETURNING $_accountColumns
 }
 
 const _accountColumns = '''
-account_id::text AS account_id, email, phone, password_hash, password_plain,
+account_id::text AS account_id, email, phone, password_hash,
 display_name, created_at, updated_at, disabled_at, credential_version
 ''';

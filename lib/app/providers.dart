@@ -139,12 +139,12 @@ final StateNotifierProvider<AuthController, AuthState> authProvider =
         ref.watch(userRepositoryProvider),
         cloudAuth: ref.watch(cloudAuthApiProvider),
         tokenStore: ref.watch(tokenStoreProvider),
-        onOnlineSessionReady: () =>
-            ref.read(syncServiceProvider)?.pullMergePush(),
         onBoundToOnline: (fromUserKey, toUserKey) async {
-          final sync = ref.read(syncServiceProvider);
-          if (sync == null) return;
-          await sync.copySlot(fromUserKey, toUserKey);
+          await SyncService.copyStoredSlot(
+            ref.read(settingsStoreProvider),
+            fromUserKey,
+            toUserKey,
+          );
         },
       ),
     );

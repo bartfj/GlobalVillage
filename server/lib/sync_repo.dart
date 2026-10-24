@@ -199,12 +199,7 @@ ALTER TABLE sync_snapshots ADD COLUMN IF NOT EXISTS device jsonb
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
   }) async {
-    if (baseClientUpdatedAt != null) {
-      final current = await get(accountId);
-      if (current != null && current.clientUpdatedAt != baseClientUpdatedAt) {
-        throw SyncConflictException(current.clientUpdatedAt);
-      }
-    }
+    // 版本比较必须与写入处于同一 SQL 操作，避免并发请求同时通过预读检查。
     final result = await _conn.execute(
       Sql.named('''
 INSERT INTO sync_snapshots (account_id, payload, client_updated_at, device)
@@ -214,15 +209,21 @@ SET payload = EXCLUDED.payload,
     client_updated_at = EXCLUDED.client_updated_at,
     device = COALESCE(EXCLUDED.device, sync_snapshots.device),
     server_updated_at = now()
+WHERE @baseClientUpdatedAt::bigint IS NULL
+   OR sync_snapshots.client_updated_at = @baseClientUpdatedAt::bigint
 RETURNING server_updated_at, device
 '''),
       parameters: {
         'id': accountId,
         'payload': jsonEncode(payload),
         'clientUpdatedAt': clientUpdatedAt,
+        'baseClientUpdatedAt': baseClientUpdatedAt,
         'device': device == null ? null : jsonEncode(device),
       },
     );
+    if (result.isEmpty) {
+      throw SyncConflictException((await get(accountId))?.clientUpdatedAt);
+    }
     final row = result.first.toColumnMap();
     return SyncRecord(
       payload: payload,

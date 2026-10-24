@@ -72,7 +72,7 @@ String adminPageHtml() => r'''<!DOCTYPE html>
             <table>
               <thead>
                 <tr>
-                  <th>手机 / 邮箱</th><th>密码</th><th>昵称</th><th>注册时间</th>
+                  <th>手机 / 邮箱</th><th>昵称</th><th>注册时间</th>
                   <th>状态</th><th>课数</th><th>最近同步</th>
                 </tr>
               </thead>
@@ -257,22 +257,21 @@ function renderAccountRows() {
   for (const account of accounts) {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
-    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
+    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td><td></td>';
     const cells = tr.children;
     cells[0].textContent = identity(account);
-    cells[1].textContent = account.password || '未记录';
-    cells[2].textContent = account.displayName || '';
-    cells[3].textContent = localTime(account.createdAt);
-    cells[4].textContent = account.disabledAt ? '已停用' : '可用';
-    cells[5].textContent = String(account.lessonCount || 0);
-    cells[6].textContent = '';
-    cells[6].appendChild(document.createTextNode(localTime(account.serverUpdatedAt)));
+    cells[1].textContent = account.displayName || '';
+    cells[2].textContent = localTime(account.createdAt);
+    cells[3].textContent = account.disabledAt ? '已停用' : '可用';
+    cells[4].textContent = String(account.lessonCount || 0);
+    cells[5].textContent = '';
+    cells[5].appendChild(document.createTextNode(localTime(account.serverUpdatedAt)));
     const device = deviceLabel(account.device);
     if (device) {
       const sub = document.createElement('div');
       sub.className = 'sub';
       sub.textContent = device;
-      cells[6].appendChild(sub);
+      cells[5].appendChild(sub);
     }
     tr.addEventListener('click', function () { openDetail(account.accountId); });
     rows.appendChild(tr);
@@ -388,14 +387,31 @@ document.getElementById('sync-run').addEventListener('click', async function () 
 });
 
 function lessonRows(items) {
-  if (!items || !items.length) return '<p class="muted">无</p>';
-  let html = '<table><tr><th>课号</th><th>完成</th><th>分数</th><th>对/总</th><th>完成时间</th></tr>';
-  for (const item of items) {
-    html += '<tr><td>' + item.lessonId + '</td><td>' + (item.completed ? '是' : '否') +
-      '</td><td>' + item.score + '</td><td>' + item.correctCount + '/' + item.totalCount +
-      '</td><td>' + localTime(item.completedAt) + '</td></tr>';
+  if (!items || !items.length) {
+    const empty = document.createElement('p');
+    empty.className = 'muted';
+    empty.textContent = '无';
+    return empty;
   }
-  return html + '</table>';
+  const table = document.createElement('table');
+  const header = document.createElement('tr');
+  for (const title of ['课号', '完成', '分数', '对/总', '完成时间']) {
+    const th = document.createElement('th');
+    th.textContent = title;
+    header.appendChild(th);
+  }
+  table.appendChild(header);
+  for (const item of items) {
+    const row = document.createElement('tr');
+    for (const value of [item.lessonId, item.completed ? '是' : '否',
+      item.score, item.correctCount + '/' + item.totalCount, localTime(item.completedAt)]) {
+      const td = document.createElement('td');
+      td.textContent = String(value ?? '');
+      row.appendChild(td);
+    }
+    table.appendChild(row);
+  }
+  return table;
 }
 
 async function openDetail(id) {
@@ -414,8 +430,7 @@ async function openDetail(id) {
   detail.appendChild(title);
   const meta = document.createElement('p');
   meta.className = 'muted';
-  meta.textContent = '密码 ' + (account.password || '未记录') +
-    ' · 线路 ' + (track.selected || '未选') +
+  meta.textContent = '线路 ' + (track.selected || '未选') +
     ' · 奖励 ' + rewardCount + ' 条 · 凭证版本 ' + account.credentialVersion;
   detail.appendChild(meta);
   const syncTitle = document.createElement('h3');
@@ -434,7 +449,7 @@ async function openDetail(id) {
     h.textContent = pair[0];
     detail.appendChild(h);
     const wrap = document.createElement('div');
-    wrap.innerHTML = lessonRows(pair[1]);
+    wrap.appendChild(lessonRows(pair[1]));
     detail.appendChild(wrap);
   }
   const actions = document.createElement('p');

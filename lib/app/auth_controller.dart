@@ -55,12 +55,18 @@ class AuthController extends StateNotifier<AuthState> {
   final CloudAuthApi _cloudAuth;
   final TokenStore _tokenStore;
 
-  /// 在线会话就绪（登录/注册/冷启动静默刷新成功）后触发同步；由 providers 接线。
+  /// 可选的在线会话就绪通知；应用同步由根 widget 监听会话变化触发。
   /// [refreshAccessToken] 不再回调，避免同步过程中换 token 时重入。
   final void Function()? onOnlineSessionReady;
 
   /// 丢弃过期的资料请求，避免打开页面时的拉取盖住刚保存的昵称。
   int _profileRequest = 0;
+  int _sessionEpoch = 0;
+
+  void _invalidateSessionRequests() {
+    _sessionEpoch++;
+    _profileRequest++;
+  }
 
   /// 本地账号绑定在线后、切换会话之前复制槽位；由 providers 接线
   final Future<void> Function(String fromUserKey, String toUserKey)?
@@ -90,14 +96,22 @@ class AuthController extends StateNotifier<AuthState> {
   /// 冷启动成功时通知同步；由同步服务主动调用时不再通知。
   Future<bool> _refreshOnlineSession({bool notifyReady = true}) async {
     final session = state.userKey;
+    final epoch = _sessionEpoch;
     if (session == null || !session.startsWith(AuthState.onlineKeyPrefix)) {
       return false;
     }
     try {
       final refreshToken = await _tokenStore.readRefreshToken();
-      if (refreshToken == null) return false;
+      if (refreshToken == null ||
+          !mounted ||
+          epoch != _sessionEpoch ||
+          state.userKey != session) {
+        return false;
+      }
       final accessToken = await _cloudAuth.refreshAccessToken(refreshToken);
-      if (!mounted) return false;
+      if (!mounted || epoch != _sessionEpoch || state.userKey != session) {
+        return false;
+      }
       state = AuthState(
         userKey: session,
         accessToken: accessToken,
@@ -126,6 +140,7 @@ class AuthController extends StateNotifier<AuthState> {
       confirm: confirm,
     );
     if (error == null) {
+      _invalidateSessionRequests();
       state = AuthState(userKey: nickname.trim());
     }
     return error;
@@ -141,6 +156,7 @@ class AuthController extends StateNotifier<AuthState> {
       password: password,
     );
     if (error == null) {
+      _invalidateSessionRequests();
       state = AuthState(userKey: nickname.trim());
     }
     return error;
@@ -205,6 +221,7 @@ class AuthController extends StateNotifier<AuthState> {
     // 游客或刚退出的本地账号：有进度则等用户确认后再同步，避免先把空槽位上传
     final importFrom =
         adoptDeviceAccount ? _deviceImportSource(result.account.accountId) : null;
+    _invalidateSessionRequests();
     await _tokenStore.writeRefreshToken(result.refreshToken);
     await repository.store.setSession(
       '${AuthState.onlineKeyPrefix}${result.account.accountId}',
@@ -462,11 +479,13 @@ class AuthController extends StateNotifier<AuthState> {
   }
 
   Future<void> loginAsGuest() async {
+    _invalidateSessionRequests();
     await repository.loginAsGuest();
     state = const AuthState(userKey: UserRepository.guestKey);
   }
 
   Future<void> logout() async {
+    _invalidateSessionRequests();
     final localKey = state.mode == AuthMode.local ? state.userKey : null;
     if (state.isOnline) {
       final refreshToken = await _tokenStore.readRefreshToken();
@@ -484,6 +503,7 @@ class AuthController extends StateNotifier<AuthState> {
 
   /// 恢复会话（备份导入后调用）
   Future<void> restoreSession(String userKey) async {
+    _invalidateSessionRequests();
     await repository.store.setSession(userKey);
     state = AuthState(userKey: userKey);
   }

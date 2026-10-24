@@ -54,7 +54,6 @@ class InMemoryAccountsRepo implements AccountsRepo {
       email: current.email,
       phone: current.phone,
       passwordHash: current.passwordHash,
-      passwordPlain: current.passwordPlain,
       displayName: current.displayName,
       createdAt: current.createdAt,
       updatedAt: DateTime.now().toUtc(),
@@ -66,11 +65,7 @@ class InMemoryAccountsRepo implements AccountsRepo {
   }
 
   @override
-  Future<Account?> updatePassword(
-    String accountId,
-    String passwordHash,
-    String passwordPlain,
-  ) async {
+  Future<Account?> updatePassword(String accountId, String passwordHash) async {
     final current = _byId[accountId];
     if (current == null) return null;
     final updated = Account(
@@ -78,7 +73,6 @@ class InMemoryAccountsRepo implements AccountsRepo {
       email: current.email,
       phone: current.phone,
       passwordHash: passwordHash,
-      passwordPlain: passwordPlain,
       displayName: current.displayName,
       createdAt: current.createdAt,
       updatedAt: DateTime.now().toUtc(),
@@ -87,24 +81,6 @@ class InMemoryAccountsRepo implements AccountsRepo {
     );
     _byId[accountId] = updated;
     return updated;
-  }
-
-  @override
-  Future<void> rememberPassword(String accountId, String passwordPlain) async {
-    final current = _byId[accountId];
-    if (current == null || current.passwordPlain == passwordPlain) return;
-    _byId[accountId] = Account(
-      accountId: current.accountId,
-      email: current.email,
-      phone: current.phone,
-      passwordHash: current.passwordHash,
-      passwordPlain: passwordPlain,
-      displayName: current.displayName,
-      createdAt: current.createdAt,
-      updatedAt: current.updatedAt,
-      disabledAt: current.disabledAt,
-      credentialVersion: current.credentialVersion,
-    );
   }
 
   @override
@@ -119,7 +95,6 @@ class InMemoryAccountsRepo implements AccountsRepo {
       email: current.email,
       phone: current.phone,
       passwordHash: current.passwordHash,
-      passwordPlain: current.passwordPlain,
       displayName: displayName,
       createdAt: current.createdAt,
       updatedAt: DateTime.now().toUtc(),

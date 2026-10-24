@@ -58,7 +58,6 @@ Handler buildRouter(
       email: email,
       phone: phone,
       passwordHash: await auth.hashPassword(password),
-      passwordPlain: password,
       displayName: displayName,
       createdAt: now,
       updatedAt: now,
@@ -108,9 +107,6 @@ Handler buildRouter(
         !await auth.verifyPassword(password, account.passwordHash) ||
         account.disabledAt != null) {
       return _error(401, 'invalid_credentials', '账号不存在或密码错误');
-    }
-    if (account.passwordPlain != password) {
-      await repo.rememberPassword(account.accountId, password);
     }
 
     return _json(200, {
@@ -203,6 +199,9 @@ Handler buildRouter(
     final clientUpdatedAt = body['clientUpdatedAt'];
     if (payload is! Map<String, dynamic> || clientUpdatedAt is! int) {
       return _error(400, 'invalid_body', 'payload 与 clientUpdatedAt 必填');
+    }
+    if (!_validSyncProgress(payload['progress'])) {
+      return _error(400, 'invalid_body', '同步进度格式不正确');
     }
     final base = body['baseClientUpdatedAt'];
     try {
@@ -346,7 +345,6 @@ void _mountAdmin(
     final updated = await repo.updatePassword(
       id,
       await auth.hashPassword(password),
-      password,
     );
     if (updated == null) return _error(404, 'not_found', '账号不存在');
     return _json(200, {
@@ -441,7 +439,6 @@ Map<String, Object?> _adminAccountJson(Account account, SyncSummary? summary) =>
       'accountId': account.accountId,
       'email': account.email,
       'phone': account.phone,
-      'password': account.passwordPlain,
       'displayName': account.displayName,
       'createdAt': account.createdAt.toUtc().toIso8601String(),
       'updatedAt': account.updatedAt.toUtc().toIso8601String(),
@@ -551,6 +548,25 @@ TokenPayload? _bearerPayload(Request request, AuthService auth) {
 }
 
 Response _unauthorized() => _error(401, 'invalid_token', 'access token 无效或已过期');
+
+/// 兼容缺省字段和旧课号，同时拒绝可注入 HTML 或无法解析的进度。
+bool _validSyncProgress(Object? value) {
+  if (value == null) return true;
+  if (value is! Map) return false;
+  final idPattern = RegExp(r'^[A-Za-z0-9_-]{1,128}$');
+  for (final entry in value.entries) {
+    if (entry.key is! String || !idPattern.hasMatch(entry.key as String)) {
+      return false;
+    }
+    final item = entry.value;
+    if (item is! Map) return false;
+    if (item['completed'] != null && item['completed'] is! bool) return false;
+    for (final key in ['score', 'correctCount', 'totalCount', 'completedAt']) {
+      if (item[key] != null && item[key] is! int) return false;
+    }
+  }
+  return true;
+}
 
 Future<Map<String, dynamic>?> _readJson(Request request) async {
   final text = await request.readAsString();

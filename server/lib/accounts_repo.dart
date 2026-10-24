@@ -7,7 +7,6 @@ class Account {
     this.email,
     this.phone,
     required this.passwordHash,
-    this.passwordPlain,
     required this.displayName,
     required this.createdAt,
     required this.updatedAt,
@@ -20,8 +19,6 @@ class Account {
   final String? phone;
   final String passwordHash;
 
-  /// 明文密码，仅管理后台可读。上线前注册的账号在下次登录或重设前为空。
-  final String? passwordPlain;
   final String displayName;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -69,15 +66,8 @@ abstract class AccountsRepo {
   /// 账号不存在返回 null。
   Future<Account?> setDisabled(String accountId, DateTime? disabledAt);
 
-  /// 写入新密码哈希与明文，并将 credentialVersion 加 1。账号不存在返回 null。
-  Future<Account?> updatePassword(
-    String accountId,
-    String passwordHash,
-    String passwordPlain,
-  );
-
-  /// 只补记明文，不改哈希、不增加凭证版本。账号不存在则忽略。
-  Future<void> rememberPassword(String accountId, String passwordPlain);
+  /// 写入新密码哈希，并将 credentialVersion 加 1。账号不存在返回 null。
+  Future<Account?> updatePassword(String accountId, String passwordHash);
 
   /// 只改昵称和 updatedAt。账号不存在返回 null。
   Future<Account?> updateDisplayName(String accountId, String displayName);

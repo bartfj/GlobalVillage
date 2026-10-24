@@ -93,7 +93,7 @@ class BackupService {
         final unitId = item['unitId'] as String;
         // unitId 字段兼容：旧 unit（u1）或新 lessonId（u1l1 / z_u1l2）
         final subjectOk = RegExp(
-          r'^(?:z_|e_)?u\d+(?:l\d+)?$',
+          r'^(?:z_|e_|zh_|sa_)?u\d+(?:l\d+)?$',
         ).hasMatch(unitId);
         if (attemptId.isEmpty ||
             attemptId.contains('|') ||

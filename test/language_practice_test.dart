@@ -61,7 +61,11 @@ void main() {
       for (final entry in generated.entries) {
         final onDisk = File(entry.key);
         expect(onDisk.existsSync(), isTrue, reason: entry.key);
-        expect(onDisk.readAsStringSync(), entry.value, reason: entry.key);
+        expect(
+          onDisk.readAsStringSync().replaceAll('\r\n', '\n'),
+          entry.value,
+          reason: entry.key,
+        );
       }
     });
 

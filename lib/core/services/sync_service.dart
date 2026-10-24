@@ -440,10 +440,25 @@ class SyncService {
 
   /// 槽位复制（绑定升级/游客导入）：progress + rewards + track，保留源槽位。
   Future<void> copySlot(String fromUserKey, String toUserKey) async {
+    await copyStoredSlot(_settings, fromUserKey, toUserKey);
+    _onMerged?.call();
+  }
+
+  /// 本地账号尚未切换在线身份时也可迁移，无需创建在线同步服务。
+  static Future<void> copyStoredSlot(
+    SettingsStore settings,
+    String fromUserKey,
+    String toUserKey,
+  ) async {
     final source = ProgressStore(userKey: fromUserKey).entries;
     final target = ProgressStore(userKey: toUserKey);
     for (final progress in source.values) {
-      await target.save(progress);
+      final existingProgress = target.get(progress.lessonId);
+      await target.save(
+        existingProgress == null
+            ? progress
+            : SyncMerger.mergeLesson(progress, existingProgress),
+      );
     }
     final sourceRewards = RewardStore(userKey: fromUserKey).attempts;
     final targetRewards = RewardStore(userKey: toUserKey);
@@ -453,11 +468,10 @@ class SyncService {
         await targetRewards.save(entry.key, entry.value);
       }
     }
-    await _settings.importTrackPrefs(
+    await settings.importTrackPrefs(
       toUserKey,
-      _settings.exportTrackPrefs(fromUserKey),
+      settings.exportTrackPrefs(fromUserKey),
     );
-    _onMerged?.call();
   }
 
   /// 账号是否已有可同步的本地数据（游客导入确认前判断）。
