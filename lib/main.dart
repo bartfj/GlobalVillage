@@ -15,6 +15,7 @@ import 'data/sources/progress_store.dart';
 import 'data/sources/learning_store.dart';
 import 'data/sources/reward_store.dart';
 import 'data/sources/settings_store.dart';
+import 'data/sources/skill_practice_progress_store.dart';
 import 'data/sources/user_store.dart';
 
 void main() {
@@ -27,6 +28,7 @@ void main() {
       await Hive.openBox<LessonProgress>(ProgressStore.boxName);
       await Hive.openBox<String>(LearningStore.boxName);
       await Hive.openBox<String>(RewardStore.boxName);
+      await Hive.openBox<String>(SkillPracticeProgressStore.boxName);
       await Hive.openBox<User>(UserStore.usersBoxName);
       await Hive.openBox<String>(UserStore.sessionBoxName);
       await Hive.openBox<String>(SettingsStore.boxName);

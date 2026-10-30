@@ -62,8 +62,8 @@ void main() {
         final onDisk = File(entry.key);
         expect(onDisk.existsSync(), isTrue, reason: entry.key);
         expect(
-          onDisk.readAsStringSync().replaceAll('\r\n', '\n'),
-          entry.value,
+          jsonDecode(onDisk.readAsStringSync()),
+          jsonDecode(entry.value),
           reason: entry.key,
         );
       }
@@ -72,7 +72,12 @@ void main() {
     test('六个题库可解析且题型安全', () {
       for (final path in generated.keys) {
         final bank = _load(path);
+        expect(bank.chapters, isNotEmpty, reason: path);
         expect(bank.exercises.length, greaterThanOrEqualTo(10), reason: path);
+        for (final chapter in bank.chapters) {
+          expect(chapter.id, isNotEmpty, reason: path);
+          expect(chapter.exercises, isNotEmpty, reason: '${path}/${chapter.id}');
+        }
         for (final e in bank.exercises) {
           // 无音频安全：只出识读选择题
           expect(e.type, ExerciseType.translateChoice, reason: e.id);

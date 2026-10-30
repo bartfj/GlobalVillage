@@ -8,12 +8,14 @@ import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/models/skill_practice.dart';
+import 'package:english_village/data/models/skill_practice_progress.dart';
 import 'package:english_village/data/repositories/course_repository.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
 import 'package:english_village/data/sources/course_loader.dart';
 import 'package:english_village/data/sources/learning_store.dart';
 import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/skill_practice_loader.dart';
+import 'package:english_village/data/sources/skill_practice_progress_store.dart';
 import 'package:english_village/features/lesson/widgets/tappable_phonetic_text.dart';
 import 'package:english_village/features/skill_practice/skill_practice_page.dart';
 import 'package:flutter/material.dart';
@@ -92,13 +94,39 @@ void main() {
         jsonDecode(file.readAsStringSync()) as Map<String, dynamic>,
       );
       expect(bank.skill, skill);
+      expect(bank.chapters, isNotEmpty, reason: skill.name);
       expect(bank.exercises.length, inInclusiveRange(10, 80));
+      for (final chapter in bank.chapters) {
+        expect(chapter.id, isNotEmpty);
+        expect(chapter.title, isNotEmpty);
+        expect(chapter.exercises, isNotEmpty, reason: chapter.id);
+      }
       for (final e in bank.exercises) {
         expect(_allowedTypes[skill]!.contains(e.type), isTrue, reason: e.id);
         expect(e.id, isNotEmpty);
         expect(e.answer, isNotEmpty);
       }
     }
+  });
+
+  test('SkillPracticeBank accepts legacy flat exercises as default chapter', () {
+    final bank = SkillPracticeBank.fromJson({
+      'skill': 'vocabulary',
+      'title': '单词练习',
+      'exercises': [
+        {
+          'id': 'e1',
+          'type': 'translateChoice',
+          'prompt': 'p',
+          'sentence': 's',
+          'options': ['a', 'b'],
+          'answer': 'a',
+        },
+      ],
+    });
+    expect(bank.chapters.length, 1);
+    expect(bank.chapters.first.id, 'default');
+    expect(bank.exercises.length, 1);
   });
 
   test('SkillPracticeLoader pickSession respects limit', () {
@@ -119,6 +147,60 @@ void main() {
     expect(picked.map((e) => e.id).toSet().length, 10);
   });
 
+  test('soft unlock and 80% pass without downgrade', () {
+    expect(
+      isSkillPracticeChapterUnlocked(
+        index: 0,
+        chapterCompletedFlags: const [false, false],
+      ),
+      isTrue,
+    );
+    expect(
+      isSkillPracticeChapterUnlocked(
+        index: 1,
+        chapterCompletedFlags: const [false, false],
+      ),
+      isFalse,
+    );
+    expect(
+      isSkillPracticeChapterUnlocked(
+        index: 1,
+        chapterCompletedFlags: const [true, false],
+      ),
+      isTrue,
+    );
+
+    final failed = applySkillPracticeSessionResult(
+      skill: 'vocabulary',
+      chapterId: 'voc-basics',
+      correctCount: 7,
+      totalCount: 10,
+    );
+    expect(failed.completed, isFalse);
+    expect(failed.lastAccuracy, 0.7);
+
+    final passed = applySkillPracticeSessionResult(
+      skill: 'vocabulary',
+      chapterId: 'voc-basics',
+      correctCount: 8,
+      totalCount: 10,
+      previous: failed,
+    );
+    expect(passed.completed, isTrue);
+    expect(passed.bestAccuracy, 0.8);
+
+    final retryWorse = applySkillPracticeSessionResult(
+      skill: 'vocabulary',
+      chapterId: 'voc-basics',
+      correctCount: 5,
+      totalCount: 10,
+      previous: passed,
+    );
+    expect(retryWorse.completed, isTrue);
+    expect(retryWorse.bestAccuracy, 0.8);
+    expect(retryWorse.lastAccuracy, 0.5);
+  });
+
   testWidgets('skill practice completes without updating course progress', (
     tester,
   ) async {
@@ -132,6 +214,7 @@ void main() {
     await tester.runAsync(() async {
       await Hive.openBox<LessonProgress>(ProgressStore.boxName);
       await Hive.openBox<String>(LearningStore.boxName);
+      await Hive.openBox<String>(SkillPracticeProgressStore.boxName);
     });
     addTearDown(() async {
       await tester.runAsync(() async {
@@ -156,14 +239,21 @@ void main() {
     final tinyBank = {
       'skill': 'vocabulary',
       'title': '单词练习',
-      'exercises': [
+      'chapters': [
         {
-          'id': first.id,
-          'type': first.type.name,
-          'prompt': first.prompt,
-          'sentence': first.sentence,
-          'options': first.options,
-          'answer': first.answer,
+          'id': 'voc-basics',
+          'title': '基础词义',
+          'subtitle': '问候到运动',
+          'exercises': [
+            {
+              'id': first.id,
+              'type': first.type.name,
+              'prompt': first.prompt,
+              'sentence': first.sentence,
+              'options': first.options,
+              'answer': first.answer,
+            },
+          ],
         },
       ],
     };
@@ -182,6 +272,9 @@ void main() {
           courseRepositoryProvider.overrideWithValue(CourseRepository(course)),
           learningStoreProvider.overrideWithValue(store),
           soundServiceProvider.overrideWithValue(SilentSound()),
+          skillPracticeProgressStoreProvider.overrideWithValue(
+            const SkillPracticeProgressStore(userKey: 'guest'),
+          ),
           progressRepositoryProvider.overrideWithValue(
             ProgressRepository(
               store: const ProgressStore(userKey: 'guest'),
@@ -200,6 +293,7 @@ void main() {
                   MaterialPageRoute(
                     builder: (_) => SkillPracticePage(
                       skill: SkillPracticeKind.vocabulary,
+                      chapterId: 'voc-basics',
                       loader: loader,
                     ),
                   ),
@@ -232,14 +326,20 @@ void main() {
     await tester.tap(find.text('继续'));
     await tester.pumpAndSettle();
     expect(find.text('单词练习完成'), findsOneWidget);
-    await tester.tap(find.text('完成'));
+    await tester.tap(find.text('返回章节'));
     await tester.pumpAndSettle();
     expect(find.text('开始专项'), findsOneWidget);
     expect(Hive.box<LessonProgress>(ProgressStore.boxName).isEmpty, isTrue);
     expect(
-      store.events.where((e) => e['mode'] == 'skill-vocabulary').isNotEmpty,
+      store.events
+          .where((e) => e['mode'] == 'skill-vocabulary/voc-basics')
+          .isNotEmpty,
       isTrue,
     );
+    final chapterProgress = const SkillPracticeProgressStore(
+      userKey: 'guest',
+    ).get('vocabulary', 'voc-basics');
+    expect(chapterProgress?.completed, isTrue);
     expect(tester.takeException(), isNull);
   });
 }

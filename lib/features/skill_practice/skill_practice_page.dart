@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
 import '../../data/models/course.dart';
 import '../../data/models/skill_practice.dart';
+import '../../data/models/skill_practice_progress.dart';
 import '../../data/sources/learning_store.dart';
 import '../../data/sources/skill_practice_loader.dart';
 import '../feedback/feedback_dialog.dart';
@@ -21,9 +24,15 @@ import 'yoga_audio_button.dart';
 
 /// 专项练习会话页（方案 C：独立壳，不走 LessonPage）
 class SkillPracticePage extends ConsumerStatefulWidget {
-  const SkillPracticePage({super.key, required this.skill, this.loader});
+  const SkillPracticePage({
+    super.key,
+    required this.skill,
+    required this.chapterId,
+    this.loader,
+  });
 
   final SkillPracticeKind skill;
+  final String chapterId;
   final SkillPracticeLoader? loader;
 
   @override
@@ -38,6 +47,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   late DateTime _questionStart;
 
   SkillPracticeSession? _session;
+  SkillPracticeBank? _bank;
   Object? _loadError;
   bool _loading = true;
   bool _completed = false;
@@ -46,6 +56,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   final Set<String> _attempted = {};
   LearningStore? _learningStore;
   late String _courseId;
+  late String _mode;
 
   Color get _accent => widget.skill.accent;
 
@@ -58,10 +69,12 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     _questionStart = _startTime;
     _learningStore = ref.read(learningStoreProvider);
     _courseId = ref.read(courseProvider).id;
-    final place = '${ref.read(courseProvider).title} · ${widget.skill.title}';
+    _mode = widget.skill.modeForChapter(widget.chapterId);
+    final place =
+        '${ref.read(courseProvider).title} · ${widget.skill.title} · ${widget.chapterId}';
     unawaited(
       DiagnosticLog.instance?.rememberLesson(
-        route: '/practice/${widget.skill.name}',
+        route: '/practice/${widget.skill.name}/${widget.chapterId}',
         lesson: place,
       ),
     );
@@ -76,8 +89,16 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
         );
     try {
       final bank = await loader.load(widget.skill);
-      final picked = loader.pickSession(bank.exercises);
+      final chapter = bank.chapterById(widget.chapterId);
       if (!mounted) return;
+      if (chapter == null) {
+        setState(() {
+          _loading = false;
+          _loadError = ref.read(stringsProvider).cannotStart;
+        });
+        return;
+      }
+      final picked = loader.pickChapterSession(bank, widget.chapterId);
       if (picked.isEmpty) {
         setState(() {
           _loading = false;
@@ -87,13 +108,15 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       }
       final session = SkillPracticeSession(
         skill: widget.skill,
+        chapterId: widget.chapterId,
         lesson: Lesson(
-          id: 'practice-${widget.skill.name}',
-          title: bank.title,
+          id: 'practice-${widget.skill.name}-${widget.chapterId}',
+          title: chapter.title,
           exercises: picked,
         ),
       );
       setState(() {
+        _bank = bank;
         _session = session;
         _loading = false;
       });
@@ -112,7 +135,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       await _learningStore?.log({
         ...event,
         'courseId': _courseId,
-        'mode': widget.skill.mode,
+        'mode': _mode,
       });
     } catch (_) {
       if (mounted) {
@@ -158,13 +181,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
           ?.recordAnswer(
             courseId: course.id,
             lessonId: source.isEmpty
-                ? 'practice-${widget.skill.name}'
+                ? 'practice-${widget.skill.name}-${widget.chapterId}'
                 : source.first.id,
             exercise: exercise,
             correct: correct,
             first: _attempted.add(exercise.id),
             elapsedMs: DateTime.now().difference(_questionStart).inMilliseconds,
-            mode: widget.skill.mode,
+            mode: _mode,
             skipped: skipped,
           );
     } catch (_) {
@@ -203,37 +226,148 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     final state = ref.read(skillPracticeControllerProvider(session));
     if (state.finished) {
       _completed = true;
-      unawaited(
-        _log({
-          'kind': 'finish',
-          'lessonId': session.lesson.id,
-          'correctCount': state.correctCount,
-          'totalCount': state.totalCount,
-          'elapsedMs': DateTime.now().difference(_startTime).inMilliseconds,
-        }),
-      );
-      final s = ref.read(stringsProvider);
-      showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-          title: Text(s.skillDoneTitle(widget.skill)),
-          content: Text(s.firstCorrect(state.correctCount, state.totalCount)),
-          actions: [
+      unawaited(_finishSession(session, state.correctCount, state.totalCount));
+    }
+  }
+
+  Future<void> _finishSession(
+    SkillPracticeSession session,
+    int correctCount,
+    int totalCount,
+  ) async {
+    await _log({
+      'kind': 'finish',
+      'lessonId': session.lesson.id,
+      'correctCount': correctCount,
+      'totalCount': totalCount,
+      'elapsedMs': DateTime.now().difference(_startTime).inMilliseconds,
+    });
+
+    final progressStore = ref.read(skillPracticeProgressStoreProvider);
+    final previous = progressStore?.get(widget.skill.name, widget.chapterId);
+    final updated = applySkillPracticeSessionResult(
+      skill: widget.skill.name,
+      chapterId: widget.chapterId,
+      correctCount: correctCount,
+      totalCount: totalCount,
+      previous: previous,
+    );
+    await progressStore?.save(updated);
+    ref.read(skillPracticeProgressRevisionProvider.notifier).state++;
+
+    if (!mounted) return;
+    final s = ref.read(stringsProvider);
+    final passed = updated.lastAccuracy >= skillPracticePassAccuracy;
+    final percent = (updated.lastAccuracy * 100).round();
+    final bank = _bank;
+    String? nextChapterId;
+    if (passed && bank != null) {
+      final idx = bank.chapters.indexWhere((c) => c.id == widget.chapterId);
+      if (idx >= 0 && idx + 1 < bank.chapters.length) {
+        nextChapterId = bank.chapters[idx + 1].id;
+      }
+    }
+
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Text(s.skillDoneTitle(widget.skill)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(s.firstCorrect(correctCount, totalCount)),
+            const SizedBox(height: 8),
+            Text(s.practiceAccuracy(percent)),
+            const SizedBox(height: 8),
+            Text(s.practiceUnlockHint(passed)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _leaveToChapters();
+            },
+            child: Text(s.practiceBackToChapters),
+          ),
+          if (!passed)
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                setState(() => _allowExit = true);
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (mounted) Navigator.of(this.context).pop();
-                });
+                _restartChapter();
               },
-              child: Text(s.done),
+              child: Text(s.practiceRetryChapter),
             ),
-          ],
-        ),
-      );
-    }
+          if (passed && nextChapterId != null)
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _goChapter(nextChapterId!);
+              },
+              child: Text(s.practiceNextChapter),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _leaveToChapters() {
+    setState(() => _allowExit = true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final router = GoRouter.maybeOf(context);
+      if (router != null) {
+        router.go('/practice/${widget.skill.name}');
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  void _restartChapter() {
+    setState(() => _allowExit = true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final path = '/practice/${widget.skill.name}/${widget.chapterId}';
+      final router = GoRouter.maybeOf(context);
+      if (router != null) {
+        router.pushReplacement(path);
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<void>(
+            builder: (_) => SkillPracticePage(
+              skill: widget.skill,
+              chapterId: widget.chapterId,
+              loader: widget.loader,
+            ),
+          ),
+        );
+      }
+    });
+  }
+
+  void _goChapter(String chapterId) {
+    setState(() => _allowExit = true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final path = '/practice/${widget.skill.name}/$chapterId';
+      final router = GoRouter.maybeOf(context);
+      if (router != null) {
+        router.pushReplacement(path);
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<void>(
+            builder: (_) => SkillPracticePage(
+              skill: widget.skill,
+              chapterId: chapterId,
+              loader: widget.loader,
+            ),
+          ),
+        );
+      }
+    });
   }
 
   Future<void> _onClose() async {
@@ -273,7 +407,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                 ?.log({
                   'kind': 'exit',
                   'lessonId': _session!.lesson.id,
-                  'mode': widget.skill.mode,
+                  'mode': _mode,
                   'courseId': _courseId,
                   'elapsedMs': DateTime.now()
                       .difference(_startTime)
@@ -397,7 +531,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              '${s.skillTitle(widget.skill)} · ${s.skillSubtitle(widget.skill)}',
+                              '${s.skillTitle(widget.skill)} · ${session.lesson.title}',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: LessonColors.muted,

@@ -242,6 +242,23 @@ class S {
   String skillDoneTitle(SkillPracticeKind kind) =>
       isEn ? '${skillTitle(kind)} complete' : kind.doneTitle;
 
+  String get practiceChaptersTitle => isEn ? 'Chapters' : '章节';
+  String get practiceChapterLocked =>
+      isEn ? 'Complete the previous chapter (≥80%) to unlock' : '完成上一章（正确率 ≥ 80%）后解锁';
+  String get practiceChapterPassed => isEn ? 'Passed' : '已完成';
+  String get practiceRetryChapter => isEn ? 'Retry chapter' : '再练本章';
+  String get practiceNextChapter => isEn ? 'Next chapter' : '去下一章';
+  String get practiceBackToChapters => isEn ? 'Back to chapters' : '返回章节';
+  String practiceAccuracy(int percent) =>
+      isEn ? 'Accuracy $percent%' : '正确率 $percent%';
+  String practiceBestAccuracy(int percent) =>
+      isEn ? 'Best $percent%' : '最高 $percent%';
+  String practiceUnlockHint(bool passed) => passed
+      ? (isEn ? 'Chapter passed. Next chapter unlocked.' : '本章达标，已解锁下一章。')
+      : (isEn
+          ? 'Need ≥80% to pass this chapter.'
+          : '正确率需 ≥ 80% 才算完成本章。');
+
   // ---- 界面语言设置 ----
   String get uiLanguageSuggestionTitle =>
       isEn ? 'English interface on' : '界面已切换为英文';

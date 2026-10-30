@@ -556,22 +556,114 @@ List<Exercise> _buildEnglishYoga() {
 // 输出
 // ---------------------------------------------------------------------------
 
+Map<String, dynamic> _chapterPayload(
+  String id,
+  String title,
+  String subtitle,
+  List<Exercise> exercises,
+) =>
+    {
+      'id': id,
+      'title': title,
+      'subtitle': subtitle,
+      'exercises': [for (final e in exercises) _exerciseJson(e)],
+    };
+
+List<Map<String, dynamic>> _chineseToneChapters() {
+  final all = _buildChineseTones();
+  return [
+    _chapterPayload('zht-pairs', '四声对立与人称', '妈麻马骂…是', all.sublist(0, 9)),
+    _chapterPayload('zht-numbers', '身份与数字调', '叫…人', all.sublist(9, 18)),
+    _chapterPayload('zht-daily', '物品与请求调', '书…吃', all.sublist(18)),
+  ];
+}
+
+List<Map<String, dynamic>> _chineseCharacterChapters() {
+  final all = _buildChineseCharacters();
+  // 每词两题：前 10 词 / 中 10 词 / 后 5 词
+  return [
+    _chapterPayload('zhc-greet', '问候与身份', '妈…他', all.sublist(0, 20)),
+    _chapterPayload('zhc-count', '数字与物品', '一…喝', all.sublist(20, 40)),
+    _chapterPayload('zhc-request', '请求与饮食', '想…吃', all.sublist(40)),
+  ];
+}
+
+List<Map<String, dynamic>> _sanskritLetterChapters() {
+  // 保持与原 _buildSanskritLetters 相同题目集合与 id：三章按源列表切
+  final all = _buildSanskritLetters();
+  return [
+    _chapterPayload('sal-vowels', '独立元音', 'अ…औ', all.sublist(0, 10)),
+    _chapterPayload('sal-base', '辅音与初拼', 'क…मि', all.sublist(10, 20)),
+    _chapterPayload('sal-syllables', '元音符号拼读', 'मी…टी', all.sublist(20)),
+  ];
+}
+
+List<Map<String, dynamic>> _sanskritVowelChapters() {
+  final all = _buildSanskritVowels();
+  return [
+    _chapterPayload('sav-a', 'a/ā 对立词', 'mama…nata', all.sublist(0, 8)),
+    _chapterPayload('sav-i', 'a 与 i/ī 对立', 'tata…kīna', all.sublist(8)),
+  ];
+}
+
+List<Map<String, dynamic>> _sanskritYogaChapters() {
+  final all = _buildSanskritYoga();
+  return [
+    _chapterPayload('syg-core', '问候与核心', 'namaste…prāṇāyāma', all.sublist(0, 10)),
+    _chapterPayload('syg-mind', '呼吸与心法', 'śvāsa…dhyāna', all.sublist(10, 20)),
+    _chapterPayload(
+      'syg-energy',
+      '手印收束与拜日',
+      'mudrā…tāḍāsana',
+      all.sublist(20, 30),
+    ),
+    _chapterPayload(
+      'syg-asanas',
+      '站姿与地面式',
+      'vṛkṣāsana…bhujaṅgāsana',
+      all.sublist(30),
+    ),
+  ];
+}
+
+List<Map<String, dynamic>> _englishYogaChapters() {
+  // terms 20*2=40, cues 16*2=32 → 72；按设计文档主题带切片
+  final all = _buildEnglishYoga();
+  return [
+    _chapterPayload('eyg-core', '核心术语', '合十到调息', all.sublist(0, 14)),
+    _chapterPayload('eyg-practice', '练习概念', '上师到脉轮', all.sublist(14, 26)),
+    _chapterPayload('eyg-poses', '体式英文名', '拜日到眼镜蛇', all.sublist(26, 40)),
+    _chapterPayload(
+      'eyg-cues-body',
+      '呼吸与体态指令',
+      '吸气到闭眼',
+      all.sublist(40, 56),
+    ),
+    _chapterPayload(
+      'eyg-cues-flow',
+      '动作与课堂指令',
+      '盘腿到开始',
+      all.sublist(56),
+    ),
+  ];
+}
+
 /// 生成 6 个题库，返回 {路径: 内容}；write 为 true 时同时写盘。
 Map<String, String> generateLanguagePractice({bool write = true}) {
-  final banks = <SkillPracticeKind, List<Exercise>>{
-    SkillPracticeKind.chineseTones: _buildChineseTones(),
-    SkillPracticeKind.chineseCharacters: _buildChineseCharacters(),
-    SkillPracticeKind.sanskritLetters: _buildSanskritLetters(),
-    SkillPracticeKind.sanskritVowels: _buildSanskritVowels(),
-    SkillPracticeKind.sanskritYoga: _buildSanskritYoga(),
-    SkillPracticeKind.englishYoga: _buildEnglishYoga(),
+  final banks = <SkillPracticeKind, List<Map<String, dynamic>>>{
+    SkillPracticeKind.chineseTones: _chineseToneChapters(),
+    SkillPracticeKind.chineseCharacters: _chineseCharacterChapters(),
+    SkillPracticeKind.sanskritLetters: _sanskritLetterChapters(),
+    SkillPracticeKind.sanskritVowels: _sanskritVowelChapters(),
+    SkillPracticeKind.sanskritYoga: _sanskritYogaChapters(),
+    SkillPracticeKind.englishYoga: _englishYogaChapters(),
   };
   final out = <String, String>{};
   for (final entry in banks.entries) {
     final payload = {
       'skill': entry.key.name,
       'title': entry.key.title,
-      'exercises': [for (final e in entry.value) _exerciseJson(e)],
+      'chapters': entry.value,
     };
     final content = '${const JsonEncoder.withIndent('  ').convert(payload)}\n';
     final path = 'assets/practice/${entry.key.name}.json';

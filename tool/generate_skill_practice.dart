@@ -132,17 +132,84 @@ void main() {
   final outDir = Directory('assets/practice')..createSync(recursive: true);
   for (final skill in _skillTypes.keys) {
     final sampled = sampleEvenly(pools[skill]!, _targetCount);
+    final chapters = _chaptersForClassicSkill(skill, sampled);
     final payload = {
       'skill': skill,
       'title': _skillTitles[skill],
-      'exercises': [for (final e in sampled) exerciseToJson(e)],
+      'chapters': chapters,
     };
     final file = File('${outDir.path}/$skill.json');
     file.writeAsStringSync(
       const JsonEncoder.withIndent('  ').convert(payload) + '\n',
     );
+    final total = chapters.fold<int>(
+      0,
+      (n, c) => n + (c['exercises'] as List).length,
+    );
     stdout.writeln(
-      '$skill: pool=${pools[skill]!.length} selected=${sampled.length} → ${file.path}',
+      '$skill: pool=${pools[skill]!.length} selected=$total chapters=${chapters.length} → ${file.path}',
     );
   }
+}
+
+int _unitSortKey(String unit) {
+  if (unit.startsWith('i_u')) {
+    return 1000 + (int.tryParse(unit.substring(3)) ?? 0);
+  }
+  if (unit.startsWith('u')) {
+    return int.tryParse(unit.substring(1)) ?? 0;
+  }
+  return 9999;
+}
+
+String _unitOf(Exercise e) => e.id.split('l').first;
+
+/// 经典英语三项：按单元排序后均分为 5 章（主题带命名）
+List<Map<String, dynamic>> _chaptersForClassicSkill(
+  String skill,
+  List<Exercise> sampled,
+) {
+  final sorted = List<Exercise>.of(sampled)
+    ..sort((a, b) => _unitSortKey(_unitOf(a)).compareTo(_unitSortKey(_unitOf(b))));
+
+  const meta = <String, List<(String, String, String)>>{
+    'pronunciation': [
+      ('pr-early', '入门听辨', '问候到爱好'),
+      ('pr-daily', '日常听辨', '社交到自然'),
+      ('pr-life', '生活听辨', '科技到综合'),
+      ('pr-adult', '场景听辨', '职场到求助'),
+      ('pr-services', '事务听辨', '环保到旅行'),
+    ],
+    'vocabulary': [
+      ('voc-basics', '基础词义', '问候到运动'),
+      ('voc-plans', '计划与生活', '计划到社区'),
+      ('voc-adult', '成人主题', '理财到数字生活'),
+      ('voc-inter-a', '中级协作', '叙述到投诉'),
+      ('voc-inter-b', '中级思辨', '新闻到综合'),
+    ],
+    'speaking': [
+      ('spk-early', '入门跟读', '问候到爱好'),
+      ('spk-daily', '日常跟读', '社交到自然'),
+      ('spk-life', '生活跟读', '科技到综合'),
+      ('spk-adult', '场景跟读', '职场到求助'),
+      ('spk-services', '事务跟读', '环保到旅行'),
+    ],
+  };
+
+  final labels = meta[skill]!;
+  final chapterCount = labels.length;
+  final chapters = <Map<String, dynamic>>[];
+  for (var i = 0; i < chapterCount; i++) {
+    final start = (sorted.length * i / chapterCount).floor();
+    final end = (sorted.length * (i + 1) / chapterCount).floor();
+    final slice = sorted.sublist(start, end);
+    final (id, title, subtitle) = labels[i];
+    chapters.add({
+      'id': id,
+      'title': title,
+      'subtitle': subtitle,
+      'exercises': [for (final e in slice) exerciseToJson(e)],
+    });
+  }
+  return chapters;
 }

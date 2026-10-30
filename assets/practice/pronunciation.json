@@ -1,656 +1,691 @@
 {
   "skill": "pronunciation",
   "title": "发音练习",
-  "exercises": [
+  "chapters": [
     {
-      "id": "u1l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Good evening.",
-      "options": [
-        "晚上好",
-        "下午好",
-        "早上好",
-        "晚安"
-      ],
-      "answer": "晚上好"
+      "id": "pr-early",
+      "title": "入门听辨",
+      "subtitle": "问候到爱好",
+      "exercises": [
+        {
+          "id": "u1l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Good evening.",
+          "options": [
+            "晚上好",
+            "下午好",
+            "早上好",
+            "晚安"
+          ],
+          "answer": "晚上好"
+        },
+        {
+          "id": "u2l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I am six years old.",
+          "options": [
+            "我五岁。",
+            "我六岁。",
+            "我七岁。",
+            "我十六岁。"
+          ],
+          "answer": "我六岁。"
+        },
+        {
+          "id": "u3l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "My grandma is kind.",
+          "options": [
+            "我的爸爸很忙。",
+            "我的爷爷很和蔼。",
+            "我的妈妈很高。",
+            "我的奶奶很和蔼。"
+          ],
+          "answer": "我的奶奶很和蔼。"
+        },
+        {
+          "id": "u4l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Do you like pears?",
+          "options": [
+            "这是梨吗？",
+            "你吃梨吗？",
+            "你喜欢苹果吗？",
+            "你喜欢梨吗？"
+          ],
+          "answer": "你喜欢梨吗？"
+        },
+        {
+          "id": "u5l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "What color is it?",
+          "options": [
+            "它是什么？",
+            "它在哪里？",
+            "它是什么颜色？",
+            "你喜欢什么颜色？"
+          ],
+          "answer": "它是什么颜色？"
+        },
+        {
+          "id": "u6l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Look at the blackboard.",
+          "options": [
+            "看书。",
+            "看黑板。",
+            "看窗外。",
+            "听老师说。"
+          ],
+          "answer": "看黑板。"
+        },
+        {
+          "id": "u7l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Is it cold today?",
+          "options": [
+            "今天冷吗",
+            "冬天很冷",
+            "这个周末是晴天",
+            "今天天气很好"
+          ],
+          "answer": "今天冷吗"
+        },
+        {
+          "id": "u10l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "My eyes are tired.",
+          "options": [
+            "我们在公园锻炼",
+            "我的眼睛累了",
+            "我头疼",
+            "这药一天吃两次"
+          ],
+          "answer": "我的眼睛累了"
+        },
+        {
+          "id": "u11l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I want to be a scientist.",
+          "options": [
+            "历史很有趣",
+            "我想成为科学家",
+            "我们上午有四节课",
+            "我的妈妈是护士"
+          ],
+          "answer": "我想成为科学家"
+        },
+        {
+          "id": "u12l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "We love going hiking.",
+          "options": [
+            "她看悲伤的电影哭了",
+            "你昨晚看比赛了吗",
+            "我们爱去远足",
+            "这首歌很流行"
+          ],
+          "answer": "我们爱去远足"
+        }
+      ]
     },
     {
-      "id": "u10l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "My eyes are tired.",
-      "options": [
-        "我们在公园锻炼",
-        "我的眼睛累了",
-        "我头疼",
-        "这药一天吃两次"
-      ],
-      "answer": "我的眼睛累了"
+      "id": "pr-daily",
+      "title": "日常听辨",
+      "subtitle": "社交到自然",
+      "exercises": [
+        {
+          "id": "u13l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "See you at the party.",
+          "options": [
+            "抱歉，我那天很忙",
+            "干得好",
+            "对不起我迟到了",
+            "派对上见"
+          ],
+          "answer": "派对上见"
+        },
+        {
+          "id": "u14l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "People eat dumplings in the north.",
+          "options": [
+            "这附近有银行吗",
+            "北方人吃饺子",
+            "面条很好吃",
+            "茶在中国很流行"
+          ],
+          "answer": "北方人吃饺子"
+        },
+        {
+          "id": "u15l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I pay with my phone.",
+          "options": [
+            "我用手机付款",
+            "我想换一些钱",
+            "我要鸡肉饭",
+            "在拐角处左转"
+          ],
+          "answer": "我用手机付款"
+        },
+        {
+          "id": "u16l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I like riding my bike.",
+          "options": [
+            "森林里的空气很清新",
+            "早睡早起身体好",
+            "我喜欢骑自行车",
+            "我每周踢两次足球"
+          ],
+          "answer": "我喜欢骑自行车"
+        },
+        {
+          "id": "u17l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I am going to the library.",
+          "options": [
+            "这个周末你打算做什么？",
+            "我们一起看电影吧。",
+            "我打算去图书馆。",
+            "我可能待在家里。"
+          ],
+          "answer": "我打算去图书馆。"
+        },
+        {
+          "id": "u18l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "That one is cheaper.",
+          "options": [
+            "这本书更有趣。",
+            "火车更快。",
+            "那个更便宜。",
+            "这个更好。"
+          ],
+          "answer": "那个更便宜。"
+        },
+        {
+          "id": "u19l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I watched a movie.",
+          "options": [
+            "我看了一部电影。",
+            "我遇见了老朋友。",
+            "昨天我去了公园。",
+            "天气很好。"
+          ],
+          "answer": "我看了一部电影。"
+        },
+        {
+          "id": "u20l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "You had better sleep early.",
+          "options": [
+            "你应该多喝水。",
+            "为什么不散步？",
+            "最好早点睡。",
+            "试试深呼吸。"
+          ],
+          "answer": "最好早点睡。"
+        },
+        {
+          "id": "u21l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "He wears glasses.",
+          "options": [
+            "他戴眼镜。",
+            "她留着长发。",
+            "她个子很高。",
+            "他看起来年轻。"
+          ],
+          "answer": "他戴眼镜。"
+        },
+        {
+          "id": "u22l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "The river flows.",
+          "options": [
+            "河水流淌。",
+            "海滩很美。",
+            "森林很安静。",
+            "山很高。"
+          ],
+          "answer": "河水流淌。"
+        }
+      ]
     },
     {
-      "id": "u11l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I want to be a scientist.",
-      "options": [
-        "历史很有趣",
-        "我想成为科学家",
-        "我们上午有四节课",
-        "我的妈妈是护士"
-      ],
-      "answer": "我想成为科学家"
+      "id": "pr-life",
+      "title": "生活听辨",
+      "subtitle": "科技到综合",
+      "exercises": [
+        {
+          "id": "u23l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Can you send me the link?",
+          "options": [
+            "别玩太久手机。",
+            "我的手机没电了。",
+            "打开飞行模式。",
+            "你能发我链接吗？"
+          ],
+          "answer": "你能发我链接吗？"
+        },
+        {
+          "id": "u24l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "The deadline is Friday.",
+          "options": [
+            "我们开个短会。",
+            "截止日期是周五。",
+            "我完成了报告。",
+            "我今天很忙。"
+          ],
+          "answer": "截止日期是周五。"
+        },
+        {
+          "id": "u25l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Stretching is important.",
+          "options": [
+            "我每周跑步三次。",
+            "今天去健身房。",
+            "别受伤。",
+            "拉伸很重要。"
+          ],
+          "answer": "拉伸很重要。"
+        },
+        {
+          "id": "u26l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "We have a reunion dinner.",
+          "options": [
+            "放鞭炮要小心。",
+            "孩子们收红包。",
+            "我们吃团圆饭。",
+            "春节快乐！"
+          ],
+          "answer": "我们吃团圆饭。"
+        },
+        {
+          "id": "u27l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "The leading actor performed well.",
+          "options": [
+            "主演表演很好。",
+            "我们去电影院吧。",
+            "结局出人意料。",
+            "这部电影很感人。"
+          ],
+          "answer": "主演表演很好。"
+        },
+        {
+          "id": "u28l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Please keep it down.",
+          "options": [
+            "小声一点。",
+            "邻居很友善。",
+            "帮我收个快递。",
+            "楼道保持干净。"
+          ],
+          "answer": "小声一点。"
+        },
+        {
+          "id": "u29l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I overspent this month.",
+          "options": [
+            "午餐别太贵。",
+            "我记账。",
+            "先分清需要和想要。",
+            "这个月超支了。"
+          ],
+          "answer": "这个月超支了。"
+        },
+        {
+          "id": "u30l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Are there seats left?",
+          "options": [
+            "还有座位吗？",
+            "我想订一张票。",
+            "靠窗的座位。",
+            "单程还是往返？"
+          ],
+          "answer": "还有座位吗？"
+        },
+        {
+          "id": "u31l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I don't completely agree.",
+          "options": [
+            "你说得有道理。",
+            "我同意你的看法。",
+            "我不完全同意。",
+            "在我看来不同。"
+          ],
+          "answer": "我不完全同意。"
+        },
+        {
+          "id": "u32l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I need a better plan.",
+          "options": [
+            "下周我有一场考试。",
+            "我需要更好的计划。",
+            "早起比熬夜更有效。",
+            "昨天我复习了三小时。"
+          ],
+          "answer": "我需要更好的计划。"
+        }
+      ]
     },
     {
-      "id": "u12l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "We love going hiking.",
-      "options": [
-        "她看悲伤的电影哭了",
-        "你昨晚看比赛了吗",
-        "我们爱去远足",
-        "这首歌很流行"
-      ],
-      "answer": "我们爱去远足"
+      "id": "pr-adult",
+      "title": "场景听辨",
+      "subtitle": "职场到求助",
+      "exercises": [
+        {
+          "id": "u33l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I will be more careful next time.",
+          "options": [
+            "你能帮我解决吗",
+            "下次我会更小心",
+            "订单送错了",
+            "谢谢你的帮助"
+          ],
+          "answer": "下次我会更小心"
+        },
+        {
+          "id": "u34l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "My plan is to practice every day.",
+          "options": [
+            "他梦想开一家咖啡馆",
+            "我需要更多练习",
+            "我们会搬到新城市",
+            "我的计划是每天练习"
+          ],
+          "answer": "我的计划是每天练习"
+        },
+        {
+          "id": "u35l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "That is all for today's meeting.",
+          "options": [
+            "还需要两天时间",
+            "请大家发表意见",
+            "今天的会议到此结束",
+            "感谢你的理解"
+          ],
+          "answer": "今天的会议到此结束"
+        },
+        {
+          "id": "u36l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Best regards.",
+          "options": [
+            "请尽快确认",
+            "祝好",
+            "会议链接在邮件里",
+            "抱歉，我必须取消"
+          ],
+          "answer": "祝好"
+        },
+        {
+          "id": "u37l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "We are ready to order.",
+          "options": [
+            "请问有两人桌吗",
+            "你可以尝尝这个",
+            "我们准备好点餐了",
+            "请慢用"
+          ],
+          "answer": "我们准备好点餐了"
+        },
+        {
+          "id": "u38l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "When can I move in?",
+          "options": [
+            "我可以看看房间吗",
+            "浴室有热水",
+            "请小心搬这个箱子",
+            "什么时候可以入住"
+          ],
+          "answer": "什么时候可以入住"
+        },
+        {
+          "id": "u39l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "The screen is broken.",
+          "options": [
+            "屏幕坏了",
+            "保护好你的账号",
+            "请打开摄像头",
+            "网络有点卡"
+          ],
+          "answer": "屏幕坏了"
+        },
+        {
+          "id": "u40l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "I set a fitness goal.",
+          "options": [
+            "我设定了一个健身目标",
+            "腿有点酸",
+            "今天状态不错",
+            "运动后要拉伸"
+          ],
+          "answer": "我设定了一个健身目标"
+        },
+        {
+          "id": "u41l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Apologize if you are late.",
+          "options": [
+            "见面时请握手",
+            "请不要大声说话",
+            "迟到要道歉",
+            "中秋节看月亮"
+          ],
+          "answer": "迟到要道歉"
+        },
+        {
+          "id": "u42l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Help is on the way.",
+          "options": [
+            "救援正在路上",
+            "请帮我报失",
+            "最后一次看见是在车站",
+            "夜间出门要小心"
+          ],
+          "answer": "救援正在路上"
+        }
+      ]
     },
     {
-      "id": "u13l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "See you at the party.",
-      "options": [
-        "抱歉，我那天很忙",
-        "干得好",
-        "对不起我迟到了",
-        "派对上见"
-      ],
-      "answer": "派对上见"
-    },
-    {
-      "id": "u14l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "People eat dumplings in the north.",
-      "options": [
-        "这附近有银行吗",
-        "北方人吃饺子",
-        "面条很好吃",
-        "茶在中国很流行"
-      ],
-      "answer": "北方人吃饺子"
-    },
-    {
-      "id": "u15l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I pay with my phone.",
-      "options": [
-        "我用手机付款",
-        "我想换一些钱",
-        "我要鸡肉饭",
-        "在拐角处左转"
-      ],
-      "answer": "我用手机付款"
-    },
-    {
-      "id": "u16l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I like riding my bike.",
-      "options": [
-        "森林里的空气很清新",
-        "早睡早起身体好",
-        "我喜欢骑自行车",
-        "我每周踢两次足球"
-      ],
-      "answer": "我喜欢骑自行车"
-    },
-    {
-      "id": "u17l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I am going to the library.",
-      "options": [
-        "这个周末你打算做什么？",
-        "我们一起看电影吧。",
-        "我打算去图书馆。",
-        "我可能待在家里。"
-      ],
-      "answer": "我打算去图书馆。"
-    },
-    {
-      "id": "u18l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "That one is cheaper.",
-      "options": [
-        "这本书更有趣。",
-        "火车更快。",
-        "那个更便宜。",
-        "这个更好。"
-      ],
-      "answer": "那个更便宜。"
-    },
-    {
-      "id": "u19l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I watched a movie.",
-      "options": [
-        "我看了一部电影。",
-        "我遇见了老朋友。",
-        "昨天我去了公园。",
-        "天气很好。"
-      ],
-      "answer": "我看了一部电影。"
-    },
-    {
-      "id": "u2l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I am six years old.",
-      "options": [
-        "我五岁。",
-        "我六岁。",
-        "我七岁。",
-        "我十六岁。"
-      ],
-      "answer": "我六岁。"
-    },
-    {
-      "id": "u20l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "You had better sleep early.",
-      "options": [
-        "你应该多喝水。",
-        "为什么不散步？",
-        "最好早点睡。",
-        "试试深呼吸。"
-      ],
-      "answer": "最好早点睡。"
-    },
-    {
-      "id": "u21l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "He wears glasses.",
-      "options": [
-        "他戴眼镜。",
-        "她留着长发。",
-        "她个子很高。",
-        "他看起来年轻。"
-      ],
-      "answer": "他戴眼镜。"
-    },
-    {
-      "id": "u22l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "The river flows.",
-      "options": [
-        "河水流淌。",
-        "海滩很美。",
-        "森林很安静。",
-        "山很高。"
-      ],
-      "answer": "河水流淌。"
-    },
-    {
-      "id": "u23l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Can you send me the link?",
-      "options": [
-        "别玩太久手机。",
-        "我的手机没电了。",
-        "打开飞行模式。",
-        "你能发我链接吗？"
-      ],
-      "answer": "你能发我链接吗？"
-    },
-    {
-      "id": "u24l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "The deadline is Friday.",
-      "options": [
-        "我们开个短会。",
-        "截止日期是周五。",
-        "我完成了报告。",
-        "我今天很忙。"
-      ],
-      "answer": "截止日期是周五。"
-    },
-    {
-      "id": "u25l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Stretching is important.",
-      "options": [
-        "我每周跑步三次。",
-        "今天去健身房。",
-        "别受伤。",
-        "拉伸很重要。"
-      ],
-      "answer": "拉伸很重要。"
-    },
-    {
-      "id": "u26l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "We have a reunion dinner.",
-      "options": [
-        "放鞭炮要小心。",
-        "孩子们收红包。",
-        "我们吃团圆饭。",
-        "春节快乐！"
-      ],
-      "answer": "我们吃团圆饭。"
-    },
-    {
-      "id": "u27l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "The leading actor performed well.",
-      "options": [
-        "主演表演很好。",
-        "我们去电影院吧。",
-        "结局出人意料。",
-        "这部电影很感人。"
-      ],
-      "answer": "主演表演很好。"
-    },
-    {
-      "id": "u28l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Please keep it down.",
-      "options": [
-        "小声一点。",
-        "邻居很友善。",
-        "帮我收个快递。",
-        "楼道保持干净。"
-      ],
-      "answer": "小声一点。"
-    },
-    {
-      "id": "u29l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I overspent this month.",
-      "options": [
-        "午餐别太贵。",
-        "我记账。",
-        "先分清需要和想要。",
-        "这个月超支了。"
-      ],
-      "answer": "这个月超支了。"
-    },
-    {
-      "id": "u3l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "My grandma is kind.",
-      "options": [
-        "我的爸爸很忙。",
-        "我的爷爷很和蔼。",
-        "我的妈妈很高。",
-        "我的奶奶很和蔼。"
-      ],
-      "answer": "我的奶奶很和蔼。"
-    },
-    {
-      "id": "u30l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Are there seats left?",
-      "options": [
-        "还有座位吗？",
-        "我想订一张票。",
-        "靠窗的座位。",
-        "单程还是往返？"
-      ],
-      "answer": "还有座位吗？"
-    },
-    {
-      "id": "u31l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I don't completely agree.",
-      "options": [
-        "你说得有道理。",
-        "我同意你的看法。",
-        "我不完全同意。",
-        "在我看来不同。"
-      ],
-      "answer": "我不完全同意。"
-    },
-    {
-      "id": "u32l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I need a better plan.",
-      "options": [
-        "下周我有一场考试。",
-        "我需要更好的计划。",
-        "早起比熬夜更有效。",
-        "昨天我复习了三小时。"
-      ],
-      "answer": "我需要更好的计划。"
-    },
-    {
-      "id": "u33l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I will be more careful next time.",
-      "options": [
-        "你能帮我解决吗",
-        "下次我会更小心",
-        "订单送错了",
-        "谢谢你的帮助"
-      ],
-      "answer": "下次我会更小心"
-    },
-    {
-      "id": "u34l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "My plan is to practice every day.",
-      "options": [
-        "他梦想开一家咖啡馆",
-        "我需要更多练习",
-        "我们会搬到新城市",
-        "我的计划是每天练习"
-      ],
-      "answer": "我的计划是每天练习"
-    },
-    {
-      "id": "u35l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "That is all for today's meeting.",
-      "options": [
-        "还需要两天时间",
-        "请大家发表意见",
-        "今天的会议到此结束",
-        "感谢你的理解"
-      ],
-      "answer": "今天的会议到此结束"
-    },
-    {
-      "id": "u36l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Best regards.",
-      "options": [
-        "请尽快确认",
-        "祝好",
-        "会议链接在邮件里",
-        "抱歉，我必须取消"
-      ],
-      "answer": "祝好"
-    },
-    {
-      "id": "u37l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "We are ready to order.",
-      "options": [
-        "请问有两人桌吗",
-        "你可以尝尝这个",
-        "我们准备好点餐了",
-        "请慢用"
-      ],
-      "answer": "我们准备好点餐了"
-    },
-    {
-      "id": "u38l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "When can I move in?",
-      "options": [
-        "我可以看看房间吗",
-        "浴室有热水",
-        "请小心搬这个箱子",
-        "什么时候可以入住"
-      ],
-      "answer": "什么时候可以入住"
-    },
-    {
-      "id": "u39l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "The screen is broken.",
-      "options": [
-        "屏幕坏了",
-        "保护好你的账号",
-        "请打开摄像头",
-        "网络有点卡"
-      ],
-      "answer": "屏幕坏了"
-    },
-    {
-      "id": "u4l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Do you like pears?",
-      "options": [
-        "这是梨吗？",
-        "你吃梨吗？",
-        "你喜欢苹果吗？",
-        "你喜欢梨吗？"
-      ],
-      "answer": "你喜欢梨吗？"
-    },
-    {
-      "id": "u40l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "I set a fitness goal.",
-      "options": [
-        "我设定了一个健身目标",
-        "腿有点酸",
-        "今天状态不错",
-        "运动后要拉伸"
-      ],
-      "answer": "我设定了一个健身目标"
-    },
-    {
-      "id": "u41l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Apologize if you are late.",
-      "options": [
-        "见面时请握手",
-        "请不要大声说话",
-        "迟到要道歉",
-        "中秋节看月亮"
-      ],
-      "answer": "迟到要道歉"
-    },
-    {
-      "id": "u42l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Help is on the way.",
-      "options": [
-        "救援正在路上",
-        "请帮我报失",
-        "最后一次看见是在车站",
-        "夜间出门要小心"
-      ],
-      "answer": "救援正在路上"
-    },
-    {
-      "id": "u43l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Everyone should save energy.",
-      "options": [
-        "我们一起去植树",
-        "我骑自行车上班",
-        "不要浪费水",
-        "节约能源人人有责"
-      ],
-      "answer": "节约能源人人有责"
-    },
-    {
-      "id": "u44l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "That sounds good.",
-      "options": [
-        "我有不同看法",
-        "那是难忘的一天",
-        "可以再说一遍吗",
-        "听起来不错"
-      ],
-      "answer": "听起来不错"
-    },
-    {
-      "id": "u45l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "May I see your passport, please?",
-      "options": [
-        "我有一个包要托运。",
-        "能给我一个靠窗座位吗？",
-        "我想办理航班登机手续。",
-        "请出示您的护照好吗？"
-      ],
-      "answer": "请出示您的护照好吗？"
-    },
-    {
-      "id": "u46l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "What documents do I need?",
-      "options": [
-        "请带上您的地址证明。",
-        "这个账户没有月费。",
-        "我想开一个账户。",
-        "我需要哪些文件？"
-      ],
-      "answer": "我需要哪些文件？"
-    },
-    {
-      "id": "u47l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "It makes a strange noise.",
-      "options": [
-        "这个问题昨天开始出现。",
-        "您能派人来检查吗？",
-        "洗衣机无法启动。",
-        "它发出奇怪的噪声。"
-      ],
-      "answer": "它发出奇怪的噪声。"
-    },
-    {
-      "id": "u48l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "What kind of help do you need?",
-      "options": [
-        "我星期六上午有空。",
-        "请填写这份申请表。",
-        "我想在这里做志愿者。",
-        "你们需要哪种帮助？"
-      ],
-      "answer": "你们需要哪种帮助？"
-    },
-    {
-      "id": "u49l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Is this the official website?",
-      "options": [
-        "谁写了这篇文章？",
-        "我们检查一下发布日期吧。",
-        "你在哪里找到这个信息的？",
-        "这是官方网站吗？"
-      ],
-      "answer": "这是官方网站吗？"
-    },
-    {
-      "id": "u5l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "What color is it?",
-      "options": [
-        "它是什么？",
-        "它在哪里？",
-        "它是什么颜色？",
-        "你喜欢什么颜色？"
-      ],
-      "answer": "它是什么颜色？"
-    },
-    {
-      "id": "u50l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "How much did we spend on food?",
-      "options": [
-        "这张账单包含服务费。",
-        "我们把总额加起来吧。",
-        "我记录自己的支出。",
-        "我们在食物上花了多少钱？"
-      ],
-      "answer": "我们在食物上花了多少钱？"
-    },
-    {
-      "id": "u51l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "What level is this course for?",
-      "options": [
-        "我可以试听一节课吗？",
-        "课程每周上两次。",
-        "我想参加晚间课程。",
-        "这门课程适合什么水平？"
-      ],
-      "answer": "这门课程适合什么水平？"
-    },
-    {
-      "id": "u52l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "The journey took about three hours.",
-      "options": [
-        "我们在酒店开门前就到了。",
-        "我很兴奋能探索这座城市。",
-        "我们一大早就离开了家。",
-        "旅程大约用了三个小时。"
-      ],
-      "answer": "旅程大约用了三个小时。"
-    },
-    {
-      "id": "u6l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Look at the blackboard.",
-      "options": [
-        "看书。",
-        "看黑板。",
-        "看窗外。",
-        "听老师说。"
-      ],
-      "answer": "看黑板。"
-    },
-    {
-      "id": "u7l1e6",
-      "type": "listeningChoice",
-      "prompt": "听一听，选出正确的意思",
-      "sentence": "Is it cold today?",
-      "options": [
-        "今天冷吗",
-        "冬天很冷",
-        "这个周末是晴天",
-        "今天天气很好"
-      ],
-      "answer": "今天冷吗"
+      "id": "pr-services",
+      "title": "事务听辨",
+      "subtitle": "环保到旅行",
+      "exercises": [
+        {
+          "id": "u43l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Everyone should save energy.",
+          "options": [
+            "我们一起去植树",
+            "我骑自行车上班",
+            "不要浪费水",
+            "节约能源人人有责"
+          ],
+          "answer": "节约能源人人有责"
+        },
+        {
+          "id": "u44l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "That sounds good.",
+          "options": [
+            "我有不同看法",
+            "那是难忘的一天",
+            "可以再说一遍吗",
+            "听起来不错"
+          ],
+          "answer": "听起来不错"
+        },
+        {
+          "id": "u45l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "May I see your passport, please?",
+          "options": [
+            "我有一个包要托运。",
+            "能给我一个靠窗座位吗？",
+            "我想办理航班登机手续。",
+            "请出示您的护照好吗？"
+          ],
+          "answer": "请出示您的护照好吗？"
+        },
+        {
+          "id": "u46l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "What documents do I need?",
+          "options": [
+            "请带上您的地址证明。",
+            "这个账户没有月费。",
+            "我想开一个账户。",
+            "我需要哪些文件？"
+          ],
+          "answer": "我需要哪些文件？"
+        },
+        {
+          "id": "u47l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "It makes a strange noise.",
+          "options": [
+            "这个问题昨天开始出现。",
+            "您能派人来检查吗？",
+            "洗衣机无法启动。",
+            "它发出奇怪的噪声。"
+          ],
+          "answer": "它发出奇怪的噪声。"
+        },
+        {
+          "id": "u48l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "What kind of help do you need?",
+          "options": [
+            "我星期六上午有空。",
+            "请填写这份申请表。",
+            "我想在这里做志愿者。",
+            "你们需要哪种帮助？"
+          ],
+          "answer": "你们需要哪种帮助？"
+        },
+        {
+          "id": "u49l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "Is this the official website?",
+          "options": [
+            "谁写了这篇文章？",
+            "我们检查一下发布日期吧。",
+            "你在哪里找到这个信息的？",
+            "这是官方网站吗？"
+          ],
+          "answer": "这是官方网站吗？"
+        },
+        {
+          "id": "u50l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "How much did we spend on food?",
+          "options": [
+            "这张账单包含服务费。",
+            "我们把总额加起来吧。",
+            "我记录自己的支出。",
+            "我们在食物上花了多少钱？"
+          ],
+          "answer": "我们在食物上花了多少钱？"
+        },
+        {
+          "id": "u51l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "What level is this course for?",
+          "options": [
+            "我可以试听一节课吗？",
+            "课程每周上两次。",
+            "我想参加晚间课程。",
+            "这门课程适合什么水平？"
+          ],
+          "answer": "这门课程适合什么水平？"
+        },
+        {
+          "id": "u52l1e6",
+          "type": "listeningChoice",
+          "prompt": "听一听，选出正确的意思",
+          "sentence": "The journey took about three hours.",
+          "options": [
+            "我们在酒店开门前就到了。",
+            "我很兴奋能探索这座城市。",
+            "我们一大早就离开了家。",
+            "旅程大约用了三个小时。"
+          ],
+          "answer": "旅程大约用了三个小时。"
+        }
+      ]
     }
   ]
 }

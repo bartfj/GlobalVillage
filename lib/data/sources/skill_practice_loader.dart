@@ -47,4 +47,15 @@ class SkillPracticeLoader {
     if (shuffled.length <= limit) return shuffled;
     return shuffled.take(limit).toList();
   }
+
+  /// 从指定章节抽题；章不存在或空题返回空列表
+  List<Exercise> pickChapterSession(
+    SkillPracticeBank bank,
+    String chapterId, {
+    int limit = 10,
+  }) {
+    final chapter = bank.chapterById(chapterId);
+    if (chapter == null) return const [];
+    return pickSession(chapter.exercises, limit: limit);
+  }
 }

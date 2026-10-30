@@ -18,6 +18,7 @@ import '../features/lesson/lesson_page.dart';
 import '../features/lesson/result_page.dart';
 import '../features/rewards/rewards_page.dart';
 import '../features/rewards/tree_page.dart';
+import '../features/skill_practice/skill_practice_chapters_page.dart';
 import '../features/skill_practice/skill_practice_page.dart';
 import 'providers.dart';
 
@@ -77,8 +78,23 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           if (skill == null) {
             return const LearningPathPage();
           }
-          return SkillPracticePage(skill: skill);
+          return SkillPracticeChaptersPage(skill: skill);
         },
+        routes: [
+          GoRoute(
+            path: ':chapterId',
+            builder: (context, state) {
+              final skill = SkillPracticeKind.tryParse(
+                state.pathParameters['skill'] ?? '',
+              );
+              final chapterId = state.pathParameters['chapterId'] ?? '';
+              if (skill == null || chapterId.isEmpty) {
+                return const LearningPathPage();
+              }
+              return SkillPracticePage(skill: skill, chapterId: chapterId);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: '/badges',

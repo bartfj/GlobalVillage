@@ -26,6 +26,7 @@ import '../data/sources/learning_store.dart';
 import '../data/sources/report_api.dart';
 import '../data/sources/reward_store.dart';
 import '../data/sources/settings_store.dart';
+import '../data/sources/skill_practice_progress_store.dart';
 import '../data/sources/sync_api.dart';
 import '../data/sources/token_store.dart';
 import '../data/sources/user_store.dart';
@@ -233,6 +234,17 @@ final learningStoreProvider = Provider<LearningStore?>((ref) {
   final userKey = ref.watch(authProvider).userKey;
   return userKey == null ? null : LearningStore(userKey: userKey);
 });
+
+/// 专项章节进度；无会话时 null
+final skillPracticeProgressStoreProvider =
+    Provider<SkillPracticeProgressStore?>((ref) {
+  final userKey = ref.watch(authProvider).userKey;
+  if (userKey == null) return null;
+  return SkillPracticeProgressStore(userKey: userKey);
+});
+
+/// 专项章节进度版本：完成一章后 +1，驱动章节地图刷新
+final skillPracticeProgressRevisionProvider = StateProvider<int>((ref) => 0);
 
 final soundServiceProvider = Provider<SoundService>((ref) {
   final service = SoundService();

@@ -1,706 +1,727 @@
 {
   "skill": "chineseCharacters",
   "title": "汉字识读",
-  "exercises": [
+  "chapters": [
     {
-      "id": "zhc01",
-      "type": "translateChoice",
-      "prompt": "What does 妈 mean?",
-      "sentence": "mother",
-      "options": [
-        "mother",
-        "good",
-        "thanks",
-        "goodbye"
-      ],
-      "answer": "mother",
-      "language": "chinese"
+      "id": "zhc-greet",
+      "title": "问候与身份",
+      "subtitle": "妈…他",
+      "exercises": [
+        {
+          "id": "zhc01",
+          "type": "translateChoice",
+          "prompt": "What does 妈 mean?",
+          "sentence": "mother",
+          "options": [
+            "mother",
+            "good",
+            "thanks",
+            "goodbye"
+          ],
+          "answer": "mother",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc02",
+          "type": "translateChoice",
+          "prompt": "Select the characters: mother",
+          "sentence": "妈",
+          "options": [
+            "好",
+            "谢谢",
+            "再见",
+            "妈"
+          ],
+          "answer": "妈",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc03",
+          "type": "translateChoice",
+          "prompt": "What does 好 mean?",
+          "sentence": "good",
+          "options": [
+            "thanks",
+            "goodbye",
+            "I; me",
+            "good"
+          ],
+          "answer": "good",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc04",
+          "type": "translateChoice",
+          "prompt": "Select the characters: good",
+          "sentence": "好",
+          "options": [
+            "再见",
+            "我",
+            "好",
+            "谢谢"
+          ],
+          "answer": "好",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc05",
+          "type": "translateChoice",
+          "prompt": "What does 谢谢 mean?",
+          "sentence": "thanks",
+          "options": [
+            "I; me",
+            "to be called",
+            "thanks",
+            "goodbye"
+          ],
+          "answer": "thanks",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc06",
+          "type": "translateChoice",
+          "prompt": "Select the characters: thanks",
+          "sentence": "谢谢",
+          "options": [
+            "叫",
+            "谢谢",
+            "再见",
+            "我"
+          ],
+          "answer": "谢谢",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc07",
+          "type": "translateChoice",
+          "prompt": "What does 再见 mean?",
+          "sentence": "goodbye",
+          "options": [
+            "teacher",
+            "goodbye",
+            "I; me",
+            "to be called"
+          ],
+          "answer": "goodbye",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc08",
+          "type": "translateChoice",
+          "prompt": "Select the characters: goodbye",
+          "sentence": "再见",
+          "options": [
+            "再见",
+            "我",
+            "叫",
+            "老师"
+          ],
+          "answer": "再见",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc09",
+          "type": "translateChoice",
+          "prompt": "What does 我 mean?",
+          "sentence": "I; me",
+          "options": [
+            "I; me",
+            "to be called",
+            "teacher",
+            "student"
+          ],
+          "answer": "I; me",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc10",
+          "type": "translateChoice",
+          "prompt": "Select the characters: I; me",
+          "sentence": "我",
+          "options": [
+            "叫",
+            "老师",
+            "学生",
+            "我"
+          ],
+          "answer": "我",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc11",
+          "type": "translateChoice",
+          "prompt": "What does 叫 mean?",
+          "sentence": "to be called",
+          "options": [
+            "teacher",
+            "student",
+            "to be",
+            "to be called"
+          ],
+          "answer": "to be called",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc12",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to be called",
+          "sentence": "叫",
+          "options": [
+            "学生",
+            "是",
+            "叫",
+            "老师"
+          ],
+          "answer": "叫",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc13",
+          "type": "translateChoice",
+          "prompt": "What does 老师 mean?",
+          "sentence": "teacher",
+          "options": [
+            "to be",
+            "he",
+            "teacher",
+            "student"
+          ],
+          "answer": "teacher",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc14",
+          "type": "translateChoice",
+          "prompt": "Select the characters: teacher",
+          "sentence": "老师",
+          "options": [
+            "他",
+            "老师",
+            "学生",
+            "是"
+          ],
+          "answer": "老师",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc15",
+          "type": "translateChoice",
+          "prompt": "What does 学生 mean?",
+          "sentence": "student",
+          "options": [
+            "one",
+            "student",
+            "to be",
+            "he"
+          ],
+          "answer": "student",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc16",
+          "type": "translateChoice",
+          "prompt": "Select the characters: student",
+          "sentence": "学生",
+          "options": [
+            "学生",
+            "是",
+            "他",
+            "一"
+          ],
+          "answer": "学生",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc17",
+          "type": "translateChoice",
+          "prompt": "What does 是 mean?",
+          "sentence": "to be",
+          "options": [
+            "to be",
+            "he",
+            "one",
+            "two"
+          ],
+          "answer": "to be",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc18",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to be",
+          "sentence": "是",
+          "options": [
+            "他",
+            "一",
+            "二",
+            "是"
+          ],
+          "answer": "是",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc19",
+          "type": "translateChoice",
+          "prompt": "What does 他 mean?",
+          "sentence": "he",
+          "options": [
+            "one",
+            "two",
+            "three",
+            "he"
+          ],
+          "answer": "he",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc20",
+          "type": "translateChoice",
+          "prompt": "Select the characters: he",
+          "sentence": "他",
+          "options": [
+            "二",
+            "三",
+            "他",
+            "一"
+          ],
+          "answer": "他",
+          "language": "chinese"
+        }
+      ]
     },
     {
-      "id": "zhc02",
-      "type": "translateChoice",
-      "prompt": "Select the characters: mother",
-      "sentence": "妈",
-      "options": [
-        "好",
-        "谢谢",
-        "再见",
-        "妈"
-      ],
-      "answer": "妈",
-      "language": "chinese"
+      "id": "zhc-count",
+      "title": "数字与物品",
+      "subtitle": "一…喝",
+      "exercises": [
+        {
+          "id": "zhc21",
+          "type": "translateChoice",
+          "prompt": "What does 一 mean?",
+          "sentence": "one",
+          "options": [
+            "three",
+            "four",
+            "one",
+            "two"
+          ],
+          "answer": "one",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc22",
+          "type": "translateChoice",
+          "prompt": "Select the characters: one",
+          "sentence": "一",
+          "options": [
+            "四",
+            "一",
+            "二",
+            "三"
+          ],
+          "answer": "一",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc23",
+          "type": "translateChoice",
+          "prompt": "What does 二 mean?",
+          "sentence": "two",
+          "options": [
+            "five",
+            "two",
+            "three",
+            "four"
+          ],
+          "answer": "two",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc24",
+          "type": "translateChoice",
+          "prompt": "Select the characters: two",
+          "sentence": "二",
+          "options": [
+            "二",
+            "三",
+            "四",
+            "五"
+          ],
+          "answer": "二",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc25",
+          "type": "translateChoice",
+          "prompt": "What does 三 mean?",
+          "sentence": "three",
+          "options": [
+            "three",
+            "four",
+            "five",
+            "person"
+          ],
+          "answer": "three",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc26",
+          "type": "translateChoice",
+          "prompt": "Select the characters: three",
+          "sentence": "三",
+          "options": [
+            "四",
+            "五",
+            "人",
+            "三"
+          ],
+          "answer": "三",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc27",
+          "type": "translateChoice",
+          "prompt": "What does 四 mean?",
+          "sentence": "four",
+          "options": [
+            "five",
+            "person",
+            "book",
+            "four"
+          ],
+          "answer": "four",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc28",
+          "type": "translateChoice",
+          "prompt": "Select the characters: four",
+          "sentence": "四",
+          "options": [
+            "人",
+            "书",
+            "四",
+            "五"
+          ],
+          "answer": "四",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc29",
+          "type": "translateChoice",
+          "prompt": "What does 五 mean?",
+          "sentence": "five",
+          "options": [
+            "book",
+            "tea",
+            "five",
+            "person"
+          ],
+          "answer": "five",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc30",
+          "type": "translateChoice",
+          "prompt": "Select the characters: five",
+          "sentence": "五",
+          "options": [
+            "茶",
+            "五",
+            "人",
+            "书"
+          ],
+          "answer": "五",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc31",
+          "type": "translateChoice",
+          "prompt": "What does 人 mean?",
+          "sentence": "person",
+          "options": [
+            "coffee",
+            "person",
+            "book",
+            "tea"
+          ],
+          "answer": "person",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc32",
+          "type": "translateChoice",
+          "prompt": "Select the characters: person",
+          "sentence": "人",
+          "options": [
+            "人",
+            "书",
+            "茶",
+            "咖啡"
+          ],
+          "answer": "人",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc33",
+          "type": "translateChoice",
+          "prompt": "What does 书 mean?",
+          "sentence": "book",
+          "options": [
+            "book",
+            "tea",
+            "coffee",
+            "to drink"
+          ],
+          "answer": "book",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc34",
+          "type": "translateChoice",
+          "prompt": "Select the characters: book",
+          "sentence": "书",
+          "options": [
+            "茶",
+            "咖啡",
+            "喝",
+            "书"
+          ],
+          "answer": "书",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc35",
+          "type": "translateChoice",
+          "prompt": "What does 茶 mean?",
+          "sentence": "tea",
+          "options": [
+            "coffee",
+            "to drink",
+            "to want; to think",
+            "tea"
+          ],
+          "answer": "tea",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc36",
+          "type": "translateChoice",
+          "prompt": "Select the characters: tea",
+          "sentence": "茶",
+          "options": [
+            "喝",
+            "想",
+            "茶",
+            "咖啡"
+          ],
+          "answer": "茶",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc37",
+          "type": "translateChoice",
+          "prompt": "What does 咖啡 mean?",
+          "sentence": "coffee",
+          "options": [
+            "to want; to think",
+            "to want; to order",
+            "coffee",
+            "to drink"
+          ],
+          "answer": "coffee",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc38",
+          "type": "translateChoice",
+          "prompt": "Select the characters: coffee",
+          "sentence": "咖啡",
+          "options": [
+            "要",
+            "咖啡",
+            "喝",
+            "想"
+          ],
+          "answer": "咖啡",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc39",
+          "type": "translateChoice",
+          "prompt": "What does 喝 mean?",
+          "sentence": "to drink",
+          "options": [
+            "cooked rice",
+            "to drink",
+            "to want; to think",
+            "to want; to order"
+          ],
+          "answer": "to drink",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc40",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to drink",
+          "sentence": "喝",
+          "options": [
+            "喝",
+            "想",
+            "要",
+            "米饭"
+          ],
+          "answer": "喝",
+          "language": "chinese"
+        }
+      ]
     },
     {
-      "id": "zhc03",
-      "type": "translateChoice",
-      "prompt": "What does 好 mean?",
-      "sentence": "good",
-      "options": [
-        "thanks",
-        "goodbye",
-        "I; me",
-        "good"
-      ],
-      "answer": "good",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc04",
-      "type": "translateChoice",
-      "prompt": "Select the characters: good",
-      "sentence": "好",
-      "options": [
-        "再见",
-        "我",
-        "好",
-        "谢谢"
-      ],
-      "answer": "好",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc05",
-      "type": "translateChoice",
-      "prompt": "What does 谢谢 mean?",
-      "sentence": "thanks",
-      "options": [
-        "I; me",
-        "to be called",
-        "thanks",
-        "goodbye"
-      ],
-      "answer": "thanks",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc06",
-      "type": "translateChoice",
-      "prompt": "Select the characters: thanks",
-      "sentence": "谢谢",
-      "options": [
-        "叫",
-        "谢谢",
-        "再见",
-        "我"
-      ],
-      "answer": "谢谢",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc07",
-      "type": "translateChoice",
-      "prompt": "What does 再见 mean?",
-      "sentence": "goodbye",
-      "options": [
-        "teacher",
-        "goodbye",
-        "I; me",
-        "to be called"
-      ],
-      "answer": "goodbye",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc08",
-      "type": "translateChoice",
-      "prompt": "Select the characters: goodbye",
-      "sentence": "再见",
-      "options": [
-        "再见",
-        "我",
-        "叫",
-        "老师"
-      ],
-      "answer": "再见",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc09",
-      "type": "translateChoice",
-      "prompt": "What does 我 mean?",
-      "sentence": "I; me",
-      "options": [
-        "I; me",
-        "to be called",
-        "teacher",
-        "student"
-      ],
-      "answer": "I; me",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc10",
-      "type": "translateChoice",
-      "prompt": "Select the characters: I; me",
-      "sentence": "我",
-      "options": [
-        "叫",
-        "老师",
-        "学生",
-        "我"
-      ],
-      "answer": "我",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc11",
-      "type": "translateChoice",
-      "prompt": "What does 叫 mean?",
-      "sentence": "to be called",
-      "options": [
-        "teacher",
-        "student",
-        "to be",
-        "to be called"
-      ],
-      "answer": "to be called",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc12",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to be called",
-      "sentence": "叫",
-      "options": [
-        "学生",
-        "是",
-        "叫",
-        "老师"
-      ],
-      "answer": "叫",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc13",
-      "type": "translateChoice",
-      "prompt": "What does 老师 mean?",
-      "sentence": "teacher",
-      "options": [
-        "to be",
-        "he",
-        "teacher",
-        "student"
-      ],
-      "answer": "teacher",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc14",
-      "type": "translateChoice",
-      "prompt": "Select the characters: teacher",
-      "sentence": "老师",
-      "options": [
-        "他",
-        "老师",
-        "学生",
-        "是"
-      ],
-      "answer": "老师",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc15",
-      "type": "translateChoice",
-      "prompt": "What does 学生 mean?",
-      "sentence": "student",
-      "options": [
-        "one",
-        "student",
-        "to be",
-        "he"
-      ],
-      "answer": "student",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc16",
-      "type": "translateChoice",
-      "prompt": "Select the characters: student",
-      "sentence": "学生",
-      "options": [
-        "学生",
-        "是",
-        "他",
-        "一"
-      ],
-      "answer": "学生",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc17",
-      "type": "translateChoice",
-      "prompt": "What does 是 mean?",
-      "sentence": "to be",
-      "options": [
-        "to be",
-        "he",
-        "one",
-        "two"
-      ],
-      "answer": "to be",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc18",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to be",
-      "sentence": "是",
-      "options": [
-        "他",
-        "一",
-        "二",
-        "是"
-      ],
-      "answer": "是",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc19",
-      "type": "translateChoice",
-      "prompt": "What does 他 mean?",
-      "sentence": "he",
-      "options": [
-        "one",
-        "two",
-        "three",
-        "he"
-      ],
-      "answer": "he",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc20",
-      "type": "translateChoice",
-      "prompt": "Select the characters: he",
-      "sentence": "他",
-      "options": [
-        "二",
-        "三",
-        "他",
-        "一"
-      ],
-      "answer": "他",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc21",
-      "type": "translateChoice",
-      "prompt": "What does 一 mean?",
-      "sentence": "one",
-      "options": [
-        "three",
-        "four",
-        "one",
-        "two"
-      ],
-      "answer": "one",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc22",
-      "type": "translateChoice",
-      "prompt": "Select the characters: one",
-      "sentence": "一",
-      "options": [
-        "四",
-        "一",
-        "二",
-        "三"
-      ],
-      "answer": "一",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc23",
-      "type": "translateChoice",
-      "prompt": "What does 二 mean?",
-      "sentence": "two",
-      "options": [
-        "five",
-        "two",
-        "three",
-        "four"
-      ],
-      "answer": "two",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc24",
-      "type": "translateChoice",
-      "prompt": "Select the characters: two",
-      "sentence": "二",
-      "options": [
-        "二",
-        "三",
-        "四",
-        "五"
-      ],
-      "answer": "二",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc25",
-      "type": "translateChoice",
-      "prompt": "What does 三 mean?",
-      "sentence": "three",
-      "options": [
-        "three",
-        "four",
-        "five",
-        "person"
-      ],
-      "answer": "three",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc26",
-      "type": "translateChoice",
-      "prompt": "Select the characters: three",
-      "sentence": "三",
-      "options": [
-        "四",
-        "五",
-        "人",
-        "三"
-      ],
-      "answer": "三",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc27",
-      "type": "translateChoice",
-      "prompt": "What does 四 mean?",
-      "sentence": "four",
-      "options": [
-        "five",
-        "person",
-        "book",
-        "four"
-      ],
-      "answer": "four",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc28",
-      "type": "translateChoice",
-      "prompt": "Select the characters: four",
-      "sentence": "四",
-      "options": [
-        "人",
-        "书",
-        "四",
-        "五"
-      ],
-      "answer": "四",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc29",
-      "type": "translateChoice",
-      "prompt": "What does 五 mean?",
-      "sentence": "five",
-      "options": [
-        "book",
-        "tea",
-        "five",
-        "person"
-      ],
-      "answer": "five",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc30",
-      "type": "translateChoice",
-      "prompt": "Select the characters: five",
-      "sentence": "五",
-      "options": [
-        "茶",
-        "五",
-        "人",
-        "书"
-      ],
-      "answer": "五",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc31",
-      "type": "translateChoice",
-      "prompt": "What does 人 mean?",
-      "sentence": "person",
-      "options": [
-        "coffee",
-        "person",
-        "book",
-        "tea"
-      ],
-      "answer": "person",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc32",
-      "type": "translateChoice",
-      "prompt": "Select the characters: person",
-      "sentence": "人",
-      "options": [
-        "人",
-        "书",
-        "茶",
-        "咖啡"
-      ],
-      "answer": "人",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc33",
-      "type": "translateChoice",
-      "prompt": "What does 书 mean?",
-      "sentence": "book",
-      "options": [
-        "book",
-        "tea",
-        "coffee",
-        "to drink"
-      ],
-      "answer": "book",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc34",
-      "type": "translateChoice",
-      "prompt": "Select the characters: book",
-      "sentence": "书",
-      "options": [
-        "茶",
-        "咖啡",
-        "喝",
-        "书"
-      ],
-      "answer": "书",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc35",
-      "type": "translateChoice",
-      "prompt": "What does 茶 mean?",
-      "sentence": "tea",
-      "options": [
-        "coffee",
-        "to drink",
-        "to want; to think",
-        "tea"
-      ],
-      "answer": "tea",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc36",
-      "type": "translateChoice",
-      "prompt": "Select the characters: tea",
-      "sentence": "茶",
-      "options": [
-        "喝",
-        "想",
-        "茶",
-        "咖啡"
-      ],
-      "answer": "茶",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc37",
-      "type": "translateChoice",
-      "prompt": "What does 咖啡 mean?",
-      "sentence": "coffee",
-      "options": [
-        "to want; to think",
-        "to want; to order",
-        "coffee",
-        "to drink"
-      ],
-      "answer": "coffee",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc38",
-      "type": "translateChoice",
-      "prompt": "Select the characters: coffee",
-      "sentence": "咖啡",
-      "options": [
-        "要",
-        "咖啡",
-        "喝",
-        "想"
-      ],
-      "answer": "咖啡",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc39",
-      "type": "translateChoice",
-      "prompt": "What does 喝 mean?",
-      "sentence": "to drink",
-      "options": [
-        "cooked rice",
-        "to drink",
-        "to want; to think",
-        "to want; to order"
-      ],
-      "answer": "to drink",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc40",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to drink",
-      "sentence": "喝",
-      "options": [
-        "喝",
-        "想",
-        "要",
-        "米饭"
-      ],
-      "answer": "喝",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc41",
-      "type": "translateChoice",
-      "prompt": "What does 想 mean?",
-      "sentence": "to want; to think",
-      "options": [
-        "to want; to think",
-        "to want; to order",
-        "cooked rice",
-        "noodles"
-      ],
-      "answer": "to want; to think",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc42",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to want; to think",
-      "sentence": "想",
-      "options": [
-        "要",
-        "米饭",
-        "面条",
-        "想"
-      ],
-      "answer": "想",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc43",
-      "type": "translateChoice",
-      "prompt": "What does 要 mean?",
-      "sentence": "to want; to order",
-      "options": [
-        "cooked rice",
-        "noodles",
-        "to eat",
-        "to want; to order"
-      ],
-      "answer": "to want; to order",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc44",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to want; to order",
-      "sentence": "要",
-      "options": [
-        "面条",
-        "吃",
-        "要",
-        "米饭"
-      ],
-      "answer": "要",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc45",
-      "type": "translateChoice",
-      "prompt": "What does 米饭 mean?",
-      "sentence": "cooked rice",
-      "options": [
-        "to eat",
-        "mother",
-        "cooked rice",
-        "noodles"
-      ],
-      "answer": "cooked rice",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc46",
-      "type": "translateChoice",
-      "prompt": "Select the characters: cooked rice",
-      "sentence": "米饭",
-      "options": [
-        "妈",
-        "米饭",
-        "面条",
-        "吃"
-      ],
-      "answer": "米饭",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc47",
-      "type": "translateChoice",
-      "prompt": "What does 面条 mean?",
-      "sentence": "noodles",
-      "options": [
-        "good",
-        "noodles",
-        "to eat",
-        "mother"
-      ],
-      "answer": "noodles",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc48",
-      "type": "translateChoice",
-      "prompt": "Select the characters: noodles",
-      "sentence": "面条",
-      "options": [
-        "面条",
-        "吃",
-        "妈",
-        "好"
-      ],
-      "answer": "面条",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc49",
-      "type": "translateChoice",
-      "prompt": "What does 吃 mean?",
-      "sentence": "to eat",
-      "options": [
-        "to eat",
-        "mother",
-        "good",
-        "thanks"
-      ],
-      "answer": "to eat",
-      "language": "chinese"
-    },
-    {
-      "id": "zhc50",
-      "type": "translateChoice",
-      "prompt": "Select the characters: to eat",
-      "sentence": "吃",
-      "options": [
-        "妈",
-        "好",
-        "谢谢",
-        "吃"
-      ],
-      "answer": "吃",
-      "language": "chinese"
+      "id": "zhc-request",
+      "title": "请求与饮食",
+      "subtitle": "想…吃",
+      "exercises": [
+        {
+          "id": "zhc41",
+          "type": "translateChoice",
+          "prompt": "What does 想 mean?",
+          "sentence": "to want; to think",
+          "options": [
+            "to want; to think",
+            "to want; to order",
+            "cooked rice",
+            "noodles"
+          ],
+          "answer": "to want; to think",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc42",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to want; to think",
+          "sentence": "想",
+          "options": [
+            "要",
+            "米饭",
+            "面条",
+            "想"
+          ],
+          "answer": "想",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc43",
+          "type": "translateChoice",
+          "prompt": "What does 要 mean?",
+          "sentence": "to want; to order",
+          "options": [
+            "cooked rice",
+            "noodles",
+            "to eat",
+            "to want; to order"
+          ],
+          "answer": "to want; to order",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc44",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to want; to order",
+          "sentence": "要",
+          "options": [
+            "面条",
+            "吃",
+            "要",
+            "米饭"
+          ],
+          "answer": "要",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc45",
+          "type": "translateChoice",
+          "prompt": "What does 米饭 mean?",
+          "sentence": "cooked rice",
+          "options": [
+            "to eat",
+            "mother",
+            "cooked rice",
+            "noodles"
+          ],
+          "answer": "cooked rice",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc46",
+          "type": "translateChoice",
+          "prompt": "Select the characters: cooked rice",
+          "sentence": "米饭",
+          "options": [
+            "妈",
+            "米饭",
+            "面条",
+            "吃"
+          ],
+          "answer": "米饭",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc47",
+          "type": "translateChoice",
+          "prompt": "What does 面条 mean?",
+          "sentence": "noodles",
+          "options": [
+            "good",
+            "noodles",
+            "to eat",
+            "mother"
+          ],
+          "answer": "noodles",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc48",
+          "type": "translateChoice",
+          "prompt": "Select the characters: noodles",
+          "sentence": "面条",
+          "options": [
+            "面条",
+            "吃",
+            "妈",
+            "好"
+          ],
+          "answer": "面条",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc49",
+          "type": "translateChoice",
+          "prompt": "What does 吃 mean?",
+          "sentence": "to eat",
+          "options": [
+            "to eat",
+            "mother",
+            "good",
+            "thanks"
+          ],
+          "answer": "to eat",
+          "language": "chinese"
+        },
+        {
+          "id": "zhc50",
+          "type": "translateChoice",
+          "prompt": "Select the characters: to eat",
+          "sentence": "吃",
+          "options": [
+            "妈",
+            "好",
+            "谢谢",
+            "吃"
+          ],
+          "answer": "吃",
+          "language": "chinese"
+        }
+      ]
     }
   ]
 }

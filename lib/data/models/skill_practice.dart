@@ -17,6 +17,9 @@ enum SkillPracticeKind {
 
   String get mode => 'skill-$name';
 
+  /// 学习日志 mode，带章节时为 `skill-<name>/<chapterId>`
+  String modeForChapter(String chapterId) => '$mode/$chapterId';
+
   /// 该专项所属的学习语言；路由与侧栏按此过滤
   LearningLanguage get language {
     switch (this) {
@@ -116,16 +119,58 @@ enum SkillPracticeKind {
   }
 }
 
+/// 专项练习的一章（解锁顺序 = [SkillPracticeBank.chapters] 下标顺序）
+class SkillPracticeChapter {
+  final String id;
+  final String title;
+  final String? subtitle;
+  final List<Exercise> exercises;
+
+  const SkillPracticeChapter({
+    required this.id,
+    required this.title,
+    this.subtitle,
+    required this.exercises,
+  });
+
+  factory SkillPracticeChapter.fromJson(Map<String, dynamic> json) {
+    final id = json['id'] as String? ?? '';
+    if (id.isEmpty) {
+      throw FormatException('Chapter id is required');
+    }
+    return SkillPracticeChapter(
+      id: id,
+      title: json['title'] as String? ?? id,
+      subtitle: json['subtitle'] as String?,
+      exercises: (json['exercises'] as List<dynamic>? ?? const [])
+          .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
 class SkillPracticeBank {
   final SkillPracticeKind skill;
   final String title;
-  final List<Exercise> exercises;
+  final List<SkillPracticeChapter> chapters;
 
   const SkillPracticeBank({
     required this.skill,
     required this.title,
-    required this.exercises,
+    required this.chapters,
   });
+
+  /// 全部章节题目扁平列表（兼容旧调用方）
+  List<Exercise> get exercises => [
+        for (final chapter in chapters) ...chapter.exercises,
+      ];
+
+  SkillPracticeChapter? chapterById(String id) {
+    for (final chapter in chapters) {
+      if (chapter.id == id) return chapter;
+    }
+    return null;
+  }
 
   factory SkillPracticeBank.fromJson(Map<String, dynamic> json) {
     final skillName = json['skill'] as String;
@@ -133,12 +178,33 @@ class SkillPracticeBank {
     if (skill == null) {
       throw FormatException('Unknown skill: $skillName');
     }
+
+    final title = json['title'] as String? ?? skill.title;
+    final rawChapters = json['chapters'] as List<dynamic>?;
+    if (rawChapters != null && rawChapters.isNotEmpty) {
+      return SkillPracticeBank(
+        skill: skill,
+        title: title,
+        chapters: rawChapters
+            .map((e) => SkillPracticeChapter.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+    }
+
+    final flat = (json['exercises'] as List<dynamic>? ?? const [])
+        .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
+        .toList();
     return SkillPracticeBank(
       skill: skill,
-      title: json['title'] as String? ?? skill.title,
-      exercises: (json['exercises'] as List<dynamic>)
-          .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      title: title,
+      chapters: [
+        SkillPracticeChapter(
+          id: 'default',
+          title: title,
+          subtitle: skill.subtitle,
+          exercises: flat,
+        ),
+      ],
     );
   }
 }

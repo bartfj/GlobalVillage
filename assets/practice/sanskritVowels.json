@@ -1,230 +1,244 @@
 {
   "skill": "sanskritVowels",
   "title": "长短元音辨析",
-  "exercises": [
+  "chapters": [
     {
-      "id": "sav01",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：मम",
-      "sentence": "mama",
-      "options": [
-        "mama",
-        "māma",
-        "mamā",
-        "māmā"
-      ],
-      "answer": "mama",
-      "language": "sanskrit"
+      "id": "sav-a",
+      "title": "a/ā 对立词",
+      "subtitle": "mama…nata",
+      "exercises": [
+        {
+          "id": "sav01",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：मम",
+          "sentence": "mama",
+          "options": [
+            "mama",
+            "māma",
+            "mamā",
+            "māmā"
+          ],
+          "answer": "mama",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav02",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：नाम",
+          "sentence": "nāma",
+          "options": [
+            "nama",
+            "nāma",
+            "nāmā",
+            "namā"
+          ],
+          "answer": "nāma",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav03",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：आम",
+          "sentence": "āma",
+          "options": [
+            "ama",
+            "āmā",
+            "āma",
+            "amā"
+          ],
+          "answer": "āma",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav04",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：काक",
+          "sentence": "kāka",
+          "options": [
+            "kaka",
+            "kākā",
+            "kakā",
+            "kāka"
+          ],
+          "answer": "kāka",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav05",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：नट",
+          "sentence": "naṭa",
+          "options": [
+            "naṭa",
+            "nāṭa",
+            "naṭā",
+            "nāṭā"
+          ],
+          "answer": "naṭa",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav06",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：मट",
+          "sentence": "maṭa",
+          "options": [
+            "māṭa",
+            "maṭa",
+            "maṭā",
+            "māṭā"
+          ],
+          "answer": "maṭa",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav07",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：मत",
+          "sentence": "mata",
+          "options": [
+            "māta",
+            "matā",
+            "mata",
+            "mātā"
+          ],
+          "answer": "mata",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav08",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：नत",
+          "sentence": "nata",
+          "options": [
+            "nāta",
+            "natā",
+            "nātā",
+            "nata"
+          ],
+          "answer": "nata",
+          "language": "sanskrit"
+        }
+      ]
     },
     {
-      "id": "sav02",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：नाम",
-      "sentence": "nāma",
-      "options": [
-        "nama",
-        "nāma",
-        "nāmā",
-        "namā"
-      ],
-      "answer": "nāma",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav03",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：आम",
-      "sentence": "āma",
-      "options": [
-        "ama",
-        "āmā",
-        "āma",
-        "amā"
-      ],
-      "answer": "āma",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav04",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：काक",
-      "sentence": "kāka",
-      "options": [
-        "kaka",
-        "kākā",
-        "kakā",
-        "kāka"
-      ],
-      "answer": "kāka",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav05",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：नट",
-      "sentence": "naṭa",
-      "options": [
-        "naṭa",
-        "nāṭa",
-        "naṭā",
-        "nāṭā"
-      ],
-      "answer": "naṭa",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav06",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：मट",
-      "sentence": "maṭa",
-      "options": [
-        "māṭa",
-        "maṭa",
-        "maṭā",
-        "māṭā"
-      ],
-      "answer": "maṭa",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav07",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：मत",
-      "sentence": "mata",
-      "options": [
-        "māta",
-        "matā",
-        "mata",
-        "mātā"
-      ],
-      "answer": "mata",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav08",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：नत",
-      "sentence": "nata",
-      "options": [
-        "nāta",
-        "natā",
-        "nātā",
-        "nata"
-      ],
-      "answer": "nata",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav09",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：तत",
-      "sentence": "tata",
-      "options": [
-        "tata",
-        "tāta",
-        "tatā",
-        "tātā"
-      ],
-      "answer": "tata",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav10",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：टट",
-      "sentence": "ṭaṭa",
-      "options": [
-        "ṭāṭa",
-        "ṭaṭa",
-        "ṭaṭā",
-        "ṭāṭā"
-      ],
-      "answer": "ṭaṭa",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav11",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：मित",
-      "sentence": "mita",
-      "options": [
-        "mīta",
-        "mitā",
-        "mita",
-        "mītā"
-      ],
-      "answer": "mita",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav12",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：कित",
-      "sentence": "kita",
-      "options": [
-        "kīta",
-        "kitā",
-        "kītā",
-        "kita"
-      ],
-      "answer": "kita",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav13",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：नीत",
-      "sentence": "nīta",
-      "options": [
-        "nīta",
-        "nita",
-        "nītā",
-        "nitā"
-      ],
-      "answer": "nīta",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav14",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：तीन",
-      "sentence": "tīna",
-      "options": [
-        "tina",
-        "tīna",
-        "tīnā",
-        "tinā"
-      ],
-      "answer": "tīna",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav15",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：मीन",
-      "sentence": "mīna",
-      "options": [
-        "mina",
-        "mīnā",
-        "mīna",
-        "minā"
-      ],
-      "answer": "mīna",
-      "language": "sanskrit"
-    },
-    {
-      "id": "sav16",
-      "type": "translateChoice",
-      "prompt": "选择正确的 IAST：कीन",
-      "sentence": "kīna",
-      "options": [
-        "kina",
-        "kīnā",
-        "kinā",
-        "kīna"
-      ],
-      "answer": "kīna",
-      "language": "sanskrit"
+      "id": "sav-i",
+      "title": "a 与 i/ī 对立",
+      "subtitle": "tata…kīna",
+      "exercises": [
+        {
+          "id": "sav09",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：तत",
+          "sentence": "tata",
+          "options": [
+            "tata",
+            "tāta",
+            "tatā",
+            "tātā"
+          ],
+          "answer": "tata",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav10",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：टट",
+          "sentence": "ṭaṭa",
+          "options": [
+            "ṭāṭa",
+            "ṭaṭa",
+            "ṭaṭā",
+            "ṭāṭā"
+          ],
+          "answer": "ṭaṭa",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav11",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：मित",
+          "sentence": "mita",
+          "options": [
+            "mīta",
+            "mitā",
+            "mita",
+            "mītā"
+          ],
+          "answer": "mita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav12",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：कित",
+          "sentence": "kita",
+          "options": [
+            "kīta",
+            "kitā",
+            "kītā",
+            "kita"
+          ],
+          "answer": "kita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav13",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：नीत",
+          "sentence": "nīta",
+          "options": [
+            "nīta",
+            "nita",
+            "nītā",
+            "nitā"
+          ],
+          "answer": "nīta",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav14",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：तीन",
+          "sentence": "tīna",
+          "options": [
+            "tina",
+            "tīna",
+            "tīnā",
+            "tinā"
+          ],
+          "answer": "tīna",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav15",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：मीन",
+          "sentence": "mīna",
+          "options": [
+            "mina",
+            "mīnā",
+            "mīna",
+            "minā"
+          ],
+          "answer": "mīna",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav16",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：कीन",
+          "sentence": "kīna",
+          "options": [
+            "kina",
+            "kīnā",
+            "kinā",
+            "kīna"
+          ],
+          "answer": "kīna",
+          "language": "sanskrit"
+        }
+      ]
     }
   ]
 }

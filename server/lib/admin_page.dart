@@ -501,7 +501,7 @@ async function openDetail(id) {
 
 let contentPacks = [];
 let contentState = null;
-let contentUi = { unit: 0, lesson: 0, exercise: 0, dialogueKey: '' };
+let contentUi = { unit: 0, lesson: 0, exercise: 0, chapter: 0, dialogueKey: '' };
 const exerciseTypes = [
   'translateChoice', 'wordBank', 'listeningChoice', 'fillBlank', 'speaking',
   'matchPairs', 'listeningWordBank', 'dictation', 'translateInput'
@@ -587,7 +587,7 @@ async function openContentPack() {
     return;
   }
   contentState = body;
-  contentUi = { unit: 0, lesson: 0, exercise: 0, dialogueKey: '' };
+  contentUi = { unit: 0, lesson: 0, exercise: 0, chapter: 0, dialogueKey: '' };
   const source = body.bodySource === 'draft' ? '草稿' : body.bodySource === 'published' ? '已发布内容' : '空内容';
   document.getElementById('content-status').textContent =
     body.label + ' · 修订 ' + body.revision + (body.published ? ' · 已发布' : ' · 未发布') + ' · 正在编辑' + source;
@@ -718,10 +718,39 @@ function applyCourseFields() {
   readExercise(exercise);
 }
 
+function practiceChapterList(body) {
+  if (body.chapters && body.chapters.length) return body.chapters;
+  return null;
+}
+
+function practiceExercises(body) {
+  const chapters = practiceChapterList(body);
+  if (chapters) {
+    contentUi.chapter = Math.min(contentUi.chapter, chapters.length - 1);
+    return chapters[contentUi.chapter].exercises || [];
+  }
+  return body.exercises || [];
+}
+
 function renderPractice(box) {
   const body = contentState.body;
   box.appendChild(contentField('标题', 'practice-title', body.title, false));
-  const exercises = body.exercises || [];
+  const chapters = practiceChapterList(body);
+  if (chapters) {
+    contentUi.chapter = Math.min(contentUi.chapter, chapters.length - 1);
+    box.appendChild(selectIndex('章节', 'chapter-select', chapters.map(function (item) {
+      return (item.id || '') + ' ' + (item.title || '');
+    }), contentUi.chapter, function (index) {
+      applyPracticeFields();
+      contentUi.chapter = index;
+      contentUi.exercise = 0;
+      renderContentEditor();
+    }));
+    const chapter = chapters[contentUi.chapter];
+    box.appendChild(contentField('章节标题', 'chapter-title', chapter.title || '', false));
+    box.appendChild(contentField('章节副标题', 'chapter-subtitle', chapter.subtitle || '', false));
+  }
+  const exercises = practiceExercises(body);
   if (!exercises.length) return;
   contentUi.exercise = Math.min(contentUi.exercise, exercises.length - 1);
   box.appendChild(selectIndex('题目', 'exercise-select', exercises.map(function (item) {
@@ -737,7 +766,13 @@ function renderPractice(box) {
 function applyPracticeFields() {
   if (!document.getElementById('practice-title') || !contentState.body) return;
   contentState.body.title = document.getElementById('practice-title').value;
-  const exercise = (contentState.body.exercises || [])[contentUi.exercise];
+  const chapters = practiceChapterList(contentState.body);
+  if (chapters && document.getElementById('chapter-title')) {
+    const chapter = chapters[contentUi.chapter];
+    chapter.title = document.getElementById('chapter-title').value;
+    chapter.subtitle = document.getElementById('chapter-subtitle').value;
+  }
+  const exercise = practiceExercises(contentState.body)[contentUi.exercise];
   if (!exercise || !document.getElementById('ex-id')) return;
   readExercise(exercise);
 }
@@ -947,7 +982,7 @@ document.getElementById('content-file').addEventListener('change', async functio
       return;
     }
     contentState.body = parsed;
-    contentUi = { unit: 0, lesson: 0, exercise: 0, dialogueKey: '' };
+    contentUi = { unit: 0, lesson: 0, exercise: 0, chapter: 0, dialogueKey: '' };
     renderContentEditor();
     await saveContent();
   } catch (_) {

@@ -1,656 +1,691 @@
 {
   "skill": "vocabulary",
   "title": "单词练习",
-  "exercises": [
+  "chapters": [
     {
-      "id": "i_u1l1e1",
-      "type": "translateChoice",
-      "prompt": "你是怎么参与这个项目的？",
-      "sentence": "How did you get involved in the project?",
-      "options": [
-        "How did you get involved in the project?",
-        "A colleague invited me after our training session.",
-        "That sounds interesting, what happened next?",
-        "While we were planning, the budget suddenly changed."
-      ],
-      "answer": "How did you get involved in the project?"
+      "id": "voc-basics",
+      "title": "基础词义",
+      "subtitle": "问候到运动",
+      "exercises": [
+        {
+          "id": "u1l1e1",
+          "type": "translateChoice",
+          "prompt": "你好",
+          "sentence": "Hello.",
+          "options": [
+            "Thanks",
+            "Goodbye",
+            "Hello",
+            "Sorry"
+          ],
+          "answer": "Hello"
+        },
+        {
+          "id": "u2l1e1",
+          "type": "translateChoice",
+          "prompt": "三",
+          "sentence": "three",
+          "options": [
+            "four",
+            "three",
+            "ten",
+            "two"
+          ],
+          "answer": "three"
+        },
+        {
+          "id": "u3l1e1",
+          "type": "translateChoice",
+          "prompt": "这是我的妈妈。",
+          "sentence": "This is my mother.",
+          "options": [
+            "This is my mother.",
+            "This is my sister.",
+            "This is my father.",
+            "She is my mother."
+          ],
+          "answer": "This is my mother."
+        },
+        {
+          "id": "u4l1e1",
+          "type": "translateChoice",
+          "prompt": "我喜欢苹果。",
+          "sentence": "I like apples.",
+          "options": [
+            "I like bananas.",
+            "I eat apples.",
+            "I like oranges.",
+            "I like apples."
+          ],
+          "answer": "I like apples."
+        },
+        {
+          "id": "u10l1e1",
+          "type": "translateChoice",
+          "prompt": "我头疼",
+          "sentence": "My head hurts.",
+          "options": [
+            "I run every morning",
+            "My head hurts",
+            "I walk ten thousand steps a day",
+            "Take this medicine twice a day"
+          ],
+          "answer": "My head hurts"
+        },
+        {
+          "id": "u11l1e1",
+          "type": "translateChoice",
+          "prompt": "她是一名老师",
+          "sentence": "She is a teacher.",
+          "options": [
+            "He wants to be a policeman",
+            "She is a teacher",
+            "My father is a doctor",
+            "The exam is next Monday"
+          ],
+          "answer": "She is a teacher"
+        },
+        {
+          "id": "u12l1e1",
+          "type": "translateChoice",
+          "prompt": "我喜欢读书",
+          "sentence": "I like reading books.",
+          "options": [
+            "The movie starts at seven",
+            "He is a famous player",
+            "I like reading books",
+            "I listen to music every day"
+          ],
+          "answer": "I like reading books"
+        },
+        {
+          "id": "u13l1e1",
+          "type": "translateChoice",
+          "prompt": "你想来我的派对吗",
+          "sentence": "Would you like to come to my party?",
+          "options": [
+            "May I speak to Tom",
+            "Would you like to come to my party",
+            "Congratulations on your new job",
+            "You deserve it"
+          ],
+          "answer": "Would you like to come to my party"
+        },
+        {
+          "id": "u14l1e1",
+          "type": "translateChoice",
+          "prompt": "圣诞节在十二月",
+          "sentence": "Christmas is in December.",
+          "options": [
+            "Christmas is in December",
+            "How long does it take to walk",
+            "Tea is popular in China",
+            "People eat dumplings in the north"
+          ],
+          "answer": "Christmas is in December"
+        },
+        {
+          "id": "u15l1e2",
+          "type": "translateChoice",
+          "prompt": "Can I try this on?",
+          "sentence": "Can I try this on?",
+          "options": [
+            "我能试穿这个吗",
+            "我想要一杯咖啡",
+            "我要鸡肉饭",
+            "你一定能找到"
+          ],
+          "answer": "我能试穿这个吗"
+        }
+      ]
     },
     {
-      "id": "i_u10l1e1",
-      "type": "translateChoice",
-      "prompt": "你分享的那篇报道有多可靠？",
-      "sentence": "How reliable is the report you shared?",
-      "options": [
-        "How reliable is the report you shared?",
-        "It quotes an official study, but I have not checked the original.",
-        "Let us read the study before drawing conclusions.",
-        "The headline makes a stronger claim than the evidence supports."
-      ],
-      "answer": "How reliable is the report you shared?"
+      "id": "voc-plans",
+      "title": "计划与生活",
+      "subtitle": "计划到社区",
+      "exercises": [
+        {
+          "id": "u16l1e1",
+          "type": "translateChoice",
+          "prompt": "我每周踢两次足球",
+          "sentence": "I play soccer twice a week.",
+          "options": [
+            "Sleep early and get up early",
+            "The air in the forest is fresh",
+            "I play soccer twice a week",
+            "The view from the top is great"
+          ],
+          "answer": "I play soccer twice a week"
+        },
+        {
+          "id": "u17l1e1",
+          "type": "translateChoice",
+          "prompt": "这个周末你打算做什么？",
+          "sentence": "What are you going to do this weekend?",
+          "options": [
+            "I am going to the library",
+            "What are you going to do this weekend",
+            "Let's watch a movie together",
+            "I might stay at home"
+          ],
+          "answer": "What are you going to do this weekend"
+        },
+        {
+          "id": "u18l1e1",
+          "type": "translateChoice",
+          "prompt": "这个更好。",
+          "sentence": "This one is better.",
+          "options": [
+            "The train is faster",
+            "This book is more interesting",
+            "This one is better",
+            "That one is cheaper"
+          ],
+          "answer": "This one is better"
+        },
+        {
+          "id": "u19l1e1",
+          "type": "translateChoice",
+          "prompt": "昨天我去了公园。",
+          "sentence": "I went to the park yesterday.",
+          "options": [
+            "I watched a movie",
+            "The weather was nice",
+            "I met an old friend",
+            "I went to the park yesterday"
+          ],
+          "answer": "I went to the park yesterday"
+        },
+        {
+          "id": "u20l1e1",
+          "type": "translateChoice",
+          "prompt": "你应该多喝水。",
+          "sentence": "You should drink more water.",
+          "options": [
+            "You had better sleep early",
+            "Why not take a walk",
+            "Try deep breathing",
+            "You should drink more water"
+          ],
+          "answer": "You should drink more water"
+        },
+        {
+          "id": "u21l1e1",
+          "type": "translateChoice",
+          "prompt": "她留着长发。",
+          "sentence": "She has long hair.",
+          "options": [
+            "She has long hair",
+            "She is very tall",
+            "He looks young",
+            "He wears glasses"
+          ],
+          "answer": "She has long hair"
+        },
+        {
+          "id": "u22l1e1",
+          "type": "translateChoice",
+          "prompt": "山很高。",
+          "sentence": "The mountains are high.",
+          "options": [
+            "The river flows",
+            "The beach is beautiful",
+            "The mountains are high",
+            "The forest is quiet"
+          ],
+          "answer": "The mountains are high"
+        },
+        {
+          "id": "u23l1e1",
+          "type": "translateChoice",
+          "prompt": "我的手机没电了。",
+          "sentence": "My phone is out of battery.",
+          "options": [
+            "Can you send me the link",
+            "My phone is out of battery",
+            "Turn on airplane mode",
+            "Don't use the phone too long"
+          ],
+          "answer": "My phone is out of battery"
+        },
+        {
+          "id": "u24l1e1",
+          "type": "translateChoice",
+          "prompt": "我今天很忙。",
+          "sentence": "I am busy today.",
+          "options": [
+            "I finished the report",
+            "The deadline is Friday",
+            "Let's have a short meeting",
+            "I am busy today"
+          ],
+          "answer": "I am busy today"
+        },
+        {
+          "id": "u25l1e1",
+          "type": "translateChoice",
+          "prompt": "我每周跑步三次。",
+          "sentence": "I run three times a week.",
+          "options": [
+            "Stretching is important",
+            "I run three times a week",
+            "I am going to the gym today",
+            "Don't get hurt"
+          ],
+          "answer": "I run three times a week"
+        }
+      ]
     },
     {
-      "id": "i_u11l1e1",
-      "type": "translateChoice",
-      "prompt": "这个应用为什么需要访问我的联系人？",
-      "sentence": "Why does this app need access to my contacts?",
-      "options": [
-        "Why does this app need access to my contacts?",
-        "I am not sure, we should check its privacy policy.",
-        "I will deny access until I understand the reason.",
-        "You can limit which information is shared with the service."
-      ],
-      "answer": "Why does this app need access to my contacts?"
+      "id": "voc-adult",
+      "title": "成人主题",
+      "subtitle": "理财到数字生活",
+      "exercises": [
+        {
+          "id": "u26l1e1",
+          "type": "translateChoice",
+          "prompt": "春节快乐！",
+          "sentence": "Happy Spring Festival!",
+          "options": [
+            "Children receive red envelopes",
+            "Happy Spring Festival",
+            "Be careful with fireworks",
+            "We have a reunion dinner"
+          ],
+          "answer": "Happy Spring Festival"
+        },
+        {
+          "id": "u27l1e1",
+          "type": "translateChoice",
+          "prompt": "这部电影很感人。",
+          "sentence": "This movie is touching.",
+          "options": [
+            "This movie is touching",
+            "The ending was unexpected",
+            "The leading actor performed well",
+            "Let's go to the cinema"
+          ],
+          "answer": "This movie is touching"
+        },
+        {
+          "id": "u28l1e1",
+          "type": "translateChoice",
+          "prompt": "邻居很友善。",
+          "sentence": "The neighbors are friendly.",
+          "options": [
+            "Please keep it down",
+            "Keep the hallway clean",
+            "Please help me take a parcel",
+            "The neighbors are friendly"
+          ],
+          "answer": "The neighbors are friendly"
+        },
+        {
+          "id": "u29l1e1",
+          "type": "translateChoice",
+          "prompt": "我记账。",
+          "sentence": "I keep accounts.",
+          "options": [
+            "Don't spend too much on lunch",
+            "Tell needs from wants",
+            "I keep accounts",
+            "I overspent this month"
+          ],
+          "answer": "I keep accounts"
+        },
+        {
+          "id": "u30l1e1",
+          "type": "translateChoice",
+          "prompt": "我想订一张票。",
+          "sentence": "I want to book a ticket.",
+          "options": [
+            "I want to book a ticket",
+            "Are there seats left",
+            "A window seat, please",
+            "One way or round trip"
+          ],
+          "answer": "I want to book a ticket"
+        },
+        {
+          "id": "u31l1e1",
+          "type": "translateChoice",
+          "prompt": "我同意你的看法。",
+          "sentence": "I agree with you.",
+          "options": [
+            "In my view it is different",
+            "You have a point",
+            "I agree with you",
+            "I don't completely agree"
+          ],
+          "answer": "I agree with you"
+        },
+        {
+          "id": "u32l1e1",
+          "type": "translateChoice",
+          "prompt": "下周我有一场考试。",
+          "sentence": "I have an exam next week.",
+          "options": [
+            "I have an exam next week",
+            "I need a better plan",
+            "I reviewed for three hours yesterday",
+            "Getting up early works better than staying up late"
+          ],
+          "answer": "I have an exam next week"
+        },
+        {
+          "id": "u33l1e2",
+          "type": "translateChoice",
+          "prompt": "That was my fault.",
+          "sentence": "That was my fault.",
+          "options": [
+            "让我们重新开始吧",
+            "我需要退款",
+            "这是我的错",
+            "网络速度太慢了"
+          ],
+          "answer": "这是我的错"
+        },
+        {
+          "id": "u34l1e1",
+          "type": "translateChoice",
+          "prompt": "明年我要学开车",
+          "sentence": "I will learn to drive next year.",
+          "options": [
+            "Today's effort will pay off",
+            "I will learn to drive next year",
+            "Start when you are ready",
+            "It is important to keep your dream"
+          ],
+          "answer": "I will learn to drive next year"
+        },
+        {
+          "id": "u35l1e1",
+          "type": "translateChoice",
+          "prompt": "会议几点开始",
+          "sentence": "What time does the meeting start?",
+          "options": [
+            "The project is going well",
+            "Thank you for your support",
+            "Could you take a look at this",
+            "What time does the meeting start"
+          ],
+          "answer": "What time does the meeting start"
+        }
+      ]
     },
     {
-      "id": "i_u12l1e1",
-      "type": "translateChoice",
-      "prompt": "可重复使用的杯子能减少我们活动中的垃圾吗？",
-      "sentence": "Would reusable cups reduce waste at our events?",
-      "options": [
-        "Would reusable cups reduce waste at our events?",
-        "Probably, but we would need a reliable way to wash them.",
-        "We could try them at a small event first.",
-        "The environmental impact depends on how often the cups are reused."
-      ],
-      "answer": "Would reusable cups reduce waste at our events?"
+      "id": "voc-inter-a",
+      "title": "中级协作",
+      "subtitle": "叙述到投诉",
+      "exercises": [
+        {
+          "id": "u36l1e1",
+          "type": "translateChoice",
+          "prompt": "我想给你发一封邮件",
+          "sentence": "I would like to send you an email.",
+          "options": [
+            "I have added it to my calendar",
+            "I would like to send you an email",
+            "The subject is next week's meeting",
+            "The appointment is confirmed"
+          ],
+          "answer": "I would like to send you an email"
+        },
+        {
+          "id": "u37l1e1",
+          "type": "translateChoice",
+          "prompt": "请问有两人桌吗",
+          "sentence": "Do you have a table for two?",
+          "options": [
+            "Please give me a receipt",
+            "Do you have a table for two",
+            "Can you use less salt",
+            "You can try this"
+          ],
+          "answer": "Do you have a table for two"
+        },
+        {
+          "id": "u38l1e1",
+          "type": "translateChoice",
+          "prompt": "这套房子还在租吗",
+          "sentence": "Is this apartment still for rent?",
+          "options": [
+            "We will sign the contract next week",
+            "The kitchen is clean",
+            "Is this apartment still for rent",
+            "The lease is for one year"
+          ],
+          "answer": "Is this apartment still for rent"
+        },
+        {
+          "id": "u39l1e2",
+          "type": "translateChoice",
+          "prompt": "Please help me connect to Wi-Fi.",
+          "sentence": "Please help me connect to Wi-Fi.",
+          "options": [
+            "保护好你的账号",
+            "视频加载失败了",
+            "请打开摄像头",
+            "请帮我连上无线网"
+          ],
+          "answer": "请帮我连上无线网"
+        },
+        {
+          "id": "i_u1l1e1",
+          "type": "translateChoice",
+          "prompt": "你是怎么参与这个项目的？",
+          "sentence": "How did you get involved in the project?",
+          "options": [
+            "How did you get involved in the project?",
+            "A colleague invited me after our training session.",
+            "That sounds interesting, what happened next?",
+            "While we were planning, the budget suddenly changed."
+          ],
+          "answer": "How did you get involved in the project?"
+        },
+        {
+          "id": "i_u2l1e1",
+          "type": "translateChoice",
+          "prompt": "你认为这座城市需要更多自行车道吗？",
+          "sentence": "Do you think the city needs more cycle lanes?",
+          "options": [
+            "Do you think the city needs more cycle lanes?",
+            "Yes, because safer routes could encourage more people to cycle.",
+            "I agree, although parking space is also important.",
+            "In my view, safety should be the main priority."
+          ],
+          "answer": "Do you think the city needs more cycle lanes?"
+        },
+        {
+          "id": "i_u3l1e1",
+          "type": "translateChoice",
+          "prompt": "哪门课程更适合你的日程？",
+          "sentence": "Which course would suit your schedule better?",
+          "options": [
+            "Which course would suit your schedule better?",
+            "The evening course is more flexible, but it costs more.",
+            "Let us compare the total costs before deciding.",
+            "The online option would save me an hour each day."
+          ],
+          "answer": "Which course would suit your schedule better?"
+        },
+        {
+          "id": "i_u4l1e1",
+          "type": "translateChoice",
+          "prompt": "你愿意延长截止日期吗？",
+          "sentence": "Would you be willing to extend the deadline?",
+          "options": [
+            "Would you be willing to extend the deadline?",
+            "I could allow two more days, but not a full week.",
+            "That would help, let us agree on Wednesday.",
+            "We need more time to check the figures carefully."
+          ],
+          "answer": "Would you be willing to extend the deadline?"
+        },
+        {
+          "id": "i_u5l1e1",
+          "type": "translateChoice",
+          "prompt": "谁将负责测试新系统？",
+          "sentence": "Who will be responsible for testing the new system?",
+          "options": [
+            "Who will be responsible for testing the new system?",
+            "I can lead the testing if someone prepares the sample data.",
+            "I will prepare the data and send it by Monday.",
+            "We have completed the first stage ahead of schedule."
+          ],
+          "answer": "Who will be responsible for testing the new system?"
+        },
+        {
+          "id": "i_u6l1e1",
+          "type": "translateChoice",
+          "prompt": "你能解释报告的主要发现吗？",
+          "sentence": "Could you explain the main finding of your report?",
+          "options": [
+            "Could you explain the main finding of your report?",
+            "Certainly, the new process reduced waiting times significantly.",
+            "That is useful, how did you measure the change?",
+            "I will begin with a brief overview of the problem."
+          ],
+          "answer": "Could you explain the main finding of your report?"
+        }
+      ]
     },
     {
-      "id": "i_u13l1e1",
-      "type": "translateChoice",
-      "prompt": "什么帮助你保持新的日常习惯？",
-      "sentence": "What has helped you maintain your new routine?",
-      "options": [
-        "What has helped you maintain your new routine?",
-        "Setting a realistic goal made it easier to get started.",
-        "I might try that instead of changing everything at once.",
-        "I tend to skip breaks when I am busy at work."
-      ],
-      "answer": "What has helped you maintain your new routine?"
-    },
-    {
-      "id": "i_u14l1e1",
-      "type": "translateChoice",
-      "prompt": "您能解释如何申请这项服务吗？",
-      "sentence": "Could you explain how to apply for this service?",
-      "options": [
-        "Could you explain how to apply for this service?",
-        "You need to complete the form and provide proof of residence.",
-        "Thank you, is assistance available if I need help with the form?",
-        "The requirements may differ depending on your circumstances."
-      ],
-      "answer": "Could you explain how to apply for this service?"
-    },
-    {
-      "id": "i_u15l1e1",
-      "type": "translateChoice",
-      "prompt": "这门课程哪部分最有挑战？",
-      "sentence": "Which part of the course has been most challenging?",
-      "options": [
-        "Which part of the course has been most challenging?",
-        "I understand the texts, but I struggle to follow fast conversations.",
-        "We could practice with short recordings and gradually increase the speed.",
-        "I noticed that I remember words better when I use them."
-      ],
-      "answer": "Which part of the course has been most challenging?"
-    },
-    {
-      "id": "i_u16l1e1",
-      "type": "translateChoice",
-      "prompt": "我们应该如何组织下个月的交流访问？",
-      "sentence": "How should we organize the exchange visit next month?",
-      "options": [
-        "How should we organize the exchange visit next month?",
-        "We need to confirm the budget before booking transport.",
-        "I will compare the options and report back on Friday.",
-        "We should ask the visitors about their needs in advance."
-      ],
-      "answer": "How should we organize the exchange visit next month?"
-    },
-    {
-      "id": "i_u2l1e1",
-      "type": "translateChoice",
-      "prompt": "你认为这座城市需要更多自行车道吗？",
-      "sentence": "Do you think the city needs more cycle lanes?",
-      "options": [
-        "Do you think the city needs more cycle lanes?",
-        "Yes, because safer routes could encourage more people to cycle.",
-        "I agree, although parking space is also important.",
-        "In my view, safety should be the main priority."
-      ],
-      "answer": "Do you think the city needs more cycle lanes?"
-    },
-    {
-      "id": "i_u3l1e1",
-      "type": "translateChoice",
-      "prompt": "哪门课程更适合你的日程？",
-      "sentence": "Which course would suit your schedule better?",
-      "options": [
-        "Which course would suit your schedule better?",
-        "The evening course is more flexible, but it costs more.",
-        "Let us compare the total costs before deciding.",
-        "The online option would save me an hour each day."
-      ],
-      "answer": "Which course would suit your schedule better?"
-    },
-    {
-      "id": "i_u4l1e1",
-      "type": "translateChoice",
-      "prompt": "你愿意延长截止日期吗？",
-      "sentence": "Would you be willing to extend the deadline?",
-      "options": [
-        "Would you be willing to extend the deadline?",
-        "I could allow two more days, but not a full week.",
-        "That would help, let us agree on Wednesday.",
-        "We need more time to check the figures carefully."
-      ],
-      "answer": "Would you be willing to extend the deadline?"
-    },
-    {
-      "id": "i_u5l1e1",
-      "type": "translateChoice",
-      "prompt": "谁将负责测试新系统？",
-      "sentence": "Who will be responsible for testing the new system?",
-      "options": [
-        "Who will be responsible for testing the new system?",
-        "I can lead the testing if someone prepares the sample data.",
-        "I will prepare the data and send it by Monday.",
-        "We have completed the first stage ahead of schedule."
-      ],
-      "answer": "Who will be responsible for testing the new system?"
-    },
-    {
-      "id": "i_u6l1e1",
-      "type": "translateChoice",
-      "prompt": "你能解释报告的主要发现吗？",
-      "sentence": "Could you explain the main finding of your report?",
-      "options": [
-        "Could you explain the main finding of your report?",
-        "Certainly, the new process reduced waiting times significantly.",
-        "That is useful, how did you measure the change?",
-        "I will begin with a brief overview of the problem."
-      ],
-      "answer": "Could you explain the main finding of your report?"
-    },
-    {
-      "id": "i_u7l1e1",
-      "type": "translateChoice",
-      "prompt": "你收到我上周发送的文件了吗？",
-      "sentence": "Have you received the documents I sent last week?",
-      "options": [
-        "Have you received the documents I sent last week?",
-        "Yes, we are reviewing them and will reply tomorrow.",
-        "Thank you, please let me know if anything is missing.",
-        "I am writing to follow up on our previous discussion."
-      ],
-      "answer": "Have you received the documents I sent last week?"
-    },
-    {
-      "id": "i_u8l1e1",
-      "type": "translateChoice",
-      "prompt": "我们可以讨论一下我的预订问题吗？",
-      "sentence": "Could we discuss the problem with my booking?",
-      "options": [
-        "Could we discuss the problem with my booking?",
-        "Of course, I can see that the room type was incorrect.",
-        "I would appreciate a solution that matches my original booking.",
-        "The service did not match the description on your website."
-      ],
-      "answer": "Could we discuss the problem with my booking?"
-    },
-    {
-      "id": "i_u9l1e1",
-      "type": "translateChoice",
-      "prompt": "在这里拜访别人时带礼物是惯例吗？",
-      "sentence": "Is it usual to bring a gift when visiting someone here?",
-      "options": [
-        "Is it usual to bring a gift when visiting someone here?",
-        "A small gift is common, but it is not expected everywhere.",
-        "Thanks, I will ask the host what would be appropriate.",
-        "Customs can vary between families as well as regions."
-      ],
-      "answer": "Is it usual to bring a gift when visiting someone here?"
-    },
-    {
-      "id": "u1l1e1",
-      "type": "translateChoice",
-      "prompt": "你好",
-      "sentence": "Hello.",
-      "options": [
-        "Thanks",
-        "Goodbye",
-        "Hello",
-        "Sorry"
-      ],
-      "answer": "Hello"
-    },
-    {
-      "id": "u10l1e1",
-      "type": "translateChoice",
-      "prompt": "我头疼",
-      "sentence": "My head hurts.",
-      "options": [
-        "I run every morning",
-        "My head hurts",
-        "I walk ten thousand steps a day",
-        "Take this medicine twice a day"
-      ],
-      "answer": "My head hurts"
-    },
-    {
-      "id": "u11l1e1",
-      "type": "translateChoice",
-      "prompt": "她是一名老师",
-      "sentence": "She is a teacher.",
-      "options": [
-        "He wants to be a policeman",
-        "She is a teacher",
-        "My father is a doctor",
-        "The exam is next Monday"
-      ],
-      "answer": "She is a teacher"
-    },
-    {
-      "id": "u12l1e1",
-      "type": "translateChoice",
-      "prompt": "我喜欢读书",
-      "sentence": "I like reading books.",
-      "options": [
-        "The movie starts at seven",
-        "He is a famous player",
-        "I like reading books",
-        "I listen to music every day"
-      ],
-      "answer": "I like reading books"
-    },
-    {
-      "id": "u13l1e1",
-      "type": "translateChoice",
-      "prompt": "你想来我的派对吗",
-      "sentence": "Would you like to come to my party?",
-      "options": [
-        "May I speak to Tom",
-        "Would you like to come to my party",
-        "Congratulations on your new job",
-        "You deserve it"
-      ],
-      "answer": "Would you like to come to my party"
-    },
-    {
-      "id": "u14l1e1",
-      "type": "translateChoice",
-      "prompt": "圣诞节在十二月",
-      "sentence": "Christmas is in December.",
-      "options": [
-        "Christmas is in December",
-        "How long does it take to walk",
-        "Tea is popular in China",
-        "People eat dumplings in the north"
-      ],
-      "answer": "Christmas is in December"
-    },
-    {
-      "id": "u15l1e2",
-      "type": "translateChoice",
-      "prompt": "Can I try this on?",
-      "sentence": "Can I try this on?",
-      "options": [
-        "我能试穿这个吗",
-        "我想要一杯咖啡",
-        "我要鸡肉饭",
-        "你一定能找到"
-      ],
-      "answer": "我能试穿这个吗"
-    },
-    {
-      "id": "u16l1e1",
-      "type": "translateChoice",
-      "prompt": "我每周踢两次足球",
-      "sentence": "I play soccer twice a week.",
-      "options": [
-        "Sleep early and get up early",
-        "The air in the forest is fresh",
-        "I play soccer twice a week",
-        "The view from the top is great"
-      ],
-      "answer": "I play soccer twice a week"
-    },
-    {
-      "id": "u17l1e1",
-      "type": "translateChoice",
-      "prompt": "这个周末你打算做什么？",
-      "sentence": "What are you going to do this weekend?",
-      "options": [
-        "I am going to the library",
-        "What are you going to do this weekend",
-        "Let's watch a movie together",
-        "I might stay at home"
-      ],
-      "answer": "What are you going to do this weekend"
-    },
-    {
-      "id": "u18l1e1",
-      "type": "translateChoice",
-      "prompt": "这个更好。",
-      "sentence": "This one is better.",
-      "options": [
-        "The train is faster",
-        "This book is more interesting",
-        "This one is better",
-        "That one is cheaper"
-      ],
-      "answer": "This one is better"
-    },
-    {
-      "id": "u19l1e1",
-      "type": "translateChoice",
-      "prompt": "昨天我去了公园。",
-      "sentence": "I went to the park yesterday.",
-      "options": [
-        "I watched a movie",
-        "The weather was nice",
-        "I met an old friend",
-        "I went to the park yesterday"
-      ],
-      "answer": "I went to the park yesterday"
-    },
-    {
-      "id": "u2l1e1",
-      "type": "translateChoice",
-      "prompt": "三",
-      "sentence": "three",
-      "options": [
-        "four",
-        "three",
-        "ten",
-        "two"
-      ],
-      "answer": "three"
-    },
-    {
-      "id": "u20l1e1",
-      "type": "translateChoice",
-      "prompt": "你应该多喝水。",
-      "sentence": "You should drink more water.",
-      "options": [
-        "You had better sleep early",
-        "Why not take a walk",
-        "Try deep breathing",
-        "You should drink more water"
-      ],
-      "answer": "You should drink more water"
-    },
-    {
-      "id": "u21l1e1",
-      "type": "translateChoice",
-      "prompt": "她留着长发。",
-      "sentence": "She has long hair.",
-      "options": [
-        "She has long hair",
-        "She is very tall",
-        "He looks young",
-        "He wears glasses"
-      ],
-      "answer": "She has long hair"
-    },
-    {
-      "id": "u22l1e1",
-      "type": "translateChoice",
-      "prompt": "山很高。",
-      "sentence": "The mountains are high.",
-      "options": [
-        "The river flows",
-        "The beach is beautiful",
-        "The mountains are high",
-        "The forest is quiet"
-      ],
-      "answer": "The mountains are high"
-    },
-    {
-      "id": "u23l1e1",
-      "type": "translateChoice",
-      "prompt": "我的手机没电了。",
-      "sentence": "My phone is out of battery.",
-      "options": [
-        "Can you send me the link",
-        "My phone is out of battery",
-        "Turn on airplane mode",
-        "Don't use the phone too long"
-      ],
-      "answer": "My phone is out of battery"
-    },
-    {
-      "id": "u24l1e1",
-      "type": "translateChoice",
-      "prompt": "我今天很忙。",
-      "sentence": "I am busy today.",
-      "options": [
-        "I finished the report",
-        "The deadline is Friday",
-        "Let's have a short meeting",
-        "I am busy today"
-      ],
-      "answer": "I am busy today"
-    },
-    {
-      "id": "u25l1e1",
-      "type": "translateChoice",
-      "prompt": "我每周跑步三次。",
-      "sentence": "I run three times a week.",
-      "options": [
-        "Stretching is important",
-        "I run three times a week",
-        "I am going to the gym today",
-        "Don't get hurt"
-      ],
-      "answer": "I run three times a week"
-    },
-    {
-      "id": "u26l1e1",
-      "type": "translateChoice",
-      "prompt": "春节快乐！",
-      "sentence": "Happy Spring Festival!",
-      "options": [
-        "Children receive red envelopes",
-        "Happy Spring Festival",
-        "Be careful with fireworks",
-        "We have a reunion dinner"
-      ],
-      "answer": "Happy Spring Festival"
-    },
-    {
-      "id": "u27l1e1",
-      "type": "translateChoice",
-      "prompt": "这部电影很感人。",
-      "sentence": "This movie is touching.",
-      "options": [
-        "This movie is touching",
-        "The ending was unexpected",
-        "The leading actor performed well",
-        "Let's go to the cinema"
-      ],
-      "answer": "This movie is touching"
-    },
-    {
-      "id": "u28l1e1",
-      "type": "translateChoice",
-      "prompt": "邻居很友善。",
-      "sentence": "The neighbors are friendly.",
-      "options": [
-        "Please keep it down",
-        "Keep the hallway clean",
-        "Please help me take a parcel",
-        "The neighbors are friendly"
-      ],
-      "answer": "The neighbors are friendly"
-    },
-    {
-      "id": "u29l1e1",
-      "type": "translateChoice",
-      "prompt": "我记账。",
-      "sentence": "I keep accounts.",
-      "options": [
-        "Don't spend too much on lunch",
-        "Tell needs from wants",
-        "I keep accounts",
-        "I overspent this month"
-      ],
-      "answer": "I keep accounts"
-    },
-    {
-      "id": "u3l1e1",
-      "type": "translateChoice",
-      "prompt": "这是我的妈妈。",
-      "sentence": "This is my mother.",
-      "options": [
-        "This is my mother.",
-        "This is my sister.",
-        "This is my father.",
-        "She is my mother."
-      ],
-      "answer": "This is my mother."
-    },
-    {
-      "id": "u30l1e1",
-      "type": "translateChoice",
-      "prompt": "我想订一张票。",
-      "sentence": "I want to book a ticket.",
-      "options": [
-        "I want to book a ticket",
-        "Are there seats left",
-        "A window seat, please",
-        "One way or round trip"
-      ],
-      "answer": "I want to book a ticket"
-    },
-    {
-      "id": "u31l1e1",
-      "type": "translateChoice",
-      "prompt": "我同意你的看法。",
-      "sentence": "I agree with you.",
-      "options": [
-        "In my view it is different",
-        "You have a point",
-        "I agree with you",
-        "I don't completely agree"
-      ],
-      "answer": "I agree with you"
-    },
-    {
-      "id": "u32l1e1",
-      "type": "translateChoice",
-      "prompt": "下周我有一场考试。",
-      "sentence": "I have an exam next week.",
-      "options": [
-        "I have an exam next week",
-        "I need a better plan",
-        "I reviewed for three hours yesterday",
-        "Getting up early works better than staying up late"
-      ],
-      "answer": "I have an exam next week"
-    },
-    {
-      "id": "u33l1e2",
-      "type": "translateChoice",
-      "prompt": "That was my fault.",
-      "sentence": "That was my fault.",
-      "options": [
-        "让我们重新开始吧",
-        "我需要退款",
-        "这是我的错",
-        "网络速度太慢了"
-      ],
-      "answer": "这是我的错"
-    },
-    {
-      "id": "u34l1e1",
-      "type": "translateChoice",
-      "prompt": "明年我要学开车",
-      "sentence": "I will learn to drive next year.",
-      "options": [
-        "Today's effort will pay off",
-        "I will learn to drive next year",
-        "Start when you are ready",
-        "It is important to keep your dream"
-      ],
-      "answer": "I will learn to drive next year"
-    },
-    {
-      "id": "u35l1e1",
-      "type": "translateChoice",
-      "prompt": "会议几点开始",
-      "sentence": "What time does the meeting start?",
-      "options": [
-        "The project is going well",
-        "Thank you for your support",
-        "Could you take a look at this",
-        "What time does the meeting start"
-      ],
-      "answer": "What time does the meeting start"
-    },
-    {
-      "id": "u36l1e1",
-      "type": "translateChoice",
-      "prompt": "我想给你发一封邮件",
-      "sentence": "I would like to send you an email.",
-      "options": [
-        "I have added it to my calendar",
-        "I would like to send you an email",
-        "The subject is next week's meeting",
-        "The appointment is confirmed"
-      ],
-      "answer": "I would like to send you an email"
-    },
-    {
-      "id": "u37l1e1",
-      "type": "translateChoice",
-      "prompt": "请问有两人桌吗",
-      "sentence": "Do you have a table for two?",
-      "options": [
-        "Please give me a receipt",
-        "Do you have a table for two",
-        "Can you use less salt",
-        "You can try this"
-      ],
-      "answer": "Do you have a table for two"
-    },
-    {
-      "id": "u38l1e1",
-      "type": "translateChoice",
-      "prompt": "这套房子还在租吗",
-      "sentence": "Is this apartment still for rent?",
-      "options": [
-        "We will sign the contract next week",
-        "The kitchen is clean",
-        "Is this apartment still for rent",
-        "The lease is for one year"
-      ],
-      "answer": "Is this apartment still for rent"
-    },
-    {
-      "id": "u39l1e2",
-      "type": "translateChoice",
-      "prompt": "Please help me connect to Wi-Fi.",
-      "sentence": "Please help me connect to Wi-Fi.",
-      "options": [
-        "保护好你的账号",
-        "视频加载失败了",
-        "请打开摄像头",
-        "请帮我连上无线网"
-      ],
-      "answer": "请帮我连上无线网"
-    },
-    {
-      "id": "u4l1e1",
-      "type": "translateChoice",
-      "prompt": "我喜欢苹果。",
-      "sentence": "I like apples.",
-      "options": [
-        "I like bananas.",
-        "I eat apples.",
-        "I like oranges.",
-        "I like apples."
-      ],
-      "answer": "I like apples."
+      "id": "voc-inter-b",
+      "title": "中级思辨",
+      "subtitle": "新闻到综合",
+      "exercises": [
+        {
+          "id": "i_u7l1e1",
+          "type": "translateChoice",
+          "prompt": "你收到我上周发送的文件了吗？",
+          "sentence": "Have you received the documents I sent last week?",
+          "options": [
+            "Have you received the documents I sent last week?",
+            "Yes, we are reviewing them and will reply tomorrow.",
+            "Thank you, please let me know if anything is missing.",
+            "I am writing to follow up on our previous discussion."
+          ],
+          "answer": "Have you received the documents I sent last week?"
+        },
+        {
+          "id": "i_u8l1e1",
+          "type": "translateChoice",
+          "prompt": "我们可以讨论一下我的预订问题吗？",
+          "sentence": "Could we discuss the problem with my booking?",
+          "options": [
+            "Could we discuss the problem with my booking?",
+            "Of course, I can see that the room type was incorrect.",
+            "I would appreciate a solution that matches my original booking.",
+            "The service did not match the description on your website."
+          ],
+          "answer": "Could we discuss the problem with my booking?"
+        },
+        {
+          "id": "i_u9l1e1",
+          "type": "translateChoice",
+          "prompt": "在这里拜访别人时带礼物是惯例吗？",
+          "sentence": "Is it usual to bring a gift when visiting someone here?",
+          "options": [
+            "Is it usual to bring a gift when visiting someone here?",
+            "A small gift is common, but it is not expected everywhere.",
+            "Thanks, I will ask the host what would be appropriate.",
+            "Customs can vary between families as well as regions."
+          ],
+          "answer": "Is it usual to bring a gift when visiting someone here?"
+        },
+        {
+          "id": "i_u10l1e1",
+          "type": "translateChoice",
+          "prompt": "你分享的那篇报道有多可靠？",
+          "sentence": "How reliable is the report you shared?",
+          "options": [
+            "How reliable is the report you shared?",
+            "It quotes an official study, but I have not checked the original.",
+            "Let us read the study before drawing conclusions.",
+            "The headline makes a stronger claim than the evidence supports."
+          ],
+          "answer": "How reliable is the report you shared?"
+        },
+        {
+          "id": "i_u11l1e1",
+          "type": "translateChoice",
+          "prompt": "这个应用为什么需要访问我的联系人？",
+          "sentence": "Why does this app need access to my contacts?",
+          "options": [
+            "Why does this app need access to my contacts?",
+            "I am not sure, we should check its privacy policy.",
+            "I will deny access until I understand the reason.",
+            "You can limit which information is shared with the service."
+          ],
+          "answer": "Why does this app need access to my contacts?"
+        },
+        {
+          "id": "i_u12l1e1",
+          "type": "translateChoice",
+          "prompt": "可重复使用的杯子能减少我们活动中的垃圾吗？",
+          "sentence": "Would reusable cups reduce waste at our events?",
+          "options": [
+            "Would reusable cups reduce waste at our events?",
+            "Probably, but we would need a reliable way to wash them.",
+            "We could try them at a small event first.",
+            "The environmental impact depends on how often the cups are reused."
+          ],
+          "answer": "Would reusable cups reduce waste at our events?"
+        },
+        {
+          "id": "i_u13l1e1",
+          "type": "translateChoice",
+          "prompt": "什么帮助你保持新的日常习惯？",
+          "sentence": "What has helped you maintain your new routine?",
+          "options": [
+            "What has helped you maintain your new routine?",
+            "Setting a realistic goal made it easier to get started.",
+            "I might try that instead of changing everything at once.",
+            "I tend to skip breaks when I am busy at work."
+          ],
+          "answer": "What has helped you maintain your new routine?"
+        },
+        {
+          "id": "i_u14l1e1",
+          "type": "translateChoice",
+          "prompt": "您能解释如何申请这项服务吗？",
+          "sentence": "Could you explain how to apply for this service?",
+          "options": [
+            "Could you explain how to apply for this service?",
+            "You need to complete the form and provide proof of residence.",
+            "Thank you, is assistance available if I need help with the form?",
+            "The requirements may differ depending on your circumstances."
+          ],
+          "answer": "Could you explain how to apply for this service?"
+        },
+        {
+          "id": "i_u15l1e1",
+          "type": "translateChoice",
+          "prompt": "这门课程哪部分最有挑战？",
+          "sentence": "Which part of the course has been most challenging?",
+          "options": [
+            "Which part of the course has been most challenging?",
+            "I understand the texts, but I struggle to follow fast conversations.",
+            "We could practice with short recordings and gradually increase the speed.",
+            "I noticed that I remember words better when I use them."
+          ],
+          "answer": "Which part of the course has been most challenging?"
+        },
+        {
+          "id": "i_u16l1e1",
+          "type": "translateChoice",
+          "prompt": "我们应该如何组织下个月的交流访问？",
+          "sentence": "How should we organize the exchange visit next month?",
+          "options": [
+            "How should we organize the exchange visit next month?",
+            "We need to confirm the budget before booking transport.",
+            "I will compare the options and report back on Friday.",
+            "We should ask the visitors about their needs in advance."
+          ],
+          "answer": "How should we organize the exchange visit next month?"
+        }
+      ]
     }
   ]
 }
