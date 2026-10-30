@@ -167,6 +167,8 @@ class DiagnosticLog {
     if (saved != null) route = saved;
     final savedLesson = this.box.get(_lessonKey);
     if (savedLesson != null) lesson = savedLesson;
+    final savedCourse = this.box.get(_courseKey);
+    if (savedCourse != null) course = savedCourse;
   }
 
   static const boxName = 'diagnostics';
@@ -174,6 +176,7 @@ class DiagnosticLog {
   static const _pendingKey = 'pending';
   static const _routeKey = 'route';
   static const _lessonKey = 'lesson';
+  static const _courseKey = 'course';
 
   static DiagnosticLog? instance;
 
@@ -188,8 +191,12 @@ class DiagnosticLog {
 
   String route = '';
 
-  /// 具体课程，例如「英语中级 · 经历叙述 · 交代背景 · i_u1l1」。
+  /// 上报里的位置。课内是「英语中级 · 经历叙述 · 交代背景 · i_u1l1」，
+  /// 离开后只剩当前课程名，例如「英语中级」。
   String lesson = '';
+
+  /// 当前选中的课程名。离开课时或专项练习后，上报退回这个名字。
+  String course = '';
   String? _lastCrashKey;
   DateTime? _lastCrashAt;
 
@@ -200,9 +207,18 @@ class DiagnosticLog {
       return;
     }
     if (!sameDiagnosticPlace(route, value)) {
-      lesson = '';
+      lesson = course;
     }
     route = value;
+    await _persistPlace();
+  }
+
+  /// 当前课程一切换就记下。人还在某一课或专项练习里时，不覆盖完整课名。
+  Future<void> rememberCourse(String value) async {
+    final onPlace = _onSpecificPlace;
+    if (course == value && (onPlace || lesson == value)) return;
+    course = value;
+    if (!onPlace) lesson = value;
     await _persistPlace();
   }
 
@@ -216,10 +232,14 @@ class DiagnosticLog {
     await _persistPlace();
   }
 
+  bool get _onSpecificPlace =>
+      lessonIdFromRoute(route) != null || route.startsWith('/practice/');
+
   Future<void> _persistPlace() async {
     try {
       await box.put(_routeKey, route);
       await box.put(_lessonKey, lesson);
+      await box.put(_courseKey, course);
     } catch (_) {}
   }
 

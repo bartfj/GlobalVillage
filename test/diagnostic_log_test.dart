@@ -191,4 +191,32 @@ void main() {
     expect(log.lesson, isEmpty);
     expect(log.route, '/');
   });
+
+  test('离开课时后反馈仍带当前课程名，课内不覆盖完整课名', () async {
+    await log.rememberCourse('英语中级');
+    await log.rememberLesson(
+      route: '/lesson/i_u1l1',
+      lesson: '英语中级 · 经历叙述 · 交代背景 · i_u1l1',
+    );
+    await log.rememberCourse('英语初级');
+    expect(log.lesson, '英语中级 · 经历叙述 · 交代背景 · i_u1l1');
+
+    await log.setRoute('/practice/pronunciation');
+    await log.rememberLesson(
+      route: '/practice/pronunciation',
+      lesson: '英语初级 · 发音',
+    );
+    await log.rememberCourse('普通话入门');
+    expect(log.lesson, '英语初级 · 发音');
+
+    await log.setRoute('/');
+    expect(log.lesson, '普通话入门');
+    expect(log.lesson.contains('发音'), isFalse);
+    expect(log.lesson.contains('i_u1l1'), isFalse);
+
+    await log.enqueueFeedback(note: '听不到', installId: 'install-1');
+    final context = log.pending.single['context'] as Map<String, dynamic>;
+    expect(context['lesson'], '普通话入门');
+    expect(context['route'], '/');
+  });
 }

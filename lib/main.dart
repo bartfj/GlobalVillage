@@ -113,6 +113,20 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
     sync.startForegroundSync();
   }
 
+  /// 课程加载完成或切换轨道时，记下当前课程名，供非课时页的反馈使用。
+  void _rememberCurrentCourse() {
+    final courses = ref.read(allCoursesProvider).asData?.value;
+    if (courses == null) return;
+    final trackId = ref.read(selectedTrackProvider).id;
+    for (final course in courses) {
+      if (course.id != trackId) continue;
+      final log = DiagnosticLog.instance;
+      if (log == null) return;
+      unawaited(log.rememberCourse(course.title));
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(
@@ -125,6 +139,8 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
       ),
       (_, _) => _alignForegroundSync(),
     );
+    ref.listen(allCoursesProvider, (_, _) => _rememberCurrentCourse());
+    ref.listen(selectedTrackProvider, (_, _) => _rememberCurrentCourse());
     final courses = ref.watch(allCoursesProvider);
     return courses.when(
       loading: () => const MaterialApp(
@@ -133,11 +149,14 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
       error: (error, _) => MaterialApp(
         home: Scaffold(body: Center(child: Text('课程加载失败：$error'))),
       ),
-      data: (_) => MaterialApp.router(
-        title: '地球村',
-        theme: buildAppTheme(),
-        routerConfig: ref.watch(goRouterProvider),
-      ),
+      data: (_) {
+        _rememberCurrentCourse();
+        return MaterialApp.router(
+          title: '地球村',
+          theme: buildAppTheme(),
+          routerConfig: ref.watch(goRouterProvider),
+        );
+      },
     );
   }
 }
