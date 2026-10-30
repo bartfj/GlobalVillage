@@ -233,6 +233,16 @@ class TtsService {
     await speak(fallbackText);
   }
 
+  /// 放开播放器占用的音频通道，避免紧接着开麦克风时系统识别起不来。
+  Future<void> stop() async {
+    try {
+      await _player.stop();
+    } catch (_) {}
+    try {
+      await _tts.stop();
+    } catch (_) {}
+  }
+
   void dispose() {
     _player.dispose();
     _tts.stop();

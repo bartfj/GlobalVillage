@@ -3,9 +3,12 @@ import 'dart:math' as math;
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../app/theme.dart';
+import '../../../core/services/diagnostic_log.dart';
+import '../../../core/services/tts_service.dart';
 import '../../../data/sources/content_documents.dart';
 import '../dialogue_script.dart';
 
@@ -91,32 +94,64 @@ class _DialoguePerformanceState extends State<DialoguePerformance> {
     int lineNumber,
     int generation,
   ) async {
+    final relative = 'audio/dialogues/${widget.unitId}_$lineNumber.mp3';
     try {
       // stop 可能触发 completed；此时 _awaitingComplete 仍为 false，会被忽略。
       await _player.stop();
       await _tts.stop();
       if (!mounted || _finished || generation != _generation) return;
-      final cached = await widget.documents?.audioFilePath(
-        'audio/dialogues/${widget.unitId}_$lineNumber.mp3',
-      );
+      final cached = await widget.documents?.audioFilePath(relative);
+      // 缺文件时不要先 play：失败的播放会占着音频焦点，随后的系统 TTS 会无声。
+      if (cached == null && !await _bundleHasAudio(relative)) {
+        await _speakLine(line, generation);
+        return;
+      }
       await _player.play(
-        cached == null
-            ? AssetSource('audio/dialogues/${widget.unitId}_$lineNumber.mp3')
-            : DeviceFileSource(cached),
+        cached == null ? AssetSource(relative) : DeviceFileSource(cached),
       );
       if (!mounted || _finished || generation != _generation) return;
       _awaitingComplete = true;
-    } catch (_) {
+    } catch (error, stack) {
+      recordDiagnosticError('dialogue-audio', error, stack);
       if (!mounted || _finished || generation != _generation) return;
-      try {
-        await _tts.setLanguage('en-US');
-        await _tts.setSpeechRate(0.45);
+      await _speakLine(line, generation);
+    }
+  }
+
+  Future<bool> _bundleHasAudio(String relative) async {
+    try {
+      await rootBundle.load('assets/$relative');
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// 没有内置录音时用系统英语朗读。先放开播放器焦点，并确认引擎真的开读。
+  Future<void> _speakLine(DialogueLine line, int generation) async {
+    try {
+      await _player.stop();
+      if (!mounted || _finished || generation != _generation) return;
+      await _tts.setLanguage('en-US');
+      await _tts.setSpeechRate(0.45);
+      if (!mounted || _finished || generation != _generation) return;
+      var result = await _tts.speak(line.english);
+      if (!TtsService.speakResultOk(result)) {
+        await Future<void>.delayed(const Duration(milliseconds: 100));
         if (!mounted || _finished || generation != _generation) return;
-        _awaitingComplete = true;
-        await _tts.speak(line.english);
-      } catch (_) {
-        // 字幕和演出仍可继续；超时兜底会推进。
+        await _tts.stop();
+        result = await _tts.speak(line.english);
       }
+      if (!TtsService.speakResultOk(result)) {
+        recordDiagnosticError(
+          'dialogue-audio',
+          'TTS did not start: ${line.english}',
+        );
+        return;
+      }
+      _awaitingComplete = true;
+    } catch (error, stack) {
+      recordDiagnosticError('dialogue-audio', error, stack);
     }
   }
 

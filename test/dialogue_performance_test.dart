@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:english_village/features/lesson/dialogue_script.dart';
 import 'package:english_village/features/lesson/widgets/dialogue_performance.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,22 @@ Duration _timeoutEstimate(String english) {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('every dialogue line has a bundled recording', () {
+    final raw = File(
+      'assets/dialogues/unit_dialogues.json',
+    ).readAsStringSync();
+    final scripts = jsonDecode(raw) as Map<String, dynamic>;
+    for (final entry in scripts.entries) {
+      final lines = entry.value;
+      if (lines is! List) continue;
+      for (var i = 0; i < lines.length; i++) {
+        final audio = File('assets/audio/dialogues/${entry.key}_${i + 1}.mp3');
+        expect(audio.existsSync(), isTrue, reason: audio.path);
+        expect(audio.lengthSync(), greaterThan(0), reason: audio.path);
+      }
+    }
+  });
 
   test('all units have three valid dialogue lines', () async {
     Future<void> expectUnit(String unitId) async {
