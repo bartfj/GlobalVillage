@@ -11,6 +11,7 @@ import '../../core/constants.dart';
 import '../../data/models/course_track.dart';
 import '../../data/repositories/user_repository.dart';
 import '../feedback/feedback_dialog.dart';
+import 'debug_jump_dialog.dart';
 import 'widgets/lesson_node.dart';
 import 'widgets/main_menu_drawer.dart';
 import 'widgets/unit_header.dart';
@@ -184,7 +185,11 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             GestureDetector(
               onLongPress: () {
                 Navigator.of(dialogContext).pop();
-                _confirmSkipLesson(context, ref);
+                showDebugJumpMenu(
+                  context,
+                  ref,
+                  onSkipCurrentLesson: () => _confirmSkipLesson(context, ref),
+                );
               },
               child: Text(
                 '版本 $kAppVersion',
