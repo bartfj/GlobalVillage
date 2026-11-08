@@ -89,12 +89,18 @@ class AuthController extends StateNotifier<AuthState> {
 
   /// 用安全存储的 refresh token 换取新 access token；成功返回 true。
   /// 不触发同步，供同步过程中的 401 重试使用。
-  Future<bool> refreshAccessToken() =>
-      _refreshOnlineSession(notifyReady: false);
+  /// 网络失败会抛出，避免同步把断网记成登录过期。
+  Future<bool> refreshAccessToken() => _refreshOnlineSession(
+        notifyReady: false,
+        surfaceTransportErrors: true,
+      );
 
   /// 在线会话重启后静默换取新 access token（断网或 token 失效时保持已登录状态）。
   /// 冷启动成功时通知同步；由同步服务主动调用时不再通知。
-  Future<bool> _refreshOnlineSession({bool notifyReady = true}) async {
+  Future<bool> _refreshOnlineSession({
+    bool notifyReady = true,
+    bool surfaceTransportErrors = false,
+  }) async {
     final session = state.userKey;
     final epoch = _sessionEpoch;
     if (session == null || !session.startsWith(AuthState.onlineKeyPrefix)) {
@@ -122,6 +128,12 @@ class AuthController extends StateNotifier<AuthState> {
         onOnlineSessionReady?.call();
       }
       return true;
+    } on CloudAuthException catch (error) {
+      if (surfaceTransportErrors &&
+          !cloudAuthFailureIsSessionExpired(error)) {
+        rethrow;
+      }
+      return false;
     } catch (_) {
       // 静默失败：保持本地会话，下次操作时再提示
       return false;

@@ -98,6 +98,21 @@ class _MemorySettings extends SettingsStore {
 }
 
 void main() {
+  test('只有 401 才算登录过期，断网不是', () {
+    expect(
+      cloudAuthFailureIsSessionExpired(
+        const CloudAuthException('登录已过期', statusCode: 401, code: 'invalid_token'),
+      ),
+      isTrue,
+    );
+    expect(
+      cloudAuthFailureIsSessionExpired(
+        const CloudAuthException('网络连接失败，请稍后重试'),
+      ),
+      isFalse,
+    );
+  });
+
   group('CloudAuthApi', () {
     test('注册成功解析账号与双 token', () async {
       final client = MockClient((request) async {

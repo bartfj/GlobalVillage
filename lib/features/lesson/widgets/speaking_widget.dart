@@ -16,9 +16,24 @@ import '../../../core/utils/similarity.dart';
 import '../../../data/models/course.dart';
 import 'tappable_phonetic_text.dart';
 
+/// 开麦后先留给用户读完提示再开口。Android 的 pauseFor 从开麦起算。
+const speakingInitialPause = Duration(seconds: 15);
+
+/// 整段跟读最长时长，覆盖读提示和把整句说完。
+const speakingListenFor = Duration(seconds: 30);
+
+/// 已经开口后，停顿这么久才结束，避免句中换气被掐断。
+const speakingPauseAfterSpeech = Duration(seconds: 6);
+
+/// 系统识别无响应时的兜底上限，必须长于 [speakingListenFor]。
+const speakingSessionLimit = Duration(seconds: 35);
+
+/// 离线路径说话后的静音停录时长，与开口后的 pauseFor 一致。
+const speakingSilenceStop = speakingPauseAfterSpeech;
+
 /// 系统识别报忙、客户端错误或音频通道冲突时值得自动再试一次。
-/// Android 会把几乎所有错误标成 permanent，且 speech_timeout/no_match
-/// 常在用户开口前就触发，因此这些情况在尚未识别到词时也允许重试一次。
+/// Android 会把几乎所有错误标成 permanent，且 speech_timeout / no_match /
+/// network 常在用户开口前就触发，因此这些情况在尚未识别到词时也允许重试一次。
 bool speechEngineShouldRetry(
   String errorMsg,
   bool permanent,
@@ -33,7 +48,9 @@ bool speechEngineShouldRetry(
     return true;
   }
   if (!hadWords &&
-      (msg.contains('speech_timeout') || msg.contains('no_match'))) {
+      (msg.contains('speech_timeout') ||
+          msg.contains('no_match') ||
+          msg.contains('network'))) {
     return true;
   }
   if (permanent) return false;
@@ -92,8 +109,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
   /// Android 机麦底噪通常更高，阈值抬高以免误判。
   static int get _silencePeakThreshold => Platform.isAndroid ? 2000 : 800;
 
-  /// 与系统路径 pauseFor 一致：说话后连续静音达到该时长即提前停止录音
-  static const _silenceStopMs = 3000;
+  /// 与系统路径开口后的 pauseFor 一致：说话后连续静音达到该时长即提前停止录音
+  static int get _silenceStopMs => speakingSilenceStop.inMilliseconds;
 
   /// 开麦后忽略前若干毫秒的 VAD，避开切麦瞬间噪声
   static const _vadIgnoreMs = 400;
@@ -300,16 +317,12 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
         _emptyResult = false;
       });
       HapticFeedback.lightImpact();
-      // Android 的 pauseFor 从开麦起算，且系统静音窗口很短；先给较长首段，
-      // 收到首个 partial 后再缩回正常停顿时长。
-      final initialPause = Platform.isAndroid
-          ? const Duration(seconds: 8)
-          : const Duration(seconds: 3);
+      // pauseFor 从开麦起算。先留出读完提示的时间，收到首个词后再缩短停顿。
       await _speech.listen(
         listenOptions: stt.SpeechListenOptions(
           localeId: 'en_US',
-          listenFor: const Duration(seconds: 12),
-          pauseFor: initialPause,
+          listenFor: speakingListenFor,
+          pauseFor: speakingInitialPause,
           partialResults: true,
           listenMode: stt.ListenMode.dictation,
           // Android 错误由 _onSpeechError 决定是否重试，勿让插件直接取消。
@@ -320,7 +333,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
           if (result.recognizedWords.isNotEmpty) {
             if (Platform.isAndroid && _recognized.isEmpty) {
               try {
-                _speech.changePauseFor(const Duration(seconds: 3));
+                _speech.changePauseFor(speakingPauseAfterSpeech);
               } catch (_) {}
             }
             setState(() => _recognized = result.recognizedWords);
@@ -355,9 +368,9 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       setState(() => _listening = false);
       return false;
     }
-    // 兜底：系统服务无响应（连接中断等）20 秒后强制结束，给出回退入口
+    // 兜底：系统服务无响应时在跟读窗口之后结束，给出回退入口
     _stopTimer?.cancel();
-    _stopTimer = Timer(const Duration(seconds: 20), () {
+    _stopTimer = Timer(speakingSessionLimit, () {
       if (mounted && _listening && !_usingOffline) {
         _speech.stop();
         _onListenDone();
@@ -449,7 +462,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       _lastScore = null;
       _emptyResult = false;
     });
-    _stopTimer = Timer(const Duration(seconds: 12), () {
+    _stopTimer = Timer(speakingListenFor, () {
       if (mounted && _listening) _stopOffline();
     });
   }

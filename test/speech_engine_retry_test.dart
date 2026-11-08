@@ -37,6 +37,42 @@ void main() {
       isFalse,
     );
     expect(speechEngineShouldRetry('error_busy', false, 1), isFalse);
-    expect(speechEngineShouldRetry('error_network', true, 0), isFalse);
+    expect(
+      speechEngineShouldRetry(
+        'error_network_timeout',
+        true,
+        1,
+        hadWords: false,
+      ),
+      isFalse,
+    );
+  });
+
+  test('开口前的网络超时再试一次，开口后不再试', () {
+    expect(
+      speechEngineShouldRetry(
+        'error_network_timeout',
+        true,
+        0,
+        hadWords: false,
+      ),
+      isTrue,
+    );
+    expect(
+      speechEngineShouldRetry('error_network', true, 0, hadWords: true),
+      isFalse,
+    );
+  });
+
+  test('跟读窗口够先读完提示再把整句说完', () {
+    expect(speakingInitialPause.inSeconds, greaterThanOrEqualTo(12));
+    expect(speakingListenFor, greaterThan(speakingInitialPause));
+    expect(speakingListenFor.inSeconds, greaterThanOrEqualTo(25));
+    expect(speakingPauseAfterSpeech.inSeconds, greaterThanOrEqualTo(6));
+    expect(speakingSessionLimit, greaterThan(speakingListenFor));
+    expect(
+      speakingSilenceStop,
+      speakingPauseAfterSpeech,
+    );
   });
 }
