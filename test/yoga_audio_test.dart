@@ -49,7 +49,7 @@ class _HangingRepository implements SanskritAudioRepository {
 void main() {
   test('catalog matches the packaged recordings and yoga bank', () {
     final catalog = _catalog();
-    expect(catalog.terms.length, 20);
+    expect(catalog.terms.length, 40);
     expect(catalog.source['reviewStatus'], 'syntheticReference');
 
     for (final term in catalog.terms.values) {
@@ -63,7 +63,7 @@ void main() {
       jsonDecode(File('assets/practice/sanskritYoga.json').readAsStringSync())
           as Map<String, dynamic>,
     );
-    expect(bank.exercises.length, 40);
+    expect(bank.exercises.length, 80);
     for (final exercise in bank.exercises) {
       expect(exercise.audioId, isNotNull, reason: exercise.id);
       expect(

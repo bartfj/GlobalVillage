@@ -10,7 +10,7 @@
         {
           "id": "syg01",
           "type": "translateChoice",
-          "prompt": "选择 IAST：नमस्ते",
+          "prompt": "选择 IAST：合十礼",
           "sentence": "namaste",
           "options": [
             "namaste",
@@ -20,6 +20,7 @@
           ],
           "answer": "namaste",
           "audioId": "namaste",
+          "support": "नमस्ते",
           "language": "sanskrit"
         },
         {
@@ -35,12 +36,13 @@
           ],
           "answer": "合十礼",
           "audioId": "namaste",
+          "support": "नमस्ते",
           "language": "sanskrit"
         },
         {
           "id": "syg03",
           "type": "translateChoice",
-          "prompt": "选择 IAST：ॐ",
+          "prompt": "选择 IAST：唵（神圣音节）",
           "sentence": "oṃ",
           "options": [
             "yoga",
@@ -50,6 +52,7 @@
           ],
           "answer": "oṃ",
           "audioId": "om",
+          "support": "ॐ",
           "language": "sanskrit"
         },
         {
@@ -65,12 +68,13 @@
           ],
           "answer": "唵（神圣音节）",
           "audioId": "om",
+          "support": "ॐ",
           "language": "sanskrit"
         },
         {
           "id": "syg05",
           "type": "translateChoice",
-          "prompt": "选择 IAST：योग",
+          "prompt": "选择 IAST：瑜伽",
           "sentence": "yoga",
           "options": [
             "prāṇāyāma",
@@ -80,6 +84,7 @@
           ],
           "answer": "yoga",
           "audioId": "yoga",
+          "support": "योग",
           "language": "sanskrit"
         },
         {
@@ -95,12 +100,13 @@
           ],
           "answer": "瑜伽",
           "audioId": "yoga",
+          "support": "योग",
           "language": "sanskrit"
         },
         {
           "id": "syg07",
           "type": "translateChoice",
-          "prompt": "选择 IAST：आसन",
+          "prompt": "选择 IAST：体式",
           "sentence": "āsana",
           "options": [
             "śāntiḥ",
@@ -110,6 +116,7 @@
           ],
           "answer": "āsana",
           "audioId": "asana",
+          "support": "आसन",
           "language": "sanskrit"
         },
         {
@@ -125,12 +132,13 @@
           ],
           "answer": "体式",
           "audioId": "asana",
+          "support": "आसन",
           "language": "sanskrit"
         },
         {
           "id": "syg09",
           "type": "translateChoice",
-          "prompt": "选择 IAST：प्राणायाम",
+          "prompt": "选择 IAST：调息",
           "sentence": "prāṇāyāma",
           "options": [
             "prāṇāyāma",
@@ -140,6 +148,7 @@
           ],
           "answer": "prāṇāyāma",
           "audioId": "pranayama",
+          "support": "प्राणायाम",
           "language": "sanskrit"
         },
         {
@@ -155,19 +164,13 @@
           ],
           "answer": "调息",
           "audioId": "pranayama",
+          "support": "प्राणायाम",
           "language": "sanskrit"
-        }
-      ]
-    },
-    {
-      "id": "syg-mind",
-      "title": "呼吸与心法",
-      "subtitle": "śvāsa…dhyāna",
-      "exercises": [
+        },
         {
           "id": "syg11",
           "type": "translateChoice",
-          "prompt": "选择 IAST：श्वास",
+          "prompt": "选择 IAST：呼吸",
           "sentence": "śvāsa",
           "options": [
             "śāntiḥ",
@@ -177,6 +180,7 @@
           ],
           "answer": "śvāsa",
           "audioId": "shvasa",
+          "support": "श्वास",
           "language": "sanskrit"
         },
         {
@@ -192,12 +196,13 @@
           ],
           "answer": "呼吸",
           "audioId": "shvasa",
+          "support": "श्वास",
           "language": "sanskrit"
         },
         {
           "id": "syg13",
           "type": "translateChoice",
-          "prompt": "选择 IAST：शान्तिः",
+          "prompt": "选择 IAST：和平",
           "sentence": "śāntiḥ",
           "options": [
             "mantra",
@@ -207,6 +212,7 @@
           ],
           "answer": "śāntiḥ",
           "audioId": "shanti",
+          "support": "शान्तिः",
           "language": "sanskrit"
         },
         {
@@ -222,12 +228,13 @@
           ],
           "answer": "和平",
           "audioId": "shanti",
+          "support": "शान्तिः",
           "language": "sanskrit"
         },
         {
           "id": "syg15",
           "type": "translateChoice",
-          "prompt": "选择 IAST：गुरु",
+          "prompt": "选择 IAST：上师",
           "sentence": "guru",
           "options": [
             "mudrā",
@@ -237,6 +244,7 @@
           ],
           "answer": "guru",
           "audioId": "guru",
+          "support": "गुरु",
           "language": "sanskrit"
         },
         {
@@ -252,12 +260,13 @@
           ],
           "answer": "上师",
           "audioId": "guru",
+          "support": "गुरु",
           "language": "sanskrit"
         },
         {
           "id": "syg17",
           "type": "translateChoice",
-          "prompt": "选择 IAST：मन्त्र",
+          "prompt": "选择 IAST：曼陀罗",
           "sentence": "mantra",
           "options": [
             "mantra",
@@ -267,6 +276,7 @@
           ],
           "answer": "mantra",
           "audioId": "mantra",
+          "support": "मन्त्र",
           "language": "sanskrit"
         },
         {
@@ -282,12 +292,13 @@
           ],
           "answer": "曼陀罗",
           "audioId": "mantra",
+          "support": "मन्त्र",
           "language": "sanskrit"
         },
         {
           "id": "syg19",
           "type": "translateChoice",
-          "prompt": "选择 IAST：ध्यान",
+          "prompt": "选择 IAST：冥想",
           "sentence": "dhyāna",
           "options": [
             "mudrā",
@@ -297,6 +308,7 @@
           ],
           "answer": "dhyāna",
           "audioId": "dhyana",
+          "support": "ध्यान",
           "language": "sanskrit"
         },
         {
@@ -312,19 +324,20 @@
           ],
           "answer": "冥想",
           "audioId": "dhyana",
+          "support": "ध्यान",
           "language": "sanskrit"
         }
       ]
     },
     {
-      "id": "syg-energy",
-      "title": "手印收束与拜日",
-      "subtitle": "mudrā…tāḍāsana",
+      "id": "syg-mind",
+      "title": "呼吸与心法",
+      "subtitle": "śvāsa…chakra",
       "exercises": [
         {
           "id": "syg21",
           "type": "translateChoice",
-          "prompt": "选择 IAST：मुद्रा",
+          "prompt": "选择 IAST：手印",
           "sentence": "mudrā",
           "options": [
             "chakra",
@@ -334,6 +347,7 @@
           ],
           "answer": "mudrā",
           "audioId": "mudra",
+          "support": "मुद्रा",
           "language": "sanskrit"
         },
         {
@@ -349,12 +363,13 @@
           ],
           "answer": "手印",
           "audioId": "mudra",
+          "support": "मुद्रा",
           "language": "sanskrit"
         },
         {
           "id": "syg23",
           "type": "translateChoice",
-          "prompt": "选择 IAST：बन्ध",
+          "prompt": "选择 IAST：收束法",
           "sentence": "bandha",
           "options": [
             "tāḍāsana",
@@ -364,6 +379,7 @@
           ],
           "answer": "bandha",
           "audioId": "bandha",
+          "support": "बन्ध",
           "language": "sanskrit"
         },
         {
@@ -379,12 +395,13 @@
           ],
           "answer": "收束法",
           "audioId": "bandha",
+          "support": "बन्ध",
           "language": "sanskrit"
         },
         {
           "id": "syg25",
           "type": "translateChoice",
-          "prompt": "选择 IAST：चक्र",
+          "prompt": "选择 IAST：脉轮",
           "sentence": "chakra",
           "options": [
             "chakra",
@@ -394,6 +411,7 @@
           ],
           "answer": "chakra",
           "audioId": "chakra",
+          "support": "चक्र",
           "language": "sanskrit"
         },
         {
@@ -409,12 +427,13 @@
           ],
           "answer": "脉轮",
           "audioId": "chakra",
+          "support": "चक्र",
           "language": "sanskrit"
         },
         {
           "id": "syg27",
           "type": "translateChoice",
-          "prompt": "选择 IAST：सूर्यनमस्कार",
+          "prompt": "选择 IAST：拜日式",
           "sentence": "sūryanamaskāra",
           "options": [
             "tāḍāsana",
@@ -424,6 +443,7 @@
           ],
           "answer": "sūryanamaskāra",
           "audioId": "suryanamaskara",
+          "support": "सूर्यनमस्कार",
           "language": "sanskrit"
         },
         {
@@ -439,12 +459,13 @@
           ],
           "answer": "拜日式",
           "audioId": "suryanamaskara",
+          "support": "सूर्यनमस्कार",
           "language": "sanskrit"
         },
         {
           "id": "syg29",
           "type": "translateChoice",
-          "prompt": "选择 IAST：ताडासन",
+          "prompt": "选择 IAST：山式",
           "sentence": "tāḍāsana",
           "options": [
             "vīrabhadrāsana",
@@ -454,6 +475,7 @@
           ],
           "answer": "tāḍāsana",
           "audioId": "tadasana",
+          "support": "ताडासन",
           "language": "sanskrit"
         },
         {
@@ -469,19 +491,13 @@
           ],
           "answer": "山式",
           "audioId": "tadasana",
+          "support": "ताडासन",
           "language": "sanskrit"
-        }
-      ]
-    },
-    {
-      "id": "syg-asanas",
-      "title": "站姿与地面式",
-      "subtitle": "vṛkṣāsana…bhujaṅgāsana",
-      "exercises": [
+        },
         {
           "id": "syg31",
           "type": "translateChoice",
-          "prompt": "选择 IAST：वृक्षासन",
+          "prompt": "选择 IAST：树式",
           "sentence": "vṛkṣāsana",
           "options": [
             "bālāsana",
@@ -491,6 +507,7 @@
           ],
           "answer": "vṛkṣāsana",
           "audioId": "vrikshasana",
+          "support": "वृक्षासन",
           "language": "sanskrit"
         },
         {
@@ -506,12 +523,13 @@
           ],
           "answer": "树式",
           "audioId": "vrikshasana",
+          "support": "वृक्षासन",
           "language": "sanskrit"
         },
         {
           "id": "syg33",
           "type": "translateChoice",
-          "prompt": "选择 IAST：वीरभद्रासन",
+          "prompt": "选择 IAST：战士式",
           "sentence": "vīrabhadrāsana",
           "options": [
             "vīrabhadrāsana",
@@ -521,6 +539,7 @@
           ],
           "answer": "vīrabhadrāsana",
           "audioId": "virabhadrasana",
+          "support": "वीरभद्रासन",
           "language": "sanskrit"
         },
         {
@@ -536,21 +555,23 @@
           ],
           "answer": "战士式",
           "audioId": "virabhadrasana",
+          "support": "वीरभद्रासन",
           "language": "sanskrit"
         },
         {
           "id": "syg35",
           "type": "translateChoice",
-          "prompt": "选择 IAST：शवासन",
+          "prompt": "选择 IAST：挺尸式",
           "sentence": "śavāsana",
           "options": [
             "bālāsana",
             "bhujaṅgāsana",
-            "namaste",
+            "padmāsana",
             "śavāsana"
           ],
           "answer": "śavāsana",
           "audioId": "shavasana",
+          "support": "शवासन",
           "language": "sanskrit"
         },
         {
@@ -560,27 +581,29 @@
           "sentence": "挺尸式",
           "options": [
             "眼镜蛇式",
-            "合十礼",
+            "莲花式",
             "挺尸式",
             "婴儿式"
           ],
           "answer": "挺尸式",
           "audioId": "shavasana",
+          "support": "शवासन",
           "language": "sanskrit"
         },
         {
           "id": "syg37",
           "type": "translateChoice",
-          "prompt": "选择 IAST：बालासन",
+          "prompt": "选择 IAST：婴儿式",
           "sentence": "bālāsana",
           "options": [
-            "namaste",
-            "oṃ",
+            "padmāsana",
+            "trikoṇāsana",
             "bālāsana",
             "bhujaṅgāsana"
           ],
           "answer": "bālāsana",
           "audioId": "balasana",
+          "support": "बालासन",
           "language": "sanskrit"
         },
         {
@@ -589,28 +612,30 @@
           "prompt": "“bālāsana” 是什么意思？",
           "sentence": "婴儿式",
           "options": [
-            "唵（神圣音节）",
+            "三角式",
             "婴儿式",
             "眼镜蛇式",
-            "合十礼"
+            "莲花式"
           ],
           "answer": "婴儿式",
           "audioId": "balasana",
+          "support": "बालासन",
           "language": "sanskrit"
         },
         {
           "id": "syg39",
           "type": "translateChoice",
-          "prompt": "选择 IAST：भुजङ्गासन",
+          "prompt": "选择 IAST：眼镜蛇式",
           "sentence": "bhujaṅgāsana",
           "options": [
-            "yoga",
+            "uṣṭrāsana",
             "bhujaṅgāsana",
-            "namaste",
-            "oṃ"
+            "padmāsana",
+            "trikoṇāsana"
           ],
           "answer": "bhujaṅgāsana",
           "audioId": "bhujangasana",
+          "support": "भुजङ्गासन",
           "language": "sanskrit"
         },
         {
@@ -620,12 +645,667 @@
           "sentence": "眼镜蛇式",
           "options": [
             "眼镜蛇式",
+            "莲花式",
+            "三角式",
+            "骆驼式"
+          ],
+          "answer": "眼镜蛇式",
+          "audioId": "bhujangasana",
+          "support": "भुजङ्गासन",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "syg-asanas",
+      "title": "站姿与地面式",
+      "subtitle": "sūryanamaskāra…matsyāsana",
+      "exercises": [
+        {
+          "id": "syg41",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：莲花式",
+          "sentence": "padmāsana",
+          "options": [
+            "padmāsana",
+            "trikoṇāsana",
+            "uṣṭrāsana",
+            "matsyāsana"
+          ],
+          "answer": "padmāsana",
+          "audioId": "padmasana",
+          "support": "पद्मासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg42",
+          "type": "translateChoice",
+          "prompt": "“padmāsana” 是什么意思？",
+          "sentence": "莲花式",
+          "options": [
+            "三角式",
+            "骆驼式",
+            "鱼式",
+            "莲花式"
+          ],
+          "answer": "莲花式",
+          "audioId": "padmasana",
+          "support": "पद्मासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg43",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：三角式",
+          "sentence": "trikoṇāsana",
+          "options": [
+            "uṣṭrāsana",
+            "matsyāsana",
+            "sukhāsana",
+            "trikoṇāsana"
+          ],
+          "answer": "trikoṇāsana",
+          "audioId": "trikonasana",
+          "support": "त्रिकोणासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg44",
+          "type": "translateChoice",
+          "prompt": "“trikoṇāsana” 是什么意思？",
+          "sentence": "三角式",
+          "options": [
+            "鱼式",
+            "简易坐",
+            "三角式",
+            "骆驼式"
+          ],
+          "answer": "三角式",
+          "audioId": "trikonasana",
+          "support": "त्रिकोणासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg45",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：骆驼式",
+          "sentence": "uṣṭrāsana",
+          "options": [
+            "sukhāsana",
+            "vajrāsana",
+            "uṣṭrāsana",
+            "matsyāsana"
+          ],
+          "answer": "uṣṭrāsana",
+          "audioId": "ustrasana",
+          "support": "उष्ट्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg46",
+          "type": "translateChoice",
+          "prompt": "“uṣṭrāsana” 是什么意思？",
+          "sentence": "骆驼式",
+          "options": [
+            "金刚坐",
+            "骆驼式",
+            "鱼式",
+            "简易坐"
+          ],
+          "answer": "骆驼式",
+          "audioId": "ustrasana",
+          "support": "उष्ट्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg47",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：鱼式",
+          "sentence": "matsyāsana",
+          "options": [
+            "uttānāsana",
+            "matsyāsana",
+            "sukhāsana",
+            "vajrāsana"
+          ],
+          "answer": "matsyāsana",
+          "audioId": "matsyasana",
+          "support": "मत्स्यासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg48",
+          "type": "translateChoice",
+          "prompt": "“matsyāsana” 是什么意思？",
+          "sentence": "鱼式",
+          "options": [
+            "鱼式",
+            "简易坐",
+            "金刚坐",
+            "站立前屈"
+          ],
+          "answer": "鱼式",
+          "audioId": "matsyasana",
+          "support": "मत्स्यासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg49",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：简易坐",
+          "sentence": "sukhāsana",
+          "options": [
+            "sukhāsana",
+            "vajrāsana",
+            "uttānāsana",
+            "setubandha"
+          ],
+          "answer": "sukhāsana",
+          "audioId": "sukhasana",
+          "support": "सुखासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg50",
+          "type": "translateChoice",
+          "prompt": "“sukhāsana” 是什么意思？",
+          "sentence": "简易坐",
+          "options": [
+            "金刚坐",
+            "站立前屈",
+            "桥式",
+            "简易坐"
+          ],
+          "answer": "简易坐",
+          "audioId": "sukhasana",
+          "support": "सुखासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg51",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：金刚坐",
+          "sentence": "vajrāsana",
+          "options": [
+            "uttānāsana",
+            "setubandha",
+            "halāsana",
+            "vajrāsana"
+          ],
+          "answer": "vajrāsana",
+          "audioId": "vajrasana",
+          "support": "वज्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg52",
+          "type": "translateChoice",
+          "prompt": "“vajrāsana” 是什么意思？",
+          "sentence": "金刚坐",
+          "options": [
+            "桥式",
+            "犁式",
+            "金刚坐",
+            "站立前屈"
+          ],
+          "answer": "金刚坐",
+          "audioId": "vajrasana",
+          "support": "वज्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg53",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：站立前屈",
+          "sentence": "uttānāsana",
+          "options": [
+            "halāsana",
+            "vīrāsana",
+            "uttānāsana",
+            "setubandha"
+          ],
+          "answer": "uttānāsana",
+          "audioId": "uttanasana",
+          "support": "उत्तानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg54",
+          "type": "translateChoice",
+          "prompt": "“uttānāsana” 是什么意思？",
+          "sentence": "站立前屈",
+          "options": [
+            "英雄坐",
+            "站立前屈",
+            "桥式",
+            "犁式"
+          ],
+          "answer": "站立前屈",
+          "audioId": "uttanasana",
+          "support": "उत्तानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg55",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：桥式",
+          "sentence": "setubandha",
+          "options": [
+            "prāṇa",
+            "setubandha",
+            "halāsana",
+            "vīrāsana"
+          ],
+          "answer": "setubandha",
+          "audioId": "setubandha",
+          "support": "सेतुबन्ध",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg56",
+          "type": "translateChoice",
+          "prompt": "“setubandha” 是什么意思？",
+          "sentence": "桥式",
+          "options": [
+            "桥式",
+            "犁式",
+            "英雄坐",
+            "生命力"
+          ],
+          "answer": "桥式",
+          "audioId": "setubandha",
+          "support": "सेतुबन्ध",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg57",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：犁式",
+          "sentence": "halāsana",
+          "options": [
+            "halāsana",
+            "vīrāsana",
+            "prāṇa",
+            "ahiṃsā"
+          ],
+          "answer": "halāsana",
+          "audioId": "halasana",
+          "support": "हलासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg58",
+          "type": "translateChoice",
+          "prompt": "“halāsana” 是什么意思？",
+          "sentence": "犁式",
+          "options": [
+            "英雄坐",
+            "生命力",
+            "不害",
+            "犁式"
+          ],
+          "answer": "犁式",
+          "audioId": "halasana",
+          "support": "हलासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg59",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：英雄坐",
+          "sentence": "vīrāsana",
+          "options": [
+            "prāṇa",
+            "ahiṃsā",
+            "satya",
+            "vīrāsana"
+          ],
+          "answer": "vīrāsana",
+          "audioId": "virasana",
+          "support": "वीरासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg60",
+          "type": "translateChoice",
+          "prompt": "“vīrāsana” 是什么意思？",
+          "sentence": "英雄坐",
+          "options": [
+            "不害",
+            "真实",
+            "英雄坐",
+            "生命力"
+          ],
+          "answer": "英雄坐",
+          "audioId": "virasana",
+          "support": "वीरासन",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "syg-path",
+      "title": "哲思与礼敬",
+      "subtitle": "sukhāsana…namaskāra",
+      "exercises": [
+        {
+          "id": "syg61",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：生命力",
+          "sentence": "prāṇa",
+          "options": [
+            "satya",
+            "tapas",
+            "prāṇa",
+            "ahiṃsā"
+          ],
+          "answer": "prāṇa",
+          "audioId": "prana",
+          "support": "प्राण",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg62",
+          "type": "translateChoice",
+          "prompt": "“prāṇa” 是什么意思？",
+          "sentence": "生命力",
+          "options": [
+            "苦行",
+            "生命力",
+            "不害",
+            "真实"
+          ],
+          "answer": "生命力",
+          "audioId": "prana",
+          "support": "प्राण",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg63",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：不害",
+          "sentence": "ahiṃsā",
+          "options": [
+            "ānanda",
+            "ahiṃsā",
+            "satya",
+            "tapas"
+          ],
+          "answer": "ahiṃsā",
+          "audioId": "ahimsa",
+          "support": "अहिंसा",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg64",
+          "type": "translateChoice",
+          "prompt": "“ahiṃsā” 是什么意思？",
+          "sentence": "不害",
+          "options": [
+            "不害",
+            "真实",
+            "苦行",
+            "喜乐"
+          ],
+          "answer": "不害",
+          "audioId": "ahimsa",
+          "support": "अहिंसा",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg65",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：真实",
+          "sentence": "satya",
+          "options": [
+            "satya",
+            "tapas",
+            "ānanda",
+            "karma"
+          ],
+          "answer": "satya",
+          "audioId": "satya",
+          "support": "सत्य",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg66",
+          "type": "translateChoice",
+          "prompt": "“satya” 是什么意思？",
+          "sentence": "真实",
+          "options": [
+            "苦行",
+            "喜乐",
+            "业",
+            "真实"
+          ],
+          "answer": "真实",
+          "audioId": "satya",
+          "support": "सत्य",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg67",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：苦行",
+          "sentence": "tapas",
+          "options": [
+            "ānanda",
+            "karma",
+            "bhakti",
+            "tapas"
+          ],
+          "answer": "tapas",
+          "audioId": "tapas",
+          "support": "तपस्",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg68",
+          "type": "translateChoice",
+          "prompt": "“tapas” 是什么意思？",
+          "sentence": "苦行",
+          "options": [
+            "业",
+            "虔信",
+            "苦行",
+            "喜乐"
+          ],
+          "answer": "苦行",
+          "audioId": "tapas",
+          "support": "तपस्",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg69",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：喜乐",
+          "sentence": "ānanda",
+          "options": [
+            "bhakti",
+            "japa",
+            "ānanda",
+            "karma"
+          ],
+          "answer": "ānanda",
+          "audioId": "ananda",
+          "support": "आनन्द",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg70",
+          "type": "translateChoice",
+          "prompt": "“ānanda” 是什么意思？",
+          "sentence": "喜乐",
+          "options": [
+            "持诵",
+            "喜乐",
+            "业",
+            "虔信"
+          ],
+          "answer": "喜乐",
+          "audioId": "ananda",
+          "support": "आनन्द",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg71",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：业",
+          "sentence": "karma",
+          "options": [
+            "hṛdaya",
+            "karma",
+            "bhakti",
+            "japa"
+          ],
+          "answer": "karma",
+          "audioId": "karma",
+          "support": "कर्म",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg72",
+          "type": "translateChoice",
+          "prompt": "“karma” 是什么意思？",
+          "sentence": "业",
+          "options": [
+            "业",
+            "虔信",
+            "持诵",
+            "心"
+          ],
+          "answer": "业",
+          "audioId": "karma",
+          "support": "कर्म",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg73",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：虔信",
+          "sentence": "bhakti",
+          "options": [
+            "bhakti",
+            "japa",
+            "hṛdaya",
+            "namaskāra"
+          ],
+          "answer": "bhakti",
+          "audioId": "bhakti",
+          "support": "भक्ति",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg74",
+          "type": "translateChoice",
+          "prompt": "“bhakti” 是什么意思？",
+          "sentence": "虔信",
+          "options": [
+            "持诵",
+            "心",
+            "礼敬",
+            "虔信"
+          ],
+          "answer": "虔信",
+          "audioId": "bhakti",
+          "support": "भक्ति",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg75",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：持诵",
+          "sentence": "japa",
+          "options": [
+            "hṛdaya",
+            "namaskāra",
+            "namaste",
+            "japa"
+          ],
+          "answer": "japa",
+          "audioId": "japa",
+          "support": "जप",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg76",
+          "type": "translateChoice",
+          "prompt": "“japa” 是什么意思？",
+          "sentence": "持诵",
+          "options": [
+            "礼敬",
+            "合十礼",
+            "持诵",
+            "心"
+          ],
+          "answer": "持诵",
+          "audioId": "japa",
+          "support": "जप",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg77",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：心",
+          "sentence": "hṛdaya",
+          "options": [
+            "namaste",
+            "oṃ",
+            "hṛdaya",
+            "namaskāra"
+          ],
+          "answer": "hṛdaya",
+          "audioId": "hrdaya",
+          "support": "हृदय",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg78",
+          "type": "translateChoice",
+          "prompt": "“hṛdaya” 是什么意思？",
+          "sentence": "心",
+          "options": [
+            "唵（神圣音节）",
+            "心",
+            "礼敬",
+            "合十礼"
+          ],
+          "answer": "心",
+          "audioId": "hrdaya",
+          "support": "हृदय",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg79",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：礼敬",
+          "sentence": "namaskāra",
+          "options": [
+            "yoga",
+            "namaskāra",
+            "namaste",
+            "oṃ"
+          ],
+          "answer": "namaskāra",
+          "audioId": "namaskara",
+          "support": "नमस्कार",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg80",
+          "type": "translateChoice",
+          "prompt": "“namaskāra” 是什么意思？",
+          "sentence": "礼敬",
+          "options": [
+            "礼敬",
             "合十礼",
             "唵（神圣音节）",
             "瑜伽"
           ],
-          "answer": "眼镜蛇式",
-          "audioId": "bhujangasana",
+          "answer": "礼敬",
+          "audioId": "namaskara",
+          "support": "नमस्कार",
           "language": "sanskrit"
         }
       ]

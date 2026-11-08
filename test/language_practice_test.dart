@@ -135,10 +135,13 @@ void main() {
     test('天城体辨认：答案均为课程已教字母或音节', () {
       const taught = {
         'a', 'ā', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'o', 'au',
-        'ka', 'ma', 'na', 'ta', 'ṭa',
+        'ka', 'ma', 'na', 'ta', 'ṭa', 'pa', 'ba', 'ra', 'la', 'sa',
         'kā', 'ki', 'kī', 'mā', 'mi', 'mī',
         'nā', 'ni', 'nī', 'tā', 'ti', 'tī',
         'ṭā', 'ṭi', 'ṭī',
+        'pā', 'pi', 'pī', 'bā', 'bi', 'bī',
+        'rā', 'ri', 'rī', 'lā', 'li', 'lī',
+        'sā', 'si', 'sī',
       };
       final bank = _load('assets/practice/sanskritLetters.json');
       for (final e in bank.exercises) {
@@ -148,25 +151,30 @@ void main() {
 
     test('瑜伽梵文：识读与意义成对，术语不重复', () {
       final bank = _load('assets/practice/sanskritYoga.json');
-      expect(bank.exercises.length, 40);
+      expect(bank.exercises.length, 80);
       final terms = <String>{};
       for (var i = 0; i < bank.exercises.length; i += 2) {
         final reading = bank.exercises[i];
         final meaning = bank.exercises[i + 1];
-        // 识读题给出天城体，意义题用 IAST 提问；选项都不含天城体
+        // 识读题 prompt 带中文释义，意义题用 IAST 提问；两者均带天城体 support
         expect(reading.prompt, startsWith('选择 IAST：'), reason: reading.id);
+        expect(reading.prompt.substring('选择 IAST：'.length), isNotEmpty);
+        expect(_hanzi.hasMatch(reading.prompt), isTrue, reason: reading.id);
+        expect(reading.support, isNotNull, reason: reading.id);
+        expect(_devanagari.hasMatch(reading.support!), isTrue, reason: reading.id);
         expect(meaning.prompt, contains(reading.answer), reason: meaning.id);
+        expect(meaning.support, reading.support, reason: meaning.id);
         for (final options in [reading.options, meaning.options]) {
           expect(options.any(_devanagari.hasMatch), isFalse);
         }
         expect(terms.add(reading.answer), isTrue, reason: reading.answer);
       }
-      expect(terms.length, 20);
+      expect(terms.length, 40);
     });
 
     test('瑜伽英文：听音识义与译英成对，选项语言不混排', () {
       final bank = _load('assets/practice/englishYoga.json');
-      expect(bank.exercises.length, 72);
+      expect(bank.exercises.length, 112);
       final englishAnswers = <String>{};
       for (var i = 0; i < bank.exercises.length; i += 2) {
         final listening = bank.exercises[i];
@@ -186,8 +194,8 @@ void main() {
         expect(translating.sentence, listening.sentence, reason: translating.id);
         expect(englishAnswers.add(listening.sentence), isTrue, reason: listening.id);
       }
-      // 20 个术语 + 16 条指令
-      expect(englishAnswers.length, 36);
+      // 40 个术语 + 16 条指令
+      expect(englishAnswers.length, 56);
     });
   });
 }

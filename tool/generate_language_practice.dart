@@ -217,6 +217,11 @@ const _saConsonants = <(String, String)>[
   ('न', 'na'),
   ('त', 'ta'),
   ('ट', 'ṭa'),
+  ('प', 'pa'),
+  ('ब', 'ba'),
+  ('र', 'ra'),
+  ('ल', 'la'),
+  ('स', 'sa'),
 ];
 
 const _saSyllables = <(String, String)>[
@@ -235,6 +240,21 @@ const _saSyllables = <(String, String)>[
   ('टा', 'ṭā'),
   ('टि', 'ṭi'),
   ('टी', 'ṭī'),
+  ('पा', 'pā'),
+  ('पि', 'pi'),
+  ('पी', 'pī'),
+  ('बा', 'bā'),
+  ('बि', 'bi'),
+  ('बी', 'bī'),
+  ('रा', 'rā'),
+  ('रि', 'ri'),
+  ('री', 'rī'),
+  ('ला', 'lā'),
+  ('लि', 'li'),
+  ('ली', 'lī'),
+  ('सा', 'sā'),
+  ('सि', 'si'),
+  ('सी', 'sī'),
 ];
 
 List<Exercise> _saLetterExercises(
@@ -301,6 +321,22 @@ const _saLengthItems = <(String, String)>[
   ('तीन', 'tīna'),
   ('मीन', 'mīna'),
   ('कीन', 'kīna'),
+  ('काल', 'kāla'),
+  ('बल', 'bala'),
+  ('गत', 'gata'),
+  ('नील', 'nīla'),
+  ('पान', 'pāna'),
+  ('बाल', 'bāla'),
+  ('रात', 'rāta'),
+  ('लाल', 'lāla'),
+  ('साल', 'sāla'),
+  ('पित', 'pita'),
+  ('बित', 'bita'),
+  ('रित', 'rita'),
+  ('लित', 'lita'),
+  ('सित', 'sita'),
+  ('पिन', 'pina'),
+  ('बिन', 'bina'),
 ];
 
 const _saFlip = {'a': 'ā', 'ā': 'a', 'i': 'ī', 'ī': 'i', 'u': 'ū', 'ū': 'u'};
@@ -376,6 +412,26 @@ const _saYogaTerms = <(String, String, String, String)>[
   ('शवासन', 'śavāsana', '挺尸式', 'shavasana'),
   ('बालासन', 'bālāsana', '婴儿式', 'balasana'),
   ('भुजङ्गासन', 'bhujaṅgāsana', '眼镜蛇式', 'bhujangasana'),
+  ('पद्मासन', 'padmāsana', '莲花式', 'padmasana'),
+  ('त्रिकोणासन', 'trikoṇāsana', '三角式', 'trikonasana'),
+  ('उष्ट्रासन', 'uṣṭrāsana', '骆驼式', 'ustrasana'),
+  ('मत्स्यासन', 'matsyāsana', '鱼式', 'matsyasana'),
+  ('सुखासन', 'sukhāsana', '简易坐', 'sukhasana'),
+  ('वज्रासन', 'vajrāsana', '金刚坐', 'vajrasana'),
+  ('उत्तानासन', 'uttānāsana', '站立前屈', 'uttanasana'),
+  ('सेतुबन्ध', 'setubandha', '桥式', 'setubandha'),
+  ('हलासन', 'halāsana', '犁式', 'halasana'),
+  ('वीरासन', 'vīrāsana', '英雄坐', 'virasana'),
+  ('प्राण', 'prāṇa', '生命力', 'prana'),
+  ('अहिंसा', 'ahiṃsā', '不害', 'ahimsa'),
+  ('सत्य', 'satya', '真实', 'satya'),
+  ('तपस्', 'tapas', '苦行', 'tapas'),
+  ('आनन्द', 'ānanda', '喜乐', 'ananda'),
+  ('कर्म', 'karma', '业', 'karma'),
+  ('भक्ति', 'bhakti', '虔信', 'bhakti'),
+  ('जप', 'japa', '持诵', 'japa'),
+  ('हृदय', 'hṛdaya', '心', 'hrdaya'),
+  ('नमस्कार', 'namaskāra', '礼敬', 'namaskara'),
 ];
 
 List<Exercise> _buildSanskritYoga() {
@@ -386,7 +442,7 @@ List<Exercise> _buildSanskritYoga() {
     String nextId() =>
         'syg${(exercises.length + 1).toString().padLeft(2, '0')}';
 
-    // 识读：天城体 → IAST
+    // 识读：天城体 → IAST（prompt 带中文释义，供反馈栏展示）
     final iastOptions = [
       iast,
       _saYogaTerms[(i + 1) % n].$2,
@@ -398,7 +454,7 @@ List<Exercise> _buildSanskritYoga() {
       Exercise(
         id: nextId(),
         type: ExerciseType.translateChoice,
-        prompt: '选择 IAST：$sign',
+        prompt: '选择 IAST：$gloss',
         sentence: iast,
         options: [
           ...iastOptions.sublist(iastShift),
@@ -406,11 +462,12 @@ List<Exercise> _buildSanskritYoga() {
         ],
         answer: iast,
         language: LearningLanguage.sanskrit,
+        support: sign,
         audioId: audioId,
       ),
     );
 
-    // 意义：IAST → 中文
+    // 意义：IAST → 中文（support 带天城体，供反馈栏展示）
     final glossOptions = [
       gloss,
       _saYogaTerms[(i + 1) % n].$3,
@@ -430,6 +487,7 @@ List<Exercise> _buildSanskritYoga() {
         ],
         answer: gloss,
         language: LearningLanguage.sanskrit,
+        support: sign,
         audioId: audioId,
       ),
     );
@@ -463,6 +521,26 @@ const _enYogaTerms = <(String, String)>[
   ('corpse pose', '挺尸式'),
   ("child's pose", '婴儿式'),
   ('cobra pose', '眼镜蛇式'),
+  ('lotus pose', '莲花式'),
+  ('triangle pose', '三角式'),
+  ('camel pose', '骆驼式'),
+  ('fish pose', '鱼式'),
+  ('easy pose', '简易坐'),
+  ('thunderbolt pose', '金刚坐'),
+  ('forward fold', '站立前屈'),
+  ('bridge pose', '桥式'),
+  ('plough pose', '犁式'),
+  ('hero pose', '英雄坐'),
+  ('life force', '生命力'),
+  ('non-harming', '不害'),
+  ('truth', '真实'),
+  ('austerity', '苦行'),
+  ('bliss', '喜乐'),
+  ('karma', '业'),
+  ('devotion', '虔信'),
+  ('chanting', '持诵'),
+  ('heart', '心'),
+  ('salutation', '礼敬'),
 ];
 
 /// （英文指令句, 中文释义）——瑜伽课堂高频口令。
@@ -589,61 +667,62 @@ List<Map<String, dynamic>> _chineseCharacterChapters() {
 }
 
 List<Map<String, dynamic>> _sanskritLetterChapters() {
-  // 保持与原 _buildSanskritLetters 相同题目集合与 id：三章按源列表切
+  // 元音 10 + 辅音 10 + 音节 30 = 50
   final all = _buildSanskritLetters();
   return [
     _chapterPayload('sal-vowels', '独立元音', 'अ…औ', all.sublist(0, 10)),
-    _chapterPayload('sal-base', '辅音与初拼', 'क…मि', all.sublist(10, 20)),
-    _chapterPayload('sal-syllables', '元音符号拼读', 'मी…टी', all.sublist(20)),
+    _chapterPayload('sal-base', '辅音基字', 'क…स', all.sublist(10, 20)),
+    _chapterPayload('sal-syllables', '元音符号拼读', 'का…सी', all.sublist(20)),
   ];
 }
 
 List<Map<String, dynamic>> _sanskritVowelChapters() {
   final all = _buildSanskritVowels();
   return [
-    _chapterPayload('sav-a', 'a/ā 对立词', 'mama…nata', all.sublist(0, 8)),
-    _chapterPayload('sav-i', 'a 与 i/ī 对立', 'tata…kīna', all.sublist(8)),
+    _chapterPayload('sav-a', 'a/ā 对立词', 'mama…nata', all.sublist(0, 16)),
+    _chapterPayload('sav-i', '更多长短对立', 'tata…bina', all.sublist(16)),
   ];
 }
 
 List<Map<String, dynamic>> _sanskritYogaChapters() {
+  // 40 术语 × 2 题 = 80
   final all = _buildSanskritYoga();
   return [
-    _chapterPayload('syg-core', '问候与核心', 'namaste…prāṇāyāma', all.sublist(0, 10)),
-    _chapterPayload('syg-mind', '呼吸与心法', 'śvāsa…dhyāna', all.sublist(10, 20)),
-    _chapterPayload(
-      'syg-energy',
-      '手印收束与拜日',
-      'mudrā…tāḍāsana',
-      all.sublist(20, 30),
-    ),
+    _chapterPayload('syg-core', '问候与核心', 'namaste…prāṇāyāma', all.sublist(0, 20)),
+    _chapterPayload('syg-mind', '呼吸与心法', 'śvāsa…chakra', all.sublist(20, 40)),
     _chapterPayload(
       'syg-asanas',
       '站姿与地面式',
-      'vṛkṣāsana…bhujaṅgāsana',
-      all.sublist(30),
+      'sūryanamaskāra…matsyāsana',
+      all.sublist(40, 60),
+    ),
+    _chapterPayload(
+      'syg-path',
+      '哲思与礼敬',
+      'sukhāsana…namaskāra',
+      all.sublist(60),
     ),
   ];
 }
 
 List<Map<String, dynamic>> _englishYogaChapters() {
-  // terms 20*2=40, cues 16*2=32 → 72；按设计文档主题带切片
+  // terms 40*2=80, cues 16*2=32 → 112
   final all = _buildEnglishYoga();
   return [
-    _chapterPayload('eyg-core', '核心术语', '合十到调息', all.sublist(0, 14)),
-    _chapterPayload('eyg-practice', '练习概念', '上师到脉轮', all.sublist(14, 26)),
-    _chapterPayload('eyg-poses', '体式英文名', '拜日到眼镜蛇', all.sublist(26, 40)),
+    _chapterPayload('eyg-core', '核心术语', '合十到调息', all.sublist(0, 20)),
+    _chapterPayload('eyg-practice', '练习概念', '上师到脉轮', all.sublist(20, 40)),
+    _chapterPayload('eyg-poses', '体式英文名', '拜日到英雄坐', all.sublist(40, 80)),
     _chapterPayload(
       'eyg-cues-body',
       '呼吸与体态指令',
       '吸气到闭眼',
-      all.sublist(40, 56),
+      all.sublist(80, 96),
     ),
     _chapterPayload(
       'eyg-cues-flow',
       '动作与课堂指令',
       '盘腿到开始',
-      all.sublist(56),
+      all.sublist(96),
     ),
   ];
 }

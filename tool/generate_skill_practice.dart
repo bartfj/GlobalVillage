@@ -42,6 +42,7 @@ Map<String, dynamic> exerciseToJson(Exercise e) {
         for (final p in e.pairs) {'left': p.left, 'right': p.right},
       ],
     if (e.audioId != null) 'audioId': e.audioId,
+    if (e.support != null) 'support': e.support,
   };
 }
 

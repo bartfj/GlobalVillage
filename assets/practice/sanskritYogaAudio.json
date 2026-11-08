@@ -4,7 +4,7 @@
     "name": "Google Translate TTS",
     "language": "hi",
     "synthesizedOn": "2026-10-22",
-    "note": "合成参考音，非真人录音；用印地语音色朗读天城体。",
+    "note": "合成参考音，非真人录音；原条目为印地语 TTS，新增条目为 macOS say 英文近似读法。",
     "reviewStatus": "syntheticReference"
   },
   "terms": [
@@ -147,6 +147,146 @@
       "iast": "bhujaṅgāsana",
       "sha256": "3ab17463313798d0dbeef974fa3a7cd21526ab83085459e68b1da04007335aa9",
       "byteLength": 10368
+    },
+    {
+      "id": "padmasana",
+      "devanagari": "पद्मासन",
+      "iast": "padmāsana",
+      "sha256": "5c864527701536f3ef322950b47a6b828def9c8e72ac7747df9bcefb0971ec15",
+      "byteLength": 5196
+    },
+    {
+      "id": "trikonasana",
+      "devanagari": "त्रिकोणासन",
+      "iast": "trikoṇāsana",
+      "sha256": "ab2f32cdf2c1818c5c1d6e9dfe3ad84b118a3d049a050f8951722bf371cec54a",
+      "byteLength": 5872
+    },
+    {
+      "id": "ustrasana",
+      "devanagari": "उष्ट्रासन",
+      "iast": "uṣṭrāsana",
+      "sha256": "74c6dc3171c1490415c8ff0dad0e9a1ff0359b262ba2e58cc135a5e9ff786e86",
+      "byteLength": 5561
+    },
+    {
+      "id": "matsyasana",
+      "devanagari": "मत्स्यासन",
+      "iast": "matsyāsana",
+      "sha256": "889ea8bc6f4a0ae5e55c64b5cf590d1c2a5b5d6f966e7f9b95ff49c95ab940a6",
+      "byteLength": 7098
+    },
+    {
+      "id": "sukhasana",
+      "devanagari": "सुखासन",
+      "iast": "sukhāsana",
+      "sha256": "b5ccaf0dc51d99ce459d868c8965d6313e1dc03d3698a4d17234d825b4b4489e",
+      "byteLength": 5483
+    },
+    {
+      "id": "vajrasana",
+      "devanagari": "वज्रासन",
+      "iast": "vajrāsana",
+      "sha256": "2ae1abd88622c2d31c3d658b167adaa86bd42618e82e1e7a6559fd307a1e37f0",
+      "byteLength": 6108
+    },
+    {
+      "id": "uttanasana",
+      "devanagari": "उत्तानासन",
+      "iast": "uttānāsana",
+      "sha256": "d622404d552d91699f5adb3c6662257aeb1ceed7592f060e94670ad4c87ead15",
+      "byteLength": 5743
+    },
+    {
+      "id": "setubandha",
+      "devanagari": "सेतुबन्ध",
+      "iast": "setubandha",
+      "sha256": "f9b8167290df588136eaa48be3c42532f9953c88a8a2b11ea47fe8909c52ce94",
+      "byteLength": 6059
+    },
+    {
+      "id": "halasana",
+      "devanagari": "हलासन",
+      "iast": "halāsana",
+      "sha256": "d30b376c7c474cb3312e88c5625ee18a2f31254fd71d07440a49826d66a3c37f",
+      "byteLength": 5275
+    },
+    {
+      "id": "virasana",
+      "devanagari": "वीरासन",
+      "iast": "vīrāsana",
+      "sha256": "c03ae331b8ea2b268d309349fc0090708d30edd4c16c196807ecb3664559b516",
+      "byteLength": 5536
+    },
+    {
+      "id": "prana",
+      "devanagari": "प्राण",
+      "iast": "prāṇa",
+      "sha256": "448d3295dc348692aaaf8e4e718033b69a2eecde7d9895bafb5336fe277b83de",
+      "byteLength": 3115
+    },
+    {
+      "id": "ahimsa",
+      "devanagari": "अहिंसा",
+      "iast": "ahiṃsā",
+      "sha256": "1403f8e98b17168e6dbe87bb13d03b1d39ac04d59b0a3445351c5d7ec543ac9c",
+      "byteLength": 4000
+    },
+    {
+      "id": "satya",
+      "devanagari": "सत्य",
+      "iast": "satya",
+      "sha256": "69ec22b4b99db64e216d49c9ec31c4bbabd398a0c9c703407ab0bb8485bfdea6",
+      "byteLength": 4341
+    },
+    {
+      "id": "tapas",
+      "devanagari": "तपस्",
+      "iast": "tapas",
+      "sha256": "6a9f127bf3f34ab5424b61fe0a5e03642563bdad671d3072745189ce88bc9a95",
+      "byteLength": 3923
+    },
+    {
+      "id": "ananda",
+      "devanagari": "आनन्द",
+      "iast": "ānanda",
+      "sha256": "5f454e317fb5dfaee221a963817d03f0b3582810e050cb3822051160afeb150b",
+      "byteLength": 3949
+    },
+    {
+      "id": "karma",
+      "devanagari": "कर्म",
+      "iast": "karma",
+      "sha256": "acb990c68e8563663c49cdc2586dbdac2ea3f75837bd2cf40feb46e09f8b649c",
+      "byteLength": 3323
+    },
+    {
+      "id": "bhakti",
+      "devanagari": "भक्ति",
+      "iast": "bhakti",
+      "sha256": "a81311b689103b488df1f7878d72f16723ba5c9386e3431ac13b91a859999d1e",
+      "byteLength": 4520
+    },
+    {
+      "id": "japa",
+      "devanagari": "जप",
+      "iast": "japa",
+      "sha256": "3f9398555791fcc045bfe6c5e82539124c3cf6d05b2dd623e62aa83ea9ae5402",
+      "byteLength": 3272
+    },
+    {
+      "id": "hrdaya",
+      "devanagari": "हृदय",
+      "iast": "hṛdaya",
+      "sha256": "becf32896d1e7c7e0aa30127d22f765104fe78f1f0ab0ea01d615844086d0ca5",
+      "byteLength": 4313
+    },
+    {
+      "id": "namaskara",
+      "devanagari": "नमस्कार",
+      "iast": "namaskāra",
+      "sha256": "a5137ecfbd01d6df923a43652c4971c5b13733041f9f3d70135238d7b2218a7f",
+      "byteLength": 6004
     }
   ]
 }
