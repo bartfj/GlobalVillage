@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,13 +17,27 @@ import '../../../data/models/course.dart';
 import 'tappable_phonetic_text.dart';
 
 /// 系统识别报忙、客户端错误或音频通道冲突时值得自动再试一次。
-/// 没听清、超时不属于这类失败。
-bool speechEngineShouldRetry(String errorMsg, bool permanent, int attempts) {
-  if (permanent || attempts >= 1) return false;
+/// Android 会把几乎所有错误标成 permanent，且 speech_timeout/no_match
+/// 常在用户开口前就触发，因此这些情况在尚未识别到词时也允许重试一次。
+bool speechEngineShouldRetry(
+  String errorMsg,
+  bool permanent,
+  int attempts, {
+  bool hadWords = false,
+}) {
+  if (attempts >= 1) return false;
   final msg = errorMsg.toLowerCase();
-  return msg.contains('busy') ||
+  if (msg.contains('busy') ||
       msg.contains('client') ||
-      msg.contains('audio');
+      msg.contains('audio')) {
+    return true;
+  }
+  if (!hadWords &&
+      (msg.contains('speech_timeout') || msg.contains('no_match'))) {
+    return true;
+  }
+  if (permanent) return false;
+  return false;
 }
 
 /// 跟读题：播放原音 -> 用户跟读 -> 语音识别打分。
@@ -67,11 +82,27 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
   bool _speechDetected = false;
   int _silenceMs = 0;
 
+  /// 连续超过阈值的块数，避免环境噪声单峰误触发“已说话”
+  int _loudChunkStreak = 0;
+
+  /// 已累计的录音时长（ms），用于忽略开麦瞬间噪声、并保证最短录音
+  int _recordedMs = 0;
+
   /// 峰值幅度阈值：高于该值视为"在说话"（16bit PCM，满幅 32767）
-  static const _silencePeakThreshold = 800;
+  /// Android 机麦底噪通常更高，阈值抬高以免误判。
+  static int get _silencePeakThreshold => Platform.isAndroid ? 2000 : 800;
 
   /// 与系统路径 pauseFor 一致：说话后连续静音达到该时长即提前停止录音
   static const _silenceStopMs = 3000;
+
+  /// 开麦后忽略前若干毫秒的 VAD，避开切麦瞬间噪声
+  static const _vadIgnoreMs = 400;
+
+  /// 至少录到这么久才允许静音自动停，避免读到一半被掐断
+  static const _minRecordMsBeforeSilenceStop = 1500;
+
+  /// 连续多少块超阈值才算真正开口
+  static const _loudChunksToConfirmSpeech = 3;
 
   /// 识别结束但没听清任何内容（用户没说话/环境太安静/服务无响应）
   bool _emptyResult = false;
@@ -140,6 +171,10 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
     try {
       // 原音还在播时系统识别经常启动失败，读了也没有任何结果。
       await ref.read(ttsServiceProvider).stop();
+      // Android 释放音频焦点较慢，立刻开听容易 speech_timeout / no_match。
+      if (Platform.isAndroid) {
+        await Future<void>.delayed(const Duration(milliseconds: 400));
+      }
       var ok = _speechReady;
       if (!ok) {
         try {
@@ -193,6 +228,7 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       error.errorMsg,
       error.permanent,
       _listenAttempts,
+      hadWords: _recognized.trim().isNotEmpty,
     )) {
       _listenAttempts++;
       _listening = false;
@@ -264,18 +300,29 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
         _emptyResult = false;
       });
       HapticFeedback.lightImpact();
+      // Android 的 pauseFor 从开麦起算，且系统静音窗口很短；先给较长首段，
+      // 收到首个 partial 后再缩回正常停顿时长。
+      final initialPause = Platform.isAndroid
+          ? const Duration(seconds: 8)
+          : const Duration(seconds: 3);
       await _speech.listen(
         listenOptions: stt.SpeechListenOptions(
           localeId: 'en_US',
           listenFor: const Duration(seconds: 12),
-          pauseFor: const Duration(seconds: 3),
+          pauseFor: initialPause,
           partialResults: true,
           listenMode: stt.ListenMode.dictation,
-          cancelOnError: true,
+          // Android 错误由 _onSpeechError 决定是否重试，勿让插件直接取消。
+          cancelOnError: !Platform.isAndroid,
         ),
         onResult: (result) {
           if (!mounted || !_listening) return;
           if (result.recognizedWords.isNotEmpty) {
+            if (Platform.isAndroid && _recognized.isEmpty) {
+              try {
+                _speech.changePauseFor(const Duration(seconds: 3));
+              } catch (_) {}
+            }
             setState(() => _recognized = result.recognizedWords);
           }
           if (result.finalResult) {
@@ -348,6 +395,8 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       _pcmChunks.clear();
       _speechDetected = false;
       _silenceMs = 0;
+      _loudChunkStreak = 0;
+      _recordedMs = 0;
       final stream = await _recorder.startStream(
         const RecordConfig(
           encoder: AudioEncoder.pcm16bits,
@@ -357,16 +406,27 @@ class _SpeakingWidgetState extends ConsumerState<SpeakingWidget> {
       );
       _recSub = stream.listen((chunk) {
         _pcmChunks.addAll(chunk);
-        // 静音检测：本块峰值超过阈值视为"在说话"，重置静音计时；
-        // 说话后连续静音达到 3 秒，提前结束录音（与系统路径一致）
+        // 16kHz 16bit 单声道：每毫秒 32 字节
+        final chunkMs = chunk.length ~/ 32;
+        _recordedMs += chunkMs;
+        // 开麦瞬间忽略 VAD，避免切麦噪声被当成开口
+        if (_recordedMs < _vadIgnoreMs) return;
+        // 静音检测：连续多块超阈值才确认在说话，再计说话后静音
         if (_peakAmplitude(chunk) > _silencePeakThreshold) {
-          _speechDetected = true;
-          _silenceMs = 0;
-        } else if (_speechDetected && _listening) {
-          // 16kHz 16bit 单声道：每毫秒 32 字节
-          _silenceMs += chunk.length ~/ 32;
-          if (_silenceMs >= _silenceStopMs) {
-            _stopOffline();
+          _loudChunkStreak++;
+          if (_loudChunkStreak >= _loudChunksToConfirmSpeech) {
+            _speechDetected = true;
+            _silenceMs = 0;
+          }
+        } else {
+          _loudChunkStreak = 0;
+          if (_speechDetected &&
+              _listening &&
+              _recordedMs >= _minRecordMsBeforeSilenceStop) {
+            _silenceMs += chunkMs;
+            if (_silenceMs >= _silenceStopMs) {
+              _stopOffline();
+            }
           }
         }
       });
