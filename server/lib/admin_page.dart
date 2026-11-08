@@ -99,7 +99,7 @@ String adminPageHtml() => r'''<!DOCTYPE html>
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>时间</th><th>版本</th><th>课程</th><th>说明</th><th>事件</th></tr>
+                <tr><th>时间</th><th>账号</th><th>手机平台</th><th>版本</th><th>课程</th><th>说明</th><th>事件</th></tr>
               </thead>
               <tbody id="report-rows"></tbody>
             </table>
@@ -200,6 +200,13 @@ function deviceLabel(device) {
   return parts.join(' · ');
 }
 
+function platformLabel(report) {
+  const parts = [];
+  if (report.platform) parts.push(report.platform);
+  if (report.osVersion) parts.push(report.osVersion);
+  return parts.join(' · ') || '未上报';
+}
+
 function deviceDetail(device) {
   if (!device) return '设备未上报（旧版本客户端）';
   const parts = [];
@@ -289,13 +296,15 @@ async function loadReports() {
   for (const report of body.reports || []) {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
-    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td>';
+    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
     const cells = tr.children;
     cells[0].textContent = localTime(report.receivedAt);
-    cells[1].textContent = report.appVersion || '';
-    cells[2].textContent = report.lesson || '';
-    cells[3].textContent = (report.note || '').slice(0, 40);
-    cells[4].textContent = String(report.eventCount || 0);
+    cells[1].textContent = report.accountLabel || '未登录';
+    cells[2].textContent = platformLabel(report);
+    cells[3].textContent = report.appVersion || '';
+    cells[4].textContent = report.lesson || '';
+    cells[5].textContent = (report.note || '').slice(0, 40);
+    cells[6].textContent = String(report.eventCount || 0);
     tr.addEventListener('click', function () { openReport(report.reportId); });
     rows.appendChild(tr);
   }
@@ -314,7 +323,9 @@ async function openReport(id) {
   box.appendChild(title);
   const meta = document.createElement('p');
   meta.className = 'muted';
-  meta.textContent = localTime(report.receivedAt) + ' · ' + (report.accountId || '未登录');
+  meta.textContent = localTime(report.receivedAt) +
+    ' · ' + (report.accountLabel || '未登录') +
+    ' · ' + platformLabel(report);
   box.appendChild(meta);
   if (report.note) {
     const note = document.createElement('p');
@@ -386,6 +397,34 @@ document.getElementById('sync-run').addEventListener('click', async function () 
   await loadAccounts();
 });
 
+function syncHistoryTable(items) {
+  const table = document.createElement('table');
+  const header = document.createElement('tr');
+  for (const title of ['时间', '客户端时间', '来源', '课数', '设备']) {
+    const th = document.createElement('th');
+    th.textContent = title;
+    header.appendChild(th);
+  }
+  table.appendChild(header);
+  for (const item of items) {
+    const row = document.createElement('tr');
+    const values = [
+      localTime(item.serverUpdatedAt),
+      item.clientUpdatedAt ? localTime(item.clientUpdatedAt) : '',
+      item.source === 'admin' ? '后台' : '客户端',
+      String(item.lessonCount ?? ''),
+      item.device ? deviceDetail(item.device) : '未上报',
+    ];
+    for (const value of values) {
+      const td = document.createElement('td');
+      td.textContent = value;
+      row.appendChild(td);
+    }
+    table.appendChild(row);
+  }
+  return table;
+}
+
 function lessonRows(items) {
   if (!items || !items.length) {
     const empty = document.createElement('p');
@@ -436,14 +475,15 @@ async function openDetail(id) {
   const syncTitle = document.createElement('h3');
   syncTitle.textContent = '同步信息';
   detail.appendChild(syncTitle);
-  const syncInfo = document.createElement('p');
-  syncInfo.className = 'muted';
-  syncInfo.textContent = '最近同步 ' +
-    (account.serverUpdatedAt ? localTime(account.serverUpdatedAt) : '未同步') +
-    ' · 客户端时间 ' +
-    (current.clientUpdatedAt ? localTime(current.clientUpdatedAt) : '未上报') +
-    ' · ' + deviceDetail(account.device);
-  detail.appendChild(syncInfo);
+  const history = current.syncHistory || [];
+  if (!history.length) {
+    const syncInfo = document.createElement('p');
+    syncInfo.className = 'muted';
+    syncInfo.textContent = '未同步';
+    detail.appendChild(syncInfo);
+  } else {
+    detail.appendChild(syncHistoryTable(history));
+  }
   for (const pair of [['英语', progress.english], ['梵文', progress.sanskrit], ['中文', progress.chinese], ['其他', progress.other]]) {
     const h = document.createElement('h3');
     h.textContent = pair[0];

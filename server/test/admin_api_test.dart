@@ -509,6 +509,97 @@ void main() {
     expect(device.containsKey('installId'), false);
   });
 
+  test('账号保留最近 10 次同步，后台同步单独标明来源', () async {
+    final handler = open(token: adminToken);
+    final registered = await json(
+      await send(
+        handler,
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'sync@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
+    final id = registered['account']['accountId'] as String;
+    final access = registered['accessToken'] as String;
+    final other = await json(
+      await send(
+        handler,
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'other@example.com',
+          'password': 'secret6',
+          'displayName': 'Bob',
+        },
+      ),
+    );
+    final otherId = other['account']['accountId'] as String;
+
+    for (var i = 1; i <= 11; i++) {
+      final response = await send(
+        handler,
+        'PUT',
+        '/v1/sync',
+        bearer: access,
+        body: {
+          'clientUpdatedAt': i,
+          'device': {
+            'platform': 'android',
+            'osVersion': '13',
+            'appVersion': '0.8.35',
+            'installId': 'phone-$i',
+          },
+          'payload': {
+            'schemaVersion': 1,
+            'progress': {
+              for (var n = 0; n < i; n++) 'lesson-$n': {'completed': true},
+            },
+            'track': {},
+          },
+        },
+      );
+      expect(response.statusCode, 200, reason: await response.readAsString());
+    }
+
+    final detail = await json(
+      await send(handler, 'GET', '/admin/api/accounts/$id', bearer: adminToken),
+    );
+    final history = detail['syncHistory'] as List;
+    expect(history, hasLength(10));
+    expect(history.first['clientUpdatedAt'], 11);
+    expect(history.first['lessonCount'], 11);
+    expect(history.first['source'], 'client');
+    expect(history.first['device']['installId'], 'phone-11');
+    expect(history.last['clientUpdatedAt'], 2);
+    expect(history.last['device']['installId'], 'phone-2');
+
+    final merged = await send(
+      handler,
+      'POST',
+      '/admin/api/sync',
+      bearer: adminToken,
+      body: {'sourceAccountId': id, 'targetAccountId': otherId},
+    );
+    expect(merged.statusCode, 200, reason: await merged.readAsString());
+    final target = await json(
+      await send(
+        handler,
+        'GET',
+        '/admin/api/accounts/$otherId',
+        bearer: adminToken,
+      ),
+    );
+    final targetHistory = target['syncHistory'] as List;
+    expect(targetHistory, hasLength(1));
+    expect(targetHistory.first['source'], 'admin');
+    expect(targetHistory.first.containsKey('device'), isFalse);
+    expect(targetHistory.first['lessonCount'], 11);
+  });
+
   test('没有 cv 的旧 token 不能同步', () async {
     final handler = open(token: adminToken);
     final registered = await json(

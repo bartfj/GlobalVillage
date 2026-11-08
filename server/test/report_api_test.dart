@@ -45,6 +45,7 @@ void main() {
     'context': {
       'appVersion': '0.8.32',
       'os': 'android',
+      'osVersion': '13',
       'lesson': '英语中级 · 经历叙述 · 交代背景 · i_u1l1',
       'accessToken': 'secret-token',
     },
@@ -84,6 +85,9 @@ void main() {
     );
     expect(listed['reports'], hasLength(1));
     expect(listed['reports'][0]['lesson'], '英语中级 · 经历叙述 · 交代背景 · i_u1l1');
+    expect(listed['reports'][0]['accountLabel'], '未登录');
+    expect(listed['reports'][0]['platform'], 'android');
+    expect(listed['reports'][0]['osVersion'], '13');
     final detail = await json(
       await send(
         handler,
@@ -100,6 +104,9 @@ void main() {
       detail['report']['context']['lesson'],
       '英语中级 · 经历叙述 · 交代背景 · i_u1l1',
     );
+    expect(detail['report']['accountLabel'], '未登录');
+    expect(detail['report']['platform'], 'android');
+    expect(detail['report']['osVersion'], '13');
   });
 
   test('超大请求体拒绝', () async {
@@ -172,10 +179,12 @@ void main() {
     );
     final byId = {
       for (final report in listed['reports'] as List)
-        (report as Map)['reportId']: report['accountId'],
+        (report as Map)['reportId'] as String: report as Map,
     };
-    expect(byId['reportid02'], accountId);
-    expect(byId['reportid03'], isNull);
+    expect(byId['reportid02']!['accountId'], accountId);
+    expect(byId['reportid02']!['accountLabel'], 'a@example.com · Ann');
+    expect(byId['reportid03']!['accountId'], isNull);
+    expect(byId['reportid03']!['accountLabel'], '未登录');
   });
 
   test('内存仓储新实例为空，超过 500 条丢掉最旧的', () async {

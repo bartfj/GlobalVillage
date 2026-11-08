@@ -303,6 +303,7 @@ void _mountAdmin(
       'track': _trackOf(record),
       'rewards': _rewardsOf(record),
       'progress': _groupedProgress(record),
+      'syncHistory': _syncHistoryJson(record),
     });
   });
 
@@ -386,7 +387,12 @@ void _mountAdmin(
       target: targetRecord?.payload,
     );
     final clientUpdatedAt = merged['clientUpdatedAt'] as int;
-    final saved = await sync.put(targetId, merged, clientUpdatedAt);
+    final saved = await sync.put(
+      targetId,
+      merged,
+      clientUpdatedAt,
+      source: syncSourceAdmin,
+    );
     return _json(200, {
       'targetAccountId': targetId,
       'lessonCount': lessonCountOf(merged),
@@ -398,8 +404,14 @@ void _mountAdmin(
   router.get('/admin/api/reports', (Request request) async {
     if (!_adminAllowed(request, adminToken)) return _adminUnauthorized();
     final list = await reports.list();
+    final accounts = {
+      for (final account in await repo.listAll()) account.accountId: account,
+    };
     return _json(200, {
-      'reports': [for (final report in list) report.toListJson()],
+      'reports': [
+        for (final report in list)
+          _adminReportJson(report, accounts[report.accountId]),
+      ],
     });
   });
 
@@ -407,7 +419,12 @@ void _mountAdmin(
     if (!_adminAllowed(request, adminToken)) return _adminUnauthorized();
     final report = await reports.get(id);
     if (report == null) return _error(404, 'not_found', '报告不存在');
-    return _json(200, {'report': report.toDetailJson()});
+    final account = report.accountId == null
+        ? null
+        : await repo.findById(report.accountId!);
+    return _json(200, {
+      'report': _adminReportJson(report, account, detail: true),
+    });
   });
 
   router.delete('/admin/api/accounts/<id>', (Request request, String id) async {
@@ -448,6 +465,48 @@ Map<String, Object?> _adminAccountJson(Account account, SyncSummary? summary) =>
       'lessonCount': summary?.lessonCount ?? 0,
       'device': summary?.device,
     };
+
+Map<String, Object?> _adminReportJson(
+  ClientReport report,
+  Account? account, {
+  bool detail = false,
+}) {
+  final json = detail ? report.toDetailJson() : report.toListJson();
+  json['accountLabel'] = _accountLabel(account, report.accountId);
+  json['platform'] = report.context['os'];
+  json['osVersion'] = report.context['osVersion'];
+  return json;
+}
+
+String _accountLabel(Account? account, String? accountId) {
+  if (account == null) {
+    return (accountId == null || accountId.isEmpty) ? '未登录' : accountId;
+  }
+  final login = account.phone ?? account.email;
+  final name = account.displayName.trim();
+  if (login != null && login.isNotEmpty) {
+    if (name.isNotEmpty) return '$login · $name';
+    return login;
+  }
+  if (name.isNotEmpty) return name;
+  return account.accountId;
+}
+
+List<Map<String, Object?>> _syncHistoryJson(SyncRecord? record) {
+  if (record == null) return const [];
+  if (record.history.isNotEmpty) {
+    return [for (final item in record.history) Map<String, Object?>.from(item)];
+  }
+  return [
+    {
+      'serverUpdatedAt': record.serverUpdatedAt.toUtc().toIso8601String(),
+      'clientUpdatedAt': record.clientUpdatedAt,
+      'lessonCount': lessonCountOf(record.payload),
+      'source': syncSourceClient,
+      if (record.device != null) 'device': record.device,
+    },
+  ];
+}
 
 SyncSummary? _summaryOf(SyncRecord? record) {
   if (record == null) return null;
