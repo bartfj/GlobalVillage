@@ -21,6 +21,7 @@ import '../features/rewards/rewards_page.dart';
 import '../features/rewards/tree_page.dart';
 import '../features/skill_practice/skill_practice_chapters_page.dart';
 import '../features/skill_practice/skill_practice_page.dart';
+import 'adaptive/app_adaptive_shell.dart';
 import 'providers.dart';
 
 const _authLocations = ['/welcome', '/login', '/register'];
@@ -43,7 +44,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final onAuth = _authLocations.contains(state.matchedLocation);
       if (!auth.hasSession && !onAuth) return '/welcome';
       if (state.matchedLocation == '/sanskrit-audio' &&
-          ref.read(selectedTrackProvider).language != LearningLanguage.sanskrit) {
+          ref.read(selectedTrackProvider).language !=
+              LearningLanguage.sanskrit) {
         return '/';
       }
       if (state.matchedLocation.startsWith('/practice/')) {
@@ -64,48 +66,48 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const LearningPathPage()),
-      GoRoute(path: '/review', builder: (context, state) => const ReviewPage()),
-      GoRoute(
-        path: '/sanskrit-audio',
-        builder: (context, state) => const SanskritAudioPage(),
-      ),
-      GoRoute(
-        path: '/practice/:skill',
-        builder: (context, state) {
-          final skill = SkillPracticeKind.tryParse(
-            state.pathParameters['skill'] ?? '',
-          );
-          if (skill == null) {
-            return const LearningPathPage();
-          }
-          return SkillPracticeChaptersPage(skill: skill);
-        },
+      ShellRoute(
+        builder: (context, state, child) => AppAdaptiveShell(child: child),
         routes: [
           GoRoute(
-            path: ':chapterId',
+            path: '/',
+            builder: (context, state) => const LearningPathPage(),
+          ),
+          GoRoute(
+            path: '/review',
+            builder: (context, state) => const ReviewPage(),
+          ),
+          GoRoute(
+            path: '/sanskrit-audio',
+            builder: (context, state) => const SanskritAudioPage(),
+          ),
+          GoRoute(
+            path: '/practice/:skill',
             builder: (context, state) {
               final skill = SkillPracticeKind.tryParse(
                 state.pathParameters['skill'] ?? '',
               );
-              final chapterId = state.pathParameters['chapterId'] ?? '';
-              if (skill == null || chapterId.isEmpty) {
+              if (skill == null) {
                 return const LearningPathPage();
               }
-              return SkillPracticePage(skill: skill, chapterId: chapterId);
+              return SkillPracticeChaptersPage(skill: skill);
             },
           ),
+          GoRoute(
+            path: '/badges',
+            builder: (context, state) => const RewardsPage(),
+          ),
+          GoRoute(path: '/rewards', redirect: (context, state) => '/badges'),
+          GoRoute(path: '/tree', builder: (context, state) => const TreePage()),
+          GoRoute(
+            path: '/completed',
+            builder: (context, state) => const CompletedLessonsPage(),
+          ),
+          GoRoute(
+            path: '/account',
+            builder: (context, state) => const AccountPage(),
+          ),
         ],
-      ),
-      GoRoute(
-        path: '/badges',
-        builder: (context, state) => const RewardsPage(),
-      ),
-      GoRoute(path: '/rewards', redirect: (context, state) => '/badges'),
-      GoRoute(path: '/tree', builder: (context, state) => const TreePage()),
-      GoRoute(
-        path: '/completed',
-        builder: (context, state) => const CompletedLessonsPage(),
       ),
       GoRoute(
         path: '/welcome',
@@ -115,10 +117,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/register',
         builder: (context, state) => const RegisterPage(),
-      ),
-      GoRoute(
-        path: '/account',
-        builder: (context, state) => const AccountPage(),
       ),
       GoRoute(
         path: '/lesson/:lessonId',
@@ -137,6 +135,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           lessonId: state.pathParameters['lessonId']!,
           result: state.extra! as LessonResult,
         ),
+      ),
+      GoRoute(
+        path: '/practice/:skill/:chapterId',
+        builder: (context, state) {
+          final skill = SkillPracticeKind.tryParse(
+            state.pathParameters['skill'] ?? '',
+          );
+          final chapterId = state.pathParameters['chapterId'] ?? '';
+          if (skill == null || chapterId.isEmpty) {
+            return const LearningPathPage();
+          }
+          return SkillPracticePage(skill: skill, chapterId: chapterId);
+        },
       ),
     ],
   );

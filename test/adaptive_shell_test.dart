@@ -3,7 +3,9 @@ import 'package:english_village/app/adaptive/adaptive_content_column.dart';
 import 'package:english_village/app/adaptive/adaptive_nav_destination.dart';
 import 'package:english_village/app/adaptive/app_adaptive_shell.dart';
 import 'package:english_village/app/app_strings.dart';
+import 'package:english_village/app/auth_controller.dart';
 import 'package:english_village/app/providers.dart';
+import 'package:english_village/app/router.dart';
 import 'package:english_village/app/selected_track_controller.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/learning_language.dart';
@@ -19,6 +21,74 @@ class _FixedTrack extends StateNotifier<CourseTrack>
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _Auth extends StateNotifier<AuthState> implements AuthController {
+  _Auth(bool signedIn)
+    : super(signedIn ? const AuthState(userKey: 'test') : const AuthState());
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+GoRouter _chromeRouter({String initialLocation = '/'}) {
+  return GoRouter(
+    initialLocation: initialLocation,
+    routes: [
+      ShellRoute(
+        builder: (context, state, child) => AppAdaptiveShell(child: child),
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => TextButton(
+              onPressed: () => context.push('/lesson/x'),
+              child: const Text('home'),
+            ),
+          ),
+          GoRoute(
+            path: '/practice/:skill',
+            builder: (context, state) => TextButton(
+              onPressed: () => context.push(
+                '/practice/${state.pathParameters['skill']}/ch1',
+              ),
+              child: Text('practice:${state.pathParameters['skill']}'),
+            ),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/lesson/:lessonId',
+        builder: (context, state) =>
+            Text('lesson:${state.pathParameters['lessonId']}'),
+      ),
+      GoRoute(
+        path: '/practice/:skill/:chapterId',
+        builder: (context, state) => Text(
+          'chapter:${state.pathParameters['skill']}/${state.pathParameters['chapterId']}',
+        ),
+      ),
+    ],
+  );
+}
+
+Future<void> _pumpChrome(
+  WidgetTester tester,
+  GoRouter router, {
+  Size size = const Size(1200, 900),
+}) async {
+  tester.view.physicalSize = size;
+  tester.view.devicePixelRatio = 1;
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        stringsProvider.overrideWithValue(const S(UiLanguage.chinese)),
+        selectedTrackProvider.overrideWith(
+          (ref) => _FixedTrack(CourseTrack.beginner),
+        ),
+      ],
+      child: MaterialApp.router(routerConfig: router),
+    ),
+  );
 }
 
 void main() {
@@ -183,5 +253,173 @@ void main() {
     await tester.tap(find.text('练习'));
     await tester.pumpAndSettle();
     expect(find.text('practice:sanskritLetters'), findsOneWidget);
+  });
+
+  testWidgets('home route has NavigationRail on wide screen', (tester) async {
+    final router = _chromeRouter();
+    addTearDown(router.dispose);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await _pumpChrome(tester, router);
+
+    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.text('home'), findsOneWidget);
+  });
+
+  testWidgets('lesson route has no NavigationRail on wide screen', (
+    tester,
+  ) async {
+    final router = _chromeRouter(initialLocation: '/lesson/x');
+    addTearDown(router.dispose);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await _pumpChrome(tester, router);
+
+    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.text('lesson:x'), findsOneWidget);
+  });
+
+  testWidgets('pushed lesson and chapter routes leave the shell', (
+    tester,
+  ) async {
+    final router = _chromeRouter();
+    addTearDown(router.dispose);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await _pumpChrome(tester, router);
+    await tester.tap(find.text('home'));
+    await tester.pumpAndSettle();
+    expect(find.text('lesson:x'), findsOneWidget);
+    expect(find.byType(NavigationRail), findsNothing);
+
+    router.pop();
+    await tester.pumpAndSettle();
+    expect(find.text('home'), findsOneWidget);
+    expect(find.byType(NavigationRail), findsOneWidget);
+
+    router.go('/practice/pronunciation');
+    await tester.pumpAndSettle();
+    expect(find.text('practice:pronunciation'), findsOneWidget);
+    expect(find.byType(NavigationRail), findsOneWidget);
+
+    await tester.tap(find.text('practice:pronunciation'));
+    await tester.pumpAndSettle();
+    expect(find.text('chapter:pronunciation/ch1'), findsOneWidget);
+    expect(find.byType(NavigationRail), findsNothing);
+
+    router.pop();
+    await tester.pumpAndSettle();
+    expect(find.text('practice:pronunciation'), findsOneWidget);
+    expect(find.byType(NavigationRail), findsOneWidget);
+  });
+
+  testWidgets('production router keeps focus routes outside the shell', (
+    tester,
+  ) async {
+    final container = ProviderContainer(
+      overrides: [
+        authProvider.overrideWith((ref) => _Auth(true)),
+        selectedTrackProvider.overrideWith(
+          (ref) => _FixedTrack(CourseTrack.beginner),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+    final router = container.read(goRouterProvider);
+
+    late BuildContext context;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (c) {
+            context = c;
+            return const SizedBox();
+          },
+        ),
+      ),
+    );
+
+    void expectShell(String location, bool inShell, String fullPath) {
+      final match = router.configuration.findMatch(Uri.parse(location));
+      expect(match.error, isNull, reason: location);
+      expect(match.fullPath, fullPath, reason: location);
+      expect(
+        match.matches.any((m) => m is ShellRouteMatch),
+        inShell,
+        reason: location,
+      );
+    }
+
+    expectShell('/', true, '/');
+    expectShell('/review', true, '/review');
+    expectShell('/sanskrit-audio', true, '/sanskrit-audio');
+    expectShell('/practice/pronunciation', true, '/practice/:skill');
+    expectShell('/badges', true, '/badges');
+    expectShell('/rewards', true, '/rewards');
+    expectShell('/tree', true, '/tree');
+    expectShell('/completed', true, '/completed');
+    expectShell('/account', true, '/account');
+    expectShell('/welcome', false, '/welcome');
+    expectShell('/login', false, '/login');
+    expectShell('/register', false, '/register');
+    expectShell('/lesson/abc', false, '/lesson/:lessonId');
+    expectShell('/lesson/abc/result', false, '/lesson/:lessonId/result');
+    expectShell(
+      '/practice/pronunciation/ch1',
+      false,
+      '/practice/:skill/:chapterId',
+    );
+
+    final chapter = router.configuration.findMatch(
+      Uri.parse('/practice/pronunciation/ch1'),
+    );
+    expect(chapter.pathParameters['skill'], 'pronunciation');
+    expect(chapter.pathParameters['chapterId'], 'ch1');
+
+    final shell = router.configuration.routes.whereType<ShellRoute>().single;
+    final practice = shell.routes.whereType<GoRoute>().singleWhere(
+      (route) => route.path == '/practice/:skill',
+    );
+    expect(practice.routes, isEmpty);
+
+    Future<String> resolve(String location) async {
+      router.go(location);
+      final match = await router.routeInformationParser
+          .parseRouteInformationWithDependencies(
+            router.routeInformationProvider.value,
+            context,
+          );
+      return match.uri.path;
+    }
+
+    expect(
+      await resolve('/practice/pronunciation/ch1'),
+      '/practice/pronunciation/ch1',
+    );
+    expect(await resolve('/practice/sanskritLetters/ch1'), '/');
+    expect(await resolve('/lesson/abc'), '/lesson/abc');
+    expect(await resolve('/rewards'), '/badges');
+
+    final signedOut = ProviderContainer(
+      overrides: [
+        authProvider.overrideWith((ref) => _Auth(false)),
+        selectedTrackProvider.overrideWith(
+          (ref) => _FixedTrack(CourseTrack.beginner),
+        ),
+      ],
+    );
+    addTearDown(signedOut.dispose);
+    final gated = signedOut.read(goRouterProvider);
+    gated.go('/');
+    final welcome = await gated.routeInformationParser
+        .parseRouteInformationWithDependencies(
+          gated.routeInformationProvider.value,
+          context,
+        );
+    expect(welcome.uri.path, '/welcome');
+    expect(welcome.matches.any((m) => m is ShellRouteMatch), isFalse);
   });
 }
