@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../app/widgets/app_version_label.dart';
@@ -15,8 +16,9 @@ class WelcomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
+      body: AdaptiveContentColumn(
+        child: SafeArea(
+          child: Padding(
           padding: const EdgeInsets.all(28),
           child: Column(
             children: [
@@ -64,6 +66,7 @@ class WelcomePage extends ConsumerWidget {
               const AppVersionLabel(),
             ],
           ),
+        ),
         ),
       ),
     );

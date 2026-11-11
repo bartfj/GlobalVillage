@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import 'api_base_url_dialog.dart';
@@ -97,8 +98,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         elevation: 0,
         iconTheme: const IconThemeData(color: AppColors.textPrimary),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: AdaptiveContentColumn(
+        child: SafeArea(
+          child: SingleChildScrollView(
           padding: const EdgeInsets.all(28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -192,6 +194,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );

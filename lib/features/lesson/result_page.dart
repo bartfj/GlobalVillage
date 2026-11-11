@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
@@ -131,8 +132,9 @@ class _ResultPageState extends ConsumerState<ResultPage> {
 
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        body: Stack(
+      child: AdaptiveContentColumn(
+        child: Scaffold(
+          body: Stack(
           children: [
             SafeArea(
               child: Padding(
@@ -270,6 +272,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                 ),
               ),
           ],
+        ),
         ),
       ),
     );
