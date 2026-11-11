@@ -34,10 +34,10 @@ flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 
 ### 已上传构建
 
-- IPA：`build/ios/ipa/english_village.ipa`（~121MB）
+- IPA：`build/ios/ipa/english_village.ipa`（~128MB）
 - Version：`0.8.50` / Build：`67`
 - API：`https://api.vincent-tech.cn/v1`
-- Delivery UUID：（Android APK 已发；本机 IPA 待重新 Archive 上传）
+- Delivery UUID：`5c623df4-c19a-4764-be90-ad1ed40f6d17`
 - App ID：`6816596368`
 
 ### 历史构建
