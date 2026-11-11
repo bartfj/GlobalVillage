@@ -12,6 +12,15 @@ import '../../data/sources/skill_practice_loader.dart';
 import '../lesson/widgets/lesson_style.dart';
 import 'skill_practice_style.dart';
 
+/// 导航轨用 [GoRouter.go] 打开章节地图时栈里没有可弹出的页。
+void popOrGoHome(BuildContext context) {
+  if (context.canPop()) {
+    context.pop();
+  } else {
+    context.go('/');
+  }
+}
+
 /// 专项练习章节地图：软解锁 + 跳练已解锁章
 class SkillPracticeChaptersPage extends ConsumerStatefulWidget {
   const SkillPracticeChaptersPage({
@@ -88,7 +97,7 @@ class _SkillPracticeChaptersPageState
                 ),
                 const SizedBox(height: 16),
                 TextButton(
-                  onPressed: () => context.pop(),
+                  onPressed: () => popOrGoHome(context),
                   child: Text(s.back),
                 ),
               ],
@@ -119,7 +128,7 @@ class _SkillPracticeChaptersPageState
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back_rounded),
-                    onPressed: () => context.pop(),
+                    onPressed: () => popOrGoHome(context),
                   ),
                   Icon(widget.skill.icon, color: _accent),
                   const SizedBox(width: 10),

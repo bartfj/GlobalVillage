@@ -10,6 +10,7 @@ import 'package:english_village/app/selected_track_controller.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/data/models/skill_practice.dart';
+import 'package:english_village/features/skill_practice/skill_practice_chapters_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -163,6 +164,120 @@ void main() {
 
     final box = tester.renderObject<RenderBox>(find.byKey(const Key('inner')));
     expect(box.size.width, closeTo(390, 0.5));
+  });
+
+  testWidgets('shell forces 780 content width beside the rail', (tester) async {
+    final router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        ShellRoute(
+          builder: (context, state, child) => AppAdaptiveShell(child: child),
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (context, state) => const SizedBox(
+                key: Key('page'),
+                width: double.infinity,
+                height: 48,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+    addTearDown(router.dispose);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Future<void> expectClamped(Size size) async {
+      await _pumpChrome(tester, router, size: size);
+      expect(find.byType(NavigationRail), findsOneWidget);
+
+      final pageRect = tester.getRect(find.byKey(const Key('page')));
+      final alignRect = tester.getRect(
+        find
+            .ancestor(
+              of: find.byKey(const Key('page')),
+              matching: find.byType(Align),
+            )
+            .first,
+      );
+      expect(alignRect.width, greaterThan(kAdaptiveContentMaxWidth));
+      expect(pageRect.width, lessThanOrEqualTo(kAdaptiveContentMaxWidth));
+      expect(pageRect.width, closeTo(kAdaptiveContentMaxWidth, 0.5));
+      final expectedLeft =
+          alignRect.left + (alignRect.width - pageRect.width) / 2;
+      expect(pageRect.left, closeTo(expectedLeft, 0.5));
+    }
+
+    await expectClamped(const Size(1024, 800));
+    await expectClamped(const Size(920, 800));
+  });
+
+  testWidgets('popOrGoHome pops when a page is still on the stack', (
+    tester,
+  ) async {
+    final router = GoRouter(
+      initialLocation: '/a',
+      routes: [
+        GoRoute(path: '/a', builder: (context, state) => const Text('page-a')),
+        GoRoute(
+          path: '/b',
+          builder: (context, state) => TextButton(
+            onPressed: () => popOrGoHome(context),
+            child: const Text('back'),
+          ),
+        ),
+      ],
+    );
+    addTearDown(router.dispose);
+
+    await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+    router.push('/b');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('back'));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('page-a'), findsOneWidget);
+    expect(router.routeInformationProvider.value.uri.path, '/a');
+  });
+
+  testWidgets('chapter map back after rail go returns home', (tester) async {
+    final router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        ShellRoute(
+          builder: (context, state, child) => AppAdaptiveShell(child: child),
+          routes: [
+            GoRoute(path: '/', builder: (context, state) => const Text('home')),
+            GoRoute(
+              path: '/practice/:skill',
+              builder: (context, state) => TextButton(
+                onPressed: () => popOrGoHome(context),
+                child: const Text('map-back'),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+    addTearDown(router.dispose);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await _pumpChrome(tester, router, size: const Size(1024, 800));
+    await tester.tap(find.text('练习'));
+    await tester.pumpAndSettle();
+    expect(find.text('map-back'), findsOneWidget);
+    expect(router.routeInformationProvider.value.uri.path, isNot('/'));
+
+    await tester.tap(find.text('map-back'));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('home'), findsOneWidget);
+    expect(router.routeInformationProvider.value.uri.path, '/');
   });
 
   test('path destination matches only the root location', () {

@@ -27,7 +27,8 @@ class AppAdaptiveShell extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final wide = showAdaptiveRail(constraints.maxWidth);
-        final body = AdaptiveContentColumn(child: child);
+        // 轨占宽后剩余经常 < 900，内容柱自己的断点不会生效。
+        final body = AdaptiveContentColumn(forceClamp: wide, child: child);
         if (!wide) {
           return body;
         }
