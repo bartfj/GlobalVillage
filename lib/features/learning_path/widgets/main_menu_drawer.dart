@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/adaptive/adaptive_breakpoints.dart';
 import '../../../app/providers.dart';
 import '../../../app/app_strings.dart';
 import '../../../app/theme.dart';
@@ -92,6 +93,7 @@ class MainMenuDrawer extends ConsumerWidget {
     final selectedTrack = ref.watch(selectedTrackProvider);
     final allCourses = ref.watch(allCoursesProvider).requireValue;
     final s = ref.watch(stringsProvider);
+    final wide = showAdaptiveRail(MediaQuery.sizeOf(context).width);
 
     if (progress == null || rewards == null) {
       return const Drawer(
@@ -112,8 +114,8 @@ class MainMenuDrawer extends ConsumerWidget {
     final displayName = isGuest
         ? s.guest
         : auth.isOnline
-            ? (auth.displayName ?? s.onlineUser)
-            : (auth.userKey ?? s.notLoggedIn);
+        ? (auth.displayName ?? s.onlineUser)
+        : (auth.userKey ?? s.notLoggedIn);
     final initial = displayName.isNotEmpty
         ? String.fromCharCode(displayName.runes.first)
         : '?';
@@ -136,7 +138,9 @@ class MainMenuDrawer extends ConsumerWidget {
               userKey: auth.userKey,
               s: s,
               onLogin: onLogin,
-              onOpen: isGuest ? null : () => _openRoute(context, '/account'),
+              onOpen: wide || isGuest
+                  ? null
+                  : () => _openRoute(context, '/account'),
             ),
             const SizedBox(height: 10),
             _StatsCard(
@@ -146,7 +150,7 @@ class MainMenuDrawer extends ConsumerWidget {
                   color: AppColors.blue,
                   label: s.statsCompleted,
                   value: '$completed/$total',
-                  onTap: () => _openRoute(context, '/completed'),
+                  onTap: wide ? null : () => _openRoute(context, '/completed'),
                 ),
                 _StatData(
                   icon: Icons.park_rounded,
@@ -154,14 +158,14 @@ class MainMenuDrawer extends ConsumerWidget {
                   label: s.statsTree,
                   value: '$treeCount',
                   subtitle: treeStage.label,
-                  onTap: () => _openRoute(context, '/tree'),
+                  onTap: wide ? null : () => _openRoute(context, '/tree'),
                 ),
                 _StatData(
                   icon: Icons.emoji_events_rounded,
                   color: AppColors.goldDark,
                   label: s.statsBadges,
                   value: '×$badgeUnits',
-                  onTap: () => _openRoute(context, '/badges'),
+                  onTap: wide ? null : () => _openRoute(context, '/badges'),
                 ),
               ],
             ),
@@ -204,7 +208,8 @@ class MainMenuDrawer extends ConsumerWidget {
               title: s.sectionPractice,
               child: Column(
                 children: [
-                  if (selectedTrack.language == LearningLanguage.sanskrit)
+                  if (!wide &&
+                      selectedTrack.language == LearningLanguage.sanskrit)
                     _MenuRow(
                       icon: Icons.record_voice_over_rounded,
                       color: AppColors.goldDark,
@@ -219,7 +224,8 @@ class MainMenuDrawer extends ConsumerWidget {
                       icon: skill.icon,
                       color: skill.accent,
                       title: s.skillTitle(skill),
-                      onTap: () => _openRoute(context, '/practice/${skill.name}'),
+                      onTap: () =>
+                          _openRoute(context, '/practice/${skill.name}'),
                     ),
                 ],
               ),
@@ -229,12 +235,13 @@ class MainMenuDrawer extends ConsumerWidget {
               title: s.sectionMore,
               child: Column(
                 children: [
-                  _MenuRow(
-                    icon: Icons.history_rounded,
-                    color: AppColors.blue,
-                    title: s.reviewRecords,
-                    onTap: () => _openRoute(context, '/review'),
-                  ),
+                  if (!wide)
+                    _MenuRow(
+                      icon: Icons.history_rounded,
+                      color: AppColors.blue,
+                      title: s.reviewRecords,
+                      onTap: () => _openRoute(context, '/review'),
+                    ),
                   _MenuRow(
                     icon: Icons.translate_rounded,
                     color: AppColors.greenDark,
@@ -371,8 +378,8 @@ class _AccountCard extends StatelessWidget {
     final (chipLabel, chipColor) = isGuest
         ? (s.chipGuest, AppColors.textSecondary)
         : isOnline
-            ? (s.chipOnline, AppColors.blue)
-            : (s.chipLocal, AppColors.goldDark);
+        ? (s.chipOnline, AppColors.blue)
+        : (s.chipLocal, AppColors.goldDark);
     final card = _Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -587,7 +594,7 @@ class _StatData {
   final String label;
   final String value;
   final String? subtitle;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 }
 
 /// 当前学习卡（浅绿高亮）：语言·课程 + 进度条 + 切换
