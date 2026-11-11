@@ -6,6 +6,9 @@ import '../../data/models/skill_practice.dart';
 import '../app_strings.dart';
 import '../providers.dart';
 
+bool sanskritAudioVisible(LearningLanguage lang) =>
+    lang == LearningLanguage.sanskrit;
+
 class AdaptiveNavDestination {
   const AdaptiveNavDestination({
     required this.id,
@@ -56,8 +59,9 @@ List<AdaptiveNavDestination> buildAdaptiveNavDestinations() {
       location: '/sanskrit-audio',
       icon: Icons.record_voice_over_rounded,
       label: (s) => s.sanskritAudioTitle,
-      visible: (ref) =>
-          ref.read(selectedTrackProvider).language == LearningLanguage.sanskrit,
+      visible: (ref) => sanskritAudioVisible(
+        ref.read(selectedTrackProvider).language,
+      ),
     ),
     AdaptiveNavDestination(
       id: 'completed',

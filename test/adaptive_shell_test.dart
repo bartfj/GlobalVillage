@@ -92,6 +92,21 @@ Future<void> _pumpChrome(
 }
 
 void main() {
+  test('constants match spec', () {
+    expect(kAdaptiveRailMinWidth, 900);
+    expect(kAdaptiveContentMaxWidth, 780);
+  });
+
+  test('sanskrit audio nav visible only for sanskrit track', () {
+    expect(sanskritAudioVisible(LearningLanguage.english), isFalse);
+    expect(sanskritAudioVisible(LearningLanguage.sanskrit), isTrue);
+
+    final dests = buildAdaptiveNavDestinations();
+    final audio = dests.firstWhere((d) => d.id == 'sanskrit-audio');
+    expect(audio.id, 'sanskrit-audio');
+    expect(audio.location, '/sanskrit-audio');
+  });
+
   test('showAdaptiveRail uses 900 breakpoint', () {
     expect(showAdaptiveRail(899), isFalse);
     expect(showAdaptiveRail(900), isTrue);
