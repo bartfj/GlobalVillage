@@ -5,12 +5,7 @@ import 'package:english_village/features/lesson/widgets/award_celebration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-const _unit = Unit(
-  id: 'u1',
-  title: '问候与自我介绍',
-  description: '',
-  lessons: [],
-);
+const _unit = Unit(id: 'u1', title: '问候与自我介绍', description: '', lessons: []);
 
 const _lesson = Lesson(id: 'l1', title: '第一课', exercises: []);
 
@@ -23,6 +18,44 @@ RewardAward _award({required int count, bool newlyAwarded = true}) =>
     );
 
 void main() {
+  for (final trees in [3, 5]) {
+    testWidgets(
+      'tree caption $trees wraps and collects at 320x560 with 1.8 fonts',
+      (tester) async {
+        tester.view.physicalSize = const Size(320, 560);
+        tester.view.devicePixelRatio = 1;
+        tester.platformDispatcher.textScaleFactorTestValue = 1.8;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+        var collected = false;
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: buildAppTheme(),
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(disableAnimations: true),
+              child: child!,
+            ),
+            home: Scaffold(
+              body: AwardCelebration(
+                award: _award(count: trees),
+                treeCount: trees,
+                onCollect: () => collected = true,
+              ),
+            ),
+          ),
+        );
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+        await tester.ensureVisible(find.text('收下徽章'));
+        await tester.pump();
+        await tester.tap(find.text('收下徽章'));
+        await tester.pump();
+        expect(collected, true);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
   testWidgets('passed award can be collected on a compact screen', (
     tester,
   ) async {
@@ -149,7 +182,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 3000));
     expect(
       find.byElementPredicate(
-        (el) => el.widget is Text && leoLines.contains((el.widget as Text).data),
+        (el) =>
+            el.widget is Text && leoLines.contains((el.widget as Text).data),
       ),
       findsOneWidget,
     );
@@ -157,7 +191,8 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
     expect(
       find.byElementPredicate(
-        (el) => el.widget is Text && miaLines.contains((el.widget as Text).data),
+        (el) =>
+            el.widget is Text && miaLines.contains((el.widget as Text).data),
       ),
       findsOneWidget,
     );

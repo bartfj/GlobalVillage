@@ -35,6 +35,10 @@ class S {
   String get motherPatternReady => isEn
       ? 'Speech recognized. Submit to see the transcript.'
       : '已识别，提交后查看转写。';
+  String get motherPatternRecallHint => isEn ? 'Recall support' : '回忆提示';
+  String get motherPatternSafeHint => isEn
+      ? 'Think of the meaning first, then recall the expression you learned. Check the speaker, object and quantity.'
+      : '先想清楚要表达的意思，再回忆学过的说法。检查说话者、对象和数量。';
   String get motherPatternPreparing =>
       isEn ? 'Preparing microphone…' : '正在准备麦克风…';
   String get motherPatternDenied => isEn

@@ -13,6 +13,7 @@ class FakePatternRecorder implements MotherPatternRecorder {
   int cancels = 0;
   int stops = 0;
   int disposals = 0;
+  final cancelWaiters = <Completer<void>>[];
   @override
   Future<bool> hasPermission() async => permission?.future ?? permitted;
   @override
@@ -32,6 +33,7 @@ class FakePatternRecorder implements MotherPatternRecorder {
   Future<void> cancel() async {
     cancels++;
     recording = false;
+    if (cancelWaiters.isNotEmpty) await cancelWaiters.removeAt(0).future;
   }
 
   @override

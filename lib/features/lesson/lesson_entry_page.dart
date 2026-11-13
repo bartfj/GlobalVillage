@@ -19,7 +19,10 @@ class LessonEntryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(selectedTrackProvider) == CourseTrack.motherPattern
-      ? MotherPatternPage(lessonId: lessonId)
+      ? MotherPatternPage(
+          key: ValueKey('mother-pattern:$lessonId'),
+          lessonId: lessonId,
+        )
       : LessonPage(
           lessonId: lessonId,
           initialExerciseIndex: initialExerciseIndex,

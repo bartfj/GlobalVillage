@@ -22,6 +22,7 @@ class MotherPatternQuestion extends StatelessWidget {
     required this.onNext,
     required this.onPlay,
     required this.onRecord,
+    this.transitioning = false,
   });
   final MotherPatternState state;
   final PatternLesson pattern;
@@ -29,6 +30,7 @@ class MotherPatternQuestion extends StatelessWidget {
   final S strings;
   final TextEditingController input;
   final String answer;
+  final bool transitioning;
   final ValueChanged<String> onAnswer;
   final VoidCallback onHint, onFallback, onCheck, onNext, onRecord;
   final Future<void> Function(Exercise) onPlay;
@@ -81,7 +83,9 @@ class MotherPatternQuestion extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8),
               child: OutlinedButton(
                 key: ValueKey('option-${e.id}-$i'),
-                onPressed: state.checked ? null : () => onAnswer(e.options[i]),
+                onPressed: state.checked || transitioning
+                    ? null
+                    : () => onAnswer(e.options[i]),
                 style: OutlinedButton.styleFrom(
                   backgroundColor: answer == e.options[i]
                       ? Theme.of(context).colorScheme.primaryContainer
@@ -94,7 +98,7 @@ class MotherPatternQuestion extends StatelessWidget {
           MotherPatternChunks(
             key: ValueKey(e.id),
             exercise: e,
-            enabled: !state.checked,
+            enabled: !state.checked && !transitioning,
             onChanged: onAnswer,
           )
         else if (spoken) ...[
@@ -110,7 +114,7 @@ class MotherPatternQuestion extends StatelessWidget {
               if (speech.status == MotherPatternSpeechStatus.recording)
                 FilledButton.icon(
                   key: const ValueKey('speech-stop'),
-                  onPressed: speech.finish,
+                  onPressed: transitioning ? null : speech.finish,
                   icon: const Icon(Icons.stop),
                   label: Text(strings.motherPatternStop),
                 )
@@ -126,7 +130,7 @@ class MotherPatternQuestion extends StatelessWidget {
               else
                 FilledButton.icon(
                   key: const ValueKey('speech-start'),
-                  onPressed: onRecord,
+                  onPressed: transitioning ? null : onRecord,
                   icon: const Icon(Icons.mic),
                   label: Text(
                     speech.transcript.isEmpty
@@ -149,7 +153,7 @@ class MotherPatternQuestion extends StatelessWidget {
           ] else if (state.lastAnswerCorrect != true)
             TextButton(
               key: const ValueKey('typed-fallback'),
-              onPressed: onFallback,
+              onPressed: transitioning ? null : onFallback,
               child: Text(strings.motherPatternTypedFallback),
             ),
         ] else
@@ -157,14 +161,13 @@ class MotherPatternQuestion extends StatelessWidget {
         if (!state.checked && independent) ...[
           TextButton.icon(
             key: const ValueKey('pattern-hint'),
-            onPressed: state.currentHinted ? null : onHint,
+            onPressed: state.currentHinted || transitioning ? null : onHint,
             icon: const Icon(Icons.lightbulb_outline),
-            label: Text(strings.patternShowHint),
+            label: Text(strings.motherPatternRecallHint),
           ),
           if (state.currentHinted) ...[
             Text(strings.patternHintUsed),
-            Text(pattern.frame, style: Theme.of(context).textTheme.titleMedium),
-            Text(pattern.slotRule),
+            Text(strings.motherPatternSafeHint),
           ],
         ],
         if (state.checked) ...[
@@ -184,7 +187,7 @@ class MotherPatternQuestion extends StatelessWidget {
             child: IconButton(
               key: const ValueKey('reference-audio'),
               tooltip: strings.playPronunciation,
-              onPressed: () => onPlay(e),
+              onPressed: transitioning ? null : () => onPlay(e),
               icon: const Icon(Icons.volume_up_rounded),
             ),
           ),
@@ -192,14 +195,15 @@ class MotherPatternQuestion extends StatelessWidget {
         if (state.checked)
           FilledButton(
             key: const ValueKey('pattern-next'),
-            onPressed: onNext,
+            onPressed: transitioning ? null : onNext,
             child: Text(strings.continueLabel),
           )
         else
           FilledButton(
             key: const ValueKey('pattern-check'),
             onPressed:
-                speech.busy ||
+                transitioning ||
+                    speech.busy ||
                     (spoken && !state.currentTypedFallback
                             ? speech.transcript
                             : answer)
@@ -216,7 +220,7 @@ class MotherPatternQuestion extends StatelessWidget {
   Widget _field() => TextFormField(
     key: const ValueKey('pattern-input'),
     controller: input,
-    enabled: !state.checked,
+    enabled: !state.checked && !transitioning,
     minLines: 2,
     maxLines: 5,
     autocorrect: false,

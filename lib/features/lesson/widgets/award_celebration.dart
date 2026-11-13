@@ -219,8 +219,7 @@ class _AwardCelebrationState extends State<AwardCelebration>
                 ),
               ),
               // 环绕星星
-              for (var i = 0; i < 8; i++)
-                _buildStar(i, scale),
+              for (var i = 0; i < 8; i++) _buildStar(i, scale),
               // 徽章本体（每关不同图标/颜色）
               Transform.scale(
                 scale: scale,
@@ -240,11 +239,7 @@ class _AwardCelebrationState extends State<AwardCelebration>
                         shape: BoxShape.circle,
                         color: style.color.withValues(alpha: 0.18),
                       ),
-                      child: Icon(
-                        style.icon,
-                        size: 112,
-                        color: style.color,
-                      ),
+                      child: Icon(style.icon, size: 112, color: style.color),
                     );
                   },
                 ),
@@ -299,14 +294,16 @@ class _AwardCelebrationState extends State<AwardCelebration>
         children: [
           Icon(_stageIcons[stage], size: 26, color: AppColors.greenDark),
           const SizedBox(width: 8),
-          Text(
-            leveledUp
-                ? '梭梭树成长为「${stage.label}」啦！'
-                : '梭梭树 +1 · 累计 $count 棵 · ${stage.label}',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w800,
-              color: leveledUp ? AppColors.goldDark : AppColors.greenDark,
+          Flexible(
+            child: Text(
+              leveledUp
+                  ? '梭梭树成长为「${stage.label}」啦！'
+                  : '梭梭树 +1 · 累计 $count 棵 · ${stage.label}',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w800,
+                color: leveledUp ? AppColors.goldDark : AppColors.greenDark,
+              ),
             ),
           ),
         ],
@@ -320,10 +317,7 @@ class _AwardCelebrationState extends State<AwardCelebration>
         0.55 + 0.45 * math.sin(_loop.value * math.pi * 4 + index * 1.3);
     final radius = 98.0;
     return Transform.translate(
-      offset: Offset(
-        math.cos(angle) * radius,
-        math.sin(angle) * radius,
-      ),
+      offset: Offset(math.cos(angle) * radius, math.sin(angle) * radius),
       child: Opacity(
         opacity: (badgeScale * pulse).clamp(0.0, 1.0),
         child: Icon(

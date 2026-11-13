@@ -11,11 +11,54 @@ import 'diagnostic_log.dart';
 
 /// 发音服务：优先播放内置/已下载音频，缺失时回退系统 TTS（英语、中文）。
 class TtsService {
-  TtsService({this.documents});
+  TtsService({
+    this.documents,
+    AudioPlayer? player,
+    FlutterTts? tts,
+    AssetBundle? assets,
+  }) : _player = player ?? AudioPlayer(),
+       _tts = tts ?? FlutterTts(),
+       _assets = assets ?? rootBundle;
 
   final ContentDocuments? documents;
-  final FlutterTts _tts = FlutterTts();
-  final AudioPlayer _player = AudioPlayer();
+  final FlutterTts _tts;
+  final AudioPlayer _player;
+  final AssetBundle _assets;
+  int _generation = 0;
+  bool _disposed = false;
+  Future<void> _requests = Future<void>.value();
+  Future<void> _stopping = Future<void>.value();
+
+  bool _current(int generation) => !_disposed && generation == _generation;
+  Future<bool> _request(Future<bool> Function(int) action) {
+    final generation = ++_generation;
+    final pending = _requests.then((_) async {
+      await _stopping;
+      if (!_current(generation)) return false;
+      return action(generation);
+    });
+    _requests = pending.then<void>(
+      (_) {},
+      onError: (Object _, StackTrace __) {},
+    );
+    return pending;
+  }
+
+  Future<bool> _playSource(Source source, int generation) async {
+    await _ensurePlayerReady();
+    if (!_current(generation)) return false;
+    await _tts.stop();
+    if (!_current(generation)) return false;
+    await _player.stop();
+    if (!_current(generation)) return false;
+    // AudioPlayer.play itself awaits source/cache preparation before native
+    // resume. Prepare separately so cancellation is checked after those awaits.
+    await _player.setSource(source).timeout(const Duration(seconds: 8));
+    if (!_current(generation)) return false;
+    await _player.resume().timeout(const Duration(seconds: 8));
+    return _current(generation);
+  }
+
   static const englishLanguageCandidates = ['en-US', 'en-GB', 'en'];
   static const chineseLanguageCandidates = ['zh-CN', 'zh-TW', 'zh'];
 
@@ -99,7 +142,7 @@ class TtsService {
 
   Future<bool> _assetExists(String assetPath) async {
     try {
-      await rootBundle.load(assetPath);
+      await _assets.load(assetPath);
       return true;
     } catch (_) {
       return false;
@@ -107,44 +150,33 @@ class TtsService {
   }
 
   /// 播放题目发音：内置/已下载 mp3 优先，缺失时回退对应语言的系统 TTS。
-  Future<bool> speakExercise(Exercise exercise) async {
+  Future<bool> speakExercise(Exercise exercise) => _request((generation) async {
     final relative = 'audio/listening/${exercise.id}.mp3';
     final bundlePath = 'assets/$relative';
     final cached = await documents?.audioFilePath(relative);
-
+    if (!_current(generation)) return false;
     if (cached != null) {
       try {
-        await _ensurePlayerReady();
-        await _tts.stop();
-        await _player.stop();
-        await _player
-            .play(DeviceFileSource(cached))
-            .timeout(const Duration(seconds: 8));
-        return true;
+        return await _playSource(DeviceFileSource(cached), generation);
       } catch (error, stack) {
         recordDiagnosticError('tts', error, stack);
+        if (!_current(generation)) return false;
       }
     }
-
-    if (await _assetExists(bundlePath)) {
+    final exists = await _assetExists(bundlePath);
+    if (!_current(generation)) return false;
+    if (exists) {
       try {
-        await _ensurePlayerReady();
-        await _tts.stop();
-        await _player.stop();
-        await _player
-            .play(AssetSource(relative))
-            .timeout(const Duration(seconds: 8));
-        return true;
+        return await _playSource(AssetSource(relative), generation);
       } catch (error, stack) {
         recordDiagnosticError('tts', error, stack);
-        // 播放失败则回退 TTS
+        if (!_current(generation)) return false;
       }
     }
-
     final spoken = speakableText(exercise);
     if (spoken == null) return false;
-    return speak(spoken, language: exercise.language);
-  }
+    return _speak(spoken, exercise.language, generation);
+  });
 
   static final RegExp _hanzi = RegExp(r'[\u4e00-\u9fff]');
 
@@ -170,28 +202,37 @@ class TtsService {
   Future<bool> speak(
     String text, {
     LearningLanguage language = LearningLanguage.english,
-  }) async {
-    if (text.trim().isEmpty) return false;
-    final uttered = text.trim();
+  }) => text.trim().isEmpty
+      ? Future<bool>.value(false)
+      : _request((generation) => _speak(text.trim(), language, generation));
+
+  Future<bool> _speak(
+    String text,
+    LearningLanguage language,
+    int generation,
+  ) async {
+    if (!_current(generation)) return false;
     try {
-      // 先释放 AudioPlayer 焦点，否则部分机型 TTS 会无声
       try {
         await _player.stop();
       } catch (_) {}
-      if (!await _ensureInitialized(language)) return false;
+      if (!_current(generation)) return false;
+      final initialized = await _ensureInitialized(language);
+      if (!_current(generation) || !initialized) return false;
       await _tts.stop();
+      if (!_current(generation)) return false;
       await _tts.setVolume(1.0);
-      var result = await _tts
-          .speak(uttered)
-          .timeout(const Duration(seconds: 8));
+      if (!_current(generation)) return false;
+      var result = await _tts.speak(text).timeout(const Duration(seconds: 8));
+      if (!_current(generation)) return false;
       if (speakResultOk(result)) return true;
-
-      // stop→speak 竞态时引擎会回 0；短延迟后重试一次，避免误报「语音播放失败」
       if (result == 0) {
         await Future<void>.delayed(const Duration(milliseconds: 100));
+        if (!_current(generation)) return false;
         await _tts.stop();
-        result = await _tts.speak(uttered).timeout(const Duration(seconds: 8));
-        if (speakResultOk(result)) return true;
+        if (!_current(generation)) return false;
+        result = await _tts.speak(text).timeout(const Duration(seconds: 8));
+        return _current(generation) && speakResultOk(result);
       }
       return false;
     } catch (error, stack) {
@@ -200,51 +241,56 @@ class TtsService {
     }
   }
 
-  /// 播放远程音频 URL（词典发音）；失败时回退 [speak]
+  /// Remote pronunciation shares the same cancellation identity as its fallback.
   Future<void> speakUrlOrText(String? url, String fallbackText) async {
-    if (url != null && url.trim().isNotEmpty) {
-      try {
-        await _ensurePlayerReady();
-        await _tts.stop();
-        await _player.stop();
-
-        final started = Completer<bool>();
-        late final StreamSubscription<PlayerState> sub;
-        sub = _player.onPlayerStateChanged.listen((state) {
-          if (state == PlayerState.playing || state == PlayerState.completed) {
-            if (!started.isCompleted) started.complete(true);
+    await _request((generation) async {
+      if (url != null && url.trim().isNotEmpty) {
+        StreamSubscription<PlayerState>? subscription;
+        try {
+          final started = Completer<bool>();
+          subscription = _player.onPlayerStateChanged.listen((state) {
+            if ((state == PlayerState.playing ||
+                    state == PlayerState.completed) &&
+                !started.isCompleted) {
+              started.complete(true);
+            }
+          });
+          final played = await _playSource(UrlSource(url.trim()), generation);
+          if (!_current(generation)) return false;
+          if (played) {
+            final ok = await started.future.timeout(
+              const Duration(seconds: 3),
+              onTimeout: () => false,
+            );
+            if (!_current(generation)) return false;
+            if (ok) return true;
           }
-        });
-
-        await _player.play(UrlSource(url.trim()));
-        // play() 可能在缓冲前就返回；等真正开播，超时则停掉并回退 TTS
-        final ok = await started.future.timeout(
-          const Duration(seconds: 3),
-          onTimeout: () => false,
-        );
-        await sub.cancel();
-        if (ok) return;
-        await _player.stop();
-      } catch (error, stack) {
-        recordDiagnosticError('tts', error, stack);
-        // 网络音频失败则回退 TTS
+          await _player.stop();
+        } catch (error, stack) {
+          recordDiagnosticError('tts', error, stack);
+        } finally {
+          await subscription?.cancel();
+        }
       }
-    }
-    await speak(fallbackText);
+      if (!_current(generation) || fallbackText.trim().isEmpty) return false;
+      return _speak(fallbackText.trim(), LearningLanguage.english, generation);
+    });
   }
 
-  /// 放开播放器占用的音频通道，避免紧接着开麦克风时系统识别起不来。
-  Future<void> stop() async {
-    try {
-      await _player.stop();
-    } catch (_) {}
-    try {
-      await _tts.stop();
-    } catch (_) {}
+  /// Invalidate queued/preparing requests synchronously, then release channels.
+  Future<void> stop() {
+    ++_generation;
+    return _stopping = Future.wait<void>([
+      _player.stop().catchError((Object _) {}),
+      _tts.stop().then<void>((_) {}).catchError((Object _) {}),
+    ]).then<void>((_) {});
   }
 
   void dispose() {
-    _player.dispose();
-    _tts.stop();
+    if (_disposed) return;
+    _disposed = true;
+    ++_generation;
+    unawaited(_player.dispose().catchError((Object _) {}));
+    unawaited(_tts.stop().then<void>((_) {}).catchError((Object _) {}));
   }
 }

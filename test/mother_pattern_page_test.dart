@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,6 +23,12 @@ import 'mother_pattern_completion_test.dart'
 import 'mother_pattern_speech_test.dart'
     show FakePatternRecorder, FakePatternRecognizer;
 import 'ui_test_overrides.dart';
+import 'tts_cancellation_test.dart'
+    show
+        ControlledAudioPlayer,
+        ControlledSpeechEngine,
+        ControlledAssets,
+        ControlledDocuments;
 
 class PatternVoice implements TtsService {
   final played = <String>[];
@@ -99,6 +106,7 @@ void main() {
     WidgetTester tester, {
     MotherPatternReviewSnapshot? snapshot,
     bool practice = false,
+    TtsService? playback,
   }) async {
     container = ProviderContainer(
       overrides: [
@@ -109,7 +117,7 @@ void main() {
         ),
         progressRepositoryProvider.overrideWithValue(progress),
         rewardRepositoryProvider.overrideWithValue(rewards),
-        ttsServiceProvider.overrideWithValue(voice),
+        ttsServiceProvider.overrideWithValue(playback ?? voice),
         selectedTrackProvider.overrideWith((ref) => track),
         motherPatternSpeechFactoryProvider.overrideWithValue(() => speech),
       ],
@@ -192,6 +200,199 @@ void main() {
     }
   }
 
+  for (final transition in [
+    'next item',
+    'microphone',
+    'account',
+    'departure',
+    'teaching start',
+    'TTS volume',
+  ]) {
+    testWidgets('pending native reference cannot start after $transition', (
+      tester,
+    ) async {
+      final blocked = Completer<void>();
+      final player = ControlledAudioPlayer();
+      final tts = ControlledSpeechEngine();
+      final assets = ControlledAssets();
+      final documents = ControlledDocuments();
+      switch (transition) {
+        case 'next item':
+          assets.waiting = blocked;
+        case 'microphone':
+          player.sourceWait = blocked;
+        case 'account':
+          documents.waiting = blocked;
+          documents.path = 'cached.mp3';
+        case 'departure':
+          assets.exists = false;
+          tts.languageWait = blocked;
+        case 'teaching start':
+          player.contextWait = blocked;
+        case 'TTS volume':
+          assets.exists = false;
+          tts.volumeWait = blocked;
+      }
+      final service = TtsService(
+        player: player,
+        tts: tts,
+        assets: assets,
+        documents: documents,
+      );
+      addTearDown(service.dispose);
+      await app(tester, playback: service);
+      if (transition == 'next item' || transition == 'TTS volume') {
+        await toRecall(tester);
+        await tester.enterText(
+          find.byKey(const ValueKey('pattern-input')),
+          lesson.exercises[6].answer,
+        );
+        await tap(tester, 'pattern-check');
+        await tap(tester, 'reference-audio');
+        await tap(tester, 'pattern-next');
+        expect(find.text('8 / 10 题'), findsOneWidget);
+      } else if (transition == 'microphone') {
+        await tap(tester, 'pattern-start');
+        for (final e in lesson.exercises.take(4)) {
+          await guided(tester, e);
+        }
+        await tap(tester, 'reference-audio');
+        await tap(tester, 'speech-start');
+        expect(recorder.recording, true);
+      } else {
+        await tap(tester, 'dialogue-audio-0');
+        if (transition == 'teaching start') {
+          await tap(tester, 'pattern-start');
+        } else if (transition == 'account') {
+          await tester.runAsync(() async {
+            container!.read(testPatternAccount.notifier).state =
+                MotherPatternStore(userKey: 'bob');
+            await Future<void>.delayed(const Duration(milliseconds: 20));
+          });
+          await tester.pumpAndSettle();
+        } else {
+          await tester.pumpWidget(const SizedBox());
+        }
+      }
+      await tester.runAsync(() async {
+        blocked.complete();
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pump();
+      expect(player.starts, isEmpty);
+      expect(tts.spoken, isEmpty);
+    });
+  }
+  for (final initialTrees in [2, 4]) {
+    testWidgets(
+      'rewarded result and tree ${initialTrees + 1} collection fit 320x560 with 1.8 fonts',
+      (tester) async {
+        tester.view.physicalSize = const Size(320, 560);
+        tester.view.devicePixelRatio = 1;
+        tester.platformDispatcher.textScaleFactorTestValue = 1.8;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+        rewards.attempts.addAll(List.generate(initialTrees, (i) => 'prior-$i'));
+        await app(tester);
+        await tap(tester, 'pattern-start');
+        for (final e in lesson.exercises) {
+          await guided(tester, e);
+        }
+        expect(find.byType(AwardCelebration), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        await tester.ensureVisible(find.text('收下徽章'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('收下徽章'));
+        await tester.pumpAndSettle();
+        expect(find.byType(AwardCelebration), findsNothing);
+        expect(find.text('本次训练已记录'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+  testWidgets(
+    'stale reference completion does not stop a newer permitted answer playback',
+    (tester) async {
+      final player = ControlledAudioPlayer()..sourceWait = Completer<void>();
+      final service = TtsService(
+        player: player,
+        tts: ControlledSpeechEngine(),
+        assets: ControlledAssets(),
+      );
+      addTearDown(service.dispose);
+      await app(tester, playback: service);
+      await toRecall(tester);
+      await tester.enterText(
+        find.byKey(const ValueKey('pattern-input')),
+        lesson.exercises[6].answer,
+      );
+      await tap(tester, 'pattern-check');
+      await tap(tester, 'reference-audio');
+      await tap(tester, 'pattern-next');
+      await tester.enterText(
+        find.byKey(const ValueKey('pattern-input')),
+        lesson.exercises[7].answer,
+      );
+      await tap(tester, 'pattern-check');
+      await tap(tester, 'reference-audio');
+      await tester.runAsync(() async {
+        player.sourceWait!.complete();
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pump();
+      expect(player.starts.length, 1);
+      expect(
+        (player.starts.single as AssetSource).path,
+        'audio/listening/${lesson.exercises[7].id}.mp3',
+      );
+    },
+  );
+  for (final modality in ['recall', 'typed fallback']) {
+    testWidgets(
+      '$modality input and submit scroll above 220px keyboard at 320x560 and 1.8 fonts',
+      (tester) async {
+        tester.view.physicalSize = const Size(320, 560);
+        tester.view.devicePixelRatio = 1;
+        tester.platformDispatcher.textScaleFactorTestValue = 1.8;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+        addTearDown(tester.view.resetViewInsets);
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+        final snapshot = modality == 'typed fallback'
+            ? store.reviewSnapshot(course.id, lesson)
+            : null;
+        await app(tester, snapshot: snapshot);
+        if (snapshot == null) {
+          await toRecall(tester);
+        } else {
+          await tap(tester, 'typed-fallback');
+        }
+        tester.view.viewInsets = const FakeViewPadding(bottom: 220);
+        await tester.pump();
+        await tester.ensureVisible(find.byKey(const ValueKey('pattern-input')));
+        await tester.pumpAndSettle();
+        expect(
+          find.byKey(const ValueKey('pattern-input')).hitTestable(),
+          findsOneWidget,
+        );
+        await tester.enterText(
+          find.byKey(const ValueKey('pattern-input')),
+          snapshot?.exercises.first.answer ?? lesson.exercises[6].answer,
+        );
+        await tap(tester, 'pattern-check');
+        await tester.ensureVisible(find.byKey(const ValueKey('pattern-next')));
+        await tester.pumpAndSettle();
+        expect(
+          find.byKey(const ValueKey('pattern-next')).hitTestable(),
+          findsOneWidget,
+        );
+        await finish(tester);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
   testWidgets(
     'teaching includes dialogue vocabulary rules and offline-id audio before ten stages',
     (tester) async {
@@ -238,7 +439,8 @@ void main() {
         '',
       );
       await tap(tester, 'pattern-hint');
-      expect(find.text(lesson.patternLesson!.frame), findsOneWidget);
+      expect(find.text(lesson.patternLesson!.frame), findsNothing);
+      expect(find.text(lesson.patternLesson!.slotRule), findsNothing);
       expect(find.byKey(const ValueKey('reference-audio')), findsNothing);
       expect(find.text(e.answer), findsNothing);
       await tester
@@ -433,6 +635,46 @@ void main() {
       expect(question.state.currentTypedFallback, false);
     },
   );
+  for (final order in ['fallback then next', 'next then fallback']) {
+    testWidgets('mixed delayed $order keeps fallback on the originating item', (
+      tester,
+    ) async {
+      final snapshot = store.reviewSnapshot(course.id, lesson);
+      await app(tester, snapshot: snapshot);
+      await spoken(tester, 'I am a teacher.');
+      await tap(tester, 'pattern-check');
+      final question = tester.widget<MotherPatternQuestion>(
+        find.byType(MotherPatternQuestion),
+      );
+      final blocked = Completer<void>();
+      recorder.cancelWaiters.add(blocked);
+      await tester.runAsync(() async {
+        if (order == 'fallback then next') {
+          question.onFallback();
+          await Future<void>.delayed(Duration.zero);
+          question.onNext();
+        } else {
+          question.onNext();
+          await Future<void>.delayed(Duration.zero);
+          question.onFallback();
+        }
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        blocked.complete();
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pumpAndSettle();
+      final next = tester.widget<MotherPatternQuestion>(
+        find.byType(MotherPatternQuestion),
+      );
+      expect(next.state.current.id, snapshot.exercises[1].id);
+      expect(next.state.currentTypedFallback, false);
+      expect(
+        next.state.typedFallbackIds.contains(snapshot.exercises[1].id),
+        false,
+      );
+      expect(next.answer, '');
+    });
+  }
   testWidgets(
     'a changed opening review snapshot saves as stale practice without formal advancement',
     (tester) async {

@@ -111,6 +111,7 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
   bool get _active =>
       mounted &&
       !_interrupted &&
+      widget.lessonId == _lesson?.id &&
       ref.read(motherPatternStoreProvider)?.userKey == _store?.userKey &&
       ref.read(selectedTrackProvider).id == _course.id &&
       ref.read(courseProvider).id == _course.id;
@@ -151,7 +152,6 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
     if (!_active || generation != _audioGeneration) return;
     final ok = await _voice.speakExercise(exercise);
     if (!_active || generation != _audioGeneration) {
-      await _voice.stop();
       return;
     }
     if (!ok && mounted) {
@@ -175,7 +175,11 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
   }
 
   void _submit() {
-    if (!_active || _controller == null || _speech.busy || _state!.checked) {
+    if (!_active ||
+        _transitioning ||
+        _controller == null ||
+        _speech.busy ||
+        _state!.checked) {
       return;
     }
     final state = _state!;
@@ -194,18 +198,29 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
     );
   }
 
-  Future<void> _fallback() async {
-    if (!_active) return;
-    ++_audioGeneration;
-    await _speech.cancel();
-    if (!_active) return;
+  bool _questionIs(String exerciseId, int serial) =>
+      _state != null &&
+      !_state!.finished &&
+      _state!.current.id == exerciseId &&
+      _questionSerial == serial;
+
+  Future<void> _fallback(String exerciseId, int serial) async {
+    if (!_active || _transitioning || !_questionIs(exerciseId, serial)) return;
+    final generation = ++_audioGeneration;
+    await Future.wait<void>([_speech.cancel(), _voice.stop()]);
+    if (!_active ||
+        _transitioning ||
+        generation != _audioGeneration ||
+        !_questionIs(exerciseId, serial)) {
+      return;
+    }
     _controller!.enableTypedFallback();
     _input.clear();
     _answer = '';
   }
 
   Future<void> _record() async {
-    if (!_active || _speech.busy) return;
+    if (!_active || _transitioning || _speech.busy) return;
     final generation = ++_audioGeneration;
     await _voice.stop();
     if (_active && generation == _audioGeneration) await _speech.start();
@@ -213,10 +228,9 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
 
   Future<void> _next() async {
     if (!_active || _transitioning || !_state!.checked) return;
-    _transitioning = true;
+    setState(() => _transitioning = true);
     ++_audioGeneration;
-    await _speech.cancel();
-    await _voice.stop();
+    await Future.wait<void>([_speech.cancel(), _voice.stop()]);
     if (!_active) {
       _transitioning = false;
       return;
@@ -225,7 +239,7 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
     _answer = '';
     ++_questionSerial;
     _controller!.next();
-    _transitioning = false;
+    setState(() => _transitioning = false);
     if (_state!.finished) await _save();
   }
 
@@ -256,8 +270,7 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
   Future<void> _exit() async {
     if (_saving || _askingExit) return;
     ++_audioGeneration;
-    await _speech.cancel();
-    await _voice.stop();
+    await Future.wait<void>([_speech.cancel(), _voice.stop()]);
     if (!mounted) return;
     if (_saved == null && !_interrupted) {
       _askingExit = true;
@@ -315,6 +328,7 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
       );
     }
     final state = _state!;
+    final serial = _questionSerial;
     return PopScope(
       canPop: _allowExit || (_saved != null && !_saving) || _interrupted,
       onPopInvokedWithResult: (popped, result) {
@@ -375,13 +389,19 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
                           state: state,
                           pattern: _lesson!.patternLesson!,
                           speech: _speech,
+                          transitioning: _transitioning,
                           strings: s,
                           input: _input,
                           answer: _answer,
-                          onAnswer: (answer) =>
-                              setState(() => _answer = answer),
+                          onAnswer: (answer) {
+                            if (_active &&
+                                !_transitioning &&
+                                _questionIs(state.current.id, serial)) {
+                              setState(() => _answer = answer);
+                            }
+                          },
                           onHint: _controller!.revealHint,
-                          onFallback: _fallback,
+                          onFallback: () => _fallback(state.current.id, serial),
                           onCheck: _submit,
                           onNext: _next,
                           onPlay: _play,
