@@ -62,6 +62,8 @@ class LearningStore {
   Map<String, dynamic> get reviews => _read('reviews', <String, dynamic>{});
   Map<String, dynamic> get patternReviews =>
       _read('patternReviews', <String, dynamic>{});
+  Map<String, dynamic> get motherPatternReviews =>
+      _read('motherPatternReviews', <String, dynamic>{});
   List<dynamic> get events => _read('events', <dynamic>[]);
   T _read<T>(String suffix, T fallback) {
     final raw = _box.get(_key(suffix));
@@ -85,8 +87,30 @@ class LearningStore {
 
   Future<void> log(Map<String, dynamic> event) => _serialize(() => _log(event));
 
+  /// Keep a durable session save and its telemetry ordered with account clearing.
+  /// The callback receives the raw append operation so it never nests the lock.
+  Future<T> serializeSession<T>(
+    Future<T> Function(Future<void> Function(Map<String, dynamic>) appendEvent)
+    action,
+  ) => _serialize(() => action(_log));
+
   Future<void> _log(Map<String, dynamic> event) async {
     final list = events;
+    if (event['kind'] == 'motherPatternSession' &&
+        list.any(
+          (existing) =>
+              existing is Map &&
+              const [
+                'kind',
+                'courseId',
+                'lessonId',
+                'patternId',
+                'patternVersion',
+                'sessionId',
+              ].every((key) => existing[key] == event[key]),
+        )) {
+      return;
+    }
     list.add({...event, 'at': clock().toUtc().toIso8601String()});
     if (list.length > 2000) list.removeRange(0, list.length - 2000);
     await _box.put(_key('events'), jsonEncode(list));
@@ -280,11 +304,13 @@ class LearningStore {
     'events': events,
     'reviews': reviews,
     'patternReviews': patternReviews,
+    'motherPatternReviews': motherPatternReviews,
   });
 
   Future<void> clear() => _serialize(() async {
     await _box.delete(_key('events'));
     await _box.delete(_key('reviews'));
     await _box.delete(_key('patternReviews'));
+    await _box.delete(_key('motherPatternReviews'));
   });
 }
