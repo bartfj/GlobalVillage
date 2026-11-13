@@ -20,7 +20,6 @@ import 'widgets/answer_feedback_bar.dart';
 import 'widgets/exercise_widget_builder.dart';
 import 'widgets/lesson_style.dart';
 import 'widgets/lesson_study_card.dart';
-import '../pattern_training/pattern_study_card.dart';
 import 'widgets/tappable_phonetic_text.dart';
 
 /// 答题主流程页
@@ -97,8 +96,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
         widget.mode == 'lesson' &&
         !widget.bypassUnlock &&
         widget.initialExerciseIndex <= 0 &&
-        (ref.read(courseProvider).language != LearningLanguage.english ||
-            _lesson?.patternTraining != null);
+        ref.read(courseProvider).language != LearningLanguage.english;
     _questionStart = _startTime;
     final random = Random.secure();
     _attemptId = List.generate(
@@ -311,16 +309,6 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       return Scaffold(body: Center(child: Text(s.lessonNotFound)));
     }
     if (_showStudyCard) {
-      final training = lesson.patternTraining;
-      if (training != null) {
-        return PatternStudyCard(
-          training: training,
-          onStart: () => setState(() {
-            _showStudyCard = false;
-            _questionStart = DateTime.now();
-          }),
-        );
-      }
       return LessonStudyCard(
         lesson: lesson,
         onStart: () => setState(() => _showStudyCard = false),

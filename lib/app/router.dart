@@ -15,7 +15,7 @@ import '../features/learning_path/review_page.dart';
 import '../data/models/skill_practice.dart';
 import '../data/models/learning_language.dart';
 import '../features/sanskrit_audio/sanskrit_audio_page.dart';
-import '../features/lesson/lesson_page.dart';
+import '../features/lesson/lesson_entry_page.dart';
 import '../features/lesson/result_page.dart';
 import '../features/rewards/rewards_page.dart';
 import '../features/rewards/tree_page.dart';
@@ -122,7 +122,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/lesson/:lessonId',
         builder: (context, state) {
           final debug = parseLessonDebugQuery(state.uri.queryParameters);
-          return LessonPage(
+          return LessonEntryPage(
             lessonId: state.pathParameters['lessonId']!,
             initialExerciseIndex: debug.exerciseIndex,
             bypassUnlock: debug.bypassUnlock,

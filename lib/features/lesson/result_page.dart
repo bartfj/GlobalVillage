@@ -14,7 +14,6 @@ import '../../data/models/learning_language.dart';
 import '../../data/repositories/reward_repository.dart';
 import 'widgets/award_celebration.dart';
 import 'widgets/dialogue_performance.dart';
-import '../pattern_training/pattern_training_page.dart';
 
 /// 课程结算数据（由答题页通过路由 extra 传入）
 class LessonResult {
@@ -235,28 +234,6 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                         ),
                       ],
                       const SizedBox(height: 24),
-                      if (_saved &&
-                          passed &&
-                          ref
-                                  .watch(courseProvider)
-                                  .lessonById(widget.lessonId)
-                                  ?.patternTraining !=
-                              null) ...[
-                        FilledButton.tonalIcon(
-                          icon: const Icon(Icons.auto_stories_outlined),
-                          label: Text(s.patternPractice),
-                          onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (_) => PatternTrainingPage(
-                                lesson: ref
-                                    .read(courseProvider)
-                                    .lessonById(widget.lessonId)!,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                      ],
                       if (!passed) ...[
                         PushableButton(
                           label: s.relearn,

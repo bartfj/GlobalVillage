@@ -17,6 +17,80 @@ class S {
 
   bool get isEn => language == UiLanguage.english;
 
+  String get motherPatternTitle => isEn ? 'Mother Pattern English' : '母句型英语';
+  String get motherPatternDialogue => isEn ? 'Dialogue' : '生活对话';
+  String get motherPatternVocabulary => isEn ? 'Words and phrases' : '本课词汇与短语';
+  String get motherPatternRules => isEn ? 'How to use the expression' : '用法与限制';
+  String get motherPatternExamples => isEn ? 'Listen to the examples' : '听范句';
+  String get motherPatternListening =>
+      isEn ? 'Understand the expression' : '听懂表达';
+  String get motherPatternChunks => isEn ? 'Build the expression' : '词块组句';
+  String get motherPatternRepeat => isEn ? 'Repeat with the model' : '看句跟读';
+  String get motherPatternIndependentTitle =>
+      isEn ? 'Independent expression' : '独立表达';
+  String get motherPatternRecord => isEn ? 'Record your expression' : '录下你的表达';
+  String get motherPatternStop => isEn ? 'Finish recording' : '结束录音';
+  String get motherPatternRecognizing =>
+      isEn ? 'Recognizing locally…' : '正在离线识别…';
+  String get motherPatternReady => isEn
+      ? 'Speech recognized. Submit to see the transcript.'
+      : '已识别，提交后查看转写。';
+  String get motherPatternPreparing =>
+      isEn ? 'Preparing microphone…' : '正在准备麦克风…';
+  String get motherPatternDenied => isEn
+      ? 'Allow microphone access and retry, or use typed fallback.'
+      : '请允许麦克风后重试，或使用键盘替代。';
+  String get motherPatternEmpty =>
+      isEn ? 'No clear speech heard. Please retry.' : '没有听到清晰语音，请重试。';
+  String get motherPatternSpeechError =>
+      isEn ? 'Speech recognition failed. Please retry.' : '语音识别失败，请重试。';
+  String get motherPatternTypedFallback =>
+      isEn ? 'Use typed fallback' : '使用键盘替代';
+  String get motherPatternFallbackUsed =>
+      isEn ? 'Typed fallback · not a spoken success' : '键盘替代 · 不计入口语成功';
+  String get motherPatternRetrySpeech => isEn ? 'Record again' : '重新录音';
+  String get motherPatternSaving => isEn ? 'Saving results…' : '正在保存结果…';
+  String get motherPatternDueSaved => isEn ? 'Due review recorded' : '到期复习已记录';
+  String get motherPatternPracticeSaved => isEn
+      ? 'Extra practice recorded · review date unchanged'
+      : '额外练习已记录 · 复习日期未推进';
+  String get motherPatternStaleSaved => isEn
+      ? 'Practice recorded · this review was no longer due'
+      : '练习已记录 · 原复习计划已失效';
+  String get motherPatternDialogueSaved =>
+      isEn ? 'Dialogue practice recorded' : '对话综合练习已记录';
+  String get motherPatternNoRecord => isEn
+      ? 'Lesson completed · no expression training record'
+      : '课程已完成 · 暂无表达训练记录';
+  String get motherPatternLearned => isEn ? 'Learned expressions' : '已学表达';
+  String get motherPatternNoLearned => isEn
+      ? 'Complete a Mother Pattern lesson to see it here.'
+      : '完成母句型课程后，可在这里查看已学表达。';
+  String get motherPatternReview => isEn ? 'Two new situations' : '两个新场景';
+  String get motherPatternRefresher =>
+      isEn ? 'Full refresher · no course rewards' : '完整复训 · 不发课程奖励';
+  String get motherPatternDueContext =>
+      isEn ? 'Latest: due review' : '最近一次：到期复习';
+  String get motherPatternPracticeContext =>
+      isEn ? 'Latest: extra practice' : '最近一次：额外练习';
+  String get motherPatternStaleContext =>
+      isEn ? 'Latest: practice after review changed' : '最近一次：计划变更后的练习';
+  String get motherPatternLearningContext =>
+      isEn ? 'Latest: full training' : '最近一次：完整训练';
+  String get motherPatternDialogueContext =>
+      isEn ? 'Latest: dialogue practice' : '最近一次：对话综合练习';
+  String motherPatternCorrection(int ordinal) =>
+      isEn ? 'Correction · question $ordinal' : '订正练习 · 第 $ordinal 题';
+  String motherPatternIndependent(int correct, int total) => isEn
+      ? 'Independent first answers $correct / $total'
+      : '独立首答 $correct / $total';
+  String motherPatternSpoken(int correct) =>
+      isEn ? 'Spoken first answers $correct' : '口语首答 $correct';
+  String motherPatternTyped(int correct) =>
+      isEn ? 'Typed recall first answers $correct' : '键盘脱稿首答 $correct';
+  String motherPatternFallback(int correct) =>
+      isEn ? 'Typed fallback first answers $correct' : '键盘替代首答 $correct';
+
   // ---- 母句型训练 ----
   String get patternStudy => isEn ? 'Learn a sentence frame' : '认识本课母句型';
   String get patternPractice =>
@@ -134,12 +208,17 @@ class S {
   }
 
   String trackLabel(CourseTrack track) {
+    if (track == CourseTrack.motherPattern) {
+      return isEn ? 'Mother Pattern English' : '母句型英语';
+    }
     if (!isEn) return track.label;
     switch (track) {
       case CourseTrack.zero:
         return 'Starter';
       case CourseTrack.beginner:
         return 'Beginner';
+      case CourseTrack.motherPattern:
+        return 'Mother Pattern English';
       case CourseTrack.intermediate:
         return 'Intermediate';
       case CourseTrack.chineseZero:

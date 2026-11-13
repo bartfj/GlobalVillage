@@ -100,7 +100,7 @@ void main() {
   );
 
   testWidgets(
-    'post-lesson practice appears only after progress and rewards save',
+    'ordinary result never offers pilot practice after progress and rewards save',
     (tester) async {
       await tester.pumpWidget(
         app(
@@ -140,10 +140,7 @@ void main() {
           .widget<AwardCelebration>(find.byType(AwardCelebration))
           .onCollect();
       await tester.pump();
-      await tester.scrollUntilVisible(find.text('练习本课母句型'), 200);
-      await tester.tap(find.text('练习本课母句型'));
-      await tester.pumpAndSettle();
-      expect(find.byType(PatternTrainingPage), findsOneWidget);
+      expect(find.byType(PatternTrainingPage), findsNothing);
       expect(store.patternReviews, isEmpty);
     },
   );
@@ -167,19 +164,12 @@ void main() {
     expect(find.text('练习本课母句型'), findsNothing);
     expect(store.patternReviews, isEmpty);
   });
-  testWidgets(
-    'old completed lesson is available without inventing trained mastery',
-    (tester) async {
-      await tester.pumpWidget(app(const ReviewPage()));
-      expect(find.text('今日母句型'), findsOneWidget);
-      expect(find.text('暂无到期母句型'), findsOneWidget);
-      expect(find.text('尚未练习'), findsOneWidget);
-      final title = '${course.lessonById('u1l2')!.title} · My name is …';
-      await tester.scrollUntilVisible(find.text(title), 150);
-      await tester.tap(find.text(title));
-      await tester.pumpAndSettle();
-      expect(find.byType(PatternTrainingPage), findsOneWidget);
-      expect(store.patternReviews, isEmpty);
-    },
-  );
+  testWidgets('ordinary review ignores legacy completed pilot metadata', (
+    tester,
+  ) async {
+    await tester.pumpWidget(app(const ReviewPage()));
+    expect(find.byType(PatternTrainingPage), findsNothing);
+    expect(find.text('My name is \u2026'), findsNothing);
+    expect(store.patternReviews, isEmpty);
+  });
 }

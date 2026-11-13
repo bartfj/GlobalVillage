@@ -59,7 +59,7 @@ void main() {
     }
   });
   testWidgets(
-    'pilot lesson teaches the frame before starting unchanged scored questions',
+    'ordinary lesson ignores cached pilot metadata and starts scored questions',
     (tester) async {
       final course = Course.fromJson(
         jsonDecode(
@@ -83,11 +83,8 @@ void main() {
           child: const MaterialApp(home: LessonPage(lessonId: 'u1l2')),
         ),
       );
-      expect(find.text('My name is …'), findsOneWidget);
-      await tester.scrollUntilVisible(find.text('开始闯关'), 250);
-      await tester.tap(find.text('开始闯关'));
-      await tester.pump();
       expect(find.text('My name is …'), findsNothing);
+      expect(find.text('认识本课母句型'), findsNothing);
       expect(find.text('检查'), findsOneWidget);
       expect(course.lessonById('u1l2')!.exercises.length, 9);
     },
