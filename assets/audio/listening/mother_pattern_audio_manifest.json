@@ -1,0 +1,2417 @@
+{
+  "mp_u1l1_dialogue_1": {
+    "sentenceSha256": "e760b6129b835629acc49166276ac14fd5094edd7235b2e002d0f703822c5dfb",
+    "audioSha256": "6f8bf7ce158be145555f4978f002064161e25a61f94b1c48fa8cd6427a9e532c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_dialogue_2": {
+    "sentenceSha256": "da59480fbab8c4e72d06b8d73415b96007cbefeba4bec821fd849129871b86b9",
+    "audioSha256": "552d37fc6d76f24eda06432e375abfe0c852e0a676b2bc498673976e0125a99d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_dialogue_3": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_dialogue_4": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_1": {
+    "sentenceSha256": "afa497455f37b1c5502215a120fb275f10a6029b528bbab73a2e12f81bc53a1b",
+    "audioSha256": "c3bad9c7d476867f75dd2092fb7ed24e282814590ed50be4f570261c87096f1f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_2": {
+    "sentenceSha256": "c9d7ed34ba7890f69090bd0612643736348055d85f90ae7bba6fd4175dc482c9",
+    "audioSha256": "b84d078c55a4283c7e4e835b0c04d3f505071d28d84a5eb504be16075d15cee0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_3": {
+    "sentenceSha256": "873c03af0adad6d91b37d26948f059f7a6c9a91255175a55a9561f1d1769dbe6",
+    "audioSha256": "efbcba54c9fac61dc83cd81b43e5467b40330505911ed406f94e5ced11a639b3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_4": {
+    "sentenceSha256": "489f719cadf919094ddb38e7654de153ac33c02febb5de91e5345cbe372cf4a0",
+    "audioSha256": "d9d70c0a24bb0613e16b0a09062d6e76e09221e551431f4c9c6a4cf0425a6dfe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_5": {
+    "sentenceSha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+    "audioSha256": "089cae053e9f882d41bee2facbe35af8fc899bc35c8a940f7d777d1a499b935c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_6": {
+    "sentenceSha256": "1906bc7c801f03c41551b06e2fd406e8f471787c51357e8731ec61dd599f04c8",
+    "audioSha256": "263727ba4e29ba6b7077f2f0af73325acf9575d46ddc4f462c9ceaf1af038990",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_7": {
+    "sentenceSha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    "audioSha256": "9091ae9cd15398bd856ef2dd3e9e852bb8e2f7fe9732efe7f781067fa3f3b8d0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_vocab_8": {
+    "sentenceSha256": "e1608f75c5d7813f3d4031cb30bfb786507d98137538ff8e128a6ff74e84e643",
+    "audioSha256": "c1dd91ab4e2c89b88c1755e152c7ddebbd3305d97381f002b36396b4dbf28e0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e1": {
+    "sentenceSha256": "f8c49e9c2c0a41d4af22a2183119960661575af6ffc81c3301dcc9e654dd0fe1",
+    "audioSha256": "8c5b10b45a2caebd55a816f41f3fcd31c950e411a8b6c85979433a6b018816e9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e2": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e3": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e4": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e5": {
+    "sentenceSha256": "f8c49e9c2c0a41d4af22a2183119960661575af6ffc81c3301dcc9e654dd0fe1",
+    "audioSha256": "8c5b10b45a2caebd55a816f41f3fcd31c950e411a8b6c85979433a6b018816e9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e6": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e7": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e8": {
+    "sentenceSha256": "cafd51bb7859d65d640cf62f3750c7f8364c2b0e8c33851b4517a1da773119d9",
+    "audioSha256": "c741dbc65c458a1e6a5a1d41d1a5ef7b133183fd97c6dca7b44dae824642e224",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e9": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_e10": {
+    "sentenceSha256": "cafd51bb7859d65d640cf62f3750c7f8364c2b0e8c33851b4517a1da773119d9",
+    "audioSha256": "c741dbc65c458a1e6a5a1d41d1a5ef7b133183fd97c6dca7b44dae824642e224",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_example_1": {
+    "sentenceSha256": "f8c49e9c2c0a41d4af22a2183119960661575af6ffc81c3301dcc9e654dd0fe1",
+    "audioSha256": "8c5b10b45a2caebd55a816f41f3fcd31c950e411a8b6c85979433a6b018816e9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_example_2": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_example_3": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_review_1": {
+    "sentenceSha256": "f8c49e9c2c0a41d4af22a2183119960661575af6ffc81c3301dcc9e654dd0fe1",
+    "audioSha256": "8c5b10b45a2caebd55a816f41f3fcd31c950e411a8b6c85979433a6b018816e9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_review_2": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_review_3": {
+    "sentenceSha256": "e4383618e44faf25843ea47a405387e0090bae5c576aa834f18c14a46d221610",
+    "audioSha256": "b1bf45ad70d3a2078d42fc85adab4c8c5131dd738e087c35c2d970a9da101a2f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l1_review_4": {
+    "sentenceSha256": "cafd51bb7859d65d640cf62f3750c7f8364c2b0e8c33851b4517a1da773119d9",
+    "audioSha256": "c741dbc65c458a1e6a5a1d41d1a5ef7b133183fd97c6dca7b44dae824642e224",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_dialogue_1": {
+    "sentenceSha256": "b7bc3f438183072baf3ebb11d3d63d781661d4ed7f1f4d79916f89f51f5617f7",
+    "audioSha256": "3adec0c9eacc72e4cb955f8897c12aeb13f23cb726aefd93a6cfb669f515b7ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_dialogue_2": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_dialogue_3": {
+    "sentenceSha256": "a42249d7de0b24fcdc8109b564263f49f6253a3bd3afc7c74a287310fac03bf8",
+    "audioSha256": "20820c99c8415fcb0beeb9dbce4dcd063df14aa591b125f5d41c8242f4fcabd0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_dialogue_4": {
+    "sentenceSha256": "e2489b9631535568f5a0daec5b30534b893e3ce8fac8c1aed06af327a4f70b80",
+    "audioSha256": "26a7542c69ec5ca1f424fefdd18891cfee9082c713c49d3662d80cbc91e7652a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_1": {
+    "sentenceSha256": "deb83494817def510d32bbe2498b88af969d3e4325b65102eab7daab94399f5f",
+    "audioSha256": "da9b6de75faf50fbfcd9cb5f5c68ff664f2b676ba52b08ab6be6b98a4bab6db2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_2": {
+    "sentenceSha256": "4056942a5df930a5bb1230fd256370e2fd950a4a20dc6c2a9b003eccab41c681",
+    "audioSha256": "02ea731813b5b6917a127f0b70c9b78f535c0e4f17b3da47ff7793946b882da3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_3": {
+    "sentenceSha256": "b7bc3f438183072baf3ebb11d3d63d781661d4ed7f1f4d79916f89f51f5617f7",
+    "audioSha256": "3adec0c9eacc72e4cb955f8897c12aeb13f23cb726aefd93a6cfb669f515b7ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_4": {
+    "sentenceSha256": "39954823f73a76e35ec7280de44b2eb4b26399ecdc00a2b3640db22375d3a4b3",
+    "audioSha256": "5422f5b0735b830519f2bdcc4c087f823c2b56c6c651594455f69b53db1c2da3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_5": {
+    "sentenceSha256": "87c0d2953bfea6614440a837adc83086d5b497241e16157c30d14ff21d3830e0",
+    "audioSha256": "77ef79fae1d2aa25f08c715cc474b808f3aee6bcd080514ce46f6d835fdd0070",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_6": {
+    "sentenceSha256": "1906bc7c801f03c41551b06e2fd406e8f471787c51357e8731ec61dd599f04c8",
+    "audioSha256": "263727ba4e29ba6b7077f2f0af73325acf9575d46ddc4f462c9ceaf1af038990",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_7": {
+    "sentenceSha256": "dc99e9aa86fab83a062cff5e0808391757071a3d5dbb942802d5f923aaead3b4",
+    "audioSha256": "2faae72c923e0d83308dce8d10d41590de92acd0d2a9894305f91a08678bf1ae",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_8": {
+    "sentenceSha256": "e1608f75c5d7813f3d4031cb30bfb786507d98137538ff8e128a6ff74e84e643",
+    "audioSha256": "c1dd91ab4e2c89b88c1755e152c7ddebbd3305d97381f002b36396b4dbf28e0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_vocab_9": {
+    "sentenceSha256": "94c05f1c45a1d1a913e041748ad9444083e9e398fc5719e02a4fc4874169a038",
+    "audioSha256": "4b33fe907529ba910a7edb01049fbbca9ebe61d460999d534bedee37281c7d57",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e1": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e2": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e3": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e4": {
+    "sentenceSha256": "41e1cc5b25f8a7b908c9725ce09fa35606bd5366c8ff55a0c693de606f1ff119",
+    "audioSha256": "0f5ce904518cbe280fcebbfceee7e06c909adbe94102e1fd9135c5c4a471d7b4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e5": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e6": {
+    "sentenceSha256": "41e1cc5b25f8a7b908c9725ce09fa35606bd5366c8ff55a0c693de606f1ff119",
+    "audioSha256": "0f5ce904518cbe280fcebbfceee7e06c909adbe94102e1fd9135c5c4a471d7b4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e7": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e8": {
+    "sentenceSha256": "3ad5a82a27305fbe9efea693363ebc5cc6d17a0642019f7cff3a0a69dfa1552a",
+    "audioSha256": "d14e6fa212f3b2f329ca663df339a48fe7aa9e3f1bf36604c65f1e082b67815c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e9": {
+    "sentenceSha256": "41e1cc5b25f8a7b908c9725ce09fa35606bd5366c8ff55a0c693de606f1ff119",
+    "audioSha256": "0f5ce904518cbe280fcebbfceee7e06c909adbe94102e1fd9135c5c4a471d7b4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_e10": {
+    "sentenceSha256": "3ad5a82a27305fbe9efea693363ebc5cc6d17a0642019f7cff3a0a69dfa1552a",
+    "audioSha256": "d14e6fa212f3b2f329ca663df339a48fe7aa9e3f1bf36604c65f1e082b67815c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_example_1": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_example_2": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_example_3": {
+    "sentenceSha256": "41e1cc5b25f8a7b908c9725ce09fa35606bd5366c8ff55a0c693de606f1ff119",
+    "audioSha256": "0f5ce904518cbe280fcebbfceee7e06c909adbe94102e1fd9135c5c4a471d7b4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_review_1": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_review_2": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_review_3": {
+    "sentenceSha256": "41e1cc5b25f8a7b908c9725ce09fa35606bd5366c8ff55a0c693de606f1ff119",
+    "audioSha256": "0f5ce904518cbe280fcebbfceee7e06c909adbe94102e1fd9135c5c4a471d7b4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l2_review_4": {
+    "sentenceSha256": "3ad5a82a27305fbe9efea693363ebc5cc6d17a0642019f7cff3a0a69dfa1552a",
+    "audioSha256": "d14e6fa212f3b2f329ca663df339a48fe7aa9e3f1bf36604c65f1e082b67815c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_dialogue_1": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_dialogue_2": {
+    "sentenceSha256": "36bc2442c5577a35b13b72bee6d34e80e2f122d334fd5243efd59e39de6954dc",
+    "audioSha256": "348ac730f1adbe643aceed01bded2aa65e1c8f86486f18a0bd94cd766821e7fc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_dialogue_3": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_dialogue_4": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_1": {
+    "sentenceSha256": "9792bc9ccbeebe7e59a790090f07f0761562dc065c85c34cce76aaf76490fbd5",
+    "audioSha256": "a92ace3256d302ca3d48b31f4f4ccc6f6b9485b36e1c200db0eaccf084db7ea8",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_2": {
+    "sentenceSha256": "6abcba1b2fa9f10eabdc1fc7c901710b34306fa9984e7845120f2ba25874e042",
+    "audioSha256": "fa871a7df49c546b56092434d3ab09707d22453b9b7495187083f1e6e5e5d23a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_3": {
+    "sentenceSha256": "4dcbdf1c7124ef01fc1bd23726985d3a9908eeb4bfd9d358d0e5166530e41558",
+    "audioSha256": "e5641c5c8eccde3517d75c9ec7214e127bd9323d508f6df239e5130362c932f7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_4": {
+    "sentenceSha256": "ae35964219d1b24bba10a2fba9551a06219d701a8f3fff6e80750d09f4f3b495",
+    "audioSha256": "2b848ab534ab06312d3c5850048c77bd753f8812b357dc49257b2e288ca9bdb3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_5": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_6": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_vocab_7": {
+    "sentenceSha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    "audioSha256": "9091ae9cd15398bd856ef2dd3e9e852bb8e2f7fe9732efe7f781067fa3f3b8d0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e1": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e2": {
+    "sentenceSha256": "89d6e219aaeed8da82ea907b89bd5813d935b7083abe938f6404ac043e4b7de3",
+    "audioSha256": "0c4683a9c9f434c7ba0b2d8f55125eef9b26d175bb09e8fa6af2704f6fe8d177",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e3": {
+    "sentenceSha256": "89d6e219aaeed8da82ea907b89bd5813d935b7083abe938f6404ac043e4b7de3",
+    "audioSha256": "0c4683a9c9f434c7ba0b2d8f55125eef9b26d175bb09e8fa6af2704f6fe8d177",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e4": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e5": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e6": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e7": {
+    "sentenceSha256": "89d6e219aaeed8da82ea907b89bd5813d935b7083abe938f6404ac043e4b7de3",
+    "audioSha256": "0c4683a9c9f434c7ba0b2d8f55125eef9b26d175bb09e8fa6af2704f6fe8d177",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e8": {
+    "sentenceSha256": "9fcfcb10b10c570b62b4d791e73d84e6185c64e9151d5d3be2767ad3e36a9860",
+    "audioSha256": "d6ceedf4f3be312058b2daacea4d581d3e5d76371cb7c838828065aae2896406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e9": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_e10": {
+    "sentenceSha256": "9fcfcb10b10c570b62b4d791e73d84e6185c64e9151d5d3be2767ad3e36a9860",
+    "audioSha256": "d6ceedf4f3be312058b2daacea4d581d3e5d76371cb7c838828065aae2896406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_example_1": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_example_2": {
+    "sentenceSha256": "89d6e219aaeed8da82ea907b89bd5813d935b7083abe938f6404ac043e4b7de3",
+    "audioSha256": "0c4683a9c9f434c7ba0b2d8f55125eef9b26d175bb09e8fa6af2704f6fe8d177",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_example_3": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_review_1": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_review_2": {
+    "sentenceSha256": "89d6e219aaeed8da82ea907b89bd5813d935b7083abe938f6404ac043e4b7de3",
+    "audioSha256": "0c4683a9c9f434c7ba0b2d8f55125eef9b26d175bb09e8fa6af2704f6fe8d177",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_review_3": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l3_review_4": {
+    "sentenceSha256": "9fcfcb10b10c570b62b4d791e73d84e6185c64e9151d5d3be2767ad3e36a9860",
+    "audioSha256": "d6ceedf4f3be312058b2daacea4d581d3e5d76371cb7c838828065aae2896406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_1": {
+    "sentenceSha256": "1219a3714e8420d940920914f79ddc2339f9ed9a28e497ef2b833f3d6546a7ab",
+    "audioSha256": "728fd46a58d23e07c20927402d04541b782f614abbb63c729a5fbeb7c16aab54",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_2": {
+    "sentenceSha256": "3a87074fbbcf6f3ea4bf6495acb8454982fcbae3b4c739778f2d905eb94c9c7f",
+    "audioSha256": "6c59947040d1521bb34c8006191ad2bca7d807f78f6a37c83285ee779ae843c7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_3": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_4": {
+    "sentenceSha256": "29e6db8717629f92a9a0561071350860a35e21ffdd9173d43315b463e154c286",
+    "audioSha256": "8d311c10f5bb5e970ea8c554762bc11b9dcf800dfdf9f472aa43952a8571bbaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_5": {
+    "sentenceSha256": "39954823f73a76e35ec7280de44b2eb4b26399ecdc00a2b3640db22375d3a4b3",
+    "audioSha256": "5422f5b0735b830519f2bdcc4c087f823c2b56c6c651594455f69b53db1c2da3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_6": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_dialogue_7": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_1": {
+    "sentenceSha256": "afa497455f37b1c5502215a120fb275f10a6029b528bbab73a2e12f81bc53a1b",
+    "audioSha256": "c3bad9c7d476867f75dd2092fb7ed24e282814590ed50be4f570261c87096f1f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_2": {
+    "sentenceSha256": "c9d7ed34ba7890f69090bd0612643736348055d85f90ae7bba6fd4175dc482c9",
+    "audioSha256": "b84d078c55a4283c7e4e835b0c04d3f505071d28d84a5eb504be16075d15cee0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_3": {
+    "sentenceSha256": "873c03af0adad6d91b37d26948f059f7a6c9a91255175a55a9561f1d1769dbe6",
+    "audioSha256": "efbcba54c9fac61dc83cd81b43e5467b40330505911ed406f94e5ced11a639b3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_4": {
+    "sentenceSha256": "489f719cadf919094ddb38e7654de153ac33c02febb5de91e5345cbe372cf4a0",
+    "audioSha256": "d9d70c0a24bb0613e16b0a09062d6e76e09221e551431f4c9c6a4cf0425a6dfe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_5": {
+    "sentenceSha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+    "audioSha256": "089cae053e9f882d41bee2facbe35af8fc899bc35c8a940f7d777d1a499b935c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_6": {
+    "sentenceSha256": "deb83494817def510d32bbe2498b88af969d3e4325b65102eab7daab94399f5f",
+    "audioSha256": "da9b6de75faf50fbfcd9cb5f5c68ff664f2b676ba52b08ab6be6b98a4bab6db2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_7": {
+    "sentenceSha256": "4056942a5df930a5bb1230fd256370e2fd950a4a20dc6c2a9b003eccab41c681",
+    "audioSha256": "02ea731813b5b6917a127f0b70c9b78f535c0e4f17b3da47ff7793946b882da3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_8": {
+    "sentenceSha256": "b7bc3f438183072baf3ebb11d3d63d781661d4ed7f1f4d79916f89f51f5617f7",
+    "audioSha256": "3adec0c9eacc72e4cb955f8897c12aeb13f23cb726aefd93a6cfb669f515b7ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_9": {
+    "sentenceSha256": "39954823f73a76e35ec7280de44b2eb4b26399ecdc00a2b3640db22375d3a4b3",
+    "audioSha256": "5422f5b0735b830519f2bdcc4c087f823c2b56c6c651594455f69b53db1c2da3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_10": {
+    "sentenceSha256": "87c0d2953bfea6614440a837adc83086d5b497241e16157c30d14ff21d3830e0",
+    "audioSha256": "77ef79fae1d2aa25f08c715cc474b808f3aee6bcd080514ce46f6d835fdd0070",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_11": {
+    "sentenceSha256": "9792bc9ccbeebe7e59a790090f07f0761562dc065c85c34cce76aaf76490fbd5",
+    "audioSha256": "a92ace3256d302ca3d48b31f4f4ccc6f6b9485b36e1c200db0eaccf084db7ea8",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_12": {
+    "sentenceSha256": "6abcba1b2fa9f10eabdc1fc7c901710b34306fa9984e7845120f2ba25874e042",
+    "audioSha256": "fa871a7df49c546b56092434d3ab09707d22453b9b7495187083f1e6e5e5d23a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_13": {
+    "sentenceSha256": "4dcbdf1c7124ef01fc1bd23726985d3a9908eeb4bfd9d358d0e5166530e41558",
+    "audioSha256": "e5641c5c8eccde3517d75c9ec7214e127bd9323d508f6df239e5130362c932f7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_14": {
+    "sentenceSha256": "ae35964219d1b24bba10a2fba9551a06219d701a8f3fff6e80750d09f4f3b495",
+    "audioSha256": "2b848ab534ab06312d3c5850048c77bd753f8812b357dc49257b2e288ca9bdb3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_15": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_16": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_17": {
+    "sentenceSha256": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    "audioSha256": "9091ae9cd15398bd856ef2dd3e9e852bb8e2f7fe9732efe7f781067fa3f3b8d0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_vocab_18": {
+    "sentenceSha256": "dc99e9aa86fab83a062cff5e0808391757071a3d5dbb942802d5f923aaead3b4",
+    "audioSha256": "2faae72c923e0d83308dce8d10d41590de92acd0d2a9894305f91a08678bf1ae",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e1": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e2": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e3": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e4": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e5": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e6": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e7": {
+    "sentenceSha256": "0c00f6707d412bc9618460454a48fc3145313d7a1cef684a9d2f1127836963c2",
+    "audioSha256": "c462a8a55046e79e9840647ab5b32ffda7f987de7d6a346ce5fb6ec13eaca6ff",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e8": {
+    "sentenceSha256": "0fb4e602b384017987052e4f9821ce3a22ecf6e16cbcd07bdbd262192e63c741",
+    "audioSha256": "05086894847d70e4637144777945b0d602f5f73833a8f32afdbff3c4592c786a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e9": {
+    "sentenceSha256": "e347119b61308cf118b746be75920ac18ff9bbb2c2a177e8989083112ac01ade",
+    "audioSha256": "28bf984f8c046a587d2cd8c8c4087007bc18d38ce859ae98702706c96aeb5f73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u1l4_e10": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_dialogue_1": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_dialogue_2": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_dialogue_3": {
+    "sentenceSha256": "3ec63ee6c64d6f76bbf8fc936881ecd6da701f6a0748dee27e147df5bba2f07a",
+    "audioSha256": "dea4ec9f93ad214ec86e7566a7ccb90b252326c9a67798003e6d286c92a51a68",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_dialogue_4": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_1": {
+    "sentenceSha256": "3f91c4de5f51ea8c07491723ab5e84ef2ed831b365f1e0fca86dd069e50bbdcb",
+    "audioSha256": "15207da192ced0bd4e1ce3971968a1698db6a4cecaca70e4e528f68cd055eaea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_2": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_3": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_4": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_5": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_6": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_vocab_7": {
+    "sentenceSha256": "94c05f1c45a1d1a913e041748ad9444083e9e398fc5719e02a4fc4874169a038",
+    "audioSha256": "4b33fe907529ba910a7edb01049fbbca9ebe61d460999d534bedee37281c7d57",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e1": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e2": {
+    "sentenceSha256": "fcca176195b2d682c87df83582843392679719b9dbfb130663dcbd6f041ca49a",
+    "audioSha256": "039fe31d37a58c36e43aa5c1f3f01dc69e6b0b5b7e8f6cca846cf01e4c12ac4f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e3": {
+    "sentenceSha256": "fcca176195b2d682c87df83582843392679719b9dbfb130663dcbd6f041ca49a",
+    "audioSha256": "039fe31d37a58c36e43aa5c1f3f01dc69e6b0b5b7e8f6cca846cf01e4c12ac4f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e4": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e5": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e6": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e7": {
+    "sentenceSha256": "fcca176195b2d682c87df83582843392679719b9dbfb130663dcbd6f041ca49a",
+    "audioSha256": "039fe31d37a58c36e43aa5c1f3f01dc69e6b0b5b7e8f6cca846cf01e4c12ac4f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e8": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e9": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_e10": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_example_1": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_example_2": {
+    "sentenceSha256": "fcca176195b2d682c87df83582843392679719b9dbfb130663dcbd6f041ca49a",
+    "audioSha256": "039fe31d37a58c36e43aa5c1f3f01dc69e6b0b5b7e8f6cca846cf01e4c12ac4f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_example_3": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_review_1": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_review_2": {
+    "sentenceSha256": "fcca176195b2d682c87df83582843392679719b9dbfb130663dcbd6f041ca49a",
+    "audioSha256": "039fe31d37a58c36e43aa5c1f3f01dc69e6b0b5b7e8f6cca846cf01e4c12ac4f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_review_3": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l1_review_4": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_dialogue_1": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_dialogue_2": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_dialogue_3": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_dialogue_4": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_1": {
+    "sentenceSha256": "52e113b0f79a29e0d63dcc9fc3e845e0320595e4362224e0807491eaf6594714",
+    "audioSha256": "fd1eb484bcd3f729d2a9a86ee4f51d244bba7d9cad4086e2d6284469e749874c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_2": {
+    "sentenceSha256": "ebf9a9a4ac771d66300bf5fade2bba8d6047a24221a75d7dc241b6a72f473211",
+    "audioSha256": "946e71dd45b25ffd722584ce3a67f505c3091b159c4216db519702eed2bb42bf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_3": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_4": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_5": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_6": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_vocab_7": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e1": {
+    "sentenceSha256": "a7433733aa2bdbd4b32a8fa9c882b069c3362ae1597769e5b4f0c60670bb4e07",
+    "audioSha256": "bed846ccdd50567cd66fa1d1bd4fec853facdc17da4d1fde386d2a406aa1c804",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e2": {
+    "sentenceSha256": "342d5086bc9af812874bfd8c1ccd3b10cc4cce11684e1cf588deb4799b4a0a71",
+    "audioSha256": "d218ed1777f6bfa6ccee05f37aa793bc8fd401b5f8ffe6c8d44622f1fee9dd94",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e3": {
+    "sentenceSha256": "342d5086bc9af812874bfd8c1ccd3b10cc4cce11684e1cf588deb4799b4a0a71",
+    "audioSha256": "d218ed1777f6bfa6ccee05f37aa793bc8fd401b5f8ffe6c8d44622f1fee9dd94",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e4": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e5": {
+    "sentenceSha256": "a7433733aa2bdbd4b32a8fa9c882b069c3362ae1597769e5b4f0c60670bb4e07",
+    "audioSha256": "bed846ccdd50567cd66fa1d1bd4fec853facdc17da4d1fde386d2a406aa1c804",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e6": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e7": {
+    "sentenceSha256": "342d5086bc9af812874bfd8c1ccd3b10cc4cce11684e1cf588deb4799b4a0a71",
+    "audioSha256": "d218ed1777f6bfa6ccee05f37aa793bc8fd401b5f8ffe6c8d44622f1fee9dd94",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e8": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e9": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_e10": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_example_1": {
+    "sentenceSha256": "a7433733aa2bdbd4b32a8fa9c882b069c3362ae1597769e5b4f0c60670bb4e07",
+    "audioSha256": "bed846ccdd50567cd66fa1d1bd4fec853facdc17da4d1fde386d2a406aa1c804",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_example_2": {
+    "sentenceSha256": "342d5086bc9af812874bfd8c1ccd3b10cc4cce11684e1cf588deb4799b4a0a71",
+    "audioSha256": "d218ed1777f6bfa6ccee05f37aa793bc8fd401b5f8ffe6c8d44622f1fee9dd94",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_example_3": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_review_1": {
+    "sentenceSha256": "a7433733aa2bdbd4b32a8fa9c882b069c3362ae1597769e5b4f0c60670bb4e07",
+    "audioSha256": "bed846ccdd50567cd66fa1d1bd4fec853facdc17da4d1fde386d2a406aa1c804",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_review_2": {
+    "sentenceSha256": "342d5086bc9af812874bfd8c1ccd3b10cc4cce11684e1cf588deb4799b4a0a71",
+    "audioSha256": "d218ed1777f6bfa6ccee05f37aa793bc8fd401b5f8ffe6c8d44622f1fee9dd94",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_review_3": {
+    "sentenceSha256": "be6a70333a2ec936357f04364fc753bbf53001c18be43c2a7828500f6deb8cf7",
+    "audioSha256": "242add99d75bb7a06e6671d70da4835956bd85c6df8b06675ddee92e037668f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l2_review_4": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_dialogue_1": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_dialogue_2": {
+    "sentenceSha256": "27282b999a04ddc63b41567e687d9b5109651c26ba0caf653ded126f30648d61",
+    "audioSha256": "0611ff9c5a40b6b7a6568872a03b2130fcafd2e599b149f433f6b0a51fe2f1e4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_dialogue_3": {
+    "sentenceSha256": "a17dc5c06e832ce2b030e971de6486227254c684dae8a270e98b31dd36784963",
+    "audioSha256": "cc87df7669b8cd5338a962443a400c067c27e72e5b236abd6a80f53f1922b759",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_dialogue_4": {
+    "sentenceSha256": "675d13c2dc0bf946872f682f69aedc1a1d49174b69888af1dd60be7359baa6f9",
+    "audioSha256": "eafc4751cacd39c0199e1d0af0f1eecd3c1dacf8c3cc3faa9a2cb19446008cc7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_1": {
+    "sentenceSha256": "d0a71dec91e460f46ff76f3f44874c66ae36679e0ae46383040d19d5385931a4",
+    "audioSha256": "7419e31427339957694ed5af5f1a1fed4d22d101760762e359795457c2cd139b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_2": {
+    "sentenceSha256": "27282b999a04ddc63b41567e687d9b5109651c26ba0caf653ded126f30648d61",
+    "audioSha256": "0611ff9c5a40b6b7a6568872a03b2130fcafd2e599b149f433f6b0a51fe2f1e4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_3": {
+    "sentenceSha256": "675d13c2dc0bf946872f682f69aedc1a1d49174b69888af1dd60be7359baa6f9",
+    "audioSha256": "eafc4751cacd39c0199e1d0af0f1eecd3c1dacf8c3cc3faa9a2cb19446008cc7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_4": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_5": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_6": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_vocab_7": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e1": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e2": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e3": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e4": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e5": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e6": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e7": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e8": {
+    "sentenceSha256": "a17dc5c06e832ce2b030e971de6486227254c684dae8a270e98b31dd36784963",
+    "audioSha256": "cc87df7669b8cd5338a962443a400c067c27e72e5b236abd6a80f53f1922b759",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e9": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_e10": {
+    "sentenceSha256": "a17dc5c06e832ce2b030e971de6486227254c684dae8a270e98b31dd36784963",
+    "audioSha256": "cc87df7669b8cd5338a962443a400c067c27e72e5b236abd6a80f53f1922b759",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_example_1": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_example_2": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_example_3": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_review_1": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_review_2": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_review_3": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l3_review_4": {
+    "sentenceSha256": "a17dc5c06e832ce2b030e971de6486227254c684dae8a270e98b31dd36784963",
+    "audioSha256": "cc87df7669b8cd5338a962443a400c067c27e72e5b236abd6a80f53f1922b759",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_1": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_2": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_3": {
+    "sentenceSha256": "a17dc5c06e832ce2b030e971de6486227254c684dae8a270e98b31dd36784963",
+    "audioSha256": "cc87df7669b8cd5338a962443a400c067c27e72e5b236abd6a80f53f1922b759",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_4": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_5": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_dialogue_6": {
+    "sentenceSha256": "a1826a1b123e58e84ea6d4fb80f4cd873c29ca63ed1275249ffaf20cb7aced8a",
+    "audioSha256": "b34ff69eef8bdfd47886b92de4d26659443dd753b5ef70964981e7b50b904613",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_1": {
+    "sentenceSha256": "3f91c4de5f51ea8c07491723ab5e84ef2ed831b365f1e0fca86dd069e50bbdcb",
+    "audioSha256": "15207da192ced0bd4e1ce3971968a1698db6a4cecaca70e4e528f68cd055eaea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_2": {
+    "sentenceSha256": "263c4bc52a5f5340a12203cd23f996a02e91e465795809c3459f67e64e1a530a",
+    "audioSha256": "82f89517742391cfe7811accf82ee0b0233c2c77eac8991a25bd75640e0d1057",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_3": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_4": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_5": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_6": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_7": {
+    "sentenceSha256": "52e113b0f79a29e0d63dcc9fc3e845e0320595e4362224e0807491eaf6594714",
+    "audioSha256": "fd1eb484bcd3f729d2a9a86ee4f51d244bba7d9cad4086e2d6284469e749874c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_8": {
+    "sentenceSha256": "ebf9a9a4ac771d66300bf5fade2bba8d6047a24221a75d7dc241b6a72f473211",
+    "audioSha256": "946e71dd45b25ffd722584ce3a67f505c3091b159c4216db519702eed2bb42bf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_9": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_10": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_11": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_12": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_13": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_14": {
+    "sentenceSha256": "d0a71dec91e460f46ff76f3f44874c66ae36679e0ae46383040d19d5385931a4",
+    "audioSha256": "7419e31427339957694ed5af5f1a1fed4d22d101760762e359795457c2cd139b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_15": {
+    "sentenceSha256": "27282b999a04ddc63b41567e687d9b5109651c26ba0caf653ded126f30648d61",
+    "audioSha256": "0611ff9c5a40b6b7a6568872a03b2130fcafd2e599b149f433f6b0a51fe2f1e4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_16": {
+    "sentenceSha256": "675d13c2dc0bf946872f682f69aedc1a1d49174b69888af1dd60be7359baa6f9",
+    "audioSha256": "eafc4751cacd39c0199e1d0af0f1eecd3c1dacf8c3cc3faa9a2cb19446008cc7",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_17": {
+    "sentenceSha256": "f5903f51e341a783e69ffc2d9b335048716f5f040a782a2764cd4e728b0f74d9",
+    "audioSha256": "e1edb41b152abc3b8555077f83a958d48997cc1621f2de33a45a0117fd712aa2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_18": {
+    "sentenceSha256": "e4ba5cbd251c98e6cd1c23f126a3b81d8d8328abc95387229850952b3ef9f904",
+    "audioSha256": "58d18472549d2724217ae05ac9c2d7ef15b9415700559f4e198be7d7831fd1af",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_19": {
+    "sentenceSha256": "a9f74d1ec36ebdeb2da3f6e5868090cd2a2d20b3dcca7b62f60304b1d3d9ef42",
+    "audioSha256": "df7b11b7d2270cea9a1fb17a3972516b38b2fcea305935d7393813589a610fcc",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_vocab_20": {
+    "sentenceSha256": "8825e76530f87ff5c737b3254c6936bc0a90bba3a10a91bbba739268208d378a",
+    "audioSha256": "412cc23351d7da7792d3428d1e8836a627939852beb314f708111ccc13ea50a6",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e1": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e2": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e3": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e4": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e5": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e6": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e7": {
+    "sentenceSha256": "e737ffb65484ea1f032ca0e3479a4ddfcd6ff01cfa306eb415b6a0c2c27a9a5b",
+    "audioSha256": "0aeda316f4f56e0777e330c24ffbc276be4330580819a6e70febeda0d47a5aaf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e8": {
+    "sentenceSha256": "891216c898972d66828ed2670183c44e154c41dd8c591e86299d9388e66b7d17",
+    "audioSha256": "351901bb9e8623ee2089ad15ace05262b283474c1518113ed9a5d573c9abe797",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e9": {
+    "sentenceSha256": "d7e5c2a5909ca24fc3fd20666c126f34c07113973bc91a4e425fb478db619e02",
+    "audioSha256": "037bc5df55f422fa797981eb9cce50b7b772465123bb91fa3fc41a4e0e5d0b7e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u2l4_e10": {
+    "sentenceSha256": "bbeafad483f669225757812b245f7d0fef2622fc931de36cac09a0ef94589541",
+    "audioSha256": "0f942d5f70df5e76ef59b86de4e3fcee1e9954030a4b78401203d402f13dffd3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_dialogue_1": {
+    "sentenceSha256": "16e5f523e0ace92646993a353d8a998a7993e2d22d51d91c659d5a7d120350b4",
+    "audioSha256": "4b69802feec1af0eb758cd3f38c8ae8b413268fe61386ca971126a6d0b4a4fde",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_dialogue_2": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_dialogue_3": {
+    "sentenceSha256": "442f2b016cfbf2356b19d8a528a37c57e41dd38806fd5d1afac3ad286db37939",
+    "audioSha256": "fa06be4c1cba5434c168c92e52d77037729df96a246adf7241a9ccb9f7a70234",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_dialogue_4": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_1": {
+    "sentenceSha256": "9a443ec9f96a86f069609f8036d50e8eca69cc7be87019ca981920703462e278",
+    "audioSha256": "d28b0bfdb02fb0b65d6ec0e4be9e9d2b08d73eae1211a775f05120fb328fed16",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_2": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_3": {
+    "sentenceSha256": "ae35964219d1b24bba10a2fba9551a06219d701a8f3fff6e80750d09f4f3b495",
+    "audioSha256": "2b848ab534ab06312d3c5850048c77bd753f8812b357dc49257b2e288ca9bdb3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_4": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_5": {
+    "sentenceSha256": "9be76705f5758297af6dbfb70a5c18391b54e20f43cb8bfb0bd80de592d683e5",
+    "audioSha256": "3c5df5387af510c08b81be55e6c66f8a19c3154c1db3a08f0434b1b94429f6bf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_6": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_vocab_7": {
+    "sentenceSha256": "94c05f1c45a1d1a913e041748ad9444083e9e398fc5719e02a4fc4874169a038",
+    "audioSha256": "4b33fe907529ba910a7edb01049fbbca9ebe61d460999d534bedee37281c7d57",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e1": {
+    "sentenceSha256": "16e5f523e0ace92646993a353d8a998a7993e2d22d51d91c659d5a7d120350b4",
+    "audioSha256": "4b69802feec1af0eb758cd3f38c8ae8b413268fe61386ca971126a6d0b4a4fde",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e2": {
+    "sentenceSha256": "f0a5eefaa168329476cf91b56e0c00efa1d69d086b2a766c6d30eddff776a697",
+    "audioSha256": "f526ef8067e84cdbe25a4185faa819f76a295d56697bd4d952eb7c5058fb4abe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e3": {
+    "sentenceSha256": "f0a5eefaa168329476cf91b56e0c00efa1d69d086b2a766c6d30eddff776a697",
+    "audioSha256": "f526ef8067e84cdbe25a4185faa819f76a295d56697bd4d952eb7c5058fb4abe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e4": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e5": {
+    "sentenceSha256": "16e5f523e0ace92646993a353d8a998a7993e2d22d51d91c659d5a7d120350b4",
+    "audioSha256": "4b69802feec1af0eb758cd3f38c8ae8b413268fe61386ca971126a6d0b4a4fde",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e6": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e7": {
+    "sentenceSha256": "f0a5eefaa168329476cf91b56e0c00efa1d69d086b2a766c6d30eddff776a697",
+    "audioSha256": "f526ef8067e84cdbe25a4185faa819f76a295d56697bd4d952eb7c5058fb4abe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e8": {
+    "sentenceSha256": "ceb95fb4d5659bf9c1f6625980c1f5c02886fc2dfb53ffd99f31a991128f494c",
+    "audioSha256": "850edef84ae611317402f468ca2f225af4d37410b0686da45b632caf090cdd5e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e9": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_e10": {
+    "sentenceSha256": "ceb95fb4d5659bf9c1f6625980c1f5c02886fc2dfb53ffd99f31a991128f494c",
+    "audioSha256": "850edef84ae611317402f468ca2f225af4d37410b0686da45b632caf090cdd5e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_example_1": {
+    "sentenceSha256": "16e5f523e0ace92646993a353d8a998a7993e2d22d51d91c659d5a7d120350b4",
+    "audioSha256": "4b69802feec1af0eb758cd3f38c8ae8b413268fe61386ca971126a6d0b4a4fde",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_example_2": {
+    "sentenceSha256": "f0a5eefaa168329476cf91b56e0c00efa1d69d086b2a766c6d30eddff776a697",
+    "audioSha256": "f526ef8067e84cdbe25a4185faa819f76a295d56697bd4d952eb7c5058fb4abe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_example_3": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_review_1": {
+    "sentenceSha256": "16e5f523e0ace92646993a353d8a998a7993e2d22d51d91c659d5a7d120350b4",
+    "audioSha256": "4b69802feec1af0eb758cd3f38c8ae8b413268fe61386ca971126a6d0b4a4fde",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_review_2": {
+    "sentenceSha256": "f0a5eefaa168329476cf91b56e0c00efa1d69d086b2a766c6d30eddff776a697",
+    "audioSha256": "f526ef8067e84cdbe25a4185faa819f76a295d56697bd4d952eb7c5058fb4abe",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_review_3": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l1_review_4": {
+    "sentenceSha256": "ceb95fb4d5659bf9c1f6625980c1f5c02886fc2dfb53ffd99f31a991128f494c",
+    "audioSha256": "850edef84ae611317402f468ca2f225af4d37410b0686da45b632caf090cdd5e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_dialogue_1": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_dialogue_2": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_dialogue_3": {
+    "sentenceSha256": "34fef8b53cd7abe36872a46bc5c5b93df96120c3041d6dd0a30389b1c72117e3",
+    "audioSha256": "b61367f8ec2e190310bcf8f79951a8e4eb73425613248bcbcbfb277524f26a27",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_dialogue_4": {
+    "sentenceSha256": "ddb6f5ec4b7d2c38e4b4e7498485652759dc65bf8f5014ebf5f5021416349e78",
+    "audioSha256": "7571b9007251f5b9df5a8831b3b838baa65420266e571194c64d5769c94b15ea",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_1": {
+    "sentenceSha256": "70ab804de194072ff5a3308c3ea9a4e008a3985472fc29b68ff3687220407dd1",
+    "audioSha256": "fb9f03485c4c5cae88378e1c8de11f22521cd31a5c7e382406b1bb5504302d15",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_2": {
+    "sentenceSha256": "df700c02354d6d0e03088ba912eda91a5f41ffc67f784c834c54a2eda95ade14",
+    "audioSha256": "921e9c51700d9b96f9fc705409479e695bda0f1a395e5a0e4e7ff1037c0d8721",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_3": {
+    "sentenceSha256": "cde6699a0177c1515e5bff0e5b6fd77202e3d016c3b080eab32175eb5cdddda6",
+    "audioSha256": "279b4f5eb1a1aa9029c86337149be117b29689e0002a9be3d9966086e502917c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_4": {
+    "sentenceSha256": "d5821c1993e657f7856549f236b59045b50f354871e73042f5464e1566326d47",
+    "audioSha256": "81581202726573c2bd4a73d8cdfcbdee255ee9ef93c61febe6a7bbd6656c12f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_5": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_6": {
+    "sentenceSha256": "cab2644828bcc1f220612fde559864da2c5bf0c6eebdcadbb4a4c88c9fcf3927",
+    "audioSha256": "0c9d86ca6be601e2f4a755d4f615175b81c2f5263ff82d93bb11f602d5ccea84",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_vocab_7": {
+    "sentenceSha256": "94c05f1c45a1d1a913e041748ad9444083e9e398fc5719e02a4fc4874169a038",
+    "audioSha256": "4b33fe907529ba910a7edb01049fbbca9ebe61d460999d534bedee37281c7d57",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e1": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e2": {
+    "sentenceSha256": "f95a8f3c7a56206023e46eeb923864c1017b03bb0319ac382374b96609cb699e",
+    "audioSha256": "638f40d168aca97871c55db518f5060e9bce3ddbd3e08bfcc33355b29acccf0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e3": {
+    "sentenceSha256": "f95a8f3c7a56206023e46eeb923864c1017b03bb0319ac382374b96609cb699e",
+    "audioSha256": "638f40d168aca97871c55db518f5060e9bce3ddbd3e08bfcc33355b29acccf0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e4": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e5": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e6": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e7": {
+    "sentenceSha256": "f95a8f3c7a56206023e46eeb923864c1017b03bb0319ac382374b96609cb699e",
+    "audioSha256": "638f40d168aca97871c55db518f5060e9bce3ddbd3e08bfcc33355b29acccf0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e8": {
+    "sentenceSha256": "bc8e9a625016705ac21a6e73efaaf53a4b089470b9c38e0e8afda34408095172",
+    "audioSha256": "24e299de65fc2b82bb9dba1e2a6ab80d901bbd500edece743eb1644e73daf33e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e9": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_e10": {
+    "sentenceSha256": "bc8e9a625016705ac21a6e73efaaf53a4b089470b9c38e0e8afda34408095172",
+    "audioSha256": "24e299de65fc2b82bb9dba1e2a6ab80d901bbd500edece743eb1644e73daf33e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_example_1": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_example_2": {
+    "sentenceSha256": "f95a8f3c7a56206023e46eeb923864c1017b03bb0319ac382374b96609cb699e",
+    "audioSha256": "638f40d168aca97871c55db518f5060e9bce3ddbd3e08bfcc33355b29acccf0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_example_3": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_review_1": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_review_2": {
+    "sentenceSha256": "f95a8f3c7a56206023e46eeb923864c1017b03bb0319ac382374b96609cb699e",
+    "audioSha256": "638f40d168aca97871c55db518f5060e9bce3ddbd3e08bfcc33355b29acccf0d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_review_3": {
+    "sentenceSha256": "0abece441ec5e221925c108f4d17332ef14b802932edcb34d2649ab07482d035",
+    "audioSha256": "2edbc538ced52a647b211ec774e8b9bec37f995433c3bd39873f8263e2081421",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l2_review_4": {
+    "sentenceSha256": "bc8e9a625016705ac21a6e73efaaf53a4b089470b9c38e0e8afda34408095172",
+    "audioSha256": "24e299de65fc2b82bb9dba1e2a6ab80d901bbd500edece743eb1644e73daf33e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_dialogue_1": {
+    "sentenceSha256": "d2cb575d2cb2c7cd71aca40aab6a0858ee62a220e29390a693d6d817e7aefdc3",
+    "audioSha256": "97296b4764e24675aa5b1d601a20bd37fe674541c3d6deccca4258ddb64058ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_dialogue_2": {
+    "sentenceSha256": "536014847c8b63dd9d357f0cbc8b87e541d6f76ee73a6b644c7d0f3388b48962",
+    "audioSha256": "b749d33e82ab639f2c4746ccd5d73e1a3c9ddde786c903d6db4e18302ce32e73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_dialogue_3": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_dialogue_4": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_1": {
+    "sentenceSha256": "caf40b5647c4f676c324ab272f3e9c727f381dbff31cca5135dfa0838606828d",
+    "audioSha256": "8ae54fdd7ace857571bdb53935ee33c9497f17335f8d2e87f2579d42dc23880e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_2": {
+    "sentenceSha256": "31060ba1be97c12423ba5bba3e48269fc7cc54b4f0bad66e81fd73e874069ae2",
+    "audioSha256": "11d463190d97093254f690c57b20e94ae32c2993b97dba8015cb27f945b349da",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_3": {
+    "sentenceSha256": "4f3b6efe3dd1ec84c4862abf0c4e949d9f150c9654a5d4f443ae83369d822612",
+    "audioSha256": "31126a65038b559cf6f2fa780b92a262875cd1f1627b3c7a9e17d2c8213edb37",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_4": {
+    "sentenceSha256": "13ff9e750bcad590f4aea85f24d0f9050a52534592f4ebdbaf54da63af1aaaf4",
+    "audioSha256": "21178eecb43092add985d09c688c839e3576d802827107783369f196859719e0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_5": {
+    "sentenceSha256": "7c5a4d93ce4713f8c50a227f2552c34d7841de63c45a6c1196c212694701c890",
+    "audioSha256": "e1568fcaefe92bde8711f77b2139b7dd780ccf60148bf56e845ab96d3a9efd7b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_6": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_7": {
+    "sentenceSha256": "56ccc4dcfc96534b06fc0c08a301be24f13b491484d5d984953cc0dba9bbb89a",
+    "audioSha256": "5b20c7a0e406acf51d6f52e98c5b1b8678e83db85e1ec0d00ff778823651500d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_8": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_vocab_9": {
+    "sentenceSha256": "e67fd73a84918e64c84f082cdc04e34435eb98acc712c8e8384268a7e7c5e208",
+    "audioSha256": "998709af0d3b5b051d97f0c77ae18d4cb7370d7a4bae28670a8b01a4e39715c0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e1": {
+    "sentenceSha256": "7126f272b1d7cdd4f7bb523bd0a4e7f5f692605a469afaa4565e3564af79fc3c",
+    "audioSha256": "8a93f2732e0ea01db2e7fe57f07e8532439794d17ce419cc426e2d777b0cefca",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e2": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e3": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e4": {
+    "sentenceSha256": "720be523d2a9bef91ee3f504f0e6b21fa818b56e0c6c9b81e292e239edd21b08",
+    "audioSha256": "8885d1b3c4b8cb84b98d492f80696043cea4f4390162dad8e302a3f09596c128",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e5": {
+    "sentenceSha256": "7126f272b1d7cdd4f7bb523bd0a4e7f5f692605a469afaa4565e3564af79fc3c",
+    "audioSha256": "8a93f2732e0ea01db2e7fe57f07e8532439794d17ce419cc426e2d777b0cefca",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e6": {
+    "sentenceSha256": "720be523d2a9bef91ee3f504f0e6b21fa818b56e0c6c9b81e292e239edd21b08",
+    "audioSha256": "8885d1b3c4b8cb84b98d492f80696043cea4f4390162dad8e302a3f09596c128",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e7": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e8": {
+    "sentenceSha256": "2afbb11a2bd1a389e1f93b72700fc627bba0822078befedabc11fefad89cc4f1",
+    "audioSha256": "a7ae745904ce590653ce585271df24004336fda78ba8e7641ba3b444843bbc07",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e9": {
+    "sentenceSha256": "720be523d2a9bef91ee3f504f0e6b21fa818b56e0c6c9b81e292e239edd21b08",
+    "audioSha256": "8885d1b3c4b8cb84b98d492f80696043cea4f4390162dad8e302a3f09596c128",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_e10": {
+    "sentenceSha256": "2afbb11a2bd1a389e1f93b72700fc627bba0822078befedabc11fefad89cc4f1",
+    "audioSha256": "a7ae745904ce590653ce585271df24004336fda78ba8e7641ba3b444843bbc07",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_example_1": {
+    "sentenceSha256": "7126f272b1d7cdd4f7bb523bd0a4e7f5f692605a469afaa4565e3564af79fc3c",
+    "audioSha256": "8a93f2732e0ea01db2e7fe57f07e8532439794d17ce419cc426e2d777b0cefca",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_example_2": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_example_3": {
+    "sentenceSha256": "720be523d2a9bef91ee3f504f0e6b21fa818b56e0c6c9b81e292e239edd21b08",
+    "audioSha256": "8885d1b3c4b8cb84b98d492f80696043cea4f4390162dad8e302a3f09596c128",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_review_1": {
+    "sentenceSha256": "7126f272b1d7cdd4f7bb523bd0a4e7f5f692605a469afaa4565e3564af79fc3c",
+    "audioSha256": "8a93f2732e0ea01db2e7fe57f07e8532439794d17ce419cc426e2d777b0cefca",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_review_2": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_review_3": {
+    "sentenceSha256": "720be523d2a9bef91ee3f504f0e6b21fa818b56e0c6c9b81e292e239edd21b08",
+    "audioSha256": "8885d1b3c4b8cb84b98d492f80696043cea4f4390162dad8e302a3f09596c128",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l3_review_4": {
+    "sentenceSha256": "2afbb11a2bd1a389e1f93b72700fc627bba0822078befedabc11fefad89cc4f1",
+    "audioSha256": "a7ae745904ce590653ce585271df24004336fda78ba8e7641ba3b444843bbc07",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_1": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_2": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_3": {
+    "sentenceSha256": "d2cb575d2cb2c7cd71aca40aab6a0858ee62a220e29390a693d6d817e7aefdc3",
+    "audioSha256": "97296b4764e24675aa5b1d601a20bd37fe674541c3d6deccca4258ddb64058ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_4": {
+    "sentenceSha256": "536014847c8b63dd9d357f0cbc8b87e541d6f76ee73a6b644c7d0f3388b48962",
+    "audioSha256": "b749d33e82ab639f2c4746ccd5d73e1a3c9ddde786c903d6db4e18302ce32e73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_5": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_dialogue_6": {
+    "sentenceSha256": "8569efc4ed5a6273140c2b6ec0ab8d99f4398210808fbb7c0cbbae4fbcc21350",
+    "audioSha256": "44e008093fc005fe6c12d1806408364eb2ae5d665b6fb8555ab977bcea9ce406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_1": {
+    "sentenceSha256": "9a443ec9f96a86f069609f8036d50e8eca69cc7be87019ca981920703462e278",
+    "audioSha256": "d28b0bfdb02fb0b65d6ec0e4be9e9d2b08d73eae1211a775f05120fb328fed16",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_2": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_3": {
+    "sentenceSha256": "ae35964219d1b24bba10a2fba9551a06219d701a8f3fff6e80750d09f4f3b495",
+    "audioSha256": "2b848ab534ab06312d3c5850048c77bd753f8812b357dc49257b2e288ca9bdb3",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_4": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_5": {
+    "sentenceSha256": "9be76705f5758297af6dbfb70a5c18391b54e20f43cb8bfb0bd80de592d683e5",
+    "audioSha256": "3c5df5387af510c08b81be55e6c66f8a19c3154c1db3a08f0434b1b94429f6bf",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_6": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_7": {
+    "sentenceSha256": "70ab804de194072ff5a3308c3ea9a4e008a3985472fc29b68ff3687220407dd1",
+    "audioSha256": "fb9f03485c4c5cae88378e1c8de11f22521cd31a5c7e382406b1bb5504302d15",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_8": {
+    "sentenceSha256": "df700c02354d6d0e03088ba912eda91a5f41ffc67f784c834c54a2eda95ade14",
+    "audioSha256": "921e9c51700d9b96f9fc705409479e695bda0f1a395e5a0e4e7ff1037c0d8721",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_9": {
+    "sentenceSha256": "cde6699a0177c1515e5bff0e5b6fd77202e3d016c3b080eab32175eb5cdddda6",
+    "audioSha256": "279b4f5eb1a1aa9029c86337149be117b29689e0002a9be3d9966086e502917c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_10": {
+    "sentenceSha256": "d5821c1993e657f7856549f236b59045b50f354871e73042f5464e1566326d47",
+    "audioSha256": "81581202726573c2bd4a73d8cdfcbdee255ee9ef93c61febe6a7bbd6656c12f1",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_11": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_12": {
+    "sentenceSha256": "caf40b5647c4f676c324ab272f3e9c727f381dbff31cca5135dfa0838606828d",
+    "audioSha256": "8ae54fdd7ace857571bdb53935ee33c9497f17335f8d2e87f2579d42dc23880e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_13": {
+    "sentenceSha256": "31060ba1be97c12423ba5bba3e48269fc7cc54b4f0bad66e81fd73e874069ae2",
+    "audioSha256": "11d463190d97093254f690c57b20e94ae32c2993b97dba8015cb27f945b349da",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_14": {
+    "sentenceSha256": "4f3b6efe3dd1ec84c4862abf0c4e949d9f150c9654a5d4f443ae83369d822612",
+    "audioSha256": "31126a65038b559cf6f2fa780b92a262875cd1f1627b3c7a9e17d2c8213edb37",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_15": {
+    "sentenceSha256": "13ff9e750bcad590f4aea85f24d0f9050a52534592f4ebdbaf54da63af1aaaf4",
+    "audioSha256": "21178eecb43092add985d09c688c839e3576d802827107783369f196859719e0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_16": {
+    "sentenceSha256": "7c5a4d93ce4713f8c50a227f2552c34d7841de63c45a6c1196c212694701c890",
+    "audioSha256": "e1568fcaefe92bde8711f77b2139b7dd780ccf60148bf56e845ab96d3a9efd7b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_17": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_18": {
+    "sentenceSha256": "56ccc4dcfc96534b06fc0c08a301be24f13b491484d5d984953cc0dba9bbb89a",
+    "audioSha256": "5b20c7a0e406acf51d6f52e98c5b1b8678e83db85e1ec0d00ff778823651500d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_19": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_vocab_20": {
+    "sentenceSha256": "e67fd73a84918e64c84f082cdc04e34435eb98acc712c8e8384268a7e7c5e208",
+    "audioSha256": "998709af0d3b5b051d97f0c77ae18d4cb7370d7a4bae28670a8b01a4e39715c0",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e1": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e2": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e3": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e4": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e5": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e6": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e7": {
+    "sentenceSha256": "6150b66a2ce7474bb0642ed310b8e0e2f4e4016ff3dafe4bf403ba74ba7a1395",
+    "audioSha256": "3dba83ee2cb8a4a0230e45bcf0c19693283f3d6d4f74a38bcd35574adf2f6146",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e8": {
+    "sentenceSha256": "e6e528c1a8d3a698f3871e982f7967341393aa649b235595571eddda46990358",
+    "audioSha256": "1fced114602c366ab272469b47d84399f5e8a0d60802677e67c9589927aa99f4",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e9": {
+    "sentenceSha256": "7126f272b1d7cdd4f7bb523bd0a4e7f5f692605a469afaa4565e3564af79fc3c",
+    "audioSha256": "8a93f2732e0ea01db2e7fe57f07e8532439794d17ce419cc426e2d777b0cefca",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u3l4_e10": {
+    "sentenceSha256": "80c1d7f1b773d9d99efc6eb1c612065a578c2913abdb903bd01bd5aef3ef3d2b",
+    "audioSha256": "5baa924ff9d75476d22afae050bafde25ce7bb3eacf19eeee008371fccaaedb9",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_dialogue_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_dialogue_2": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_dialogue_3": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_dialogue_4": {
+    "sentenceSha256": "5a3737e180810ef8afea4b1125190febcb86980a2b3e8a99140e42b1ccf18efd",
+    "audioSha256": "7240707c749f84e32f6ae28689b68013b87e5b66af2dd1239cd0de1e496adf59",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_2": {
+    "sentenceSha256": "ddfd032cce17828b78f39a45ec9eb7e08706234daff45da0498cf931407c07a6",
+    "audioSha256": "32402ac0bc41680dc7bd09d73970bb87ea27a47b98d156e610795e054ce4c23f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_3": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_4": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_5": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_vocab_6": {
+    "sentenceSha256": "df700c02354d6d0e03088ba912eda91a5f41ffc67f784c834c54a2eda95ade14",
+    "audioSha256": "921e9c51700d9b96f9fc705409479e695bda0f1a395e5a0e4e7ff1037c0d8721",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e2": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e3": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e4": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e5": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e6": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e7": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e8": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e9": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_e10": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_example_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_example_2": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_example_3": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_review_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_review_2": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_review_3": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l1_review_4": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_dialogue_1": {
+    "sentenceSha256": "a70d5ffd365962705e4f01dd8a640d345022c73ba8549b5a2064e3f3ba1e1843",
+    "audioSha256": "05c5ecb3bd7705dea236cad9b6baedb9cfaf82ef9bee3d57e14e7217a1066a0b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_dialogue_2": {
+    "sentenceSha256": "70d103faf1a328ee9cb17d3cbda4fea582bec90ff1c03fc5eb169e02c8b29aed",
+    "audioSha256": "6acc021e384f186ebfba334554fd84983478ad991d4995a15fb1990bdc9bee73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_dialogue_3": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_dialogue_4": {
+    "sentenceSha256": "2bc4eda434400b16a9949e41aaaf4e520ead8511696d5e7f68701f84dd463e06",
+    "audioSha256": "c5cfb2a5504007fdd922f9b2e749ea866e5d274a198cd2b573a69fd3b978c874",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_1": {
+    "sentenceSha256": "97b46c42eed5dd6e75877016645dd2113b4e787a7c59e93e981aeb50c89eae28",
+    "audioSha256": "fbd132532696e1bc63768c790d88cb0921e2ea913bad95814e4c9950a0a56371",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_2": {
+    "sentenceSha256": "e8f223a3abf78198b10448a6dd12b1b839c9b71ece0425138dffa87ee6d1747c",
+    "audioSha256": "75b087ea9d5d20d92c102192c63e8411f3c5e63a295a7720ce1a46bc9b22fd76",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_3": {
+    "sentenceSha256": "707eb675d7f67d59b0e47176f35494d54132d1c75b3970ee1bed82518ee1429b",
+    "audioSha256": "d9e7d1688c3627af247cdc9b67d2d2b40483ef38ffdd3d98459d36cf54dacc3c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_4": {
+    "sentenceSha256": "aa0746b13b40bd6127cc0f5957c9f454e507d08232429efda915e133e5f7afd7",
+    "audioSha256": "ebd762edfa0dc42e3af24f18a8ae11f3d61410c84d3f18d7039b3f8d5a8aea6d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_5": {
+    "sentenceSha256": "e8430361050bc62b076c30e00df30923c73561e39d8b9ee45b7a784b1c81886a",
+    "audioSha256": "81100ee6fc5657cd90973eba4ac5f4c84a7f03494e629312deb28d416643cabb",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_6": {
+    "sentenceSha256": "70d103faf1a328ee9cb17d3cbda4fea582bec90ff1c03fc5eb169e02c8b29aed",
+    "audioSha256": "6acc021e384f186ebfba334554fd84983478ad991d4995a15fb1990bdc9bee73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_vocab_7": {
+    "sentenceSha256": "2bc4eda434400b16a9949e41aaaf4e520ead8511696d5e7f68701f84dd463e06",
+    "audioSha256": "c5cfb2a5504007fdd922f9b2e749ea866e5d274a198cd2b573a69fd3b978c874",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e1": {
+    "sentenceSha256": "a70d5ffd365962705e4f01dd8a640d345022c73ba8549b5a2064e3f3ba1e1843",
+    "audioSha256": "05c5ecb3bd7705dea236cad9b6baedb9cfaf82ef9bee3d57e14e7217a1066a0b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e2": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e3": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e4": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e5": {
+    "sentenceSha256": "a70d5ffd365962705e4f01dd8a640d345022c73ba8549b5a2064e3f3ba1e1843",
+    "audioSha256": "05c5ecb3bd7705dea236cad9b6baedb9cfaf82ef9bee3d57e14e7217a1066a0b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e6": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e7": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e8": {
+    "sentenceSha256": "89849ca704ba5124e075b0c0f04ef7a258279dea3dacb48e9fdda307925e05b8",
+    "audioSha256": "219597f111e075df03af56abf90a7ef7d60fded59b5244b6fb93c801521e0b3a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e9": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_e10": {
+    "sentenceSha256": "89849ca704ba5124e075b0c0f04ef7a258279dea3dacb48e9fdda307925e05b8",
+    "audioSha256": "219597f111e075df03af56abf90a7ef7d60fded59b5244b6fb93c801521e0b3a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_example_1": {
+    "sentenceSha256": "a70d5ffd365962705e4f01dd8a640d345022c73ba8549b5a2064e3f3ba1e1843",
+    "audioSha256": "05c5ecb3bd7705dea236cad9b6baedb9cfaf82ef9bee3d57e14e7217a1066a0b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_example_2": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_example_3": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_review_1": {
+    "sentenceSha256": "a70d5ffd365962705e4f01dd8a640d345022c73ba8549b5a2064e3f3ba1e1843",
+    "audioSha256": "05c5ecb3bd7705dea236cad9b6baedb9cfaf82ef9bee3d57e14e7217a1066a0b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_review_2": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_review_3": {
+    "sentenceSha256": "c0f564962b4a1b436aefc4c0ef9c41a9f9cdf76c9db2bd90c5b93ec2d373a80b",
+    "audioSha256": "34cd32fc9972611c5743acff132df08c3fe02073610b80556ea8d1bd213a5c18",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l2_review_4": {
+    "sentenceSha256": "89849ca704ba5124e075b0c0f04ef7a258279dea3dacb48e9fdda307925e05b8",
+    "audioSha256": "219597f111e075df03af56abf90a7ef7d60fded59b5244b6fb93c801521e0b3a",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_dialogue_1": {
+    "sentenceSha256": "015d633fef5790c25f7550bbd6fea048b26f9e84d2f4b43a87c7286bf5597aaf",
+    "audioSha256": "e320d5648e631d3cf003a198488be0b6021b764b95b1ddd8e5fae0cba3c0d571",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_dialogue_2": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_dialogue_3": {
+    "sentenceSha256": "123ba1862b9595ec55d3f5fe5fc379d650f259c73e65df09ab3bbc4f41686203",
+    "audioSha256": "cc5771c76f59edf68a45dfbed9ff9a839f406e33ad94ebdb4dabcd2d0a9ed1ad",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_dialogue_4": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_1": {
+    "sentenceSha256": "127a9ce8b3f7b79d577a14ca390c3202ec5337bb1ffaa0185ad43835e4eb72f5",
+    "audioSha256": "270ffa93e6d03657ad8769dce6cba6597d281b4b8a26b9b76df7a0d40084a681",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_2": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_3": {
+    "sentenceSha256": "7c5a4d93ce4713f8c50a227f2552c34d7841de63c45a6c1196c212694701c890",
+    "audioSha256": "e1568fcaefe92bde8711f77b2139b7dd780ccf60148bf56e845ab96d3a9efd7b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_4": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_5": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_6": {
+    "sentenceSha256": "56ccc4dcfc96534b06fc0c08a301be24f13b491484d5d984953cc0dba9bbb89a",
+    "audioSha256": "5b20c7a0e406acf51d6f52e98c5b1b8678e83db85e1ec0d00ff778823651500d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_vocab_7": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e1": {
+    "sentenceSha256": "8b7265d33d847135b24401cef8bd217b270676783858f1dd9303d744e07c1ee9",
+    "audioSha256": "0a8ab9448ef56293ed47eded6cb4dcab1f43231716e0c7480e86e8895795d9ce",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e2": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e3": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e4": {
+    "sentenceSha256": "1cd15130c500e7a9f829882d933952384443e45f29accb6c4bb677e2890d1809",
+    "audioSha256": "c034cf0f6e930bcf044d4acd4b03895b208c4108b460e4542f08fca0213dbd3e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e5": {
+    "sentenceSha256": "8b7265d33d847135b24401cef8bd217b270676783858f1dd9303d744e07c1ee9",
+    "audioSha256": "0a8ab9448ef56293ed47eded6cb4dcab1f43231716e0c7480e86e8895795d9ce",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e6": {
+    "sentenceSha256": "1cd15130c500e7a9f829882d933952384443e45f29accb6c4bb677e2890d1809",
+    "audioSha256": "c034cf0f6e930bcf044d4acd4b03895b208c4108b460e4542f08fca0213dbd3e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e7": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e8": {
+    "sentenceSha256": "4761c01cc0b3aa66736a4e1ac865931b83229e4166a6c6de54723a6510fba0ba",
+    "audioSha256": "5dcc5d9e94cc52f1dfcecec651c533b24a703cb05133a873e4e8daf8d988fab2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e9": {
+    "sentenceSha256": "1cd15130c500e7a9f829882d933952384443e45f29accb6c4bb677e2890d1809",
+    "audioSha256": "c034cf0f6e930bcf044d4acd4b03895b208c4108b460e4542f08fca0213dbd3e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_e10": {
+    "sentenceSha256": "4761c01cc0b3aa66736a4e1ac865931b83229e4166a6c6de54723a6510fba0ba",
+    "audioSha256": "5dcc5d9e94cc52f1dfcecec651c533b24a703cb05133a873e4e8daf8d988fab2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_example_1": {
+    "sentenceSha256": "8b7265d33d847135b24401cef8bd217b270676783858f1dd9303d744e07c1ee9",
+    "audioSha256": "0a8ab9448ef56293ed47eded6cb4dcab1f43231716e0c7480e86e8895795d9ce",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_example_2": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_example_3": {
+    "sentenceSha256": "1cd15130c500e7a9f829882d933952384443e45f29accb6c4bb677e2890d1809",
+    "audioSha256": "c034cf0f6e930bcf044d4acd4b03895b208c4108b460e4542f08fca0213dbd3e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_review_1": {
+    "sentenceSha256": "8b7265d33d847135b24401cef8bd217b270676783858f1dd9303d744e07c1ee9",
+    "audioSha256": "0a8ab9448ef56293ed47eded6cb4dcab1f43231716e0c7480e86e8895795d9ce",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_review_2": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_review_3": {
+    "sentenceSha256": "1cd15130c500e7a9f829882d933952384443e45f29accb6c4bb677e2890d1809",
+    "audioSha256": "c034cf0f6e930bcf044d4acd4b03895b208c4108b460e4542f08fca0213dbd3e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l3_review_4": {
+    "sentenceSha256": "4761c01cc0b3aa66736a4e1ac865931b83229e4166a6c6de54723a6510fba0ba",
+    "audioSha256": "5dcc5d9e94cc52f1dfcecec651c533b24a703cb05133a873e4e8daf8d988fab2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_2": {
+    "sentenceSha256": "9fcfcb10b10c570b62b4d791e73d84e6185c64e9151d5d3be2767ad3e36a9860",
+    "audioSha256": "d6ceedf4f3be312058b2daacea4d581d3e5d76371cb7c838828065aae2896406",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_3": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_4": {
+    "sentenceSha256": "70d103faf1a328ee9cb17d3cbda4fea582bec90ff1c03fc5eb169e02c8b29aed",
+    "audioSha256": "6acc021e384f186ebfba334554fd84983478ad991d4995a15fb1990bdc9bee73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_5": {
+    "sentenceSha256": "015d633fef5790c25f7550bbd6fea048b26f9e84d2f4b43a87c7286bf5597aaf",
+    "audioSha256": "e320d5648e631d3cf003a198488be0b6021b764b95b1ddd8e5fae0cba3c0d571",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_dialogue_6": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_2": {
+    "sentenceSha256": "ddfd032cce17828b78f39a45ec9eb7e08706234daff45da0498cf931407c07a6",
+    "audioSha256": "32402ac0bc41680dc7bd09d73970bb87ea27a47b98d156e610795e054ce4c23f",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_3": {
+    "sentenceSha256": "83a30d3fbd93cbb9d1e91256c8854475c41498e48de9ee6d80820a4f40168bf8",
+    "audioSha256": "0beb4904fbcd75842e1241a0b4fd7023d306e9332bfb02b9d73ab181f3a4289e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_4": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_5": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_6": {
+    "sentenceSha256": "df700c02354d6d0e03088ba912eda91a5f41ffc67f784c834c54a2eda95ade14",
+    "audioSha256": "921e9c51700d9b96f9fc705409479e695bda0f1a395e5a0e4e7ff1037c0d8721",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_7": {
+    "sentenceSha256": "97b46c42eed5dd6e75877016645dd2113b4e787a7c59e93e981aeb50c89eae28",
+    "audioSha256": "fbd132532696e1bc63768c790d88cb0921e2ea913bad95814e4c9950a0a56371",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_8": {
+    "sentenceSha256": "e8f223a3abf78198b10448a6dd12b1b839c9b71ece0425138dffa87ee6d1747c",
+    "audioSha256": "75b087ea9d5d20d92c102192c63e8411f3c5e63a295a7720ce1a46bc9b22fd76",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_9": {
+    "sentenceSha256": "707eb675d7f67d59b0e47176f35494d54132d1c75b3970ee1bed82518ee1429b",
+    "audioSha256": "d9e7d1688c3627af247cdc9b67d2d2b40483ef38ffdd3d98459d36cf54dacc3c",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_10": {
+    "sentenceSha256": "aa0746b13b40bd6127cc0f5957c9f454e507d08232429efda915e133e5f7afd7",
+    "audioSha256": "ebd762edfa0dc42e3af24f18a8ae11f3d61410c84d3f18d7039b3f8d5a8aea6d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_11": {
+    "sentenceSha256": "e8430361050bc62b076c30e00df30923c73561e39d8b9ee45b7a784b1c81886a",
+    "audioSha256": "81100ee6fc5657cd90973eba4ac5f4c84a7f03494e629312deb28d416643cabb",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_12": {
+    "sentenceSha256": "70d103faf1a328ee9cb17d3cbda4fea582bec90ff1c03fc5eb169e02c8b29aed",
+    "audioSha256": "6acc021e384f186ebfba334554fd84983478ad991d4995a15fb1990bdc9bee73",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_13": {
+    "sentenceSha256": "2bc4eda434400b16a9949e41aaaf4e520ead8511696d5e7f68701f84dd463e06",
+    "audioSha256": "c5cfb2a5504007fdd922f9b2e749ea866e5d274a198cd2b573a69fd3b978c874",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_14": {
+    "sentenceSha256": "127a9ce8b3f7b79d577a14ca390c3202ec5337bb1ffaa0185ad43835e4eb72f5",
+    "audioSha256": "270ffa93e6d03657ad8769dce6cba6597d281b4b8a26b9b76df7a0d40084a681",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_15": {
+    "sentenceSha256": "444ab138a6d6f7cc5302536beb3b78cd6f29030f61eaf2a756665c463007d99a",
+    "audioSha256": "ae13eaf62de192e51e4185658e67a5e89ecf63d5dc7d46a97363ebbd6b77f65e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_16": {
+    "sentenceSha256": "7c5a4d93ce4713f8c50a227f2552c34d7841de63c45a6c1196c212694701c890",
+    "audioSha256": "e1568fcaefe92bde8711f77b2139b7dd780ccf60148bf56e845ab96d3a9efd7b",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_17": {
+    "sentenceSha256": "6c59825b25a609659f52c9991a3b91cf8f163e4afe4df02f4b8af68fe3e988b5",
+    "audioSha256": "2d89684da604259e5832bb00ad7ac4648c8ee7ec3c7695cf69ad96025280e2ee",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_18": {
+    "sentenceSha256": "38b1dc58e3510b8aebc506bc11d54b269be2b2ca021f8460ff6d3c67b3a10119",
+    "audioSha256": "08d049f017db616dace51e2e56db8a9dca72522e78bbc2b1eddc1bd996b1c29e",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_19": {
+    "sentenceSha256": "56ccc4dcfc96534b06fc0c08a301be24f13b491484d5d984953cc0dba9bbb89a",
+    "audioSha256": "5b20c7a0e406acf51d6f52e98c5b1b8678e83db85e1ec0d00ff778823651500d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_vocab_20": {
+    "sentenceSha256": "3f3d9f370444b48214a7eddc525b0847455ca7707a1cb058691cf343411a1134",
+    "audioSha256": "43a6027477f2495145c56e0baabd69b28f5e0baf3e81c2f9974dcd27d6fa8f5d",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e1": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e2": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e3": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e4": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e5": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e6": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e7": {
+    "sentenceSha256": "0b12ba39ab4d0851c8a36c5bbc9997333c630060bee493b9c2cfe78f6dc25c27",
+    "audioSha256": "a9bb2b77e5cae30f7bef3871ead4bd44ebf672eae780fd25844ee0ac5bfd3d21",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e8": {
+    "sentenceSha256": "9ffa268ce89d667db253cb97a62065e56f05db5ff077c09f738246df545d7f4d",
+    "audioSha256": "e19f7cc8b68d9eb9e75a60cc616134bc71d799c4ffa1a7f31b28cfa52e8f16d2",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e9": {
+    "sentenceSha256": "8b7265d33d847135b24401cef8bd217b270676783858f1dd9303d744e07c1ee9",
+    "audioSha256": "0a8ab9448ef56293ed47eded6cb4dcab1f43231716e0c7480e86e8895795d9ce",
+    "voice": "Microsoft Zira Desktop"
+  },
+  "mp_u4l4_e10": {
+    "sentenceSha256": "b28450cebc1fa793f1c2da07452db8ac78f10699faf8d8ab683a482a2567354a",
+    "audioSha256": "33869d9de4b598fd57c216862973f2b931fdb5e7b097bb9305a2c9894ffe8f6f",
+    "voice": "Microsoft Zira Desktop"
+  }
+}
