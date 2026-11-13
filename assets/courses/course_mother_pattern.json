@@ -1,0 +1,5259 @@
+{
+  "id": "motherPattern",
+  "title": "母句型听说",
+  "language": "english",
+  "explanationLanguage": "chinese",
+  "units": [
+    {
+      "id": "mp_u1",
+      "title": "单元 1｜认识自己和身边的人物",
+      "description": "三个母句型与一节综合对话，听说为主，句块与输入辅助。",
+      "lessons": [
+        {
+          "id": "mp_u1l1",
+          "title": "I am …｜介绍身份与状态",
+          "exercises": [
+            {
+              "id": "mp_u1l1_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I am Tom.",
+              "options": [
+                "I am a student.",
+                "I am happy.",
+                "I am ready.",
+                "I am Tom."
+              ],
+              "answer": "I am Tom.",
+              "audioId": "mp_u1l1_e1",
+              "acceptedAnswers": [
+                "I'm Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I am a student.",
+              "options": [
+                "I am happy.",
+                "I am ready.",
+                "I am Tom.",
+                "I am a student."
+              ],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l1_e2",
+              "acceptedAnswers": [
+                "I'm a student."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e3",
+              "type": "wordBank",
+              "prompt": "你是一名学生，老师询问你的身份，请向老师说明。用句块拼出本课句型。",
+              "sentence": "I am a student.",
+              "options": [],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l1_e3",
+              "acceptedAnswers": [
+                "I'm a student."
+              ],
+              "tokens": [
+                "I am",
+                "a student."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e4",
+              "type": "wordBank",
+              "prompt": "朋友问你的状态，你现在很开心，请告诉朋友。用句块拼出本课句型。",
+              "sentence": "I am happy.",
+              "options": [],
+              "answer": "I am happy.",
+              "audioId": "mp_u1l1_e4",
+              "acceptedAnswers": [
+                "I'm happy."
+              ],
+              "tokens": [
+                "I am",
+                "happy."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：汤姆。",
+              "sentence": "I am Tom.",
+              "options": [],
+              "answer": "I am Tom.",
+              "audioId": "mp_u1l1_e5",
+              "acceptedAnswers": [
+                "I'm Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：开心的。",
+              "sentence": "I am happy.",
+              "options": [],
+              "answer": "I am happy.",
+              "audioId": "mp_u1l1_e6",
+              "acceptedAnswers": [
+                "I'm happy."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e7",
+              "type": "translateInput",
+              "prompt": "你是一名学生，老师询问你的身份，请向老师说明。使用本课句型回答。",
+              "sentence": "I am a student.",
+              "options": [],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l1_e7",
+              "acceptedAnswers": [
+                "I'm a student."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e8",
+              "type": "translateInput",
+              "prompt": "老师准备开始活动，你已经准备好了，请告诉老师你的状态。使用本课句型回答。",
+              "sentence": "I am ready.",
+              "options": [],
+              "answer": "I am ready.",
+              "audioId": "mp_u1l1_e8",
+              "acceptedAnswers": [
+                "I'm ready."
+              ]
+            },
+            {
+              "id": "mp_u1l1_e9",
+              "type": "speaking",
+              "prompt": "朋友问你的状态，你现在很开心，请告诉朋友。使用本课句型回答。",
+              "sentence": "I am happy.",
+              "options": [],
+              "answer": "I am happy.",
+              "audioId": "mp_u1l1_e9",
+              "acceptedAnswers": [
+                "I'm happy."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l1_e10",
+              "type": "speaking",
+              "prompt": "老师准备开始活动，你已经准备好了，请告诉老师你的状态。使用本课句型回答。",
+              "sentence": "I am ready.",
+              "options": [],
+              "answer": "I am ready.",
+              "audioId": "mp_u1l1_e10",
+              "acceptedAnswers": [
+                "I'm ready."
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_am",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I am …",
+            "meaning": "我是……／我现在……，用来介绍自己的身份或状态。",
+            "slotRule": "姓名直接放在 am 后；单数身份名词前加 a，如 a student；状态形容词直接放在 am 后，如 happy。I am 可缩写为 I’m。",
+            "limitations": [
+              "本课只练 I am，不把主语换成 you 或 he。",
+              "只替换已教的姓名、身份和状态，不在 am 后直接加普通动作动词。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "Hello. I am Tom.",
+                "translation": "你好。我是汤姆。",
+                "audioId": "mp_u1l1_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "Hello. I am Amy.",
+                "translation": "你好。我是艾米。",
+                "audioId": "mp_u1l1_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I am a student.",
+                "translation": "我是一名学生。",
+                "audioId": "mp_u1l1_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I am happy.",
+                "translation": "我很开心。",
+                "audioId": "mp_u1l1_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I am",
+                "meaning": "我是……／我现在……",
+                "audioId": "mp_u1l1_vocab_1"
+              },
+              {
+                "text": "I'm",
+                "meaning": "I am 的口语缩写",
+                "audioId": "mp_u1l1_vocab_2"
+              },
+              {
+                "text": "a student",
+                "meaning": "一名学生",
+                "audioId": "mp_u1l1_vocab_3"
+              },
+              {
+                "text": "happy",
+                "meaning": "开心的",
+                "audioId": "mp_u1l1_vocab_4"
+              },
+              {
+                "text": "ready",
+                "meaning": "准备好的",
+                "audioId": "mp_u1l1_vocab_5"
+              },
+              {
+                "text": "amy",
+                "meaning": "艾米（姓名）",
+                "audioId": "mp_u1l1_vocab_6"
+              },
+              {
+                "text": "hello",
+                "meaning": "你好",
+                "audioId": "mp_u1l1_vocab_7"
+              },
+              {
+                "text": "tom",
+                "meaning": "汤姆（姓名）",
+                "audioId": "mp_u1l1_vocab_8"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u1l1_example_1",
+                "type": "speaking",
+                "prompt": "你是汤姆，第一次见面时向同学介绍自己是谁。",
+                "sentence": "I am Tom.",
+                "options": [],
+                "answer": "I am Tom.",
+                "audioId": "mp_u1l1_example_1"
+              },
+              {
+                "id": "mp_u1l1_example_2",
+                "type": "speaking",
+                "prompt": "你是一名学生，老师询问你的身份，请向老师说明。",
+                "sentence": "I am a student.",
+                "options": [],
+                "answer": "I am a student.",
+                "audioId": "mp_u1l1_example_2"
+              },
+              {
+                "id": "mp_u1l1_example_3",
+                "type": "speaking",
+                "prompt": "朋友问你的状态，你现在很开心，请告诉朋友。",
+                "sentence": "I am happy.",
+                "options": [],
+                "answer": "I am happy.",
+                "audioId": "mp_u1l1_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u1l1_review_1",
+                "type": "speaking",
+                "prompt": "你是汤姆，参加新社团时向活动负责人介绍自己是谁。使用本课句型回答。",
+                "sentence": "I am Tom.",
+                "options": [],
+                "answer": "I am Tom.",
+                "audioId": "mp_u1l1_review_1",
+                "acceptedAnswers": [
+                  "I'm Tom."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l1_review_2",
+                "type": "speaking",
+                "prompt": "你是一名学生，在图书馆办借书证时向工作人员说明自己的身份。使用本课句型回答。",
+                "sentence": "I am a student.",
+                "options": [],
+                "answer": "I am a student.",
+                "audioId": "mp_u1l1_review_2",
+                "acceptedAnswers": [
+                  "I'm a student."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l1_review_3",
+                "type": "speaking",
+                "prompt": "你收到朋友的礼物，现在很开心，请向送礼物的朋友说明自己的状态。使用本课句型回答。",
+                "sentence": "I am happy.",
+                "options": [],
+                "answer": "I am happy.",
+                "audioId": "mp_u1l1_review_3",
+                "acceptedAnswers": [
+                  "I'm happy."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l1_review_4",
+                "type": "speaking",
+                "prompt": "同伴准备开始游戏，你已准备好，请告诉同伴你的状态。使用本课句型回答。",
+                "sentence": "I am ready.",
+                "options": [],
+                "answer": "I am ready.",
+                "audioId": "mp_u1l1_review_4",
+                "acceptedAnswers": [
+                  "I'm ready."
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_am"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u1l1_e1",
+                  "mp_u1l1_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u1l1_e3",
+                  "mp_u1l1_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u1l1_e5",
+                  "mp_u1l1_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u1l1_e7",
+                  "mp_u1l1_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u1l1_e9",
+                  "mp_u1l1_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u1l2",
+          "title": "My name is …｜介绍姓名",
+          "exercises": [
+            {
+              "id": "mp_u1l2_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "My name is Tom.",
+              "options": [
+                "My name is Amy.",
+                "My name is Li Ming.",
+                "My name is Lucy.",
+                "My name is Tom."
+              ],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l2_e1",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "My name is Amy.",
+              "options": [
+                "My name is Li Ming.",
+                "My name is Lucy.",
+                "My name is Tom.",
+                "My name is Amy."
+              ],
+              "answer": "My name is Amy.",
+              "audioId": "mp_u1l2_e2",
+              "acceptedAnswers": [
+                "My name's Amy."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e3",
+              "type": "wordBank",
+              "prompt": "你是艾米，新同学问你的姓名，请向同学介绍自己的名字。用句块拼出本课句型。",
+              "sentence": "My name is Amy.",
+              "options": [],
+              "answer": "My name is Amy.",
+              "audioId": "mp_u1l2_e3",
+              "acceptedAnswers": [
+                "My name's Amy."
+              ],
+              "tokens": [
+                "My name is",
+                "Amy."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e4",
+              "type": "wordBank",
+              "prompt": "你是李明，参加小组时主持人问你的姓名，请回答。用句块拼出本课句型。",
+              "sentence": "My name is Li Ming.",
+              "options": [],
+              "answer": "My name is Li Ming.",
+              "audioId": "mp_u1l2_e4",
+              "acceptedAnswers": [
+                "My name's Li Ming."
+              ],
+              "tokens": [
+                "My name is",
+                "Li Ming."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：汤姆。",
+              "sentence": "My name is Tom.",
+              "options": [],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l2_e5",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：李明。",
+              "sentence": "My name is Li Ming.",
+              "options": [],
+              "answer": "My name is Li Ming.",
+              "audioId": "mp_u1l2_e6",
+              "acceptedAnswers": [
+                "My name's Li Ming."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e7",
+              "type": "translateInput",
+              "prompt": "你是艾米，新同学问你的姓名，请向同学介绍自己的名字。使用本课句型回答。",
+              "sentence": "My name is Amy.",
+              "options": [],
+              "answer": "My name is Amy.",
+              "audioId": "mp_u1l2_e7",
+              "acceptedAnswers": [
+                "My name's Amy."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e8",
+              "type": "translateInput",
+              "prompt": "你是露西，在电话里向新同学介绍自己的姓名。使用本课句型回答。",
+              "sentence": "My name is Lucy.",
+              "options": [],
+              "answer": "My name is Lucy.",
+              "audioId": "mp_u1l2_e8",
+              "acceptedAnswers": [
+                "My name's Lucy."
+              ]
+            },
+            {
+              "id": "mp_u1l2_e9",
+              "type": "speaking",
+              "prompt": "你是李明，参加小组时主持人问你的姓名，请回答。使用本课句型回答。",
+              "sentence": "My name is Li Ming.",
+              "options": [],
+              "answer": "My name is Li Ming.",
+              "audioId": "mp_u1l2_e9",
+              "acceptedAnswers": [
+                "My name's Li Ming."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l2_e10",
+              "type": "speaking",
+              "prompt": "你是露西，在电话里向新同学介绍自己的姓名。使用本课句型回答。",
+              "sentence": "My name is Lucy.",
+              "options": [],
+              "answer": "My name is Lucy.",
+              "audioId": "mp_u1l2_e10",
+              "acceptedAnswers": [
+                "My name's Lucy."
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_name",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "My name is …",
+            "meaning": "我叫……，用来回答自己的姓名。",
+            "slotRule": "空位只放姓名。My name is 可缩写为 My name’s；不要把 is 再换成 am。对方问 What is your name? 时可以使用本句型。",
+            "limitations": [
+              "本课回答自己的姓名，不说对方的姓名。",
+              "场景指定姓名，不能换成另一个人。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "What is your name?",
+                "translation": "你叫什么名字？",
+                "audioId": "mp_u1l2_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "My name is Amy.",
+                "translation": "我叫艾米。",
+                "audioId": "mp_u1l2_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "My name is Tom. Nice to meet you.",
+                "translation": "我叫汤姆。很高兴认识你。",
+                "audioId": "mp_u1l2_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "Nice to meet you, too.",
+                "translation": "我也很高兴认识你。",
+                "audioId": "mp_u1l2_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "My name is",
+                "meaning": "我叫……",
+                "audioId": "mp_u1l2_vocab_1"
+              },
+              {
+                "text": "My name's",
+                "meaning": "My name is 的口语缩写",
+                "audioId": "mp_u1l2_vocab_2"
+              },
+              {
+                "text": "What is your name?",
+                "meaning": "你叫什么名字？",
+                "audioId": "mp_u1l2_vocab_3"
+              },
+              {
+                "text": "Nice to meet you.",
+                "meaning": "很高兴认识你。",
+                "audioId": "mp_u1l2_vocab_4"
+              },
+              {
+                "text": "Li Ming",
+                "meaning": "李明（姓名）",
+                "audioId": "mp_u1l2_vocab_5"
+              },
+              {
+                "text": "amy",
+                "meaning": "艾米（姓名）",
+                "audioId": "mp_u1l2_vocab_6"
+              },
+              {
+                "text": "lucy",
+                "meaning": "露西（姓名）",
+                "audioId": "mp_u1l2_vocab_7"
+              },
+              {
+                "text": "tom",
+                "meaning": "汤姆（姓名）",
+                "audioId": "mp_u1l2_vocab_8"
+              },
+              {
+                "text": "too",
+                "meaning": "也／还",
+                "audioId": "mp_u1l2_vocab_9"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u1l2_example_1",
+                "type": "speaking",
+                "prompt": "你是汤姆，报名老师问你的姓名，请告诉老师你叫什么。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom.",
+                "audioId": "mp_u1l2_example_1"
+              },
+              {
+                "id": "mp_u1l2_example_2",
+                "type": "speaking",
+                "prompt": "你是艾米，新同学问你的姓名，请向同学介绍自己的名字。",
+                "sentence": "My name is Amy.",
+                "options": [],
+                "answer": "My name is Amy.",
+                "audioId": "mp_u1l2_example_2"
+              },
+              {
+                "id": "mp_u1l2_example_3",
+                "type": "speaking",
+                "prompt": "你是李明，参加小组时主持人问你的姓名，请回答。",
+                "sentence": "My name is Li Ming.",
+                "options": [],
+                "answer": "My name is Li Ming.",
+                "audioId": "mp_u1l2_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u1l2_review_1",
+                "type": "speaking",
+                "prompt": "你叫汤姆，第一次给老师打电话时，请介绍自己的姓名。使用本课句型回答。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom.",
+                "audioId": "mp_u1l2_review_1",
+                "acceptedAnswers": [
+                  "My name's Tom."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l2_review_2",
+                "type": "speaking",
+                "prompt": "你叫艾米，在图书馆登记时，请告诉工作人员自己的姓名。使用本课句型回答。",
+                "sentence": "My name is Amy.",
+                "options": [],
+                "answer": "My name is Amy.",
+                "audioId": "mp_u1l2_review_2",
+                "acceptedAnswers": [
+                  "My name's Amy."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l2_review_3",
+                "type": "speaking",
+                "prompt": "你叫李明，初次认识邻居时，请介绍自己的姓名。使用本课句型回答。",
+                "sentence": "My name is Li Ming.",
+                "options": [],
+                "answer": "My name is Li Ming.",
+                "audioId": "mp_u1l2_review_3",
+                "acceptedAnswers": [
+                  "My name's Li Ming."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l2_review_4",
+                "type": "speaking",
+                "prompt": "你叫露西，参加新社团时，请告诉负责人自己的姓名。使用本课句型回答。",
+                "sentence": "My name is Lucy.",
+                "options": [],
+                "answer": "My name is Lucy.",
+                "audioId": "mp_u1l2_review_4",
+                "acceptedAnswers": [
+                  "My name's Lucy."
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_name"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u1l2_e1",
+                  "mp_u1l2_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u1l2_e3",
+                  "mp_u1l2_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u1l2_e5",
+                  "mp_u1l2_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u1l2_e7",
+                  "mp_u1l2_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u1l2_e9",
+                  "mp_u1l2_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u1l3",
+          "title": "This is …｜介绍身边的人和物",
+          "exercises": [
+            {
+              "id": "mp_u1l3_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "This is my friend Amy.",
+              "options": [
+                "This is my teacher Tom.",
+                "This is a book.",
+                "This is a bag.",
+                "This is my friend Amy."
+              ],
+              "answer": "This is my friend Amy.",
+              "audioId": "mp_u1l3_e1"
+            },
+            {
+              "id": "mp_u1l3_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "This is my teacher Tom.",
+              "options": [
+                "This is a book.",
+                "This is a bag.",
+                "This is my friend Amy.",
+                "This is my teacher Tom."
+              ],
+              "answer": "This is my teacher Tom.",
+              "audioId": "mp_u1l3_e2"
+            },
+            {
+              "id": "mp_u1l3_e3",
+              "type": "wordBank",
+              "prompt": "你向朋友介绍身边的老师汤姆，请说明他是你的老师。用句块拼出本课句型。",
+              "sentence": "This is my teacher Tom.",
+              "options": [],
+              "answer": "This is my teacher Tom.",
+              "audioId": "mp_u1l3_e3",
+              "tokens": [
+                "This is",
+                "my teacher Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l3_e4",
+              "type": "wordBank",
+              "prompt": "你向小朋友展示手中这一本书，请说明这是什么物品。用句块拼出本课句型。",
+              "sentence": "This is a book.",
+              "options": [],
+              "answer": "This is a book.",
+              "audioId": "mp_u1l3_e4",
+              "tokens": [
+                "This is",
+                "a book."
+              ]
+            },
+            {
+              "id": "mp_u1l3_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：我的朋友艾米。",
+              "sentence": "This is my friend Amy.",
+              "options": [],
+              "answer": "This is my friend Amy.",
+              "audioId": "mp_u1l3_e5"
+            },
+            {
+              "id": "mp_u1l3_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：一本书。",
+              "sentence": "This is a book.",
+              "options": [],
+              "answer": "This is a book.",
+              "audioId": "mp_u1l3_e6"
+            },
+            {
+              "id": "mp_u1l3_e7",
+              "type": "translateInput",
+              "prompt": "你向朋友介绍身边的老师汤姆，请说明他是你的老师。使用本课句型回答。",
+              "sentence": "This is my teacher Tom.",
+              "options": [],
+              "answer": "This is my teacher Tom.",
+              "audioId": "mp_u1l3_e7"
+            },
+            {
+              "id": "mp_u1l3_e8",
+              "type": "translateInput",
+              "prompt": "你向小朋友展示手中这一个包，请说明这是什么物品。使用本课句型回答。",
+              "sentence": "This is a bag.",
+              "options": [],
+              "answer": "This is a bag.",
+              "audioId": "mp_u1l3_e8"
+            },
+            {
+              "id": "mp_u1l3_e9",
+              "type": "speaking",
+              "prompt": "你向小朋友展示手中这一本书，请说明这是什么物品。使用本课句型回答。",
+              "sentence": "This is a book.",
+              "options": [],
+              "answer": "This is a book.",
+              "audioId": "mp_u1l3_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l3_e10",
+              "type": "speaking",
+              "prompt": "你向小朋友展示手中这一个包，请说明这是什么物品。使用本课句型回答。",
+              "sentence": "This is a bag.",
+              "options": [],
+              "answer": "This is a bag.",
+              "audioId": "mp_u1l3_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_this",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "This is …",
+            "meaning": "这是……，用来介绍身边的人或单个物品。",
+            "slotRule": "This is 后放一个人或物品。说“我的朋友艾米”用 my friend Amy；说“一本书”用 a book。介绍多件物品需要其他句型，本课只练单数。",
+            "limitations": [
+              "this 指近处的一个人或物，不随意换成 that。",
+              "不省略单数可数物品前的 a，也不把 is 换成 are。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "This is my friend Amy.",
+                "translation": "这是我的朋友艾米。",
+                "audioId": "mp_u1l3_dialogue_1"
+              },
+              {
+                "speaker": "Lucy",
+                "text": "Hello, Amy.",
+                "translation": "你好，艾米。",
+                "audioId": "mp_u1l3_dialogue_2"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a book.",
+                "translation": "这是一本书。",
+                "audioId": "mp_u1l3_dialogue_3"
+              },
+              {
+                "speaker": "Lucy",
+                "text": "Thank you.",
+                "translation": "谢谢你。",
+                "audioId": "mp_u1l3_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "This is",
+                "meaning": "这是……",
+                "audioId": "mp_u1l3_vocab_1"
+              },
+              {
+                "text": "my friend Amy",
+                "meaning": "我的朋友艾米",
+                "audioId": "mp_u1l3_vocab_2"
+              },
+              {
+                "text": "my teacher Tom",
+                "meaning": "我的老师汤姆",
+                "audioId": "mp_u1l3_vocab_3"
+              },
+              {
+                "text": "a book",
+                "meaning": "一本书",
+                "audioId": "mp_u1l3_vocab_4"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u1l3_vocab_5"
+              },
+              {
+                "text": "Thank you.",
+                "meaning": "谢谢你。",
+                "audioId": "mp_u1l3_vocab_6"
+              },
+              {
+                "text": "hello",
+                "meaning": "你好",
+                "audioId": "mp_u1l3_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u1l3_example_1",
+                "type": "speaking",
+                "prompt": "你向老师介绍站在身边的朋友艾米，请说明她是你的朋友。",
+                "sentence": "This is my friend Amy.",
+                "options": [],
+                "answer": "This is my friend Amy.",
+                "audioId": "mp_u1l3_example_1"
+              },
+              {
+                "id": "mp_u1l3_example_2",
+                "type": "speaking",
+                "prompt": "你向朋友介绍身边的老师汤姆，请说明他是你的老师。",
+                "sentence": "This is my teacher Tom.",
+                "options": [],
+                "answer": "This is my teacher Tom.",
+                "audioId": "mp_u1l3_example_2"
+              },
+              {
+                "id": "mp_u1l3_example_3",
+                "type": "speaking",
+                "prompt": "你向小朋友展示手中这一本书，请说明这是什么物品。",
+                "sentence": "This is a book.",
+                "options": [],
+                "answer": "This is a book.",
+                "audioId": "mp_u1l3_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u1l3_review_1",
+                "type": "speaking",
+                "prompt": "朋友艾米站在你身边，请向新同学介绍她是你的朋友。使用本课句型回答。",
+                "sentence": "This is my friend Amy.",
+                "options": [],
+                "answer": "This is my friend Amy.",
+                "audioId": "mp_u1l3_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l3_review_2",
+                "type": "speaking",
+                "prompt": "老师汤姆站在你身边，请向家人介绍他是你的老师。使用本课句型回答。",
+                "sentence": "This is my teacher Tom.",
+                "options": [],
+                "answer": "This is my teacher Tom.",
+                "audioId": "mp_u1l3_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l3_review_3",
+                "type": "speaking",
+                "prompt": "你在家里拿起近处一本书，请向家人说明这一个物品是什么。使用本课句型回答。",
+                "sentence": "This is a book.",
+                "options": [],
+                "answer": "This is a book.",
+                "audioId": "mp_u1l3_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u1l3_review_4",
+                "type": "speaking",
+                "prompt": "你在教室拿起近处一个包，请向同学说明这一个物品是什么。使用本课句型回答。",
+                "sentence": "This is a bag.",
+                "options": [],
+                "answer": "This is a bag.",
+                "audioId": "mp_u1l3_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_this"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u1l3_e1",
+                  "mp_u1l3_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u1l3_e3",
+                  "mp_u1l3_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u1l3_e5",
+                  "mp_u1l3_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u1l3_e7",
+                  "mp_u1l3_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u1l3_e9",
+                  "mp_u1l3_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u1l4",
+          "title": "综合对话｜新同学见面",
+          "exercises": [
+            {
+              "id": "mp_u1l4_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "I am a student.",
+              "options": [
+                "I am a student.",
+                "I am happy.",
+                "I am ready.",
+                "I am Tom."
+              ],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l4_e1",
+              "acceptedAnswers": [
+                "I'm a student."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "My name is Tom.",
+              "options": [
+                "My name is Li Ming.",
+                "My name is Lucy.",
+                "My name is Tom.",
+                "My name is Amy."
+              ],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l4_e2",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e3",
+              "type": "wordBank",
+              "prompt": "你扮演新同学汤姆。老师问你的身份，你是一名学生，请介绍自己的身份。用句块练习这个回应。",
+              "sentence": "I am a student.",
+              "options": [],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l4_e3",
+              "acceptedAnswers": [
+                "I'm a student."
+              ],
+              "tokens": [
+                "I am",
+                "a student."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e4",
+              "type": "wordBank",
+              "prompt": "你扮演汤姆。新同学问你的名字，请告诉同学你叫汤姆。用句块练习这个回应。",
+              "sentence": "My name is Tom.",
+              "options": [],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l4_e4",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ],
+              "tokens": [
+                "My name is",
+                "Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e5",
+              "type": "speaking",
+              "prompt": "跟读角色回应：一名学生。",
+              "sentence": "I am a student.",
+              "options": [],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l4_e5",
+              "acceptedAnswers": [
+                "I'm a student."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e6",
+              "type": "speaking",
+              "prompt": "跟读角色回应：汤姆。",
+              "sentence": "My name is Tom.",
+              "options": [],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l4_e6",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ]
+            },
+            {
+              "id": "mp_u1l4_e7",
+              "type": "speaking",
+              "prompt": "你扮演新同学汤姆。老师问你的身份，你是一名学生，请介绍自己的身份。",
+              "sentence": "I am a student.",
+              "options": [],
+              "answer": "I am a student.",
+              "audioId": "mp_u1l4_e7",
+              "acceptedAnswers": [
+                "I'm a student."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l4_e8",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。新同学问你的名字，请告诉同学你叫汤姆。",
+              "sentence": "My name is Tom.",
+              "options": [],
+              "answer": "My name is Tom.",
+              "audioId": "mp_u1l4_e8",
+              "acceptedAnswers": [
+                "My name's Tom."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l4_e9",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。身边站着你的朋友艾米，请向老师介绍这位朋友。",
+              "sentence": "This is my friend Amy.",
+              "options": [],
+              "answer": "This is my friend Amy.",
+              "audioId": "mp_u1l4_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u1l4_e10",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。你手里拿着一本书，请向新同学介绍这一个物品。",
+              "sentence": "This is a book.",
+              "options": [],
+              "answer": "This is a book.",
+              "audioId": "mp_u1l4_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_dialogue_u1",
+            "version": 1,
+            "kind": "dialogue",
+            "frame": "I am … / My name is … / This is …",
+            "meaning": "把本单元的三个句型用于“新同学见面”的真实交流。",
+            "slotRule": "先听完整对话并认识词汇，再练习听音、句块和有提示跟读。最后四次回应按角色、物品、数量和表达目的选择已经学过的句型。",
+            "limitations": [
+              "只回答当前角色需要说的一句话，不把整段对话背下来。",
+              "保持指定人名、物品、数量与意图；礼貌请求与直接表达不可任意互换。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "Hello. My name is Tom.",
+                "translation": "你好。我叫汤姆。",
+                "audioId": "mp_u1l4_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "My name is Amy.",
+                "translation": "我叫艾米。",
+                "audioId": "mp_u1l4_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I am a student.",
+                "translation": "我是一名学生。",
+                "audioId": "mp_u1l4_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "This is my friend Lucy.",
+                "translation": "这是我的朋友露西。",
+                "audioId": "mp_u1l4_dialogue_4"
+              },
+              {
+                "speaker": "Lucy",
+                "text": "Nice to meet you.",
+                "translation": "很高兴认识你。",
+                "audioId": "mp_u1l4_dialogue_5"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a book.",
+                "translation": "这是一本书。",
+                "audioId": "mp_u1l4_dialogue_6"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Thank you.",
+                "translation": "谢谢你。",
+                "audioId": "mp_u1l4_dialogue_7"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I am",
+                "meaning": "我是……／我现在……",
+                "audioId": "mp_u1l4_vocab_1"
+              },
+              {
+                "text": "I'm",
+                "meaning": "I am 的口语缩写",
+                "audioId": "mp_u1l4_vocab_2"
+              },
+              {
+                "text": "a student",
+                "meaning": "一名学生",
+                "audioId": "mp_u1l4_vocab_3"
+              },
+              {
+                "text": "happy",
+                "meaning": "开心的",
+                "audioId": "mp_u1l4_vocab_4"
+              },
+              {
+                "text": "ready",
+                "meaning": "准备好的",
+                "audioId": "mp_u1l4_vocab_5"
+              },
+              {
+                "text": "My name is",
+                "meaning": "我叫……",
+                "audioId": "mp_u1l4_vocab_6"
+              },
+              {
+                "text": "My name's",
+                "meaning": "My name is 的口语缩写",
+                "audioId": "mp_u1l4_vocab_7"
+              },
+              {
+                "text": "What is your name?",
+                "meaning": "你叫什么名字？",
+                "audioId": "mp_u1l4_vocab_8"
+              },
+              {
+                "text": "Nice to meet you.",
+                "meaning": "很高兴认识你。",
+                "audioId": "mp_u1l4_vocab_9"
+              },
+              {
+                "text": "Li Ming",
+                "meaning": "李明（姓名）",
+                "audioId": "mp_u1l4_vocab_10"
+              },
+              {
+                "text": "This is",
+                "meaning": "这是……",
+                "audioId": "mp_u1l4_vocab_11"
+              },
+              {
+                "text": "my friend Amy",
+                "meaning": "我的朋友艾米",
+                "audioId": "mp_u1l4_vocab_12"
+              },
+              {
+                "text": "my teacher Tom",
+                "meaning": "我的老师汤姆",
+                "audioId": "mp_u1l4_vocab_13"
+              },
+              {
+                "text": "a book",
+                "meaning": "一本书",
+                "audioId": "mp_u1l4_vocab_14"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u1l4_vocab_15"
+              },
+              {
+                "text": "Thank you.",
+                "meaning": "谢谢你。",
+                "audioId": "mp_u1l4_vocab_16"
+              },
+              {
+                "text": "hello",
+                "meaning": "你好",
+                "audioId": "mp_u1l4_vocab_17"
+              },
+              {
+                "text": "lucy",
+                "meaning": "露西（姓名）",
+                "audioId": "mp_u1l4_vocab_18"
+              }
+            ],
+            "examples": [],
+            "review": [],
+            "patternIds": [
+              "mp_am",
+              "mp_name",
+              "mp_this"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u1l4_e1",
+                  "mp_u1l4_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u1l4_e3",
+                  "mp_u1l4_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u1l4_e5",
+                  "mp_u1l4_e6"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u1l4_e7",
+                  "mp_u1l4_e8",
+                  "mp_u1l4_e9",
+                  "mp_u1l4_e10"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mp_u2",
+      "title": "单元 2｜交流日常喜好",
+      "description": "三个母句型与一节综合对话，听说为主，句块与输入辅助。",
+      "lessons": [
+        {
+          "id": "mp_u2l1",
+          "title": "I like …｜表达喜好",
+          "exercises": [
+            {
+              "id": "mp_u2l1_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I like apples.",
+              "options": [
+                "I like bananas.",
+                "I like tea.",
+                "I like milk.",
+                "I like apples."
+              ],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l1_e1"
+            },
+            {
+              "id": "mp_u2l1_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I like bananas.",
+              "options": [
+                "I like tea.",
+                "I like milk.",
+                "I like apples.",
+                "I like bananas."
+              ],
+              "answer": "I like bananas.",
+              "audioId": "mp_u2l1_e2"
+            },
+            {
+              "id": "mp_u2l1_e3",
+              "type": "wordBank",
+              "prompt": "家人问你平常喜欢哪种水果，请说你喜欢香蕉。用句块拼出本课句型。",
+              "sentence": "I like bananas.",
+              "options": [],
+              "answer": "I like bananas.",
+              "audioId": "mp_u2l1_e3",
+              "tokens": [
+                "I like",
+                "bananas."
+              ]
+            },
+            {
+              "id": "mp_u2l1_e4",
+              "type": "wordBank",
+              "prompt": "朋友想了解你的饮品喜好，请告诉朋友你平常喜欢茶。用句块拼出本课句型。",
+              "sentence": "I like tea.",
+              "options": [],
+              "answer": "I like tea.",
+              "audioId": "mp_u2l1_e4",
+              "tokens": [
+                "I like",
+                "tea."
+              ]
+            },
+            {
+              "id": "mp_u2l1_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：苹果。",
+              "sentence": "I like apples.",
+              "options": [],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l1_e5"
+            },
+            {
+              "id": "mp_u2l1_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：茶。",
+              "sentence": "I like tea.",
+              "options": [],
+              "answer": "I like tea.",
+              "audioId": "mp_u2l1_e6"
+            },
+            {
+              "id": "mp_u2l1_e7",
+              "type": "translateInput",
+              "prompt": "家人问你平常喜欢哪种水果，请说你喜欢香蕉。使用本课句型回答。",
+              "sentence": "I like bananas.",
+              "options": [],
+              "answer": "I like bananas.",
+              "audioId": "mp_u2l1_e7"
+            },
+            {
+              "id": "mp_u2l1_e8",
+              "type": "translateInput",
+              "prompt": "同学询问你平常喜欢什么饮品，请说你喜欢牛奶。使用本课句型回答。",
+              "sentence": "I like milk.",
+              "options": [],
+              "answer": "I like milk.",
+              "audioId": "mp_u2l1_e8"
+            },
+            {
+              "id": "mp_u2l1_e9",
+              "type": "speaking",
+              "prompt": "朋友想了解你的饮品喜好，请告诉朋友你平常喜欢茶。使用本课句型回答。",
+              "sentence": "I like tea.",
+              "options": [],
+              "answer": "I like tea.",
+              "audioId": "mp_u2l1_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l1_e10",
+              "type": "speaking",
+              "prompt": "同学询问你平常喜欢什么饮品，请说你喜欢牛奶。使用本课句型回答。",
+              "sentence": "I like milk.",
+              "options": [],
+              "answer": "I like milk.",
+              "audioId": "mp_u2l1_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_like",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I like …",
+            "meaning": "我喜欢……，用来表达平常的喜好。",
+            "slotRule": "泛指喜欢苹果、香蕉时用复数 apples、bananas；tea、milk 是不可数名词，表达一般喜好时不加 a。本课不练 like 后接动词的用法。",
+            "limitations": [
+              "本课说自己的喜好，主语用 I。",
+              "喜好中的 apples 不等于点餐中的 an apple；不要添加数量或换成想要的句型。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Amy",
+                "text": "Do you like apples?",
+                "translation": "你喜欢苹果吗？",
+                "audioId": "mp_u2l1_dialogue_1"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I like apples.",
+                "translation": "我喜欢苹果。",
+                "audioId": "mp_u2l1_dialogue_2"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I like tea, too.",
+                "translation": "我也喜欢茶。",
+                "audioId": "mp_u2l1_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I like milk.",
+                "translation": "我喜欢牛奶。",
+                "audioId": "mp_u2l1_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I like",
+                "meaning": "我喜欢……",
+                "audioId": "mp_u2l1_vocab_1"
+              },
+              {
+                "text": "Do you like apples?",
+                "meaning": "你喜欢苹果吗？",
+                "audioId": "mp_u2l1_vocab_2"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数，泛指喜好）",
+                "audioId": "mp_u2l1_vocab_3"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l1_vocab_4"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶（不可数）",
+                "audioId": "mp_u2l1_vocab_5"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶（不可数）",
+                "audioId": "mp_u2l1_vocab_6"
+              },
+              {
+                "text": "too",
+                "meaning": "也／还",
+                "audioId": "mp_u2l1_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u2l1_example_1",
+                "type": "speaking",
+                "prompt": "朋友为野餐挑水果，问你的平常喜好，请告诉朋友你喜欢苹果。",
+                "sentence": "I like apples.",
+                "options": [],
+                "answer": "I like apples.",
+                "audioId": "mp_u2l1_example_1"
+              },
+              {
+                "id": "mp_u2l1_example_2",
+                "type": "speaking",
+                "prompt": "家人问你平常喜欢哪种水果，请说你喜欢香蕉。",
+                "sentence": "I like bananas.",
+                "options": [],
+                "answer": "I like bananas.",
+                "audioId": "mp_u2l1_example_2"
+              },
+              {
+                "id": "mp_u2l1_example_3",
+                "type": "speaking",
+                "prompt": "朋友想了解你的饮品喜好，请告诉朋友你平常喜欢茶。",
+                "sentence": "I like tea.",
+                "options": [],
+                "answer": "I like tea.",
+                "audioId": "mp_u2l1_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u2l1_review_1",
+                "type": "speaking",
+                "prompt": "新同学想了解你的水果喜好，请说你平常喜欢苹果。使用本课句型回答。",
+                "sentence": "I like apples.",
+                "options": [],
+                "answer": "I like apples.",
+                "audioId": "mp_u2l1_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l1_review_2",
+                "type": "speaking",
+                "prompt": "邻居问你的水果喜好，请说你平常喜欢香蕉。使用本课句型回答。",
+                "sentence": "I like bananas.",
+                "options": [],
+                "answer": "I like bananas.",
+                "audioId": "mp_u2l1_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l1_review_3",
+                "type": "speaking",
+                "prompt": "家人准备采购饮品，请说你平常喜欢茶。使用本课句型回答。",
+                "sentence": "I like tea.",
+                "options": [],
+                "answer": "I like tea.",
+                "audioId": "mp_u2l1_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l1_review_4",
+                "type": "speaking",
+                "prompt": "朋友为聚会选饮品，请说你平常喜欢牛奶。使用本课句型回答。",
+                "sentence": "I like milk.",
+                "options": [],
+                "answer": "I like milk.",
+                "audioId": "mp_u2l1_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u2l1_e1",
+                  "mp_u2l1_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u2l1_e3",
+                  "mp_u2l1_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u2l1_e5",
+                  "mp_u2l1_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u2l1_e7",
+                  "mp_u2l1_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u2l1_e9",
+                  "mp_u2l1_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u2l2",
+          "title": "I don’t like …｜表达不喜欢",
+          "exercises": [
+            {
+              "id": "mp_u2l2_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I don't like apples.",
+              "options": [
+                "I don't like bananas.",
+                "I don't like tea.",
+                "I don't like milk.",
+                "I don't like apples."
+              ],
+              "answer": "I don't like apples.",
+              "audioId": "mp_u2l2_e1",
+              "acceptedAnswers": [
+                "I do not like apples."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I don't like bananas.",
+              "options": [
+                "I don't like tea.",
+                "I don't like milk.",
+                "I don't like apples.",
+                "I don't like bananas."
+              ],
+              "answer": "I don't like bananas.",
+              "audioId": "mp_u2l2_e2",
+              "acceptedAnswers": [
+                "I do not like bananas."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e3",
+              "type": "wordBank",
+              "prompt": "家人准备水果，你平常不喜欢香蕉，请表达这个喜好。用句块拼出本课句型。",
+              "sentence": "I don't like bananas.",
+              "options": [],
+              "answer": "I don't like bananas.",
+              "audioId": "mp_u2l2_e3",
+              "acceptedAnswers": [
+                "I do not like bananas."
+              ],
+              "tokens": [
+                "I don't like",
+                "bananas."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e4",
+              "type": "wordBank",
+              "prompt": "同学询问饮品喜好，你平常不喜欢茶，请告诉同学。用句块拼出本课句型。",
+              "sentence": "I don't like tea.",
+              "options": [],
+              "answer": "I don't like tea.",
+              "audioId": "mp_u2l2_e4",
+              "acceptedAnswers": [
+                "I do not like tea."
+              ],
+              "tokens": [
+                "I don't like",
+                "tea."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：苹果。",
+              "sentence": "I don't like apples.",
+              "options": [],
+              "answer": "I don't like apples.",
+              "audioId": "mp_u2l2_e5",
+              "acceptedAnswers": [
+                "I do not like apples."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：茶。",
+              "sentence": "I don't like tea.",
+              "options": [],
+              "answer": "I don't like tea.",
+              "audioId": "mp_u2l2_e6",
+              "acceptedAnswers": [
+                "I do not like tea."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e7",
+              "type": "translateInput",
+              "prompt": "家人准备水果，你平常不喜欢香蕉，请表达这个喜好。使用本课句型回答。",
+              "sentence": "I don't like bananas.",
+              "options": [],
+              "answer": "I don't like bananas.",
+              "audioId": "mp_u2l2_e7",
+              "acceptedAnswers": [
+                "I do not like bananas."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e8",
+              "type": "translateInput",
+              "prompt": "朋友问你平常是否喜欢牛奶，你不喜欢，请说明。使用本课句型回答。",
+              "sentence": "I don't like milk.",
+              "options": [],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l2_e8",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ]
+            },
+            {
+              "id": "mp_u2l2_e9",
+              "type": "speaking",
+              "prompt": "同学询问饮品喜好，你平常不喜欢茶，请告诉同学。使用本课句型回答。",
+              "sentence": "I don't like tea.",
+              "options": [],
+              "answer": "I don't like tea.",
+              "audioId": "mp_u2l2_e9",
+              "acceptedAnswers": [
+                "I do not like tea."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l2_e10",
+              "type": "speaking",
+              "prompt": "朋友问你平常是否喜欢牛奶，你不喜欢，请说明。使用本课句型回答。",
+              "sentence": "I don't like milk.",
+              "options": [],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l2_e10",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_dont_like",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I don't like …",
+            "meaning": "我不喜欢……，用来表达不喜欢的东西。",
+            "slotRule": "don’t 是 do not 的缩写。完整说法 I do not like 和缩写 I don’t like 都接受；like 后仍用泛指复数水果或不可数饮品。",
+            "limitations": [
+              "不喜欢必须保留 don’t 或 do not，不能省略否定。",
+              "本课不使用 doesn’t，不添加任意数量。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Amy",
+                "text": "Do you like tea?",
+                "translation": "你喜欢茶吗？",
+                "audioId": "mp_u2l2_dialogue_1"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I don't like tea.",
+                "translation": "我不喜欢茶。",
+                "audioId": "mp_u2l2_dialogue_2"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I like milk.",
+                "translation": "我喜欢牛奶。",
+                "audioId": "mp_u2l2_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I don't like milk.",
+                "translation": "我不喜欢牛奶。",
+                "audioId": "mp_u2l2_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I don't like",
+                "meaning": "我不喜欢……",
+                "audioId": "mp_u2l2_vocab_1"
+              },
+              {
+                "text": "I do not like",
+                "meaning": "I don’t like 的完整形式",
+                "audioId": "mp_u2l2_vocab_2"
+              },
+              {
+                "text": "Do you like tea?",
+                "meaning": "你喜欢茶吗？",
+                "audioId": "mp_u2l2_vocab_3"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数）",
+                "audioId": "mp_u2l2_vocab_4"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l2_vocab_5"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶",
+                "audioId": "mp_u2l2_vocab_6"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶",
+                "audioId": "mp_u2l2_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u2l2_example_1",
+                "type": "speaking",
+                "prompt": "朋友问你的水果喜好，你平常不喜欢苹果，请告诉朋友。",
+                "sentence": "I don't like apples.",
+                "options": [],
+                "answer": "I don't like apples.",
+                "audioId": "mp_u2l2_example_1"
+              },
+              {
+                "id": "mp_u2l2_example_2",
+                "type": "speaking",
+                "prompt": "家人准备水果，你平常不喜欢香蕉，请表达这个喜好。",
+                "sentence": "I don't like bananas.",
+                "options": [],
+                "answer": "I don't like bananas.",
+                "audioId": "mp_u2l2_example_2"
+              },
+              {
+                "id": "mp_u2l2_example_3",
+                "type": "speaking",
+                "prompt": "同学询问饮品喜好，你平常不喜欢茶，请告诉同学。",
+                "sentence": "I don't like tea.",
+                "options": [],
+                "answer": "I don't like tea.",
+                "audioId": "mp_u2l2_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u2l2_review_1",
+                "type": "speaking",
+                "prompt": "邻居问你的水果喜好，请说你平常不喜欢苹果。使用本课句型回答。",
+                "sentence": "I don't like apples.",
+                "options": [],
+                "answer": "I don't like apples.",
+                "audioId": "mp_u2l2_review_1",
+                "acceptedAnswers": [
+                  "I do not like apples."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l2_review_2",
+                "type": "speaking",
+                "prompt": "同学准备野餐水果，请说你平常不喜欢香蕉。使用本课句型回答。",
+                "sentence": "I don't like bananas.",
+                "options": [],
+                "answer": "I don't like bananas.",
+                "audioId": "mp_u2l2_review_2",
+                "acceptedAnswers": [
+                  "I do not like bananas."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l2_review_3",
+                "type": "speaking",
+                "prompt": "家人想了解你的饮品喜好，请说你平常不喜欢茶。使用本课句型回答。",
+                "sentence": "I don't like tea.",
+                "options": [],
+                "answer": "I don't like tea.",
+                "audioId": "mp_u2l2_review_3",
+                "acceptedAnswers": [
+                  "I do not like tea."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l2_review_4",
+                "type": "speaking",
+                "prompt": "新同学问你的饮品喜好，请说你平常不喜欢牛奶。使用本课句型回答。",
+                "sentence": "I don't like milk.",
+                "options": [],
+                "answer": "I don't like milk.",
+                "audioId": "mp_u2l2_review_4",
+                "acceptedAnswers": [
+                  "I do not like milk."
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_dont_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u2l2_e1",
+                  "mp_u2l2_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u2l2_e3",
+                  "mp_u2l2_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u2l2_e5",
+                  "mp_u2l2_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u2l2_e7",
+                  "mp_u2l2_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u2l2_e9",
+                  "mp_u2l2_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u2l3",
+          "title": "Do you like …?｜询问对方的喜好",
+          "exercises": [
+            {
+              "id": "mp_u2l3_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "Do you like apples?",
+              "options": [
+                "Do you like bananas?",
+                "Do you like tea?",
+                "Do you like milk?",
+                "Do you like apples?"
+              ],
+              "answer": "Do you like apples?",
+              "audioId": "mp_u2l3_e1"
+            },
+            {
+              "id": "mp_u2l3_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "Do you like bananas?",
+              "options": [
+                "Do you like tea?",
+                "Do you like milk?",
+                "Do you like apples?",
+                "Do you like bananas?"
+              ],
+              "answer": "Do you like bananas?",
+              "audioId": "mp_u2l3_e2"
+            },
+            {
+              "id": "mp_u2l3_e3",
+              "type": "wordBank",
+              "prompt": "你为同学准备水果，想知道同学平常是否喜欢香蕉，请提问。用句块拼出本课句型。",
+              "sentence": "Do you like bananas?",
+              "options": [],
+              "answer": "Do you like bananas?",
+              "audioId": "mp_u2l3_e3",
+              "tokens": [
+                "Do you like",
+                "bananas?"
+              ]
+            },
+            {
+              "id": "mp_u2l3_e4",
+              "type": "wordBank",
+              "prompt": "你和朋友讨论饮品，想知道朋友平常是否喜欢茶，请提问。用句块拼出本课句型。",
+              "sentence": "Do you like tea?",
+              "options": [],
+              "answer": "Do you like tea?",
+              "audioId": "mp_u2l3_e4",
+              "tokens": [
+                "Do you like",
+                "tea?"
+              ]
+            },
+            {
+              "id": "mp_u2l3_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：苹果。",
+              "sentence": "Do you like apples?",
+              "options": [],
+              "answer": "Do you like apples?",
+              "audioId": "mp_u2l3_e5"
+            },
+            {
+              "id": "mp_u2l3_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：茶。",
+              "sentence": "Do you like tea?",
+              "options": [],
+              "answer": "Do you like tea?",
+              "audioId": "mp_u2l3_e6"
+            },
+            {
+              "id": "mp_u2l3_e7",
+              "type": "translateInput",
+              "prompt": "你为同学准备水果，想知道同学平常是否喜欢香蕉，请提问。使用本课句型回答。",
+              "sentence": "Do you like bananas?",
+              "options": [],
+              "answer": "Do you like bananas?",
+              "audioId": "mp_u2l3_e7"
+            },
+            {
+              "id": "mp_u2l3_e8",
+              "type": "translateInput",
+              "prompt": "你为同学准备早餐，想知道同学平常是否喜欢牛奶，请提问。使用本课句型回答。",
+              "sentence": "Do you like milk?",
+              "options": [],
+              "answer": "Do you like milk?",
+              "audioId": "mp_u2l3_e8"
+            },
+            {
+              "id": "mp_u2l3_e9",
+              "type": "speaking",
+              "prompt": "你和朋友讨论饮品，想知道朋友平常是否喜欢茶，请提问。使用本课句型回答。",
+              "sentence": "Do you like tea?",
+              "options": [],
+              "answer": "Do you like tea?",
+              "audioId": "mp_u2l3_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l3_e10",
+              "type": "speaking",
+              "prompt": "你为同学准备早餐，想知道同学平常是否喜欢牛奶，请提问。使用本课句型回答。",
+              "sentence": "Do you like milk?",
+              "options": [],
+              "answer": "Do you like milk?",
+              "audioId": "mp_u2l3_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_do_you_like",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "Do you like …?",
+            "meaning": "你喜欢……吗？用来询问另一个人的喜好。",
+            "slotRule": "Do 放在句首，接 you like 和名词。本课问题可用 Yes, I do.／No, I don’t. 作简短回答。练习要求提问时，必须问对方而不是陈述自己的喜好。",
+            "limitations": [
+              "主语是 you，不换成 I。",
+              "泛指水果用 apples、bananas，不添加一两个的数量。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Amy",
+                "text": "Do you like tea?",
+                "translation": "你喜欢茶吗？",
+                "audioId": "mp_u2l3_dialogue_1"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Yes, I do.",
+                "translation": "是的，我喜欢。",
+                "audioId": "mp_u2l3_dialogue_2"
+              },
+              {
+                "speaker": "Amy",
+                "text": "Do you like milk?",
+                "translation": "你喜欢牛奶吗？",
+                "audioId": "mp_u2l3_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "No, I don't.",
+                "translation": "不，我不喜欢。",
+                "audioId": "mp_u2l3_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "Do you like",
+                "meaning": "你喜欢……吗？",
+                "audioId": "mp_u2l3_vocab_1"
+              },
+              {
+                "text": "Yes, I do.",
+                "meaning": "是的，我喜欢。",
+                "audioId": "mp_u2l3_vocab_2"
+              },
+              {
+                "text": "No, I don't.",
+                "meaning": "不，我不喜欢。",
+                "audioId": "mp_u2l3_vocab_3"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数）",
+                "audioId": "mp_u2l3_vocab_4"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l3_vocab_5"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶",
+                "audioId": "mp_u2l3_vocab_6"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶",
+                "audioId": "mp_u2l3_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u2l3_example_1",
+                "type": "speaking",
+                "prompt": "你准备和朋友买水果，想知道朋友平常是否喜欢苹果，请向朋友提问。",
+                "sentence": "Do you like apples?",
+                "options": [],
+                "answer": "Do you like apples?",
+                "audioId": "mp_u2l3_example_1"
+              },
+              {
+                "id": "mp_u2l3_example_2",
+                "type": "speaking",
+                "prompt": "你为同学准备水果，想知道同学平常是否喜欢香蕉，请提问。",
+                "sentence": "Do you like bananas?",
+                "options": [],
+                "answer": "Do you like bananas?",
+                "audioId": "mp_u2l3_example_2"
+              },
+              {
+                "id": "mp_u2l3_example_3",
+                "type": "speaking",
+                "prompt": "你和朋友讨论饮品，想知道朋友平常是否喜欢茶，请提问。",
+                "sentence": "Do you like tea?",
+                "options": [],
+                "answer": "Do you like tea?",
+                "audioId": "mp_u2l3_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u2l3_review_1",
+                "type": "speaking",
+                "prompt": "在聚会上想了解新朋友的水果喜好，请问对方是否喜欢苹果。使用本课句型回答。",
+                "sentence": "Do you like apples?",
+                "options": [],
+                "answer": "Do you like apples?",
+                "audioId": "mp_u2l3_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l3_review_2",
+                "type": "speaking",
+                "prompt": "和家人商量购物清单，请问家人平常是否喜欢香蕉。使用本课句型回答。",
+                "sentence": "Do you like bananas?",
+                "options": [],
+                "answer": "Do you like bananas?",
+                "audioId": "mp_u2l3_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l3_review_3",
+                "type": "speaking",
+                "prompt": "准备聚会饮品时，请问邻居平常是否喜欢茶。使用本课句型回答。",
+                "sentence": "Do you like tea?",
+                "options": [],
+                "answer": "Do you like tea?",
+                "audioId": "mp_u2l3_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u2l3_review_4",
+                "type": "speaking",
+                "prompt": "讨论早餐喜好时，请问朋友平常是否喜欢牛奶。使用本课句型回答。",
+                "sentence": "Do you like milk?",
+                "options": [],
+                "answer": "Do you like milk?",
+                "audioId": "mp_u2l3_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_do_you_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u2l3_e1",
+                  "mp_u2l3_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u2l3_e3",
+                  "mp_u2l3_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u2l3_e5",
+                  "mp_u2l3_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u2l3_e7",
+                  "mp_u2l3_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u2l3_e9",
+                  "mp_u2l3_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u2l4",
+          "title": "综合对话｜一起准备野餐",
+          "exercises": [
+            {
+              "id": "mp_u2l4_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "I like apples.",
+              "options": [
+                "I like bananas.",
+                "I like tea.",
+                "I like milk.",
+                "I like apples."
+              ],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l4_e1"
+            },
+            {
+              "id": "mp_u2l4_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "I don't like milk.",
+              "options": [
+                "I don't like tea.",
+                "I don't like milk.",
+                "I don't like apples.",
+                "I don't like bananas."
+              ],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l4_e2",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ]
+            },
+            {
+              "id": "mp_u2l4_e3",
+              "type": "wordBank",
+              "prompt": "你扮演汤姆。朋友正在准备野餐，问你的水果喜好，请说你平常喜欢苹果。用句块练习这个回应。",
+              "sentence": "I like apples.",
+              "options": [],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l4_e3",
+              "tokens": [
+                "I like",
+                "apples."
+              ]
+            },
+            {
+              "id": "mp_u2l4_e4",
+              "type": "wordBank",
+              "prompt": "你扮演汤姆。朋友问你是否喜欢牛奶，你平常不喜欢，请表达完整的否定喜好。用句块练习这个回应。",
+              "sentence": "I don't like milk.",
+              "options": [],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l4_e4",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ],
+              "tokens": [
+                "I don't like",
+                "milk."
+              ]
+            },
+            {
+              "id": "mp_u2l4_e5",
+              "type": "speaking",
+              "prompt": "跟读角色回应：苹果。",
+              "sentence": "I like apples.",
+              "options": [],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l4_e5"
+            },
+            {
+              "id": "mp_u2l4_e6",
+              "type": "speaking",
+              "prompt": "跟读角色回应：牛奶。",
+              "sentence": "I don't like milk.",
+              "options": [],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l4_e6",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ]
+            },
+            {
+              "id": "mp_u2l4_e7",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。朋友正在准备野餐，问你的水果喜好，请说你平常喜欢苹果。",
+              "sentence": "I like apples.",
+              "options": [],
+              "answer": "I like apples.",
+              "audioId": "mp_u2l4_e7",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l4_e8",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。朋友问你是否喜欢牛奶，你平常不喜欢，请表达完整的否定喜好。",
+              "sentence": "I don't like milk.",
+              "options": [],
+              "answer": "I don't like milk.",
+              "audioId": "mp_u2l4_e8",
+              "acceptedAnswers": [
+                "I do not like milk."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l4_e9",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。你想知道朋友平常是否喜欢茶，请向朋友提问。",
+              "sentence": "Do you like tea?",
+              "options": [],
+              "answer": "Do you like tea?",
+              "audioId": "mp_u2l4_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u2l4_e10",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。你想知道朋友平常是否喜欢香蕉，请向朋友提问。",
+              "sentence": "Do you like bananas?",
+              "options": [],
+              "answer": "Do you like bananas?",
+              "audioId": "mp_u2l4_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_dialogue_u2",
+            "version": 1,
+            "kind": "dialogue",
+            "frame": "I like … / I don't like … / Do you like …?",
+            "meaning": "把本单元的三个句型用于“一起准备野餐”的真实交流。",
+            "slotRule": "先听完整对话并认识词汇，再练习听音、句块和有提示跟读。最后四次回应按角色、物品、数量和表达目的选择已经学过的句型。",
+            "limitations": [
+              "只回答当前角色需要说的一句话，不把整段对话背下来。",
+              "保持指定人名、物品、数量与意图；礼貌请求与直接表达不可任意互换。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Amy",
+                "text": "Do you like apples?",
+                "translation": "你喜欢苹果吗？",
+                "audioId": "mp_u2l4_dialogue_1"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I like apples.",
+                "translation": "我喜欢苹果。",
+                "audioId": "mp_u2l4_dialogue_2"
+              },
+              {
+                "speaker": "Amy",
+                "text": "Do you like milk?",
+                "translation": "你喜欢牛奶吗？",
+                "audioId": "mp_u2l4_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I don't like milk.",
+                "translation": "我不喜欢牛奶。",
+                "audioId": "mp_u2l4_dialogue_4"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Do you like tea?",
+                "translation": "你喜欢茶吗？",
+                "audioId": "mp_u2l4_dialogue_5"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I like tea.",
+                "translation": "我喜欢茶。",
+                "audioId": "mp_u2l4_dialogue_6"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I like",
+                "meaning": "我喜欢……",
+                "audioId": "mp_u2l4_vocab_1"
+              },
+              {
+                "text": "Do you like apples?",
+                "meaning": "你喜欢苹果吗？",
+                "audioId": "mp_u2l4_vocab_2"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数，泛指喜好）",
+                "audioId": "mp_u2l4_vocab_3"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l4_vocab_4"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶（不可数）",
+                "audioId": "mp_u2l4_vocab_5"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶（不可数）",
+                "audioId": "mp_u2l4_vocab_6"
+              },
+              {
+                "text": "I don't like",
+                "meaning": "我不喜欢……",
+                "audioId": "mp_u2l4_vocab_7"
+              },
+              {
+                "text": "I do not like",
+                "meaning": "I don’t like 的完整形式",
+                "audioId": "mp_u2l4_vocab_8"
+              },
+              {
+                "text": "Do you like tea?",
+                "meaning": "你喜欢茶吗？",
+                "audioId": "mp_u2l4_vocab_9"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数）",
+                "audioId": "mp_u2l4_vocab_10"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l4_vocab_11"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶",
+                "audioId": "mp_u2l4_vocab_12"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶",
+                "audioId": "mp_u2l4_vocab_13"
+              },
+              {
+                "text": "Do you like",
+                "meaning": "你喜欢……吗？",
+                "audioId": "mp_u2l4_vocab_14"
+              },
+              {
+                "text": "Yes, I do.",
+                "meaning": "是的，我喜欢。",
+                "audioId": "mp_u2l4_vocab_15"
+              },
+              {
+                "text": "No, I don't.",
+                "meaning": "不，我不喜欢。",
+                "audioId": "mp_u2l4_vocab_16"
+              },
+              {
+                "text": "apples",
+                "meaning": "苹果（复数）",
+                "audioId": "mp_u2l4_vocab_17"
+              },
+              {
+                "text": "bananas",
+                "meaning": "香蕉（复数）",
+                "audioId": "mp_u2l4_vocab_18"
+              },
+              {
+                "text": "tea",
+                "meaning": "茶",
+                "audioId": "mp_u2l4_vocab_19"
+              },
+              {
+                "text": "milk",
+                "meaning": "牛奶",
+                "audioId": "mp_u2l4_vocab_20"
+              }
+            ],
+            "examples": [],
+            "review": [],
+            "patternIds": [
+              "mp_like",
+              "mp_dont_like",
+              "mp_do_you_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u2l4_e1",
+                  "mp_u2l4_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u2l4_e3",
+                  "mp_u2l4_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u2l4_e5",
+                  "mp_u2l4_e6"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u2l4_e7",
+                  "mp_u2l4_e8",
+                  "mp_u2l4_e9",
+                  "mp_u2l4_e10"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mp_u3",
+      "title": "单元 3｜表达需要与礼貌点餐",
+      "description": "三个母句型与一节综合对话，听说为主，句块与输入辅助。",
+      "lessons": [
+        {
+          "id": "mp_u3l1",
+          "title": "I need …｜表达实际需要",
+          "exercises": [
+            {
+              "id": "mp_u3l1_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I need a pen.",
+              "options": [
+                "I need a book.",
+                "I need some water.",
+                "I need two bags.",
+                "I need a pen."
+              ],
+              "answer": "I need a pen.",
+              "audioId": "mp_u3l1_e1"
+            },
+            {
+              "id": "mp_u3l1_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I need a book.",
+              "options": [
+                "I need some water.",
+                "I need two bags.",
+                "I need a pen.",
+                "I need a book."
+              ],
+              "answer": "I need a book.",
+              "audioId": "mp_u3l1_e2"
+            },
+            {
+              "id": "mp_u3l1_e3",
+              "type": "wordBank",
+              "prompt": "你准备阅读但没有书，请向老师说明你需要一本书。用句块拼出本课句型。",
+              "sentence": "I need a book.",
+              "options": [],
+              "answer": "I need a book.",
+              "audioId": "mp_u3l1_e3",
+              "tokens": [
+                "I need",
+                "a book."
+              ]
+            },
+            {
+              "id": "mp_u3l1_e4",
+              "type": "wordBank",
+              "prompt": "你运动后口渴，请向家人说明你需要一些水。用句块拼出本课句型。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l1_e4",
+              "tokens": [
+                "I need",
+                "some water."
+              ]
+            },
+            {
+              "id": "mp_u3l1_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：一支笔。",
+              "sentence": "I need a pen.",
+              "options": [],
+              "answer": "I need a pen.",
+              "audioId": "mp_u3l1_e5"
+            },
+            {
+              "id": "mp_u3l1_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：一些水。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l1_e6"
+            },
+            {
+              "id": "mp_u3l1_e7",
+              "type": "translateInput",
+              "prompt": "你准备阅读但没有书，请向老师说明你需要一本书。使用本课句型回答。",
+              "sentence": "I need a book.",
+              "options": [],
+              "answer": "I need a book.",
+              "audioId": "mp_u3l1_e7"
+            },
+            {
+              "id": "mp_u3l1_e8",
+              "type": "translateInput",
+              "prompt": "你要把两组物品分别装好，请向家人说明你需要两个包。使用本课句型回答。",
+              "sentence": "I need two bags.",
+              "options": [],
+              "answer": "I need two bags.",
+              "audioId": "mp_u3l1_e8"
+            },
+            {
+              "id": "mp_u3l1_e9",
+              "type": "speaking",
+              "prompt": "你运动后口渴，请向家人说明你需要一些水。使用本课句型回答。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l1_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l1_e10",
+              "type": "speaking",
+              "prompt": "你要把两组物品分别装好，请向家人说明你需要两个包。使用本课句型回答。",
+              "sentence": "I need two bags.",
+              "options": [],
+              "answer": "I need two bags.",
+              "audioId": "mp_u3l1_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_need",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I need …",
+            "meaning": "我需要……，用来说明完成事情所需的物品。",
+            "slotRule": "空位填物品：一个用 a（a pen、a book），两个包用 two bags；water 不可数，“一些水”用 some water。本课只练 need 后接名词。",
+            "limitations": [
+              "need 表达需要，不随意换成 want。",
+              "场景中的一个、两个、一些必须保持，不使用 need to 的动作结构。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "I need a pen.",
+                "translation": "我需要一支笔。",
+                "audioId": "mp_u3l1_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a pen.",
+                "translation": "这是一支笔。",
+                "audioId": "mp_u3l1_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I need a book, too.",
+                "translation": "我还需要一本书。",
+                "audioId": "mp_u3l1_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a book.",
+                "translation": "这是一本书。",
+                "audioId": "mp_u3l1_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I need",
+                "meaning": "我需要……",
+                "audioId": "mp_u3l1_vocab_1"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u3l1_vocab_2"
+              },
+              {
+                "text": "a book",
+                "meaning": "一本书",
+                "audioId": "mp_u3l1_vocab_3"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u3l1_vocab_4"
+              },
+              {
+                "text": "two bags",
+                "meaning": "两个包",
+                "audioId": "mp_u3l1_vocab_5"
+              },
+              {
+                "text": "is",
+                "meaning": "是（与单数主语搭配）",
+                "audioId": "mp_u3l1_vocab_6"
+              },
+              {
+                "text": "this",
+                "meaning": "这个／这位（近处，单数）",
+                "audioId": "mp_u3l1_vocab_7"
+              },
+              {
+                "text": "too",
+                "meaning": "也／还",
+                "audioId": "mp_u3l1_vocab_8"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u3l1_example_1",
+                "type": "speaking",
+                "prompt": "你在教室里要写字但没有笔，请向老师说明你需要一支笔。",
+                "sentence": "I need a pen.",
+                "options": [],
+                "answer": "I need a pen.",
+                "audioId": "mp_u3l1_example_1"
+              },
+              {
+                "id": "mp_u3l1_example_2",
+                "type": "speaking",
+                "prompt": "你准备阅读但没有书，请向老师说明你需要一本书。",
+                "sentence": "I need a book.",
+                "options": [],
+                "answer": "I need a book.",
+                "audioId": "mp_u3l1_example_2"
+              },
+              {
+                "id": "mp_u3l1_example_3",
+                "type": "speaking",
+                "prompt": "你运动后口渴，请向家人说明你需要一些水。",
+                "sentence": "I need some water.",
+                "options": [],
+                "answer": "I need some water.",
+                "audioId": "mp_u3l1_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u3l1_review_1",
+                "type": "speaking",
+                "prompt": "你在图书馆做笔记却没有笔，请向工作人员说明你需要一支笔。使用本课句型回答。",
+                "sentence": "I need a pen.",
+                "options": [],
+                "answer": "I need a pen.",
+                "audioId": "mp_u3l1_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l1_review_2",
+                "type": "speaking",
+                "prompt": "你在家准备阅读，请向家人说明你需要一本书。使用本课句型回答。",
+                "sentence": "I need a book.",
+                "options": [],
+                "answer": "I need a book.",
+                "audioId": "mp_u3l1_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l1_review_3",
+                "type": "speaking",
+                "prompt": "你走路后口渴，请向同伴说明你需要一些水。使用本课句型回答。",
+                "sentence": "I need some water.",
+                "options": [],
+                "answer": "I need some water.",
+                "audioId": "mp_u3l1_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l1_review_4",
+                "type": "speaking",
+                "prompt": "你收拾两组野餐用品，请向同伴说明你需要两个包。使用本课句型回答。",
+                "sentence": "I need two bags.",
+                "options": [],
+                "answer": "I need two bags.",
+                "audioId": "mp_u3l1_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_need"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u3l1_e1",
+                  "mp_u3l1_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u3l1_e3",
+                  "mp_u3l1_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u3l1_e5",
+                  "mp_u3l1_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u3l1_e7",
+                  "mp_u3l1_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u3l1_e9",
+                  "mp_u3l1_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u3l2",
+          "title": "I want …｜表达想要的东西",
+          "exercises": [
+            {
+              "id": "mp_u3l2_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I want an apple.",
+              "options": [
+                "I want some milk.",
+                "I want two bananas.",
+                "I want a bag.",
+                "I want an apple."
+              ],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l2_e1"
+            },
+            {
+              "id": "mp_u3l2_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I want some milk.",
+              "options": [
+                "I want two bananas.",
+                "I want a bag.",
+                "I want an apple.",
+                "I want some milk."
+              ],
+              "answer": "I want some milk.",
+              "audioId": "mp_u3l2_e2"
+            },
+            {
+              "id": "mp_u3l2_e3",
+              "type": "wordBank",
+              "prompt": "早餐时家人问你想喝什么，请直接说你想要一些牛奶。用句块拼出本课句型。",
+              "sentence": "I want some milk.",
+              "options": [],
+              "answer": "I want some milk.",
+              "audioId": "mp_u3l2_e3",
+              "tokens": [
+                "I want",
+                "some milk."
+              ]
+            },
+            {
+              "id": "mp_u3l2_e4",
+              "type": "wordBank",
+              "prompt": "朋友给你选野餐水果，请直接告诉朋友你想要两个香蕉。用句块拼出本课句型。",
+              "sentence": "I want two bananas.",
+              "options": [],
+              "answer": "I want two bananas.",
+              "audioId": "mp_u3l2_e4",
+              "tokens": [
+                "I want",
+                "two bananas."
+              ]
+            },
+            {
+              "id": "mp_u3l2_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：一个苹果。",
+              "sentence": "I want an apple.",
+              "options": [],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l2_e5"
+            },
+            {
+              "id": "mp_u3l2_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：两个香蕉。",
+              "sentence": "I want two bananas.",
+              "options": [],
+              "answer": "I want two bananas.",
+              "audioId": "mp_u3l2_e6"
+            },
+            {
+              "id": "mp_u3l2_e7",
+              "type": "translateInput",
+              "prompt": "早餐时家人问你想喝什么，请直接说你想要一些牛奶。使用本课句型回答。",
+              "sentence": "I want some milk.",
+              "options": [],
+              "answer": "I want some milk.",
+              "audioId": "mp_u3l2_e7"
+            },
+            {
+              "id": "mp_u3l2_e8",
+              "type": "translateInput",
+              "prompt": "家人让你选择用品，请直接说你想要一个包。使用本课句型回答。",
+              "sentence": "I want a bag.",
+              "options": [],
+              "answer": "I want a bag.",
+              "audioId": "mp_u3l2_e8"
+            },
+            {
+              "id": "mp_u3l2_e9",
+              "type": "speaking",
+              "prompt": "朋友给你选野餐水果，请直接告诉朋友你想要两个香蕉。使用本课句型回答。",
+              "sentence": "I want two bananas.",
+              "options": [],
+              "answer": "I want two bananas.",
+              "audioId": "mp_u3l2_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l2_e10",
+              "type": "speaking",
+              "prompt": "家人让你选择用品，请直接说你想要一个包。使用本课句型回答。",
+              "sentence": "I want a bag.",
+              "options": [],
+              "answer": "I want a bag.",
+              "audioId": "mp_u3l2_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_want",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I want …",
+            "meaning": "我想要……，用来直接表达想得到的东西。",
+            "slotRule": "一个苹果用 an apple；两个香蕉用 two bananas；milk 不可数，“一些牛奶”用 some milk。I want 比 I would like 更直接，本课在家人朋友之间表达想要。",
+            "limitations": [
+              "保持指定物品和数量，不把 an apple 改为 apples。",
+              "本课不用 want to 的动词结构，也不把 want 改成 need。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "I want an apple.",
+                "translation": "我想要一个苹果。",
+                "audioId": "mp_u3l2_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I want two bananas.",
+                "translation": "我想要两个香蕉。",
+                "audioId": "mp_u3l2_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I want some milk, too.",
+                "translation": "我还想要一些牛奶。",
+                "audioId": "mp_u3l2_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I like milk.",
+                "translation": "我喜欢牛奶。",
+                "audioId": "mp_u3l2_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I want",
+                "meaning": "我想要……",
+                "audioId": "mp_u3l2_vocab_1"
+              },
+              {
+                "text": "an apple",
+                "meaning": "一个苹果",
+                "audioId": "mp_u3l2_vocab_2"
+              },
+              {
+                "text": "some milk",
+                "meaning": "一些牛奶",
+                "audioId": "mp_u3l2_vocab_3"
+              },
+              {
+                "text": "two bananas",
+                "meaning": "两个香蕉",
+                "audioId": "mp_u3l2_vocab_4"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u3l2_vocab_5"
+              },
+              {
+                "text": "like",
+                "meaning": "喜欢",
+                "audioId": "mp_u3l2_vocab_6"
+              },
+              {
+                "text": "too",
+                "meaning": "也／还",
+                "audioId": "mp_u3l2_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u3l2_example_1",
+                "type": "speaking",
+                "prompt": "在家里选水果，家人问你想要什么，请直接说你想要一个苹果。",
+                "sentence": "I want an apple.",
+                "options": [],
+                "answer": "I want an apple.",
+                "audioId": "mp_u3l2_example_1"
+              },
+              {
+                "id": "mp_u3l2_example_2",
+                "type": "speaking",
+                "prompt": "早餐时家人问你想喝什么，请直接说你想要一些牛奶。",
+                "sentence": "I want some milk.",
+                "options": [],
+                "answer": "I want some milk.",
+                "audioId": "mp_u3l2_example_2"
+              },
+              {
+                "id": "mp_u3l2_example_3",
+                "type": "speaking",
+                "prompt": "朋友给你选野餐水果，请直接告诉朋友你想要两个香蕉。",
+                "sentence": "I want two bananas.",
+                "options": [],
+                "answer": "I want two bananas.",
+                "audioId": "mp_u3l2_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u3l2_review_1",
+                "type": "speaking",
+                "prompt": "朋友请你选择水果，请直接告诉朋友你想要一个苹果。使用本课句型回答。",
+                "sentence": "I want an apple.",
+                "options": [],
+                "answer": "I want an apple.",
+                "audioId": "mp_u3l2_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l2_review_2",
+                "type": "speaking",
+                "prompt": "在家准备晚餐时，请直接告诉家人你想要一些牛奶。使用本课句型回答。",
+                "sentence": "I want some milk.",
+                "options": [],
+                "answer": "I want some milk.",
+                "audioId": "mp_u3l2_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l2_review_3",
+                "type": "speaking",
+                "prompt": "家人给你选择水果，请直接说你想要两个香蕉。使用本课句型回答。",
+                "sentence": "I want two bananas.",
+                "options": [],
+                "answer": "I want two bananas.",
+                "audioId": "mp_u3l2_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l2_review_4",
+                "type": "speaking",
+                "prompt": "朋友让你选择礼物，请直接说你想要一个包。使用本课句型回答。",
+                "sentence": "I want a bag.",
+                "options": [],
+                "answer": "I want a bag.",
+                "audioId": "mp_u3l2_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_want"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u3l2_e1",
+                  "mp_u3l2_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u3l2_e3",
+                  "mp_u3l2_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u3l2_e5",
+                  "mp_u3l2_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u3l2_e7",
+                  "mp_u3l2_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u3l2_e9",
+                  "mp_u3l2_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u3l3",
+          "title": "I would like …｜礼貌点餐",
+          "exercises": [
+            {
+              "id": "mp_u3l3_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I would like a sandwich.",
+              "options": [
+                "I would like some tea.",
+                "I would like two apples.",
+                "I would like some water.",
+                "I would like a sandwich."
+              ],
+              "answer": "I would like a sandwich.",
+              "audioId": "mp_u3l3_e1",
+              "acceptedAnswers": [
+                "I'd like a sandwich.",
+                "I would like a sandwich, please.",
+                "I'd like a sandwich, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "I would like some tea.",
+              "options": [
+                "I would like two apples.",
+                "I would like some water.",
+                "I would like a sandwich.",
+                "I would like some tea."
+              ],
+              "answer": "I would like some tea.",
+              "audioId": "mp_u3l3_e2",
+              "acceptedAnswers": [
+                "I'd like some tea.",
+                "I would like some tea, please.",
+                "I'd like some tea, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e3",
+              "type": "wordBank",
+              "prompt": "服务员问你想喝什么，请礼貌地要一些茶。用句块拼出本课句型。",
+              "sentence": "I would like some tea.",
+              "options": [],
+              "answer": "I would like some tea.",
+              "audioId": "mp_u3l3_e3",
+              "acceptedAnswers": [
+                "I'd like some tea.",
+                "I would like some tea, please.",
+                "I'd like some tea, please."
+              ],
+              "tokens": [
+                "I would like",
+                "some tea."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e4",
+              "type": "wordBank",
+              "prompt": "你在餐厅给两个人选水果，请向服务员礼貌地要两个苹果。用句块拼出本课句型。",
+              "sentence": "I would like two apples.",
+              "options": [],
+              "answer": "I would like two apples.",
+              "audioId": "mp_u3l3_e4",
+              "acceptedAnswers": [
+                "I'd like two apples.",
+                "I would like two apples, please.",
+                "I'd like two apples, please."
+              ],
+              "tokens": [
+                "I would like",
+                "two apples."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：一个三明治。",
+              "sentence": "I would like a sandwich.",
+              "options": [],
+              "answer": "I would like a sandwich.",
+              "audioId": "mp_u3l3_e5",
+              "acceptedAnswers": [
+                "I'd like a sandwich.",
+                "I would like a sandwich, please.",
+                "I'd like a sandwich, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：两个苹果。",
+              "sentence": "I would like two apples.",
+              "options": [],
+              "answer": "I would like two apples.",
+              "audioId": "mp_u3l3_e6",
+              "acceptedAnswers": [
+                "I'd like two apples.",
+                "I would like two apples, please.",
+                "I'd like two apples, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e7",
+              "type": "translateInput",
+              "prompt": "服务员问你想喝什么，请礼貌地要一些茶。使用本课句型回答。",
+              "sentence": "I would like some tea.",
+              "options": [],
+              "answer": "I would like some tea.",
+              "audioId": "mp_u3l3_e7",
+              "acceptedAnswers": [
+                "I'd like some tea.",
+                "I would like some tea, please.",
+                "I'd like some tea, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e8",
+              "type": "translateInput",
+              "prompt": "你在餐厅用餐口渴，请向服务员礼貌地要一些水。使用本课句型回答。",
+              "sentence": "I would like some water.",
+              "options": [],
+              "answer": "I would like some water.",
+              "audioId": "mp_u3l3_e8",
+              "acceptedAnswers": [
+                "I'd like some water.",
+                "I would like some water, please.",
+                "I'd like some water, please."
+              ]
+            },
+            {
+              "id": "mp_u3l3_e9",
+              "type": "speaking",
+              "prompt": "你在餐厅给两个人选水果，请向服务员礼貌地要两个苹果。使用本课句型回答。",
+              "sentence": "I would like two apples.",
+              "options": [],
+              "answer": "I would like two apples.",
+              "audioId": "mp_u3l3_e9",
+              "acceptedAnswers": [
+                "I'd like two apples.",
+                "I would like two apples, please.",
+                "I'd like two apples, please."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l3_e10",
+              "type": "speaking",
+              "prompt": "你在餐厅用餐口渴，请向服务员礼貌地要一些水。使用本课句型回答。",
+              "sentence": "I would like some water.",
+              "options": [],
+              "answer": "I would like some water.",
+              "audioId": "mp_u3l3_e10",
+              "acceptedAnswers": [
+                "I'd like some water.",
+                "I would like some water, please.",
+                "I'd like some water, please."
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_would_like",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "I would like …",
+            "meaning": "我想要……，适合礼貌点餐或提出需求。",
+            "slotRule": "I would like 可缩写为 I’d like。空位是名词短语：a sandwich、some tea、two apples、some water。句尾可以加 please；本课礼貌任务不接受更直接的 I want。",
+            "limitations": [
+              "保持 a／some／two 的数量，不替换指定食物饮品。",
+              "本课只练名词短语，不加入 would like to 的动词结构。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "I would like a sandwich, please.",
+                "translation": "我想要一个三明治，谢谢。",
+                "audioId": "mp_u3l3_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I would like some tea, please.",
+                "translation": "我想要一些茶，谢谢。",
+                "audioId": "mp_u3l3_dialogue_2"
+              },
+              {
+                "speaker": "Server",
+                "text": "Here you are.",
+                "translation": "给你。",
+                "audioId": "mp_u3l3_dialogue_3"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Thank you.",
+                "translation": "谢谢你。",
+                "audioId": "mp_u3l3_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I would like",
+                "meaning": "我想要……（礼貌）",
+                "audioId": "mp_u3l3_vocab_1"
+              },
+              {
+                "text": "I'd like",
+                "meaning": "I would like 的口语缩写",
+                "audioId": "mp_u3l3_vocab_2"
+              },
+              {
+                "text": "a sandwich",
+                "meaning": "一个三明治",
+                "audioId": "mp_u3l3_vocab_3"
+              },
+              {
+                "text": "some tea",
+                "meaning": "一些茶",
+                "audioId": "mp_u3l3_vocab_4"
+              },
+              {
+                "text": "two apples",
+                "meaning": "两个苹果",
+                "audioId": "mp_u3l3_vocab_5"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u3l3_vocab_6"
+              },
+              {
+                "text": "please",
+                "meaning": "请；用来使请求更礼貌",
+                "audioId": "mp_u3l3_vocab_7"
+              },
+              {
+                "text": "Here you are.",
+                "meaning": "给你。",
+                "audioId": "mp_u3l3_vocab_8"
+              },
+              {
+                "text": "thank",
+                "meaning": "感谢（Thank you 表示谢谢你）",
+                "audioId": "mp_u3l3_vocab_9"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u3l3_example_1",
+                "type": "speaking",
+                "prompt": "你在咖啡店向服务员点午餐，请礼貌地要一个三明治。",
+                "sentence": "I would like a sandwich.",
+                "options": [],
+                "answer": "I would like a sandwich.",
+                "audioId": "mp_u3l3_example_1"
+              },
+              {
+                "id": "mp_u3l3_example_2",
+                "type": "speaking",
+                "prompt": "服务员问你想喝什么，请礼貌地要一些茶。",
+                "sentence": "I would like some tea.",
+                "options": [],
+                "answer": "I would like some tea.",
+                "audioId": "mp_u3l3_example_2"
+              },
+              {
+                "id": "mp_u3l3_example_3",
+                "type": "speaking",
+                "prompt": "你在餐厅给两个人选水果，请向服务员礼貌地要两个苹果。",
+                "sentence": "I would like two apples.",
+                "options": [],
+                "answer": "I would like two apples.",
+                "audioId": "mp_u3l3_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u3l3_review_1",
+                "type": "speaking",
+                "prompt": "在餐厅点早餐，请向服务员礼貌地要一个三明治。使用本课句型回答。",
+                "sentence": "I would like a sandwich.",
+                "options": [],
+                "answer": "I would like a sandwich.",
+                "audioId": "mp_u3l3_review_1",
+                "acceptedAnswers": [
+                  "I'd like a sandwich.",
+                  "I would like a sandwich, please.",
+                  "I'd like a sandwich, please."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l3_review_2",
+                "type": "speaking",
+                "prompt": "在咖啡店点饮品，请向店员礼貌地要一些茶。使用本课句型回答。",
+                "sentence": "I would like some tea.",
+                "options": [],
+                "answer": "I would like some tea.",
+                "audioId": "mp_u3l3_review_2",
+                "acceptedAnswers": [
+                  "I'd like some tea.",
+                  "I would like some tea, please.",
+                  "I'd like some tea, please."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l3_review_3",
+                "type": "speaking",
+                "prompt": "在餐厅点餐后选水果，请向服务员礼貌地要两个苹果。使用本课句型回答。",
+                "sentence": "I would like two apples.",
+                "options": [],
+                "answer": "I would like two apples.",
+                "audioId": "mp_u3l3_review_3",
+                "acceptedAnswers": [
+                  "I'd like two apples.",
+                  "I would like two apples, please.",
+                  "I'd like two apples, please."
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u3l3_review_4",
+                "type": "speaking",
+                "prompt": "在咖啡店用餐口渴，请向店员礼貌地要一些水。使用本课句型回答。",
+                "sentence": "I would like some water.",
+                "options": [],
+                "answer": "I would like some water.",
+                "audioId": "mp_u3l3_review_4",
+                "acceptedAnswers": [
+                  "I'd like some water.",
+                  "I would like some water, please.",
+                  "I'd like some water, please."
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_would_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u3l3_e1",
+                  "mp_u3l3_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u3l3_e3",
+                  "mp_u3l3_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u3l3_e5",
+                  "mp_u3l3_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u3l3_e7",
+                  "mp_u3l3_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u3l3_e9",
+                  "mp_u3l3_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u3l4",
+          "title": "综合对话｜准备午餐",
+          "exercises": [
+            {
+              "id": "mp_u3l4_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "I need some water.",
+              "options": [
+                "I need a book.",
+                "I need some water.",
+                "I need two bags.",
+                "I need a pen."
+              ],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l4_e1"
+            },
+            {
+              "id": "mp_u3l4_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "I want an apple.",
+              "options": [
+                "I want two bananas.",
+                "I want a bag.",
+                "I want an apple.",
+                "I want some milk."
+              ],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l4_e2"
+            },
+            {
+              "id": "mp_u3l4_e3",
+              "type": "wordBank",
+              "prompt": "你扮演汤姆。准备午餐时你口渴，需要一些水，请向同伴说明实际需要。用句块练习这个回应。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l4_e3",
+              "tokens": [
+                "I need",
+                "some water."
+              ]
+            },
+            {
+              "id": "mp_u3l4_e4",
+              "type": "wordBank",
+              "prompt": "你扮演汤姆。家人让你选水果，请直接说你想要一个苹果。用句块练习这个回应。",
+              "sentence": "I want an apple.",
+              "options": [],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l4_e4",
+              "tokens": [
+                "I want",
+                "an apple."
+              ]
+            },
+            {
+              "id": "mp_u3l4_e5",
+              "type": "speaking",
+              "prompt": "跟读角色回应：一些水。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l4_e5"
+            },
+            {
+              "id": "mp_u3l4_e6",
+              "type": "speaking",
+              "prompt": "跟读角色回应：一个苹果。",
+              "sentence": "I want an apple.",
+              "options": [],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l4_e6"
+            },
+            {
+              "id": "mp_u3l4_e7",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。准备午餐时你口渴，需要一些水，请向同伴说明实际需要。",
+              "sentence": "I need some water.",
+              "options": [],
+              "answer": "I need some water.",
+              "audioId": "mp_u3l4_e7",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l4_e8",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。家人让你选水果，请直接说你想要一个苹果。",
+              "sentence": "I want an apple.",
+              "options": [],
+              "answer": "I want an apple.",
+              "audioId": "mp_u3l4_e8",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l4_e9",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。到了咖啡店，请向服务员礼貌地要一个三明治。",
+              "sentence": "I would like a sandwich.",
+              "options": [],
+              "answer": "I would like a sandwich.",
+              "audioId": "mp_u3l4_e9",
+              "acceptedAnswers": [
+                "I'd like a sandwich.",
+                "I would like a sandwich, please.",
+                "I'd like a sandwich, please."
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u3l4_e10",
+              "type": "speaking",
+              "prompt": "你扮演汤姆。服务员询问饮品，请礼貌地要一些茶。",
+              "sentence": "I would like some tea.",
+              "options": [],
+              "answer": "I would like some tea.",
+              "audioId": "mp_u3l4_e10",
+              "acceptedAnswers": [
+                "I'd like some tea.",
+                "I would like some tea, please.",
+                "I'd like some tea, please."
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_dialogue_u3",
+            "version": 1,
+            "kind": "dialogue",
+            "frame": "I need … / I want … / I would like …",
+            "meaning": "把本单元的三个句型用于“准备午餐”的真实交流。",
+            "slotRule": "先听完整对话并认识词汇，再练习听音、句块和有提示跟读。最后四次回应按角色、物品、数量和表达目的选择已经学过的句型。",
+            "limitations": [
+              "只回答当前角色需要说的一句话，不把整段对话背下来。",
+              "保持指定人名、物品、数量与意图；礼貌请求与直接表达不可任意互换。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "I need some water.",
+                "translation": "我需要一些水。",
+                "audioId": "mp_u3l4_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I want an apple.",
+                "translation": "我想要一个苹果。",
+                "audioId": "mp_u3l4_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "I would like a sandwich, please.",
+                "translation": "我想要一个三明治，谢谢。",
+                "audioId": "mp_u3l4_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "I would like some tea, please.",
+                "translation": "我想要一些茶，谢谢。",
+                "audioId": "mp_u3l4_dialogue_4"
+              },
+              {
+                "speaker": "Server",
+                "text": "Here you are.",
+                "translation": "给你。",
+                "audioId": "mp_u3l4_dialogue_5"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Thank you.",
+                "translation": "谢谢你。",
+                "audioId": "mp_u3l4_dialogue_6"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "I need",
+                "meaning": "我需要……",
+                "audioId": "mp_u3l4_vocab_1"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u3l4_vocab_2"
+              },
+              {
+                "text": "a book",
+                "meaning": "一本书",
+                "audioId": "mp_u3l4_vocab_3"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u3l4_vocab_4"
+              },
+              {
+                "text": "two bags",
+                "meaning": "两个包",
+                "audioId": "mp_u3l4_vocab_5"
+              },
+              {
+                "text": "I want",
+                "meaning": "我想要……",
+                "audioId": "mp_u3l4_vocab_6"
+              },
+              {
+                "text": "an apple",
+                "meaning": "一个苹果",
+                "audioId": "mp_u3l4_vocab_7"
+              },
+              {
+                "text": "some milk",
+                "meaning": "一些牛奶",
+                "audioId": "mp_u3l4_vocab_8"
+              },
+              {
+                "text": "two bananas",
+                "meaning": "两个香蕉",
+                "audioId": "mp_u3l4_vocab_9"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u3l4_vocab_10"
+              },
+              {
+                "text": "I would like",
+                "meaning": "我想要……（礼貌）",
+                "audioId": "mp_u3l4_vocab_11"
+              },
+              {
+                "text": "I'd like",
+                "meaning": "I would like 的口语缩写",
+                "audioId": "mp_u3l4_vocab_12"
+              },
+              {
+                "text": "a sandwich",
+                "meaning": "一个三明治",
+                "audioId": "mp_u3l4_vocab_13"
+              },
+              {
+                "text": "some tea",
+                "meaning": "一些茶",
+                "audioId": "mp_u3l4_vocab_14"
+              },
+              {
+                "text": "two apples",
+                "meaning": "两个苹果",
+                "audioId": "mp_u3l4_vocab_15"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u3l4_vocab_16"
+              },
+              {
+                "text": "please",
+                "meaning": "请；用来使请求更礼貌",
+                "audioId": "mp_u3l4_vocab_17"
+              },
+              {
+                "text": "Here you are.",
+                "meaning": "给你。",
+                "audioId": "mp_u3l4_vocab_18"
+              },
+              {
+                "text": "thank",
+                "meaning": "感谢（Thank you 表示谢谢你）",
+                "audioId": "mp_u3l4_vocab_19"
+              }
+            ],
+            "examples": [],
+            "review": [],
+            "patternIds": [
+              "mp_need",
+              "mp_want",
+              "mp_would_like"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u3l4_e1",
+                  "mp_u3l4_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u3l4_e3",
+                  "mp_u3l4_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u3l4_e5",
+                  "mp_u3l4_e6"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u3l4_e7",
+                  "mp_u3l4_e8",
+                  "mp_u3l4_e9",
+                  "mp_u3l4_e10"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mp_u4",
+      "title": "单元 4｜询问商品与购买",
+      "description": "三个母句型与一节综合对话，听说为主，句块与输入辅助。",
+      "lessons": [
+        {
+          "id": "mp_u4l1",
+          "title": "What is this?｜询问近处物品是什么",
+          "exercises": [
+            {
+              "id": "mp_u4l1_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "What is this?",
+              "options": [
+                "This is a book.",
+                "This is a bag.",
+                "This is a pen.",
+                "What is this?"
+              ],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e1",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "What is this?",
+              "options": [
+                "This is a bag.",
+                "This is a pen.",
+                "What is this?",
+                "This is a book."
+              ],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e2",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e3",
+              "type": "wordBank",
+              "prompt": "你在商店看到近处一个不认识的包，指着它向店员询问它是什么；不要说出物品名称。用句块拼出本课句型。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e3",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "tokens": [
+                "What",
+                "is",
+                "this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e4",
+              "type": "wordBank",
+              "prompt": "你在教室看到近处一支不认识的笔，指着它向老师询问它是什么；不要说出物品名称。用句块拼出本课句型。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e4",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "tokens": [
+                "What",
+                "is",
+                "this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：这是什么？。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e5",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：这是什么？。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e6",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e7",
+              "type": "translateInput",
+              "prompt": "你在商店看到近处一个不认识的包，指着它向店员询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e7",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e8",
+              "type": "translateInput",
+              "prompt": "你在水果摊看到近处一个不认识的苹果，指着它向店员询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e8",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l1_e9",
+              "type": "speaking",
+              "prompt": "你在教室看到近处一支不认识的笔，指着它向老师询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e9",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l1_e10",
+              "type": "speaking",
+              "prompt": "你在水果摊看到近处一个不认识的苹果，指着它向店员询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l1_e10",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_what_this",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "What is this?",
+            "meaning": "这是什么？当你不知道近处一个物品的名称时使用。",
+            "slotRule": "本句型是固定问题，没有名词空位。面对不同的近处物品都可以问 What is this?，口语可缩写为 What’s this?。对方用 This is a book. 等句子回答。",
+            "limitations": [
+              "不把物品名称加到 this 后，不说 What is this book?。",
+              "本课只问近处单个物品，不换成 that 或复数 these。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "What is this?",
+                "translation": "这是什么？",
+                "audioId": "mp_u4l1_dialogue_1"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a book.",
+                "translation": "这是一本书。",
+                "audioId": "mp_u4l1_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "What is this?",
+                "translation": "这是什么？",
+                "audioId": "mp_u4l1_dialogue_3"
+              },
+              {
+                "speaker": "Amy",
+                "text": "This is a pen.",
+                "translation": "这是一支笔。",
+                "audioId": "mp_u4l1_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "What is this?",
+                "meaning": "这是什么？（固定问题）",
+                "audioId": "mp_u4l1_vocab_1"
+              },
+              {
+                "text": "What's this?",
+                "meaning": "What is this? 的口语缩写",
+                "audioId": "mp_u4l1_vocab_2"
+              },
+              {
+                "text": "This is a book.",
+                "meaning": "这是一本书。",
+                "audioId": "mp_u4l1_vocab_3"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u4l1_vocab_4"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u4l1_vocab_5"
+              },
+              {
+                "text": "an apple",
+                "meaning": "一个苹果",
+                "audioId": "mp_u4l1_vocab_6"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u4l1_example_1",
+                "type": "speaking",
+                "prompt": "你在书桌旁看到一本不认识的书，指着近处这一个物品，向老师询问它是什么；不要说出物品名称。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_example_1"
+              },
+              {
+                "id": "mp_u4l1_example_2",
+                "type": "speaking",
+                "prompt": "你在商店看到近处一个不认识的包，指着它向店员询问它是什么；不要说出物品名称。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_example_2"
+              },
+              {
+                "id": "mp_u4l1_example_3",
+                "type": "speaking",
+                "prompt": "你在教室看到近处一支不认识的笔，指着它向老师询问它是什么；不要说出物品名称。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u4l1_review_1",
+                "type": "speaking",
+                "prompt": "你在图书馆看到近处一个不知道名称的物品（一本书），请向工作人员问它是什么，不说出名称。使用本课句型回答。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_review_1",
+                "acceptedAnswers": [
+                  "What's this?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l1_review_2",
+                "type": "speaking",
+                "prompt": "你在朋友家看到近处一个不知道名称的物品（一个包），请向朋友问它是什么，不说出名称。使用本课句型回答。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_review_2",
+                "acceptedAnswers": [
+                  "What's this?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l1_review_3",
+                "type": "speaking",
+                "prompt": "你在文具店看到近处一个不知道名称的物品（一支笔），请向店员问它是什么，不说出名称。使用本课句型回答。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_review_3",
+                "acceptedAnswers": [
+                  "What's this?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l1_review_4",
+                "type": "speaking",
+                "prompt": "你在家里看到近处一个不知道名称的物品（一个苹果），请向家人问它是什么，不说出名称。使用本课句型回答。",
+                "sentence": "What is this?",
+                "options": [],
+                "answer": "What is this?",
+                "audioId": "mp_u4l1_review_4",
+                "acceptedAnswers": [
+                  "What's this?"
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_what_this"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u4l1_e1",
+                  "mp_u4l1_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u4l1_e3",
+                  "mp_u4l1_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u4l1_e5",
+                  "mp_u4l1_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u4l1_e7",
+                  "mp_u4l1_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u4l1_e9",
+                  "mp_u4l1_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u4l2",
+          "title": "How much is …?｜询问单个商品的价格",
+          "exercises": [
+            {
+              "id": "mp_u4l2_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "How much is this book?",
+              "options": [
+                "How much is this bag?",
+                "How much is this pen?",
+                "How much is this apple?",
+                "How much is this book?"
+              ],
+              "answer": "How much is this book?",
+              "audioId": "mp_u4l2_e1"
+            },
+            {
+              "id": "mp_u4l2_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "How much is this bag?",
+              "options": [
+                "How much is this pen?",
+                "How much is this apple?",
+                "How much is this book?",
+                "How much is this bag?"
+              ],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l2_e2"
+            },
+            {
+              "id": "mp_u4l2_e3",
+              "type": "wordBank",
+              "prompt": "你在商店指着眼前这一个包，向店员询问这个包的价格。用句块拼出本课句型。",
+              "sentence": "How much is this bag?",
+              "options": [],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l2_e3",
+              "tokens": [
+                "How much is",
+                "this bag?"
+              ]
+            },
+            {
+              "id": "mp_u4l2_e4",
+              "type": "wordBank",
+              "prompt": "你在文具店指着眼前这一支笔，向店员询问这支笔的价格。用句块拼出本课句型。",
+              "sentence": "How much is this pen?",
+              "options": [],
+              "answer": "How much is this pen?",
+              "audioId": "mp_u4l2_e4",
+              "tokens": [
+                "How much is",
+                "this pen?"
+              ]
+            },
+            {
+              "id": "mp_u4l2_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：这本书。",
+              "sentence": "How much is this book?",
+              "options": [],
+              "answer": "How much is this book?",
+              "audioId": "mp_u4l2_e5"
+            },
+            {
+              "id": "mp_u4l2_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：这支笔。",
+              "sentence": "How much is this pen?",
+              "options": [],
+              "answer": "How much is this pen?",
+              "audioId": "mp_u4l2_e6"
+            },
+            {
+              "id": "mp_u4l2_e7",
+              "type": "translateInput",
+              "prompt": "你在商店指着眼前这一个包，向店员询问这个包的价格。使用本课句型回答。",
+              "sentence": "How much is this bag?",
+              "options": [],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l2_e7"
+            },
+            {
+              "id": "mp_u4l2_e8",
+              "type": "translateInput",
+              "prompt": "你在水果摊指着眼前这一个苹果，向店员询问这个苹果的价格。使用本课句型回答。",
+              "sentence": "How much is this apple?",
+              "options": [],
+              "answer": "How much is this apple?",
+              "audioId": "mp_u4l2_e8"
+            },
+            {
+              "id": "mp_u4l2_e9",
+              "type": "speaking",
+              "prompt": "你在文具店指着眼前这一支笔，向店员询问这支笔的价格。使用本课句型回答。",
+              "sentence": "How much is this pen?",
+              "options": [],
+              "answer": "How much is this pen?",
+              "audioId": "mp_u4l2_e9",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l2_e10",
+              "type": "speaking",
+              "prompt": "你在水果摊指着眼前这一个苹果，向店员询问这个苹果的价格。使用本课句型回答。",
+              "sentence": "How much is this apple?",
+              "options": [],
+              "answer": "How much is this apple?",
+              "audioId": "mp_u4l2_e10",
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_price",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "How much is …?",
+            "meaning": "……多少钱？用来询问近处单个商品的价格。",
+            "slotRule": "空位放单数商品，如 this book、this bag。How much is this book? 问这一本书的价格；对方可以回答 It is five yuan.。复数价格用 are，本课不练。",
+            "limitations": [
+              "this 指眼前的这一个，不能换成 that。",
+              "保持单数物品和 is，不改成 are these books。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "How much is this book?",
+                "translation": "这本书多少钱？",
+                "audioId": "mp_u4l2_dialogue_1"
+              },
+              {
+                "speaker": "Seller",
+                "text": "It is five yuan.",
+                "translation": "它五元。",
+                "audioId": "mp_u4l2_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "How much is this pen?",
+                "translation": "这支笔多少钱？",
+                "audioId": "mp_u4l2_dialogue_3"
+              },
+              {
+                "speaker": "Seller",
+                "text": "It is two yuan.",
+                "translation": "它两元。",
+                "audioId": "mp_u4l2_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "How much is",
+                "meaning": "……多少钱？（单数物品）",
+                "audioId": "mp_u4l2_vocab_1"
+              },
+              {
+                "text": "this book",
+                "meaning": "这本书",
+                "audioId": "mp_u4l2_vocab_2"
+              },
+              {
+                "text": "this bag",
+                "meaning": "这个包",
+                "audioId": "mp_u4l2_vocab_3"
+              },
+              {
+                "text": "this pen",
+                "meaning": "这支笔",
+                "audioId": "mp_u4l2_vocab_4"
+              },
+              {
+                "text": "this apple",
+                "meaning": "这个苹果",
+                "audioId": "mp_u4l2_vocab_5"
+              },
+              {
+                "text": "It is five yuan.",
+                "meaning": "它五元。",
+                "audioId": "mp_u4l2_vocab_6"
+              },
+              {
+                "text": "It is two yuan.",
+                "meaning": "它两元。",
+                "audioId": "mp_u4l2_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u4l2_example_1",
+                "type": "speaking",
+                "prompt": "你在书店指着眼前这一本书，向店员询问这本书的价格。",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?",
+                "audioId": "mp_u4l2_example_1"
+              },
+              {
+                "id": "mp_u4l2_example_2",
+                "type": "speaking",
+                "prompt": "你在商店指着眼前这一个包，向店员询问这个包的价格。",
+                "sentence": "How much is this bag?",
+                "options": [],
+                "answer": "How much is this bag?",
+                "audioId": "mp_u4l2_example_2"
+              },
+              {
+                "id": "mp_u4l2_example_3",
+                "type": "speaking",
+                "prompt": "你在文具店指着眼前这一支笔，向店员询问这支笔的价格。",
+                "sentence": "How much is this pen?",
+                "options": [],
+                "answer": "How much is this pen?",
+                "audioId": "mp_u4l2_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u4l2_review_1",
+                "type": "speaking",
+                "prompt": "你在书摊指着近处这一本书，请向摊主问这本书多少钱。使用本课句型回答。",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?",
+                "audioId": "mp_u4l2_review_1",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l2_review_2",
+                "type": "speaking",
+                "prompt": "你在礼品店指着近处这一个包，请向店员问这个包多少钱。使用本课句型回答。",
+                "sentence": "How much is this bag?",
+                "options": [],
+                "answer": "How much is this bag?",
+                "audioId": "mp_u4l2_review_2",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l2_review_3",
+                "type": "speaking",
+                "prompt": "你在商店结账前指着近处这一支笔，请向收银员问这支笔多少钱。使用本课句型回答。",
+                "sentence": "How much is this pen?",
+                "options": [],
+                "answer": "How much is this pen?",
+                "audioId": "mp_u4l2_review_3",
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l2_review_4",
+                "type": "speaking",
+                "prompt": "你在超市指着近处这一个苹果，请向工作人员问这个苹果多少钱。使用本课句型回答。",
+                "sentence": "How much is this apple?",
+                "options": [],
+                "answer": "How much is this apple?",
+                "audioId": "mp_u4l2_review_4",
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_price"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u4l2_e1",
+                  "mp_u4l2_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u4l2_e3",
+                  "mp_u4l2_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u4l2_e5",
+                  "mp_u4l2_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u4l2_e7",
+                  "mp_u4l2_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u4l2_e9",
+                  "mp_u4l2_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u4l3",
+          "title": "Can I have …?｜请求取得物品",
+          "exercises": [
+            {
+              "id": "mp_u4l3_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "Can I have a bag?",
+              "options": [
+                "Can I have two apples?",
+                "Can I have some water?",
+                "Can I have a pen?",
+                "Can I have a bag?"
+              ],
+              "answer": "Can I have a bag?",
+              "audioId": "mp_u4l3_e1",
+              "acceptedAnswers": [
+                "Can I have a bag, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择你听到的英文句子。",
+              "sentence": "Can I have two apples?",
+              "options": [
+                "Can I have some water?",
+                "Can I have a pen?",
+                "Can I have a bag?",
+                "Can I have two apples?"
+              ],
+              "answer": "Can I have two apples?",
+              "audioId": "mp_u4l3_e2",
+              "acceptedAnswers": [
+                "Can I have two apples, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e3",
+              "type": "wordBank",
+              "prompt": "你在水果摊购买水果，请向店员请求两个苹果。用句块拼出本课句型。",
+              "sentence": "Can I have two apples?",
+              "options": [],
+              "answer": "Can I have two apples?",
+              "audioId": "mp_u4l3_e3",
+              "acceptedAnswers": [
+                "Can I have two apples, please?"
+              ],
+              "tokens": [
+                "Can I have",
+                "two apples?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e4",
+              "type": "wordBank",
+              "prompt": "你在餐厅用餐，请向服务员请求一些水。用句块拼出本课句型。",
+              "sentence": "Can I have some water?",
+              "options": [],
+              "answer": "Can I have some water?",
+              "audioId": "mp_u4l3_e4",
+              "acceptedAnswers": [
+                "Can I have some water, please?"
+              ],
+              "tokens": [
+                "Can I have",
+                "some water?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e5",
+              "type": "speaking",
+              "prompt": "跟读范句：一个包。",
+              "sentence": "Can I have a bag?",
+              "options": [],
+              "answer": "Can I have a bag?",
+              "audioId": "mp_u4l3_e5",
+              "acceptedAnswers": [
+                "Can I have a bag, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e6",
+              "type": "speaking",
+              "prompt": "跟读范句：一些水。",
+              "sentence": "Can I have some water?",
+              "options": [],
+              "answer": "Can I have some water?",
+              "audioId": "mp_u4l3_e6",
+              "acceptedAnswers": [
+                "Can I have some water, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e7",
+              "type": "translateInput",
+              "prompt": "你在水果摊购买水果，请向店员请求两个苹果。使用本课句型回答。",
+              "sentence": "Can I have two apples?",
+              "options": [],
+              "answer": "Can I have two apples?",
+              "audioId": "mp_u4l3_e7",
+              "acceptedAnswers": [
+                "Can I have two apples, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e8",
+              "type": "translateInput",
+              "prompt": "你在教室填表，请向老师请求一支笔。使用本课句型回答。",
+              "sentence": "Can I have a pen?",
+              "options": [],
+              "answer": "Can I have a pen?",
+              "audioId": "mp_u4l3_e8",
+              "acceptedAnswers": [
+                "Can I have a pen, please?"
+              ]
+            },
+            {
+              "id": "mp_u4l3_e9",
+              "type": "speaking",
+              "prompt": "你在餐厅用餐，请向服务员请求一些水。使用本课句型回答。",
+              "sentence": "Can I have some water?",
+              "options": [],
+              "answer": "Can I have some water?",
+              "audioId": "mp_u4l3_e9",
+              "acceptedAnswers": [
+                "Can I have some water, please?"
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l3_e10",
+              "type": "speaking",
+              "prompt": "你在教室填表，请向老师请求一支笔。使用本课句型回答。",
+              "sentence": "Can I have a pen?",
+              "options": [],
+              "answer": "Can I have a pen?",
+              "audioId": "mp_u4l3_e10",
+              "acceptedAnswers": [
+                "Can I have a pen, please?"
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_can_have",
+            "version": 1,
+            "kind": "pattern",
+            "frame": "Can I have …?",
+            "meaning": "我可以要……吗？向对方请求物品。",
+            "slotRule": "Can I have 后填物品和数量：a bag、two apples、some water、a pen；句尾可以加 please。与 I want 的直接表达不同，本课要向对方提出请求。",
+            "limitations": [
+              "本课请求自己要物品，保留 I，不换成 you。",
+              "物品和 a／two／some 的数量必须与场景一致。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "Can I have a bag, please?",
+                "translation": "我可以要一个包吗？",
+                "audioId": "mp_u4l3_dialogue_1"
+              },
+              {
+                "speaker": "Seller",
+                "text": "Here you are.",
+                "translation": "给你。",
+                "audioId": "mp_u4l3_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Can I have two apples, please?",
+                "translation": "我可以要两个苹果吗？",
+                "audioId": "mp_u4l3_dialogue_3"
+              },
+              {
+                "speaker": "Seller",
+                "text": "Here you are.",
+                "translation": "给你。",
+                "audioId": "mp_u4l3_dialogue_4"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "Can I have",
+                "meaning": "我可以要……吗？",
+                "audioId": "mp_u4l3_vocab_1"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u4l3_vocab_2"
+              },
+              {
+                "text": "two apples",
+                "meaning": "两个苹果",
+                "audioId": "mp_u4l3_vocab_3"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u4l3_vocab_4"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u4l3_vocab_5"
+              },
+              {
+                "text": "please",
+                "meaning": "请（礼貌请求）",
+                "audioId": "mp_u4l3_vocab_6"
+              },
+              {
+                "text": "Here you are.",
+                "meaning": "给你。",
+                "audioId": "mp_u4l3_vocab_7"
+              }
+            ],
+            "examples": [
+              {
+                "id": "mp_u4l3_example_1",
+                "type": "speaking",
+                "prompt": "你在商店结账，请向店员请求一个包来装东西。",
+                "sentence": "Can I have a bag?",
+                "options": [],
+                "answer": "Can I have a bag?",
+                "audioId": "mp_u4l3_example_1"
+              },
+              {
+                "id": "mp_u4l3_example_2",
+                "type": "speaking",
+                "prompt": "你在水果摊购买水果，请向店员请求两个苹果。",
+                "sentence": "Can I have two apples?",
+                "options": [],
+                "answer": "Can I have two apples?",
+                "audioId": "mp_u4l3_example_2"
+              },
+              {
+                "id": "mp_u4l3_example_3",
+                "type": "speaking",
+                "prompt": "你在餐厅用餐，请向服务员请求一些水。",
+                "sentence": "Can I have some water?",
+                "options": [],
+                "answer": "Can I have some water?",
+                "audioId": "mp_u4l3_example_3"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_u4l3_review_1",
+                "type": "speaking",
+                "prompt": "你在图书馆领取用品，请向工作人员请求一个包。使用本课句型回答。",
+                "sentence": "Can I have a bag?",
+                "options": [],
+                "answer": "Can I have a bag?",
+                "audioId": "mp_u4l3_review_1",
+                "acceptedAnswers": [
+                  "Can I have a bag, please?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l3_review_2",
+                "type": "speaking",
+                "prompt": "你在超市买水果，请向工作人员请求两个苹果。使用本课句型回答。",
+                "sentence": "Can I have two apples?",
+                "options": [],
+                "answer": "Can I have two apples?",
+                "audioId": "mp_u4l3_review_2",
+                "acceptedAnswers": [
+                  "Can I have two apples, please?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l3_review_3",
+                "type": "speaking",
+                "prompt": "你在咖啡店用餐，请向店员请求一些水。使用本课句型回答。",
+                "sentence": "Can I have some water?",
+                "options": [],
+                "answer": "Can I have some water?",
+                "audioId": "mp_u4l3_review_3",
+                "acceptedAnswers": [
+                  "Can I have some water, please?"
+                ],
+                "speakingMode": "scenario"
+              },
+              {
+                "id": "mp_u4l3_review_4",
+                "type": "speaking",
+                "prompt": "你在图书馆填表，请向工作人员请求一支笔。使用本课句型回答。",
+                "sentence": "Can I have a pen?",
+                "options": [],
+                "answer": "Can I have a pen?",
+                "audioId": "mp_u4l3_review_4",
+                "acceptedAnswers": [
+                  "Can I have a pen, please?"
+                ],
+                "speakingMode": "scenario"
+              }
+            ],
+            "patternIds": [
+              "mp_can_have"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u4l3_e1",
+                  "mp_u4l3_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u4l3_e3",
+                  "mp_u4l3_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u4l3_e5",
+                  "mp_u4l3_e6"
+                ]
+              },
+              {
+                "type": "recall",
+                "exerciseIds": [
+                  "mp_u4l3_e7",
+                  "mp_u4l3_e8"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u4l3_e9",
+                  "mp_u4l3_e10"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mp_u4l4",
+          "title": "综合对话｜在商店购物",
+          "exercises": [
+            {
+              "id": "mp_u4l4_e1",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "What is this?",
+              "options": [
+                "This is a book.",
+                "This is a bag.",
+                "This is a pen.",
+                "What is this?"
+              ],
+              "answer": "What is this?",
+              "audioId": "mp_u4l4_e1",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l4_e2",
+              "type": "listeningChoice",
+              "prompt": "听音，选择对话中你听到的英文句子。",
+              "sentence": "How much is this bag?",
+              "options": [
+                "How much is this pen?",
+                "How much is this apple?",
+                "How much is this book?",
+                "How much is this bag?"
+              ],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l4_e2"
+            },
+            {
+              "id": "mp_u4l4_e3",
+              "type": "wordBank",
+              "prompt": "你扮演顾客汤姆。指着店内近处一个你不认识的包，向店员询问这个物品是什么，不说出名称。用句块练习这个回应。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l4_e3",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "tokens": [
+                "What",
+                "is",
+                "this?"
+              ]
+            },
+            {
+              "id": "mp_u4l4_e4",
+              "type": "wordBank",
+              "prompt": "你扮演顾客汤姆。店员说近处这个物品是一个包，请询问这一个包的价格。用句块练习这个回应。",
+              "sentence": "How much is this bag?",
+              "options": [],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l4_e4",
+              "tokens": [
+                "How much is",
+                "this bag?"
+              ]
+            },
+            {
+              "id": "mp_u4l4_e5",
+              "type": "speaking",
+              "prompt": "跟读角色回应：这是什么？。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l4_e5",
+              "acceptedAnswers": [
+                "What's this?"
+              ]
+            },
+            {
+              "id": "mp_u4l4_e6",
+              "type": "speaking",
+              "prompt": "跟读角色回应：这个包。",
+              "sentence": "How much is this bag?",
+              "options": [],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l4_e6"
+            },
+            {
+              "id": "mp_u4l4_e7",
+              "type": "speaking",
+              "prompt": "你扮演顾客汤姆。指着店内近处一个你不认识的包，向店员询问这个物品是什么，不说出名称。",
+              "sentence": "What is this?",
+              "options": [],
+              "answer": "What is this?",
+              "audioId": "mp_u4l4_e7",
+              "acceptedAnswers": [
+                "What's this?"
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l4_e8",
+              "type": "speaking",
+              "prompt": "你扮演顾客汤姆。店员说近处这个物品是一个包，请询问这一个包的价格。",
+              "sentence": "How much is this bag?",
+              "options": [],
+              "answer": "How much is this bag?",
+              "audioId": "mp_u4l4_e8",
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l4_e9",
+              "type": "speaking",
+              "prompt": "你扮演顾客汤姆。准备结账，请向店员请求一个包。",
+              "sentence": "Can I have a bag?",
+              "options": [],
+              "answer": "Can I have a bag?",
+              "audioId": "mp_u4l4_e9",
+              "acceptedAnswers": [
+                "Can I have a bag, please?"
+              ],
+              "speakingMode": "scenario"
+            },
+            {
+              "id": "mp_u4l4_e10",
+              "type": "speaking",
+              "prompt": "你扮演顾客汤姆。在水果摊选水果，请向店员请求两个苹果。",
+              "sentence": "Can I have two apples?",
+              "options": [],
+              "answer": "Can I have two apples?",
+              "audioId": "mp_u4l4_e10",
+              "acceptedAnswers": [
+                "Can I have two apples, please?"
+              ],
+              "speakingMode": "scenario"
+            }
+          ],
+          "patternLesson": {
+            "id": "mp_dialogue_u4",
+            "version": 1,
+            "kind": "dialogue",
+            "frame": "What is this? / How much is …? / Can I have …?",
+            "meaning": "把本单元的三个句型用于“在商店购物”的真实交流。",
+            "slotRule": "先听完整对话并认识词汇，再练习听音、句块和有提示跟读。最后四次回应按角色、物品、数量和表达目的选择已经学过的句型。",
+            "limitations": [
+              "只回答当前角色需要说的一句话，不把整段对话背下来。",
+              "保持指定人名、物品、数量与意图；礼貌请求与直接表达不可任意互换。"
+            ],
+            "dialogue": [
+              {
+                "speaker": "Tom",
+                "text": "What is this?",
+                "translation": "这是什么？",
+                "audioId": "mp_u4l4_dialogue_1"
+              },
+              {
+                "speaker": "Seller",
+                "text": "This is a bag.",
+                "translation": "这是一个包。",
+                "audioId": "mp_u4l4_dialogue_2"
+              },
+              {
+                "speaker": "Tom",
+                "text": "How much is this bag?",
+                "translation": "这个包多少钱？",
+                "audioId": "mp_u4l4_dialogue_3"
+              },
+              {
+                "speaker": "Seller",
+                "text": "It is five yuan.",
+                "translation": "它五元。",
+                "audioId": "mp_u4l4_dialogue_4"
+              },
+              {
+                "speaker": "Tom",
+                "text": "Can I have a bag, please?",
+                "translation": "我可以要一个包吗？",
+                "audioId": "mp_u4l4_dialogue_5"
+              },
+              {
+                "speaker": "Seller",
+                "text": "Here you are.",
+                "translation": "给你。",
+                "audioId": "mp_u4l4_dialogue_6"
+              }
+            ],
+            "vocabulary": [
+              {
+                "text": "What is this?",
+                "meaning": "这是什么？（固定问题）",
+                "audioId": "mp_u4l4_vocab_1"
+              },
+              {
+                "text": "What's this?",
+                "meaning": "What is this? 的口语缩写",
+                "audioId": "mp_u4l4_vocab_2"
+              },
+              {
+                "text": "This is a book.",
+                "meaning": "这是一本书。",
+                "audioId": "mp_u4l4_vocab_3"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u4l4_vocab_4"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u4l4_vocab_5"
+              },
+              {
+                "text": "an apple",
+                "meaning": "一个苹果",
+                "audioId": "mp_u4l4_vocab_6"
+              },
+              {
+                "text": "How much is",
+                "meaning": "……多少钱？（单数物品）",
+                "audioId": "mp_u4l4_vocab_7"
+              },
+              {
+                "text": "this book",
+                "meaning": "这本书",
+                "audioId": "mp_u4l4_vocab_8"
+              },
+              {
+                "text": "this bag",
+                "meaning": "这个包",
+                "audioId": "mp_u4l4_vocab_9"
+              },
+              {
+                "text": "this pen",
+                "meaning": "这支笔",
+                "audioId": "mp_u4l4_vocab_10"
+              },
+              {
+                "text": "this apple",
+                "meaning": "这个苹果",
+                "audioId": "mp_u4l4_vocab_11"
+              },
+              {
+                "text": "It is five yuan.",
+                "meaning": "它五元。",
+                "audioId": "mp_u4l4_vocab_12"
+              },
+              {
+                "text": "It is two yuan.",
+                "meaning": "它两元。",
+                "audioId": "mp_u4l4_vocab_13"
+              },
+              {
+                "text": "Can I have",
+                "meaning": "我可以要……吗？",
+                "audioId": "mp_u4l4_vocab_14"
+              },
+              {
+                "text": "a bag",
+                "meaning": "一个包",
+                "audioId": "mp_u4l4_vocab_15"
+              },
+              {
+                "text": "two apples",
+                "meaning": "两个苹果",
+                "audioId": "mp_u4l4_vocab_16"
+              },
+              {
+                "text": "some water",
+                "meaning": "一些水",
+                "audioId": "mp_u4l4_vocab_17"
+              },
+              {
+                "text": "a pen",
+                "meaning": "一支笔",
+                "audioId": "mp_u4l4_vocab_18"
+              },
+              {
+                "text": "please",
+                "meaning": "请（礼貌请求）",
+                "audioId": "mp_u4l4_vocab_19"
+              },
+              {
+                "text": "Here you are.",
+                "meaning": "给你。",
+                "audioId": "mp_u4l4_vocab_20"
+              }
+            ],
+            "examples": [],
+            "review": [],
+            "patternIds": [
+              "mp_what_this",
+              "mp_price",
+              "mp_can_have"
+            ],
+            "phases": [
+              {
+                "type": "listening",
+                "exerciseIds": [
+                  "mp_u4l4_e1",
+                  "mp_u4l4_e2"
+                ]
+              },
+              {
+                "type": "chunks",
+                "exerciseIds": [
+                  "mp_u4l4_e3",
+                  "mp_u4l4_e4"
+                ]
+              },
+              {
+                "type": "repeat",
+                "exerciseIds": [
+                  "mp_u4l4_e5",
+                  "mp_u4l4_e6"
+                ]
+              },
+              {
+                "type": "scenario",
+                "exerciseIds": [
+                  "mp_u4l4_e7",
+                  "mp_u4l4_e8",
+                  "mp_u4l4_e9",
+                  "mp_u4l4_e10"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

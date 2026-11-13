@@ -4,6 +4,9 @@ library;
 import 'package:unorm_dart/unorm_dart.dart' as unicode;
 import 'learning_language.dart';
 import 'pattern_training.dart';
+import 'pattern_lesson.dart';
+
+enum SpeakingMode { repeat, scenario }
 
 enum ExerciseType {
   translateChoice,
@@ -61,6 +64,7 @@ class Exercise {
   final String? support;
   final List<String> tokens;
   final String tokenSeparator;
+  final SpeakingMode speakingMode;
 
   String normalizeInput(String text) => language == LearningLanguage.english
       ? normalizeAnswer(text)
@@ -76,7 +80,10 @@ class Exercise {
   bool accepts(String input) {
     final normalized = _forComparison(input);
     if (normalized.isEmpty) return false;
-    final alternatives = type == ExerciseType.translateInput
+    final alternatives =
+        type == ExerciseType.translateInput ||
+            (type == ExerciseType.speaking &&
+                speakingMode == SpeakingMode.scenario)
         ? acceptedAnswers
         : const <String>[];
     final folded = expandKeyboardAliases(normalized);
@@ -193,6 +200,7 @@ class Exercise {
     this.tokens = const [],
     this.tokenSeparator = ' ',
     this.audioId,
+    this.speakingMode = SpeakingMode.repeat,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
@@ -219,6 +227,9 @@ class Exercise {
           .map((e) => MatchPair.fromJson(e as Map<String, dynamic>))
           .toList(),
       audioId: json['audioId'] as String?,
+      speakingMode: SpeakingMode.values.byName(
+        json['speakingMode'] as String? ?? 'repeat',
+      ),
     );
   }
 }
@@ -228,16 +239,18 @@ class Lesson {
   final String title;
   final List<Exercise> exercises;
   final PatternTraining? patternTraining;
+  final PatternLesson? patternLesson;
 
   const Lesson({
     required this.id,
     required this.title,
     required this.exercises,
     this.patternTraining,
+    this.patternLesson,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
-    return Lesson(
+    final lesson = Lesson(
       id: json['id'] as String,
       title: json['title'] as String,
       exercises: (json['exercises'] as List<dynamic>)
@@ -250,7 +263,16 @@ class Lesson {
               json['patternTraining'] as Map<String, dynamic>,
             )
           : throw const FormatException('patternTraining must be an object'),
+      patternLesson: json['patternLesson'] == null
+          ? null
+          : json['patternLesson'] is Map<String, dynamic>
+          ? PatternLesson.fromJson(
+              json['patternLesson'] as Map<String, dynamic>,
+            )
+          : throw const FormatException('patternLesson must be an object'),
     );
+    lesson.patternLesson?.validateExercises(lesson.exercises);
+    return lesson;
   }
 }
 
