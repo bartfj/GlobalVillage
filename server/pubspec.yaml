@@ -7,6 +7,8 @@ environment:
   sdk: ^3.13.0
 
 dependencies:
+  mother_pattern_schema:
+    path: schema
   shelf: ^1.4.0
   shelf_router: ^1.1.0
   dart_jsonwebtoken: ^2.14.0

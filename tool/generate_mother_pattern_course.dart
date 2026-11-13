@@ -571,6 +571,44 @@ const _reviewScenes = <String, List<String>>{
   ],
 };
 
+// The final two scored responses keep taught targets but transfer them to
+// people and situations not used in the earlier lesson or rotating reviews.
+const _scenarioScenes = <String, List<String>>{
+  'am': [
+    '你赢得了比赛，现在很开心，队友询问你的感受，请告诉队友自己的状态。',
+    '郊游出发前，司机询问你能否出发；你已准备好，请告诉司机自己的状态。',
+  ],
+  'name': ['你叫李明，报名游泳课时教练要记录你的姓名，请告诉教练。', '你叫露西，在旅馆办理入住时接待员询问你的姓名，请告诉接待员。'],
+  'this': [
+    '你在实验室递给指导员近处这一本书，指导员问这是什么，请说明这一个物品。',
+    '你在车站指着身边这一个包，工作人员询问这是什么，请说明这一个物品。',
+  ],
+  'like': ['你参加饮品爱好访谈，采访者询问你的喜好，请说你平常喜欢茶。', '你搬进新宿舍，室友询问你的早餐饮品喜好，请说你平常喜欢牛奶。'],
+  'dont_like': [
+    '社区活动的志愿者了解参加者的饮品喜好，请告诉志愿者你平常不喜欢茶。',
+    '营地负责人问你平常是否喜欢牛奶，你不喜欢，请向负责人说明。',
+  ],
+  'do_you_like': [
+    '你参观茶园，想了解导游的饮品喜好，请问导游平常是否喜欢茶。',
+    '你参加烘焙活动，想了解指导老师的饮品喜好，请问老师平常是否喜欢牛奶。',
+  ],
+  'need': ['手工课上你的嗓子很干，请向助教说明你需要一些水。', '你整理捐赠衣物，要把两份衣物分开装好，请向志愿者说明你需要两个包。'],
+  'want': ['旅途中同伴分水果，请直接告诉同伴你想要两根香蕉。', '新学期采购用品时，陪你购物的长辈问你想要什么，请直接说你想要一个包。'],
+  'would_like': [
+    '旅馆早餐时，你为两人取水果，请向工作人员礼貌地要两个苹果。',
+    '会议休息时工作人员询问你的饮品需求，请礼貌地要一些水。',
+  ],
+  'what_this': [
+    '美术活动中你看到近处一支不认识的笔，请指着它向指导员询问这是什么；不要说出物品名称。',
+    '参观农场时你看到近处一个不认识的苹果，请指着它向果农询问这是什么；不要说出物品名称。',
+  ],
+  'price': [
+    '校园义卖时，你指着近处这一支笔，请向摊位上的同学询问这支笔多少钱。',
+    '你在果园买水果，指着近处这一个苹果，请向果农询问这个苹果多少钱。',
+  ],
+  'can_have': ['你参观工厂时口渴，请向接待员请求一些水。', '你在银行填写表格却没有笔，请向柜台工作人员请求一支笔。'],
+};
+
 String _sentence(_Frame frame, _Slot slot) =>
     '${frame.prefix}${slot.text}${frame.suffix}';
 
@@ -702,7 +740,7 @@ Map<String, dynamic> _patternLesson(int unit, int number, _Frame frame) {
             ? '${slot.scene}用句块拼出本课句型。'
             : i < 6
             ? '跟读范句：${slot.meaning}。'
-            : '${slot.scene}使用本课句型回答。',
+            : '${i >= 8 ? _scenarioScenes[frame.id]![i - 8] : slot.scene}使用本课句型回答。',
         _sentence(frame, slot),
         alternatives: _alternatives(frame, slot),
         tokens: type == 'wordBank' ? _tokens(frame, slot) : [],

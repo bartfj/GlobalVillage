@@ -44,6 +44,7 @@ void main() {
         'zero',
         'beginner',
         'intermediate',
+        'motherPattern',
         'chineseZero',
         'chinese',
         'sanskritZero',
@@ -53,6 +54,7 @@ void main() {
         232,
         272,
         64,
+        16,
         4,
         12,
         8,
@@ -122,7 +124,9 @@ void main() {
     () {
       final paths = [
         for (final track in CourseTrack.values.where(
-          (t) => t.language == LearningLanguage.english,
+          (t) =>
+              t.language == LearningLanguage.english &&
+              t != CourseTrack.motherPattern,
         ))
           track.assetPath,
         'assets/dialogues/unit_dialogues.json',
@@ -135,7 +139,19 @@ void main() {
       };
       final generated = expansion.generateExpansion(write: false);
       for (final path in paths) {
-        expect(generated[path], before[path], reason: path);
+        if (path.endsWith('.json')) {
+          expect(
+            jsonDecode(generated[path]!),
+            jsonDecode(before[path]!),
+            reason: path,
+          );
+        } else {
+          expect(
+            generated[path]!.replaceAll('\r\n', '\n'),
+            before[path]!.replaceAll('\r\n', '\n'),
+            reason: path,
+          );
+        }
       }
     },
   );

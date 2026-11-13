@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-void main() {
+void main(List<String> args) {
+  final output = args.length == 2 && args.first == '--output'
+      ? args.last
+      : 'docs/音频资源验收清单.json';
   final rows = <Map<String, dynamic>>[];
   void check(String path, String text) {
     final file = File(path);
@@ -19,12 +22,35 @@ void main() {
     });
   }
 
-  for (final track in ['zero', 'beginner', 'intermediate']) {
+  for (final track in ['zero', 'beginner', 'intermediate', 'mother_pattern']) {
     final data = jsonDecode(
       File('assets/courses/course_$track.json').readAsStringSync(),
     );
     for (final unit in data['units']) {
       for (final lesson in unit['lessons']) {
+        final metadata = lesson['patternLesson'] as Map?;
+        if (metadata != null) {
+          for (final item in [
+            ...metadata['dialogue'],
+            ...metadata['vocabulary'],
+          ]) {
+            check(
+              'assets/audio/listening/${item['audioId']}.mp3',
+              item['text'],
+            );
+          }
+          for (final exercise in [
+            ...lesson['exercises'],
+            ...metadata['examples'],
+            ...metadata['review'],
+          ]) {
+            check(
+              'assets/audio/listening/${exercise['audioId'] ?? exercise['id']}.mp3',
+              exercise['sentence'],
+            );
+          }
+          continue;
+        }
         final pattern = lesson['patternTraining'] as Map?;
         if (pattern != null) {
           for (final phase in [
@@ -66,7 +92,7 @@ void main() {
       );
     }
   }
-  File('docs/音频资源验收清单.json').writeAsStringSync(
+  File(output).writeAsStringSync(
     '${const JsonEncoder.withIndent('  ').convert({'automatedCheck': 'existence-size-mp3-header', 'manualListening': 'pending', 'devicePlayback': 'pending', 'files': rows})}\n',
   );
   final failures = rows

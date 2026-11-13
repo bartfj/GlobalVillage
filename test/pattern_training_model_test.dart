@@ -14,7 +14,7 @@ Lesson parse(Map<String, dynamic>? training) => Lesson.fromJson({
 });
 
 void main() {
-  test('actual beginner course parses six valid pattern pilots', () {
+  test('actual beginner course has withdrawn all pilot metadata', () {
     final json =
         jsonDecode(
               File('assets/courses/course_beginner.json').readAsStringSync(),
@@ -24,12 +24,8 @@ void main() {
     final pilots = course.orderedLessons
         .where((l) => l.patternTraining != null)
         .toList();
-    expect(pilots, hasLength(6));
-    expect(pilots.map((l) => l.patternTraining!.id).toSet(), hasLength(6));
-    for (final lesson in pilots) {
-      expect(lesson.patternTraining!.exercises, hasLength(6));
-      expect(lesson.exercises, isNotEmpty);
-    }
+    expect(pilots, isEmpty);
+    expect(course.orderedLessons, hasLength(272));
   });
   test('legacy lessons remain const and parse without pattern training', () {
     const old = Lesson(id: 'old', title: 'Old', exercises: []);

@@ -130,7 +130,7 @@
             {
               "id": "mp_u1l1_e9",
               "type": "speaking",
-              "prompt": "朋友问你的状态，你现在很开心，请告诉朋友。使用本课句型回答。",
+              "prompt": "你赢得了比赛，现在很开心，队友询问你的感受，请告诉队友自己的状态。使用本课句型回答。",
               "sentence": "I am happy.",
               "options": [],
               "answer": "I am happy.",
@@ -143,7 +143,7 @@
             {
               "id": "mp_u1l1_e10",
               "type": "speaking",
-              "prompt": "老师准备开始活动，你已经准备好了，请告诉老师你的状态。使用本课句型回答。",
+              "prompt": "郊游出发前，司机询问你能否出发；你已准备好，请告诉司机自己的状态。使用本课句型回答。",
               "sentence": "I am ready.",
               "options": [],
               "answer": "I am ready.",
@@ -479,7 +479,7 @@
             {
               "id": "mp_u1l2_e9",
               "type": "speaking",
-              "prompt": "你是李明，参加小组时主持人问你的姓名，请回答。使用本课句型回答。",
+              "prompt": "你叫李明，报名游泳课时教练要记录你的姓名，请告诉教练。使用本课句型回答。",
               "sentence": "My name is Li Ming.",
               "options": [],
               "answer": "My name is Li Ming.",
@@ -492,7 +492,7 @@
             {
               "id": "mp_u1l2_e10",
               "type": "speaking",
-              "prompt": "你是露西，在电话里向新同学介绍自己的姓名。使用本课句型回答。",
+              "prompt": "你叫露西，在旅馆办理入住时接待员询问你的姓名，请告诉接待员。使用本课句型回答。",
               "sentence": "My name is Lucy.",
               "options": [],
               "answer": "My name is Lucy.",
@@ -809,7 +809,7 @@
             {
               "id": "mp_u1l3_e9",
               "type": "speaking",
-              "prompt": "你向小朋友展示手中这一本书，请说明这是什么物品。使用本课句型回答。",
+              "prompt": "你在实验室递给指导员近处这一本书，指导员问这是什么，请说明这一个物品。使用本课句型回答。",
               "sentence": "This is a book.",
               "options": [],
               "answer": "This is a book.",
@@ -819,7 +819,7 @@
             {
               "id": "mp_u1l3_e10",
               "type": "speaking",
-              "prompt": "你向小朋友展示手中这一个包，请说明这是什么物品。使用本课句型回答。",
+              "prompt": "你在车站指着身边这一个包，工作人员询问这是什么，请说明这一个物品。使用本课句型回答。",
               "sentence": "This is a bag.",
               "options": [],
               "answer": "This is a bag.",
@@ -1447,7 +1447,7 @@
             {
               "id": "mp_u2l1_e9",
               "type": "speaking",
-              "prompt": "朋友想了解你的饮品喜好，请告诉朋友你平常喜欢茶。使用本课句型回答。",
+              "prompt": "你参加饮品爱好访谈，采访者询问你的喜好，请说你平常喜欢茶。使用本课句型回答。",
               "sentence": "I like tea.",
               "options": [],
               "answer": "I like tea.",
@@ -1457,7 +1457,7 @@
             {
               "id": "mp_u2l1_e10",
               "type": "speaking",
-              "prompt": "同学询问你平常喜欢什么饮品，请说你喜欢牛奶。使用本课句型回答。",
+              "prompt": "你搬进新宿舍，室友询问你的早餐饮品喜好，请说你平常喜欢牛奶。使用本课句型回答。",
               "sentence": "I like milk.",
               "options": [],
               "answer": "I like milk.",
@@ -1773,7 +1773,7 @@
             {
               "id": "mp_u2l2_e9",
               "type": "speaking",
-              "prompt": "同学询问饮品喜好，你平常不喜欢茶，请告诉同学。使用本课句型回答。",
+              "prompt": "社区活动的志愿者了解参加者的饮品喜好，请告诉志愿者你平常不喜欢茶。使用本课句型回答。",
               "sentence": "I don't like tea.",
               "options": [],
               "answer": "I don't like tea.",
@@ -1786,7 +1786,7 @@
             {
               "id": "mp_u2l2_e10",
               "type": "speaking",
-              "prompt": "朋友问你平常是否喜欢牛奶，你不喜欢，请说明。使用本课句型回答。",
+              "prompt": "营地负责人问你平常是否喜欢牛奶，你不喜欢，请向负责人说明。使用本课句型回答。",
               "sentence": "I don't like milk.",
               "options": [],
               "answer": "I don't like milk.",
@@ -2093,7 +2093,7 @@
             {
               "id": "mp_u2l3_e9",
               "type": "speaking",
-              "prompt": "你和朋友讨论饮品，想知道朋友平常是否喜欢茶，请提问。使用本课句型回答。",
+              "prompt": "你参观茶园，想了解导游的饮品喜好，请问导游平常是否喜欢茶。使用本课句型回答。",
               "sentence": "Do you like tea?",
               "options": [],
               "answer": "Do you like tea?",
@@ -2103,7 +2103,7 @@
             {
               "id": "mp_u2l3_e10",
               "type": "speaking",
-              "prompt": "你为同学准备早餐，想知道同学平常是否喜欢牛奶，请提问。使用本课句型回答。",
+              "prompt": "你参加烘焙活动，想了解指导老师的饮品喜好，请问老师平常是否喜欢牛奶。使用本课句型回答。",
               "sentence": "Do you like milk?",
               "options": [],
               "answer": "Do you like milk?",
@@ -2723,7 +2723,7 @@
             {
               "id": "mp_u3l1_e9",
               "type": "speaking",
-              "prompt": "你运动后口渴，请向家人说明你需要一些水。使用本课句型回答。",
+              "prompt": "手工课上你的嗓子很干，请向助教说明你需要一些水。使用本课句型回答。",
               "sentence": "I need some water.",
               "options": [],
               "answer": "I need some water.",
@@ -2733,7 +2733,7 @@
             {
               "id": "mp_u3l1_e10",
               "type": "speaking",
-              "prompt": "你要把两组物品分别装好，请向家人说明你需要两个包。使用本课句型回答。",
+              "prompt": "你整理捐赠衣物，要把两份衣物分开装好，请向志愿者说明你需要两个包。使用本课句型回答。",
               "sentence": "I need two bags.",
               "options": [],
               "answer": "I need two bags.",
@@ -3025,7 +3025,7 @@
             {
               "id": "mp_u3l2_e9",
               "type": "speaking",
-              "prompt": "朋友给你选野餐水果，请直接告诉朋友你想要两个香蕉。使用本课句型回答。",
+              "prompt": "旅途中同伴分水果，请直接告诉同伴你想要两根香蕉。使用本课句型回答。",
               "sentence": "I want two bananas.",
               "options": [],
               "answer": "I want two bananas.",
@@ -3035,7 +3035,7 @@
             {
               "id": "mp_u3l2_e10",
               "type": "speaking",
-              "prompt": "家人让你选择用品，请直接说你想要一个包。使用本课句型回答。",
+              "prompt": "新学期采购用品时，陪你购物的长辈问你想要什么，请直接说你想要一个包。使用本课句型回答。",
               "sentence": "I want a bag.",
               "options": [],
               "answer": "I want a bag.",
@@ -3367,7 +3367,7 @@
             {
               "id": "mp_u3l3_e9",
               "type": "speaking",
-              "prompt": "你在餐厅给两个人选水果，请向服务员礼貌地要两个苹果。使用本课句型回答。",
+              "prompt": "旅馆早餐时，你为两人取水果，请向工作人员礼貌地要两个苹果。使用本课句型回答。",
               "sentence": "I would like two apples.",
               "options": [],
               "answer": "I would like two apples.",
@@ -3382,7 +3382,7 @@
             {
               "id": "mp_u3l3_e10",
               "type": "speaking",
-              "prompt": "你在餐厅用餐口渴，请向服务员礼貌地要一些水。使用本课句型回答。",
+              "prompt": "会议休息时工作人员询问你的饮品需求，请礼貌地要一些水。使用本课句型回答。",
               "sentence": "I would like some water.",
               "options": [],
               "answer": "I would like some water.",
@@ -4061,7 +4061,7 @@
             {
               "id": "mp_u4l1_e9",
               "type": "speaking",
-              "prompt": "你在教室看到近处一支不认识的笔，指着它向老师询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "prompt": "美术活动中你看到近处一支不认识的笔，请指着它向指导员询问这是什么；不要说出物品名称。使用本课句型回答。",
               "sentence": "What is this?",
               "options": [],
               "answer": "What is this?",
@@ -4074,7 +4074,7 @@
             {
               "id": "mp_u4l1_e10",
               "type": "speaking",
-              "prompt": "你在水果摊看到近处一个不认识的苹果，指着它向店员询问它是什么；不要说出物品名称。使用本课句型回答。",
+              "prompt": "参观农场时你看到近处一个不认识的苹果，请指着它向果农询问这是什么；不要说出物品名称。使用本课句型回答。",
               "sentence": "What is this?",
               "options": [],
               "answer": "What is this?",
@@ -4376,7 +4376,7 @@
             {
               "id": "mp_u4l2_e9",
               "type": "speaking",
-              "prompt": "你在文具店指着眼前这一支笔，向店员询问这支笔的价格。使用本课句型回答。",
+              "prompt": "校园义卖时，你指着近处这一支笔，请向摊位上的同学询问这支笔多少钱。使用本课句型回答。",
               "sentence": "How much is this pen?",
               "options": [],
               "answer": "How much is this pen?",
@@ -4386,7 +4386,7 @@
             {
               "id": "mp_u4l2_e10",
               "type": "speaking",
-              "prompt": "你在水果摊指着眼前这一个苹果，向店员询问这个苹果的价格。使用本课句型回答。",
+              "prompt": "你在果园买水果，指着近处这一个苹果，请向果农询问这个苹果多少钱。使用本课句型回答。",
               "sentence": "How much is this apple?",
               "options": [],
               "answer": "How much is this apple?",
@@ -4702,7 +4702,7 @@
             {
               "id": "mp_u4l3_e9",
               "type": "speaking",
-              "prompt": "你在餐厅用餐，请向服务员请求一些水。使用本课句型回答。",
+              "prompt": "你参观工厂时口渴，请向接待员请求一些水。使用本课句型回答。",
               "sentence": "Can I have some water?",
               "options": [],
               "answer": "Can I have some water?",
@@ -4715,7 +4715,7 @@
             {
               "id": "mp_u4l3_e10",
               "type": "speaking",
-              "prompt": "你在教室填表，请向老师请求一支笔。使用本课句型回答。",
+              "prompt": "你在银行填写表格却没有笔，请向柜台工作人员请求一支笔。使用本课句型回答。",
               "sentence": "Can I have a pen?",
               "options": [],
               "answer": "Can I have a pen?",

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'content_catalog.dart';
 
+import 'package:mother_pattern_schema/mother_pattern_schema.dart';
+
 const _exerciseTypes = {
   'translateChoice',
   'wordBank',
@@ -49,6 +51,8 @@ Map<String, dynamic>? _decodeObject(String text) {
 }
 
 String? _validateCourse(Map<String, dynamic> json, String courseId) {
+  final patternError = validateCourseIdentityAndPatterns(json, courseId);
+  if (patternError != null) return patternError;
   if (json['id'] != courseId) return '课程 id 须为 $courseId';
   if (json['title'] is! String) return '课程缺少 title';
   final language = json['language'];

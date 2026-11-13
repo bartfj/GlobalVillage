@@ -8,6 +8,8 @@ import 'package:global_village_server/sync_repo.dart';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
+import '../../test/mother_pattern_validation_fixture.dart';
+
 void main() {
   const adminToken = 'admin-secret';
 
@@ -197,6 +199,73 @@ void main() {
         '/v1/content/packs/course/beginner',
       )).statusCode,
       404,
+    );
+  });
+
+  test('motherPattern publishes, downloads metadata, and withdraws', () async {
+    final handler = open();
+    final pack = independentPack(root: '..');
+    const path = '/admin/api/content/packs/course/motherPattern';
+    expect(
+      (await send(
+        handler,
+        'PUT',
+        path,
+        bearer: adminToken,
+        body: pack,
+      )).statusCode,
+      200,
+    );
+    final publish = await send(
+      handler,
+      'POST',
+      '$path/publish',
+      bearer: adminToken,
+    );
+    expect(publish.statusCode, 200);
+    final manifest = await json(
+      await send(handler, 'GET', '/v1/content/manifest'),
+    );
+    expect(manifest['documents'][0]['id'], 'course/motherPattern');
+    final downloaded = await json(
+      await send(handler, 'GET', '/v1/content/packs/course/motherPattern'),
+    );
+    expect(downloaded, pack);
+    firstLesson(pack)['exercises'][8]['sentence'] = 'I want tea.';
+    expect(
+      (await send(
+        handler,
+        'PUT',
+        path,
+        bearer: adminToken,
+        body: pack,
+      )).statusCode,
+      200,
+    );
+    final invalid = await json(
+      await send(handler, 'POST', '$path/publish', bearer: adminToken),
+    );
+    expect(invalid['code'], 'invalid_content');
+    expect(
+      await json(
+        await send(handler, 'GET', '/v1/content/packs/course/motherPattern'),
+      ),
+      downloaded,
+    );
+    expect(
+      (await send(
+        handler,
+        'POST',
+        '$path/unpublish',
+        bearer: adminToken,
+      )).statusCode,
+      200,
+    );
+    expect(
+      (await json(
+        await send(handler, 'GET', '/v1/content/manifest'),
+      ))['documents'],
+      isEmpty,
     );
   });
 

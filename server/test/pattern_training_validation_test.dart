@@ -36,18 +36,21 @@ Map<String, dynamic> course(Map<String, dynamic>? training) => {
 String? validate(Map<String, dynamic>? p) =>
     validateContentPack('course/beginner', jsonEncode(course(p)));
 void main() {
-  test('bundled beginner course with all six pilots remains publishable', () {
-    final raw = File('../assets/courses/course_beginner.json')
-        .readAsStringSync();
-    final content = jsonDecode(raw) as Map<String, dynamic>;
-    final pilots = [
-      for (final unit in content['units'] as List)
-        for (final lesson in unit['lessons'] as List)
-          if (lesson['patternTraining'] != null) lesson['patternTraining'],
-    ];
-    expect(pilots, hasLength(6));
-    expect(validateContentPack('course/beginner', raw), isNull);
-  });
+  test(
+    'bundled beginner course remains publishable after pilot withdrawal',
+    () {
+      final raw = File('../assets/courses/course_beginner.json')
+          .readAsStringSync();
+      final content = jsonDecode(raw) as Map<String, dynamic>;
+      final pilots = [
+        for (final unit in content['units'] as List)
+          for (final lesson in unit['lessons'] as List)
+            if (lesson['patternTraining'] != null) lesson['patternTraining'],
+      ];
+      expect(pilots, isEmpty);
+      expect(validateContentPack('course/beginner', raw), isNull);
+    },
+  );
   test(
     'legacy course and valid optional pattern training remain publishable',
     () {

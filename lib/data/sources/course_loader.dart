@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
+import 'package:mother_pattern_schema/mother_pattern_schema.dart';
+
 import '../models/course.dart';
 import '../models/course_track.dart';
 import 'content_documents.dart';
@@ -19,7 +21,7 @@ class CourseLoader {
       documents: documents,
       packId: 'course/${track.id}',
       bundle: () => _assetBundle.loadString(track.assetPath),
-      accept: _acceptCourse,
+      accept: (raw) => _acceptCourse(raw, track.id),
     );
     return Course.fromJson(jsonDecode(jsonStr) as Map<String, dynamic>);
   }
@@ -32,11 +34,15 @@ class CourseLoader {
     return courses;
   }
 
-  static bool _acceptCourse(String raw) {
+  static bool _acceptCourse(String raw, String courseId) {
     try {
       final decoded = jsonDecode(raw);
       if (decoded is! Map) return false;
-      Course.fromJson(Map<String, dynamic>.from(decoded));
+      final json = Map<String, dynamic>.from(decoded);
+      if (validateCourseIdentityAndPatterns(json, courseId) != null) {
+        return false;
+      }
+      Course.fromJson(json);
       return true;
     } catch (_) {
       return false;

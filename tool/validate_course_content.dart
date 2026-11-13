@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:english_village/data/models/course.dart';
 
+import 'package:mother_pattern_schema/mother_pattern_schema.dart';
+
 void require(bool condition, String message) {
   if (!condition) throw StateError(message);
 }
@@ -134,4 +136,35 @@ void main() {
     }
     stdout.writeln('$track: ${course.orderedLessons.length} lessons validated');
   }
+  final independent =
+      jsonDecode(
+            File(
+              'assets/courses/course_mother_pattern.json',
+            ).readAsStringSync(),
+          )
+          as Map<String, dynamic>;
+  final error = validateCourseIdentityAndPatterns(independent, 'motherPattern');
+  require(error == null, error ?? '');
+  final course = Course.fromJson(independent);
+  for (final unit in course.units) {
+    require(ids.add(unit.id), 'Global ID: ${unit.id}');
+    for (final lesson in unit.lessons) {
+      require(ids.add(lesson.id), 'Global ID: ${lesson.id}');
+      final metadata = lesson.patternLesson!;
+      require(ids.add(metadata.id), 'Global ID: ${metadata.id}');
+      for (final exercise in [...lesson.exercises, ...metadata.allExercises]) {
+        require(ids.add(exercise.id), 'Global ID: ${exercise.id}');
+        require(exercise.accepts(exercise.answer), 'Target: ${exercise.id}');
+      }
+      for (final audioId in [
+        ...metadata.dialogue.map((turn) => turn.audioId),
+        ...metadata.vocabulary.map((word) => word.audioId),
+      ]) {
+        require(ids.add(audioId), 'Global ID: $audioId');
+      }
+    }
+  }
+  stdout.writeln(
+    'motherPattern: ${course.orderedLessons.length} lessons validated',
+  );
 }

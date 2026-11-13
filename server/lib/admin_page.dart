@@ -637,7 +637,8 @@ async function openContentPack() {
 function applyCurrentForm() {
   if (!contentState || contentState.body == null) return true;
   try {
-    if (contentState.kind === 'course') applyCourseFields();
+    if (contentState.id === 'course/motherPattern') applyRawJson();
+    else if (contentState.kind === 'course') applyCourseFields();
     else if (contentState.kind === 'practice') applyPracticeFields();
     else if (contentState.id === 'dialogues/units') applyDialogueFields();
     else applyRawJson();
@@ -685,7 +686,8 @@ function renderContentEditor() {
     box.appendChild(contentNode('p', '请先导入 JSON'));
     return;
   }
-  if (contentState.kind === 'course') renderCourse(box);
+  if (contentState.id === 'course/motherPattern') renderRaw(box);
+  else if (contentState.kind === 'course') renderCourse(box);
   else if (contentState.kind === 'practice') renderPractice(box);
   else if (contentState.id === 'dialogues/units') renderDialogues(box);
   else renderRaw(box);

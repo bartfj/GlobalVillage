@@ -37,6 +37,12 @@ const contentPackSpecs = <ContentPackSpec>[
     courseId: 'intermediate',
   ),
   ContentPackSpec(
+    id: 'course/motherPattern',
+    label: '母句型听说',
+    kind: 'course',
+    courseId: 'motherPattern',
+  ),
+  ContentPackSpec(
     id: 'course/chineseZero',
     label: '中文零基础',
     kind: 'course',

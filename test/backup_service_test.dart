@@ -7,6 +7,7 @@ import 'package:english_village/data/models/user.dart';
 import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/reward_store.dart';
 import 'package:english_village/data/sources/user_store.dart';
+import 'package:english_village/data/sources/learning_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
@@ -110,6 +111,69 @@ void main() {
     // 其他账号进度未被导入
     expect(progressBox.get('other|u1l1'), isNull);
   });
+
+  test(
+    'mp course progress and badges round-trip without local learning records',
+    () async {
+      final users = UserStore();
+      final backup = BackupService(userStore: users);
+      await users.putUser(
+        User(
+          nickname: 'tester',
+          passwordHash: 'hash',
+          salt: 'salt',
+          createdAt: DateTime(2025),
+        ),
+      );
+      await users.setSession('tester');
+      final progress = Hive.box<LessonProgress>(ProgressStore.boxName);
+      await progress.put(
+        'tester|mp_u1l1',
+        const LessonProgress(
+          lessonId: 'mp_u1l1',
+          completed: true,
+          score: 90,
+          correctCount: 9,
+          totalCount: 10,
+        ),
+      );
+      await const RewardStore(userKey: 'tester').save('mp-attempt', 'mp_u1l1');
+      await const RewardStore(
+        userKey: 'tester',
+      ).save('mp-unit-attempt', 'mp_u1');
+      final local = await Hive.openBox<String>(LearningStore.boxName);
+      await local.put(
+        'tester|motherPatternReviews',
+        '{"motherPattern":{"mp_am":{"stage":2}}}',
+      );
+      await local.put(
+        'tester|events',
+        '[{"courseId":"motherPattern","mode":"scenario"}]',
+      );
+      final code = (await backup.exportBackup())!;
+      final data = jsonDecode(code) as Map;
+      expect(data.keys.toSet(), {
+        'version',
+        'exportedAt',
+        'user',
+        'progress',
+        'rewards',
+      });
+      expect(code, isNot(contains('motherPatternReviews')));
+      expect(code, isNot(contains('scenario')));
+      await progress.clear();
+      await Hive.box<String>(RewardStore.boxName).clear();
+      await local.clear();
+      expect(await backup.importBackup(code), isNull);
+      expect(progress.get('tester|mp_u1l1')!.score, 90);
+      expect(progress.get('tester|u1l1'), isNull);
+      expect(const RewardStore(userKey: 'tester').attempts, {
+        'mp-attempt': 'mp_u1l1',
+        'mp-unit-attempt': 'mp_u1',
+      });
+      expect(local.values, isEmpty);
+    },
+  );
 
   test('游客会话导出返回 null', () async {
     final store = UserStore();

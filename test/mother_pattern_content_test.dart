@@ -144,6 +144,36 @@ void main() {
     },
   );
 
+  test(
+    'pattern scenario tasks use two new scenes after the first eight tasks',
+    () {
+      String scene(Exercise e) => e.prompt
+          .replaceAll('用句块拼出本课句型。', '')
+          .replaceAll('使用本课句型回答。', '')
+          .trim();
+      for (final lesson in loadCourse().orderedLessons) {
+        final metadata = lesson.patternLesson!;
+        if (metadata.kind != PatternLessonKind.pattern) continue;
+        final previous = lesson.exercises.take(8).map(scene).toSet();
+        final reviews = metadata.review.map(scene).toSet();
+        final independent = lesson.exercises.skip(8).map(scene).toList();
+        expect(independent.toSet(), hasLength(2), reason: lesson.id);
+        for (final prompt in independent) {
+          expect(
+            previous,
+            isNot(contains(prompt)),
+            reason: '${lesson.id}: $prompt',
+          );
+          expect(
+            reviews,
+            isNot(contains(prompt)),
+            reason: '${lesson.id}: $prompt',
+          );
+        }
+      }
+    },
+  );
+
   test('integration listening targets occur in the taught role dialogue', () {
     for (final lesson in loadCourse().orderedLessons) {
       final metadata = lesson.patternLesson!;

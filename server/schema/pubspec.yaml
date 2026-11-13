@@ -1,0 +1,7 @@
+﻿name: mother_pattern_schema
+description: Pure JSON schema for the independent mother pattern course.
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.9.0

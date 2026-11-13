@@ -5,6 +5,7 @@ const contentPackAssets = <String, String>{
   'course/zero': 'assets/courses/course_zero.json',
   'course/beginner': 'assets/courses/course_beginner.json',
   'course/intermediate': 'assets/courses/course_intermediate.json',
+  'course/motherPattern': 'assets/courses/course_mother_pattern.json',
   'course/chineseZero': 'assets/courses/course_chinese_zero.json',
   'course/chinese': 'assets/courses/course_chinese.json',
   'course/sanskritZero': 'assets/courses/course_sanskrit_zero.json',
