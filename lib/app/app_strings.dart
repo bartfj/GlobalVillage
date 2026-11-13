@@ -92,6 +92,11 @@ class S {
   String get statsCompleted => isEn ? 'Completed' : '已通关';
   String get statsTree => isEn ? 'Saxaul trees' : '梭梭树';
   String get statsBadges => isEn ? 'Badges' : '徽章';
+  String get navPath => isEn ? 'Path' : '路径';
+  String get navPractice => isEn ? 'Practice' : '练习';
+  String get navCompleted => isEn ? 'Done' : '已完成';
+  String get navAccount => isEn ? 'Account' : '账号';
+  String get navTree => isEn ? 'Tree' : '梭梭树';
   String get sectionCourses => isEn ? 'Courses' : '系统课程';
   String get sectionPractice => isEn ? 'Skill practice' : '专项练习';
   String get sanskritAudioTitle => isEn ? 'Sanskrit pronunciation' : '梵文发音';

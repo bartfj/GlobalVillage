@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
@@ -353,110 +354,117 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _onClose();
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 16, 24, 18),
-                decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: LessonColors.track)),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.close_rounded,
-                            color: LessonColors.muted,
-                          ),
-                          tooltip: s.quitPractice,
-                          onPressed: _onClose,
-                        ),
-                        Expanded(
-                          child: LinearProgressIndicator(
-                            value: state.progress,
-                            color: LessonColors.green,
-                            backgroundColor: LessonColors.track,
-                            borderRadius: BorderRadius.circular(6),
-                            minHeight: 12,
-                            semanticsLabel: s.questionsDone,
-                            semanticsValue: '${(state.progress * 100).round()}',
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '${state.totalCount - state.queue.length} / ${state.totalCount}',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: LessonColors.muted,
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.feedback_outlined,
-                            color: LessonColors.muted,
-                          ),
-                          tooltip: s.feedbackRow,
-                          onPressed: () => showFeedbackDialog(context, ref),
-                        ),
-                      ],
+      child: AdaptiveContentColumn(
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 24, 18),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: LessonColors.track),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 48, top: 8),
-                      child: Row(
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          const Icon(
-                            Icons.spa_outlined,
-                            size: 15,
-                            color: LessonColors.greenDark,
-                          ),
-                          const SizedBox(width: 6),
-                          Expanded(
-                            child: Text(
-                              '${ref.read(courseRepositoryProvider).course.title} · ${lesson.title}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: LessonColors.muted,
-                              ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.close_rounded,
+                              color: LessonColors.muted,
                             ),
+                            tooltip: s.quitPractice,
+                            onPressed: _onClose,
+                          ),
+                          Expanded(
+                            child: LinearProgressIndicator(
+                              value: state.progress,
+                              color: LessonColors.green,
+                              backgroundColor: LessonColors.track,
+                              borderRadius: BorderRadius.circular(6),
+                              minHeight: 12,
+                              semanticsLabel: s.questionsDone,
+                              semanticsValue:
+                                  '${(state.progress * 100).round()}',
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '${state.totalCount - state.queue.length} / ${state.totalCount}',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: LessonColors.muted,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.feedback_outlined,
+                              color: LessonColors.muted,
+                            ),
+                            tooltip: s.feedbackRow,
+                            onPressed: () => showFeedbackDialog(context, ref),
                           ),
                         ],
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 48, top: 8),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.spa_outlined,
+                              size: 15,
+                              color: LessonColors.greenDark,
+                            ),
+                            const SizedBox(width: 6),
+                            Expanded(
+                              child: Text(
+                                '${ref.read(courseRepositoryProvider).course.title} · ${lesson.title}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: LessonColors.muted,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(24, 27, 24, 16),
+                    child: _buildExercise(exercise, state, questionKey),
+                  ),
+                ),
+                if (state.checked)
+                  AnswerFeedbackBar(
+                    correct: state.lastAnswerCorrect!,
+                    skipped: state.skipped,
+                    correctAnswer: formatCorrectAnswerForDisplay(exercise),
+                    onContinue: _onContinue,
+                    language: exercise.language,
+                  )
+                else
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(color: LessonColors.track),
+                      ),
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(24, 27, 24, 16),
-                  child: _buildExercise(exercise, state, questionKey),
-                ),
-              ),
-              if (state.checked)
-                AnswerFeedbackBar(
-                  correct: state.lastAnswerCorrect!,
-                  skipped: state.skipped,
-                  correctAnswer: formatCorrectAnswerForDisplay(exercise),
-                  onContinue: _onContinue,
-                  language: exercise.language,
-                )
-              else
-                Container(
-                  padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
-                  decoration: const BoxDecoration(
-                    border: Border(top: BorderSide(color: LessonColors.track)),
+                    child: LessonActionButton(
+                      label: s.check,
+                      onPressed: _currentAnswer.trim().isEmpty || _recording
+                          ? null
+                          : _onCheck,
+                    ),
                   ),
-                  child: LessonActionButton(
-                    label: s.check,
-                    onPressed: _currentAnswer.trim().isEmpty || _recording
-                        ? null
-                        : _onCheck,
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

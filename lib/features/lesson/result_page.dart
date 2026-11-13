@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
@@ -132,167 +133,171 @@ class _ResultPageState extends ConsumerState<ResultPage> {
 
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        body: Stack(
-          children: [
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 24),
-                    Icon(
-                      passed
-                          ? Icons.emoji_events_rounded
-                          : Icons.refresh_rounded,
-                      size: 96,
-                      color: passed ? AppColors.gold : AppColors.blue,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      passed ? s.lessonPassed : s.lessonFailed,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      passed ? s.nextUnlocked : s.passThresholdHint,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 28),
-                    Row(
-                      children: [
-                        _StatCard(
-                          label: s.scoreLabel,
-                          value: '${result.score}',
-                          color: AppColors.gold,
+      child: AdaptiveContentColumn(
+        child: Scaffold(
+          body: Stack(
+            children: [
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: ListView(
+                    children: [
+                      const SizedBox(height: 24),
+                      Icon(
+                        passed
+                            ? Icons.emoji_events_rounded
+                            : Icons.refresh_rounded,
+                        size: 96,
+                        color: passed ? AppColors.gold : AppColors.blue,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        passed ? s.lessonPassed : s.lessonFailed,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        passed ? s.nextUnlocked : s.passThresholdHint,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 28),
+                      Row(
+                        children: [
+                          _StatCard(
+                            label: s.scoreLabel,
+                            value: '${result.score}',
+                            color: AppColors.gold,
+                          ),
+                          const SizedBox(width: 12),
+                          _StatCard(
+                            label: s.accuracyLabel,
+                            value: '${(result.accuracy * 100).round()}%',
+                            color: AppColors.green,
+                          ),
+                          const SizedBox(width: 12),
+                          _StatCard(
+                            label: s.timeLabel,
+                            value: s.minutesSeconds(minutes, seconds),
+                            color: AppColors.blue,
+                          ),
+                        ],
+                      ),
+                      if (_award != null) ...[
+                        const SizedBox(height: 18),
+                        TweenAnimationBuilder<double>(
+                          tween: Tween(begin: 0.85, end: 1),
+                          duration: MediaQuery.disableAnimationsOf(context)
+                              ? Duration.zero
+                              : const Duration(milliseconds: 400),
+                          builder: (context, value, child) =>
+                              Transform.scale(scale: value, child: child),
+                          child: Column(
+                            children: [
+                              Icon(
+                                LessonBadgeStyle.forLesson(
+                                  _award!.lesson.id,
+                                ).icon,
+                                size: 48,
+                                color: LessonBadgeStyle.forLesson(
+                                  _award!.lesson.id,
+                                ).color,
+                              ),
+                              Text(
+                                s.badgeEarned(
+                                  _award!.lesson.title,
+                                  _award!.newlyAwarded,
+                                ),
+                              ),
+                              Text(s.badgeTotal(_award!.count)),
+                              if (_treeCount > 0)
+                                Text(s.treePlusOne(_treeCount)),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: 12),
-                        _StatCard(
-                          label: s.accuracyLabel,
-                          value: '${(result.accuracy * 100).round()}%',
-                          color: AppColors.green,
+                        if (_award!.newlyAwarded &&
+                            ref.watch(selectedTrackProvider).language ==
+                                LearningLanguage.english)
+                          TextButton.icon(
+                            onPressed: () =>
+                                setState(() => _showDialogue = true),
+                            icon: const Icon(Icons.replay_rounded),
+                            label: Text(s.replayDialogue),
+                          ),
+                      ],
+                      if (_saveError != null) ...[
+                        Text(
+                          _saveError!,
+                          style: const TextStyle(color: AppColors.red),
                         ),
-                        const SizedBox(width: 12),
-                        _StatCard(
-                          label: s.timeLabel,
-                          value: s.minutesSeconds(minutes, seconds),
-                          color: AppColors.blue,
+                        TextButton(
+                          onPressed: _saveResult,
+                          child: Text(s.retrySave),
                         ),
                       ],
-                    ),
-                    if (_award != null) ...[
-                      const SizedBox(height: 18),
-                      TweenAnimationBuilder<double>(
-                        tween: Tween(begin: 0.85, end: 1),
-                        duration: MediaQuery.disableAnimationsOf(context)
-                            ? Duration.zero
-                            : const Duration(milliseconds: 400),
-                        builder: (context, value, child) =>
-                            Transform.scale(scale: value, child: child),
-                        child: Column(
-                          children: [
-                            Icon(
-                              LessonBadgeStyle.forLesson(
-                                _award!.lesson.id,
-                              ).icon,
-                              size: 48,
-                              color: LessonBadgeStyle.forLesson(
-                                _award!.lesson.id,
-                              ).color,
-                            ),
-                            Text(
-                              s.badgeEarned(
-                                _award!.lesson.title,
-                                _award!.newlyAwarded,
+                      const SizedBox(height: 24),
+                      if (_saved &&
+                          passed &&
+                          ref
+                                  .watch(courseProvider)
+                                  .lessonById(widget.lessonId)
+                                  ?.patternTraining !=
+                              null) ...[
+                        FilledButton.tonalIcon(
+                          icon: const Icon(Icons.auto_stories_outlined),
+                          label: Text(s.patternPractice),
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => PatternTrainingPage(
+                                lesson: ref
+                                    .read(courseProvider)
+                                    .lessonById(widget.lessonId)!,
                               ),
-                            ),
-                            Text(s.badgeTotal(_award!.count)),
-                            if (_treeCount > 0) Text(s.treePlusOne(_treeCount)),
-                          ],
-                        ),
-                      ),
-                      if (_award!.newlyAwarded &&
-                          ref.watch(selectedTrackProvider).language ==
-                              LearningLanguage.english)
-                        TextButton.icon(
-                          onPressed: () => setState(() => _showDialogue = true),
-                          icon: const Icon(Icons.replay_rounded),
-                          label: Text(s.replayDialogue),
-                        ),
-                    ],
-                    if (_saveError != null) ...[
-                      Text(
-                        _saveError!,
-                        style: const TextStyle(color: AppColors.red),
-                      ),
-                      TextButton(
-                        onPressed: _saveResult,
-                        child: Text(s.retrySave),
-                      ),
-                    ],
-                    const SizedBox(height: 24),
-                    if (_saved &&
-                        passed &&
-                        ref
-                                .watch(courseProvider)
-                                .lessonById(widget.lessonId)
-                                ?.patternTraining !=
-                            null) ...[
-                      FilledButton.tonalIcon(
-                        icon: const Icon(Icons.auto_stories_outlined),
-                        label: Text(s.patternPractice),
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => PatternTrainingPage(
-                              lesson: ref
-                                  .read(courseProvider)
-                                  .lessonById(widget.lessonId)!,
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                    ],
-                    if (!passed) ...[
+                        const SizedBox(height: 12),
+                      ],
+                      if (!passed) ...[
+                        PushableButton(
+                          label: s.relearn,
+                          onPressed: () =>
+                              context.replace('/lesson/${widget.lessonId}'),
+                          color: AppColors.blue,
+                          shadowColor: AppColors.blueDark,
+                        ),
+                        const SizedBox(height: 12),
+                      ],
                       PushableButton(
-                        label: s.relearn,
-                        onPressed: () =>
-                            context.replace('/lesson/${widget.lessonId}'),
-                        color: AppColors.blue,
-                        shadowColor: AppColors.blueDark,
+                        label: s.backToPath,
+                        onPressed: _saving ? null : () => context.go('/'),
                       ),
-                      const SizedBox(height: 12),
                     ],
-                    PushableButton(
-                      label: s.backToPath,
-                      onPressed: _saving ? null : () => context.go('/'),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            if (_showCelebration && _award != null)
-              Positioned.fill(
-                child: AwardCelebration(
-                  award: _award!,
-                  isPerfect: result.accuracy >= 1.0,
-                  treeCount: _treeCount,
-                  onCollect: () => setState(() => _showCelebration = false),
+              if (_showCelebration && _award != null)
+                Positioned.fill(
+                  child: AwardCelebration(
+                    award: _award!,
+                    isPerfect: result.accuracy >= 1.0,
+                    treeCount: _treeCount,
+                    onCollect: () => setState(() => _showCelebration = false),
+                  ),
                 ),
-              ),
-            if (_showDialogue && _award != null)
-              Positioned.fill(
-                child: DialoguePerformance(
-                  unitId: _award!.unit.id,
-                  unitTitle: _award!.unit.title,
-                  documents: ref.watch(contentCacheProvider).asData?.value,
-                  onFinished: () => setState(() {
-                    _showDialogue = false;
-                    _showCelebration = true;
-                  }),
+              if (_showDialogue && _award != null)
+                Positioned.fill(
+                  child: DialoguePerformance(
+                    unitId: _award!.unit.id,
+                    unitTitle: _award!.unit.title,
+                    documents: ref.watch(contentCacheProvider).asData?.value,
+                    onFinished: () => setState(() {
+                      _showDialogue = false;
+                      _showCelebration = true;
+                    }),
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

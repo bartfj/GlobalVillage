@@ -2,6 +2,7 @@
 
 ## 当前配置
 
+- 源码版本：`0.8.51+68`
 - Bundle ID：`com.vincentchen.earthvillage`（已在 Apple Developer 注册）
 - Team：`ZJ5F7G49LS`（vincent chen）
 - 显示名：地球村
@@ -34,14 +35,17 @@ flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 
 ### 已上传构建
 
-- IPA：`build/ios/ipa/english_village.ipa`（~121MB）
-- Version：`0.8.48` / Build：`65`
+- IPA：`build/ios/ipa/english_village.ipa`（~128MB）
+- Version：`0.8.50` / Build：`67`
 - API：`https://api.vincent-tech.cn/v1`
-- Delivery UUID：`5d8d15db-59ee-4753-b3ef-1e7b630dbe10`
+- Delivery UUID：`5c623df4-c19a-4764-be90-ad1ed40f6d17`
 - App ID：`6816596368`
 
 ### 历史构建
 
+- Version：`0.8.48` / Build：`65`
+- API：`https://api.vincent-tech.cn/v1`
+- Delivery UUID：`5d8d15db-59ee-4753-b3ef-1e7b630dbe10`
 - Version：`0.8.47` / Build：`64`
 - API：`https://api.vincent-tech.cn/v1`
 - Delivery UUID：`8c656070-5ae7-40f7-a922-176080a505e7`

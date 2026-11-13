@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
@@ -474,16 +475,19 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _onClose();
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 16, 24, 18),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: LessonColors.track)),
-                  color: _accent.withValues(alpha: 0.06),
-                ),
+      child: AdaptiveContentColumn(
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 24, 18),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: LessonColors.track),
+                    ),
+                    color: _accent.withValues(alpha: 0.06),
+                  ),
                 child: Column(
                   children: [
                     Row(
@@ -620,6 +624,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                 ),
             ],
           ),
+        ),
         ),
       ),
     );

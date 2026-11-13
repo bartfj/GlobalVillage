@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/adaptive/adaptive_breakpoints.dart';
 import '../../app/auth_controller.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
@@ -627,14 +628,15 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
             tooltip: s.unitDirectory,
             onPressed: () => _showDirectory(context, ref),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.military_tech_rounded,
-              color: AppColors.goldDark,
+          if (!showAdaptiveRail(MediaQuery.sizeOf(context).width))
+            IconButton(
+              icon: const Icon(
+                Icons.military_tech_rounded,
+                color: AppColors.goldDark,
+              ),
+              tooltip: s.statsBadges,
+              onPressed: () => context.push('/badges'),
             ),
-            tooltip: s.statsBadges,
-            onPressed: () => context.push('/badges'),
-          ),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
