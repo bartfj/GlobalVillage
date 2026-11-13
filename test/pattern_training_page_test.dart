@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:english_village/app/providers.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 import 'ui_test_overrides.dart';
+import 'legacy_pilot_course_fixture.dart';
 
 class _Voice implements TtsService {
   final List<String> played = [];
@@ -34,16 +34,7 @@ void main() {
     temp = await Directory.systemTemp.createTemp('pattern-page');
     Hive.init(temp.path);
     await Hive.openBox<String>(LearningStore.boxName);
-    // These tests explicitly exercise retained legacy parsing/page behavior.
-    // The shipped beginner course has correctly withdrawn every pilot field.
-    final legacy = Process.runSync('git', [
-      'show',
-      'd691041:assets/courses/course_beginner.json',
-    ], stdoutEncoding: utf8);
-    expect(legacy.exitCode, 0);
-    course = Course.fromJson(
-      jsonDecode(legacy.stdout as String) as Map<String, dynamic>,
-    );
+    course = loadLegacyPilotCourse();
     expect(course.lessonById('u1l2')!.patternTraining, isNotNull);
     expect(course.lessonById('u1l2')!.patternLesson, isNull);
     store = LearningStore(userKey: 'alice', clock: () => now);

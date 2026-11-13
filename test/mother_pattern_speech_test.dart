@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
+// The record dependency owns this native interface; retain its real semaphore.
+// ignore: depend_on_referenced_packages
+import 'package:record_platform_interface/record_platform_interface.dart';
 import 'package:english_village/features/mother_pattern/mother_pattern_speech.dart';
 
 class FakePatternRecorder implements MotherPatternRecorder {
@@ -68,6 +71,64 @@ class FakePatternRecognizer implements MotherPatternRecognizer {
   }
 }
 
+// Keep DeviceMotherPatternRecorder and record's real semaphore; delay only the
+// native cancellation and permission boundaries involved in the status race.
+class _ControlledNativeRecorder extends RecordPlatform {
+  final cancellation = Completer<void>();
+  final cancelledCalled = Completer<void>();
+  final permission = Completer<bool>();
+  final permissionCalled = Completer<void>();
+  final disposed = Completer<void>();
+  final pcm = StreamController<Uint8List>.broadcast();
+  bool recording = false;
+  bool blockCancel = true;
+
+  @override
+  Future<void> create(String recorderId) async {}
+
+  @override
+  Future<void> cancel(String recorderId) async {
+    recording = false;
+    if (blockCancel) {
+      if (!cancelledCalled.isCompleted) cancelledCalled.complete();
+      await cancellation.future;
+    }
+  }
+
+  @override
+  Future<bool> hasPermission(String recorderId, {bool request = true}) async {
+    if (!permissionCalled.isCompleted) permissionCalled.complete();
+    return permission.future;
+  }
+
+  @override
+  Future<Stream<Uint8List>> startStream(
+    String recorderId,
+    RecordConfig config,
+  ) async {
+    recording = true;
+    return pcm.stream;
+  }
+
+  @override
+  Stream<RecordState> onStateChanged(String recorderId) => const Stream.empty();
+
+  @override
+  Future<String?> stop(String recorderId) async {
+    recording = false;
+    return null;
+  }
+
+  @override
+  Future<void> dispose(String recorderId) async {
+    recording = false;
+    if (!disposed.isCompleted) disposed.complete();
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 void main() {
   late FakePatternRecorder recorder;
   late FakePatternRecognizer recognizer;
@@ -80,6 +141,64 @@ void main() {
   tearDown(() {
     speech.dispose();
   });
+
+  test(
+    'older native cancellation keeps newer preparation busy until permission resolves',
+    () async {
+      final previousPlatform = RecordPlatform.instance;
+      final native = _ControlledNativeRecorder();
+      RecordPlatform.instance = native;
+      final deviceSpeech = MotherPatternSpeech(
+        recorder: DeviceMotherPatternRecorder(),
+        recognizer: FakePatternRecognizer(),
+      );
+      final cancellation = deviceSpeech.cancel();
+      Future<void>? opening;
+      try {
+        await native.cancelledCalled.future;
+        opening = deviceSpeech.start();
+        expect(deviceSpeech.status, MotherPatternSpeechStatus.preparing);
+        expect(deviceSpeech.busy, true);
+        expect(native.permissionCalled.isCompleted, false);
+        native.cancellation.complete();
+        await native.permissionCalled.future;
+        await cancellation;
+        expect(deviceSpeech.status, MotherPatternSpeechStatus.preparing);
+        expect(
+          deviceSpeech.busy,
+          true,
+          reason: 'Old cancel must not expose retry during pending permission',
+        );
+        native.permission.complete(true);
+        await opening;
+        expect(deviceSpeech.status, MotherPatternSpeechStatus.recording);
+        expect(deviceSpeech.busy, true);
+        expect(native.recording, true);
+        await deviceSpeech.finish();
+        expect(deviceSpeech.status, MotherPatternSpeechStatus.empty);
+        expect(deviceSpeech.busy, false);
+        expect(native.recording, false);
+        await deviceSpeech.start();
+        expect(deviceSpeech.busy, true);
+        native.blockCancel = false;
+        await deviceSpeech.cancel();
+        expect(deviceSpeech.status, MotherPatternSpeechStatus.idle);
+        expect(deviceSpeech.busy, false);
+        expect(native.recording, false);
+      } finally {
+        native.blockCancel = false;
+        if (!native.cancellation.isCompleted) native.cancellation.complete();
+        if (!native.permission.isCompleted) native.permission.complete(false);
+        await cancellation;
+        await opening;
+        await deviceSpeech.cancel();
+        deviceSpeech.dispose();
+        await native.disposed.future;
+        await native.pcm.close();
+        RecordPlatform.instance = previousPlatform;
+      }
+    },
+  );
 
   test(
     'PCM reaches offline recognition and preserves raw contraction text',

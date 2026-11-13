@@ -175,13 +175,13 @@ class MotherPatternSpeech extends ChangeNotifier {
   }
 
   Future<void> cancel() async {
-    ++_generation;
+    final generation = ++_generation;
     _clear();
     final cancellation = recorder.cancel().catchError((Object _) {});
     await _subscription?.cancel();
     _subscription = null;
     await cancellation;
-    _status(MotherPatternSpeechStatus.idle);
+    if (_current(generation)) _status(MotherPatternSpeechStatus.idle);
   }
 
   @override

@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:english_village/app/providers.dart';
-import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/repositories/course_repository.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
@@ -13,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'ui_test_overrides.dart';
+import 'legacy_pilot_course_fixture.dart';
 
 class _CompletedProgress implements ProgressStore {
   @override
@@ -29,10 +26,9 @@ class _CompletedProgress implements ProgressStore {
 
 void main() {
   testWidgets('debug lesson entry skips the pilot study card', (tester) async {
-    final course = Course.fromJson(
-      jsonDecode(File('assets/courses/course_beginner.json').readAsStringSync())
-          as Map<String, dynamic>,
-    );
+    final course = loadLegacyPilotCourse();
+    expect(course.lessonById('u1l2')!.patternTraining, isNotNull);
+    expect(course.lessonById('u1l2')!.patternLesson, isNull);
     for (final page in const [
       LessonPage(lessonId: 'u1l2', bypassUnlock: true),
       LessonPage(lessonId: 'u1l2', initialExerciseIndex: 1),
@@ -61,12 +57,9 @@ void main() {
   testWidgets(
     'ordinary lesson ignores cached pilot metadata and starts scored questions',
     (tester) async {
-      final course = Course.fromJson(
-        jsonDecode(
-              File('assets/courses/course_beginner.json').readAsStringSync(),
-            )
-            as Map<String, dynamic>,
-      );
+      final course = loadLegacyPilotCourse();
+      expect(course.lessonById('u1l2')!.patternTraining, isNotNull);
+      expect(course.lessonById('u1l2')!.patternLesson, isNull);
       await tester.pumpWidget(
         ProviderScope(
           overrides: [

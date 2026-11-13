@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:english_village/app/providers.dart';
@@ -19,6 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 import 'ui_test_overrides.dart';
+import 'legacy_pilot_course_fixture.dart';
 
 class _Progress implements ProgressRepository {
   final saved = Completer<bool>();
@@ -69,10 +69,9 @@ void main() {
     temp = await Directory.systemTemp.createTemp('pattern-entry');
     Hive.init(temp.path);
     await Hive.openBox<String>(LearningStore.boxName);
-    course = Course.fromJson(
-      jsonDecode(File('assets/courses/course_beginner.json').readAsStringSync())
-          as Map<String, dynamic>,
-    );
+    course = loadLegacyPilotCourse();
+    expect(course.lessonById('u1l2')!.patternTraining, isNotNull);
+    expect(course.lessonById('u1l2')!.patternLesson, isNull);
     store = LearningStore(userKey: 'old-user');
     progress = _Progress();
     rewards = _Rewards();
@@ -136,10 +135,12 @@ void main() {
       });
       await tester.pump();
       await tester.pump();
+      expect(find.text('练习本课母句型'), findsNothing);
       tester
           .widget<AwardCelebration>(find.byType(AwardCelebration))
           .onCollect();
       await tester.pump();
+      expect(find.text('练习本课母句型'), findsNothing);
       expect(find.byType(PatternTrainingPage), findsNothing);
       expect(store.patternReviews, isEmpty);
     },
@@ -169,7 +170,7 @@ void main() {
   ) async {
     await tester.pumpWidget(app(const ReviewPage()));
     expect(find.byType(PatternTrainingPage), findsNothing);
-    expect(find.text('My name is \u2026'), findsNothing);
+    expect(find.textContaining('My name is \u2026'), findsNothing);
     expect(store.patternReviews, isEmpty);
   });
 }
