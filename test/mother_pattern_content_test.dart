@@ -160,6 +160,24 @@ void main() {
   });
 
   test(
+    'need dialogue hands over the requested objects with a taught support phrase',
+    () {
+      final metadata = loadCourse().lessonById('mp_u3l1')!.patternLesson!;
+      expect(metadata.dialogue.map((turn) => turn.text).toList(), [
+        'I need a pen.',
+        'Here you are.',
+        'I need a book, too.',
+        'Here you are.',
+      ]);
+      final phrase = metadata.vocabulary.singleWhere(
+        (item) => item.text == 'Here you are.',
+      );
+      expect(phrase.meaning, contains('递给'));
+      expect(metadata.slotRule, contains('Here you are.'));
+    },
+  );
+
+  test(
     'generator exports every exact dialogue vocabulary and exercise audio text',
     () {
       final manifest = generator.exportMotherPatternAudio(

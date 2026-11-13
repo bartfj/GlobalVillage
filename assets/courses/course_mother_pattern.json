@@ -2747,7 +2747,7 @@
             "kind": "pattern",
             "frame": "I need …",
             "meaning": "我需要……，用来说明完成事情所需的物品。",
-            "slotRule": "空位填物品：一个用 a（a pen、a book），两个包用 two bags；water 不可数，“一些水”用 some water。本课只练 need 后接名词。",
+            "slotRule": "空位填物品：一个用 a（a pen、a book），两个包用 two bags；water 不可数，“一些水”用 some water。本课只练 need 后接名词。递交物品的人可以说 Here you are.（给你。）。",
             "limitations": [
               "need 表达需要，不随意换成 want。",
               "场景中的一个、两个、一些必须保持，不使用 need to 的动作结构。"
@@ -2761,8 +2761,8 @@
               },
               {
                 "speaker": "Amy",
-                "text": "This is a pen.",
-                "translation": "这是一支笔。",
+                "text": "Here you are.",
+                "translation": "给你。",
                 "audioId": "mp_u3l1_dialogue_2"
               },
               {
@@ -2773,8 +2773,8 @@
               },
               {
                 "speaker": "Amy",
-                "text": "This is a book.",
-                "translation": "这是一本书。",
+                "text": "Here you are.",
+                "translation": "给你。",
                 "audioId": "mp_u3l1_dialogue_4"
               }
             ],
@@ -2805,19 +2805,14 @@
                 "audioId": "mp_u3l1_vocab_5"
               },
               {
-                "text": "is",
-                "meaning": "是（与单数主语搭配）",
+                "text": "Here you are.",
+                "meaning": "给你。（把对方需要的物品递给对方时说）",
                 "audioId": "mp_u3l1_vocab_6"
-              },
-              {
-                "text": "this",
-                "meaning": "这个／这位（近处，单数）",
-                "audioId": "mp_u3l1_vocab_7"
               },
               {
                 "text": "too",
                 "meaning": "也／还",
-                "audioId": "mp_u3l1_vocab_8"
+                "audioId": "mp_u3l1_vocab_7"
               }
             ],
             "examples": [
@@ -3820,74 +3815,79 @@
                 "audioId": "mp_u3l4_vocab_5"
               },
               {
+                "text": "Here you are.",
+                "meaning": "给你。（把对方需要的物品递给对方时说）",
+                "audioId": "mp_u3l4_vocab_6"
+              },
+              {
                 "text": "I want",
                 "meaning": "我想要……",
-                "audioId": "mp_u3l4_vocab_6"
+                "audioId": "mp_u3l4_vocab_7"
               },
               {
                 "text": "an apple",
                 "meaning": "一个苹果",
-                "audioId": "mp_u3l4_vocab_7"
+                "audioId": "mp_u3l4_vocab_8"
               },
               {
                 "text": "some milk",
                 "meaning": "一些牛奶",
-                "audioId": "mp_u3l4_vocab_8"
+                "audioId": "mp_u3l4_vocab_9"
               },
               {
                 "text": "two bananas",
                 "meaning": "两个香蕉",
-                "audioId": "mp_u3l4_vocab_9"
+                "audioId": "mp_u3l4_vocab_10"
               },
               {
                 "text": "a bag",
                 "meaning": "一个包",
-                "audioId": "mp_u3l4_vocab_10"
+                "audioId": "mp_u3l4_vocab_11"
               },
               {
                 "text": "I would like",
                 "meaning": "我想要……（礼貌）",
-                "audioId": "mp_u3l4_vocab_11"
+                "audioId": "mp_u3l4_vocab_12"
               },
               {
                 "text": "I'd like",
                 "meaning": "I would like 的口语缩写",
-                "audioId": "mp_u3l4_vocab_12"
+                "audioId": "mp_u3l4_vocab_13"
               },
               {
                 "text": "a sandwich",
                 "meaning": "一个三明治",
-                "audioId": "mp_u3l4_vocab_13"
+                "audioId": "mp_u3l4_vocab_14"
               },
               {
                 "text": "some tea",
                 "meaning": "一些茶",
-                "audioId": "mp_u3l4_vocab_14"
+                "audioId": "mp_u3l4_vocab_15"
               },
               {
                 "text": "two apples",
                 "meaning": "两个苹果",
-                "audioId": "mp_u3l4_vocab_15"
+                "audioId": "mp_u3l4_vocab_16"
               },
               {
                 "text": "some water",
                 "meaning": "一些水",
-                "audioId": "mp_u3l4_vocab_16"
+                "audioId": "mp_u3l4_vocab_17"
               },
               {
                 "text": "please",
                 "meaning": "请；用来使请求更礼貌",
-                "audioId": "mp_u3l4_vocab_17"
+                "audioId": "mp_u3l4_vocab_18"
               },
               {
                 "text": "Here you are.",
                 "meaning": "给你。",
-                "audioId": "mp_u3l4_vocab_18"
+                "audioId": "mp_u3l4_vocab_19"
               },
               {
                 "text": "thank",
                 "meaning": "感谢（Thank you 表示谢谢你）",
-                "audioId": "mp_u3l4_vocab_19"
+                "audioId": "mp_u3l4_vocab_20"
               }
             ],
             "examples": [],

@@ -233,7 +233,7 @@ const _frames = <_Frame>[
     title: '表达实际需要',
     meaning: '我需要……，用来说明完成事情所需的物品。',
     rule:
-        '空位填物品：一个用 a（a pen、a book），两个包用 two bags；water 不可数，“一些水”用 some water。本课只练 need 后接名词。',
+        '空位填物品：一个用 a（a pen、a book），两个包用 two bags；water 不可数，“一些水”用 some water。本课只练 need 后接名词。递交物品的人可以说 Here you are.（给你。）。',
     limitations: [
       'need 表达需要，不随意换成 want。',
       '场景中的一个、两个、一些必须保持，不使用 need to 的动作结构。',
@@ -246,9 +246,9 @@ const _frames = <_Frame>[
     ],
     dialogue: [
       ('Tom', 'I need a pen.', '我需要一支笔。'),
-      ('Amy', 'This is a pen.', '这是一支笔。'),
+      ('Amy', 'Here you are.', '给你。'),
       ('Tom', 'I need a book, too.', '我还需要一本书。'),
-      ('Amy', 'This is a book.', '这是一本书。'),
+      ('Amy', 'Here you are.', '给你。'),
     ],
     chunks: [
       ('I need', '我需要……'),
@@ -256,6 +256,7 @@ const _frames = <_Frame>[
       ('a book', '一本书'),
       ('some water', '一些水'),
       ('two bags', '两个包'),
+      ('Here you are.', '给你。（把对方需要的物品递给对方时说）'),
     ],
   ),
   _Frame(

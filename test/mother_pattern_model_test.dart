@@ -162,6 +162,17 @@ void main() {
   );
 
   final mutations = <String, void Function(Map<String, dynamic>)>{
+    'listening audio contradicts answer': (p) =>
+        p['exercises'][0]['sentence'] = 'I am a student.',
+    'listening options all repeat the answer': (p) =>
+        p['exercises'][0]['options'] = List.filled(4, 'I am Tom.'),
+    'listening options duplicate after normalization': (p) =>
+        p['exercises'][0]['options'] = [
+          'I am Tom.',
+          'I am Amy.',
+          'i AM amy!',
+          'I am Lucy.',
+        ],
     'invalid version': (p) => p['patternLesson']['version'] = 0,
     'missing dialogue audio': (p) =>
         p['patternLesson']['dialogue'][0].remove('audioId'),
@@ -197,4 +208,9 @@ void main() {
       expect(() => Lesson.fromJson(json), throwsFormatException);
     });
   }
+  test('listening audio and answer may differ only by input normalization', () {
+    final json = lessonJson();
+    json['exercises'][0]['sentence'] = '  i AM tom!  ';
+    expect(() => Lesson.fromJson(json), returnsNormally);
+  });
 }

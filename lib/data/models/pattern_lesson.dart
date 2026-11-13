@@ -301,9 +301,12 @@ void _validateExercise(Exercise exercise) {
   }
   if (exercise.type == ExerciseType.listeningChoice &&
       (exercise.options.length != 4 ||
+          exercise.options.map(Exercise.normalizeAnswer).toSet().length != 4 ||
+          Exercise.normalizeAnswer(exercise.sentence) !=
+              Exercise.normalizeAnswer(exercise.answer) ||
           !exercise.options.contains(exercise.answer))) {
     throw const FormatException(
-      'patternLesson listening options must contain the answer',
+      'patternLesson listening needs four distinct options and matching audio/answer text',
     );
   }
   if (exercise.speakingMode == SpeakingMode.scenario &&
