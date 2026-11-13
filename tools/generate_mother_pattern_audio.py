@@ -25,8 +25,10 @@ def collect_items(course: dict) -> dict[str, str]:
         raise ValueError('Only the standalone motherPattern course is supported')
     items = {}
 
-    def add(audio_id, sentence):
-        if not isinstance(audio_id, str) or not re.fullmatch(r'mp_[a-z0-9_]+', audio_id):
+    def add(audio_id, sentence, lesson_id):
+        if (not isinstance(audio_id, str)
+                or not re.fullmatch(r'mp_u\d+l\d+_[a-z0-9_]+', audio_id)
+                or not audio_id.startswith(lesson_id + '_')):
             raise ValueError(f'Unsafe audio ID: {audio_id}')
         if not isinstance(sentence, str) or not sentence.strip() or audio_id in items:
             raise ValueError(f'Empty text or duplicate audio ID: {audio_id}')
@@ -34,11 +36,14 @@ def collect_items(course: dict) -> dict[str, str]:
 
     for unit in course['units']:
         for lesson in unit['lessons']:
+            lesson_id = lesson['id']
+            if not isinstance(lesson_id, str) or not re.fullmatch(r'mp_u\d+l\d+', lesson_id):
+                raise ValueError(f'Invalid independent lesson ID: {lesson_id}')
             metadata = lesson['patternLesson']
             for item in metadata['dialogue'] + metadata['vocabulary']:
-                add(item['audioId'], item['text'])
+                add(item['audioId'], item['text'], lesson_id)
             for exercise in lesson['exercises'] + metadata['examples'] + metadata['review']:
-                add(exercise.get('audioId') or exercise['id'], exercise['sentence'])
+                add(exercise.get('audioId') or exercise['id'], exercise['sentence'], lesson_id)
     return items
 
 
@@ -76,8 +81,11 @@ def run(root: Path, *, wav_directory: Path | None = None, decode: bool = False) 
         # Validate every text/voice before installing any new assets.
         for audio_id, sentence in items.items():
             entry = wav_manifest.get(audio_id, {})
-            if entry.get('sentenceSha256') != fingerprint(sentence) or not entry.get('voice'):
-                raise ValueError(f'Stale WAV text/voice: {audio_id}; regenerate WAVs')
+            path = wav_directory / f'{audio_id}.wav'
+            if (entry.get('sentenceSha256') != fingerprint(sentence) or not entry.get('voice')
+                    or not path.is_file()
+                    or entry.get('wavSha256') != hashlib.sha256(path.read_bytes()).hexdigest()):
+                raise ValueError(f'Stale WAV text/voice/bytes: {audio_id}; regenerate WAVs')
         output.mkdir(parents=True, exist_ok=True)
         manifest = {}
         for audio_id, sentence in items.items():
@@ -94,6 +102,7 @@ def run(root: Path, *, wav_directory: Path | None = None, decode: bool = False) 
             manifest[audio_id] = {
                 'sentenceSha256': fingerprint(sentence),
                 'audioSha256': hashlib.sha256(encoded).hexdigest(),
+                'wavSha256': wav_manifest[audio_id]['wavSha256'],
                 'voice': wav_manifest[audio_id]['voice'],
             }
         manifest_path.write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')

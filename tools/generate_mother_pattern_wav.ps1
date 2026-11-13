@@ -11,13 +11,14 @@ if ($taskCourse.id -ne 'motherPattern') { throw 'Wrong audio course.' }
 $taskItems = [ordered]@{}
 foreach ($taskUnit in $taskCourse.units) {
     foreach ($taskLesson in $taskUnit.lessons) {
+        if ($taskLesson.id -notmatch '^mp_u\d+l\d+$') { throw 'Invalid independent lesson ID.' }
         foreach ($taskItem in @($taskLesson.patternLesson.dialogue) + @($taskLesson.patternLesson.vocabulary)) {
-            if ($taskItem.audioId -notmatch '^mp_[a-z0-9_]+$' -or [string]::IsNullOrWhiteSpace($taskItem.text) -or $taskItems.Contains($taskItem.audioId)) { throw 'Invalid or duplicate audio entry.' }
+            if ($taskItem.audioId -notmatch '^mp_u\d+l\d+_[a-z0-9_]+$' -or -not $taskItem.audioId.StartsWith($taskLesson.id + '_') -or [string]::IsNullOrWhiteSpace($taskItem.text) -or $taskItems.Contains($taskItem.audioId)) { throw 'Invalid or duplicate audio entry.' }
             $taskItems[$taskItem.audioId] = $taskItem.text.Trim()
         }
         foreach ($taskExercise in @($taskLesson.exercises) + @($taskLesson.patternLesson.examples) + @($taskLesson.patternLesson.review)) {
             $taskId = if ($taskExercise.audioId) { $taskExercise.audioId } else { $taskExercise.id }
-            if ($taskId -notmatch '^mp_[a-z0-9_]+$' -or [string]::IsNullOrWhiteSpace($taskExercise.sentence) -or $taskItems.Contains($taskId)) { throw 'Invalid or duplicate audio entry.' }
+            if ($taskId -notmatch '^mp_u\d+l\d+_[a-z0-9_]+$' -or -not $taskId.StartsWith($taskLesson.id + '_') -or [string]::IsNullOrWhiteSpace($taskExercise.sentence) -or $taskItems.Contains($taskId)) { throw 'Invalid or duplicate audio entry.' }
             $taskItems[$taskId] = $taskExercise.sentence.Trim()
         }
     }
@@ -47,7 +48,7 @@ try {
         $taskSha = [System.Security.Cryptography.SHA256]::Create()
         try {
             $taskDigest = $taskSha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($taskText))
-            $taskManifest[$taskId] = @{ sentenceSha256 = ([System.BitConverter]::ToString($taskDigest)).Replace('-','').ToLowerInvariant(); voice = $taskVoice.VoiceInfo.Name }
+            $taskManifest[$taskId] = @{ sentenceSha256 = ([System.BitConverter]::ToString($taskDigest)).Replace('-','').ToLowerInvariant(); wavSha256 = (Get-FileHash -LiteralPath $taskFile -Algorithm SHA256).Hash.ToLowerInvariant(); voice = $taskVoice.VoiceInfo.Name }
         } finally { $taskSha.Dispose() }
     }
     $taskManifest | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $taskOutput 'manifest.json') -Encoding UTF8

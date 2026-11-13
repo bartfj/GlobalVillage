@@ -3,6 +3,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+import wave
 from pathlib import Path
 
 
@@ -19,6 +20,7 @@ class MotherPatternAudioTest(unittest.TestCase):
         return {
             'id': 'motherPattern',
             'units': [{'lessons': [{
+                'id': 'mp_u1l1',
                 'exercises': [{'id': 'mp_u1l1_e1', 'audioId': 'mp_u1l1_e1', 'sentence': 'I am Tom.'}],
                 'patternLesson': {
                     'dialogue': [{'audioId': 'mp_u1l1_dialogue_1', 'text': 'Hello.'}],
@@ -56,6 +58,45 @@ class MotherPatternAudioTest(unittest.TestCase):
         course['units'][0]['lessons'][0]['exercises'][0]['audioId'] = 'mp_../escape'
         with self.assertRaises(ValueError):
             audio.collect_items(course)
+
+    def test_legacy_pilot_ids_cannot_be_used_by_independent_audio(self):
+        audio = self.audio()
+        course = self.course()
+        course['units'][0]['lessons'][0]['exercises'][0]['audioId'] = 'mp_name_example_1'
+        with self.assertRaises(ValueError):
+            audio.collect_items(course)
+
+    def test_another_lesson_cannot_overwrite_an_owned_audio_id(self):
+        audio = self.audio()
+        course = self.course()
+        course['units'][0]['lessons'][0]['exercises'][0]['audioId'] = 'mp_u2l1_e1'
+        with self.assertRaises(ValueError):
+            audio.collect_items(course)
+
+    def test_swapped_wav_bytes_cannot_be_certified_as_current_sentence(self):
+        audio = self.audio()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'assets/courses').mkdir(parents=True)
+            (root / 'assets/courses/course_mother_pattern.json').write_text(json.dumps(self.course()), encoding='utf-8')
+            wav_directory = root / 'wav'
+            wav_directory.mkdir()
+            manifest = {}
+            for audio_id, sentence in audio.collect_items(self.course()).items():
+                path = wav_directory / f'{audio_id}.wav'
+                with wave.open(str(path), 'wb') as recording:
+                    recording.setparams((1, 2, 22050, 0, 'NONE', 'not compressed'))
+                    recording.writeframes(b'\x00\x10' * 22050)
+                manifest[audio_id] = {'sentenceSha256': audio.fingerprint(sentence), 'voice': 'test',
+                                     'wavSha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+            changed = wav_directory / 'mp_u1l1_e1.wav'
+            with wave.open(str(changed), 'wb') as recording:
+                recording.setparams((1, 2, 22050, 0, 'NONE', 'not compressed'))
+                recording.writeframes(b'\x00\x20' * 22050)
+            (wav_directory / 'manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'WAV'):
+                audio.run(root, wav_directory=wav_directory)
+            self.assertFalse((root / 'assets/audio/listening/mp_u1l1_e1.mp3').exists())
 
     def test_edited_sentence_cannot_reuse_previous_recording(self):
         audio = self.audio()
