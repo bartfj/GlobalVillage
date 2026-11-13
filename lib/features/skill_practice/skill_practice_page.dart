@@ -13,6 +13,7 @@ import '../../data/models/skill_practice_progress.dart';
 import '../../data/sources/learning_store.dart';
 import '../../data/sources/skill_practice_loader.dart';
 import '../feedback/feedback_dialog.dart';
+import '../lesson/sanskrit_answer_display.dart';
 import '../lesson/widgets/answer_feedback_bar.dart';
 import '../lesson/widgets/exercise_widget_builder.dart';
 import '../lesson/widgets/lesson_style.dart';
@@ -600,9 +601,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
                 AnswerFeedbackBar(
                   correct: state.lastAnswerCorrect!,
                   skipped: state.skipped,
-                  correctAnswer: exercise.type == ExerciseType.matchPairs
-                      ? MatchPair.formatForDisplay(exercise.answer)
-                      : exercise.answer,
+                  correctAnswer: formatCorrectAnswerForDisplay(exercise),
                   onContinue: _onContinue,
                   language: exercise.language,
                 )

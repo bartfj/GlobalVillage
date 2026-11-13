@@ -48,6 +48,11 @@ class CloudAuthException implements Exception {
   String toString() => 'CloudAuthException($code, $message)';
 }
 
+/// 401 或 invalid_token 才是登录失效。没有状态码的网络错误不是过期。
+bool cloudAuthFailureIsSessionExpired(CloudAuthException error) {
+  return error.statusCode == 401 || error.code == 'invalid_token';
+}
+
 /// 在线账号 API 客户端（见 docs/在线账号功能设计.md §8）。
 class CloudAuthApi {
   CloudAuthApi({

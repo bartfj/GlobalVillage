@@ -14,6 +14,7 @@ import '../../data/sources/learning_store.dart';
 import '../feedback/feedback_dialog.dart';
 import 'lesson_controller.dart';
 import 'result_page.dart';
+import 'sanskrit_answer_display.dart';
 import 'widgets/answer_feedback_bar.dart';
 import 'widgets/exercise_widget_builder.dart';
 import 'widgets/lesson_style.dart';
@@ -27,11 +28,19 @@ class LessonPage extends ConsumerStatefulWidget {
   final Lesson? practiceLesson;
   final String mode;
 
+  /// 从第几题开始（0 起）。调试后门用来直达跟读等后置题。
+  final int initialExerciseIndex;
+
+  /// 调试后门：绕过关卡解锁校验，可进未解锁课。
+  final bool bypassUnlock;
+
   const LessonPage({
     super.key,
     required this.lessonId,
     this.practiceLesson,
     this.mode = 'lesson',
+    this.initialExerciseIndex = 0,
+    this.bypassUnlock = false,
   });
 
   @override
@@ -62,14 +71,31 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     _lesson =
         widget.practiceLesson ??
         ref.read(courseRepositoryProvider).lessonById(widget.lessonId);
+    if (_lesson != null && widget.initialExerciseIndex > 0) {
+      final start = widget.initialExerciseIndex.clamp(
+        0,
+        _lesson!.exercises.length,
+      );
+      if (start > 0) {
+        _lesson = Lesson(
+          id: _lesson!.id,
+          title: _lesson!.title,
+          exercises: _lesson!.exercises.sublist(start),
+          patternTraining: _lesson!.patternTraining,
+        );
+      }
+    }
     // 进入答题页即计时（late final 惰性初始化若首次访问在结算时会得到 0）
     _startTime = DateTime.now();
     _learningStore = ref.read(learningStoreProvider);
     _courseId = ref.read(courseProvider).id;
     // 新文字系统课程（中文、梵文）先展示本课核心内容，避免零基础直接开考。
+    // 调试直达某题时跳过学习卡，方便立刻测跟读等。
     _showStudyCard =
         widget.practiceLesson == null &&
         widget.mode == 'lesson' &&
+        !widget.bypassUnlock &&
+        widget.initialExerciseIndex <= 0 &&
         (ref.read(courseProvider).language != LearningLanguage.english ||
             _lesson?.patternTraining != null);
     _questionStart = _startTime;
@@ -83,6 +109,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     if (_lesson == null ||
         progress == null ||
         (widget.practiceLesson == null &&
+            !widget.bypassUnlock &&
             !progress.isLessonUnlocked(widget.lessonId))) {
       _locked = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -412,9 +439,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                 AnswerFeedbackBar(
                   correct: state.lastAnswerCorrect!,
                   skipped: state.skipped,
-                  correctAnswer: exercise.type == ExerciseType.matchPairs
-                      ? MatchPair.formatForDisplay(exercise.answer)
-                      : exercise.answer,
+                  correctAnswer: formatCorrectAnswerForDisplay(exercise),
                   onContinue: _onContinue,
                   language: exercise.language,
                 )

@@ -118,14 +118,7 @@
           ],
           "answer": "nata",
           "language": "sanskrit"
-        }
-      ]
-    },
-    {
-      "id": "sav-i",
-      "title": "a 与 i/ī 对立",
-      "subtitle": "tata…kīna",
-      "exercises": [
+        },
         {
           "id": "sav09",
           "type": "translateChoice",
@@ -236,6 +229,237 @@
             "kīna"
           ],
           "answer": "kīna",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "sav-i",
+      "title": "更多长短对立",
+      "subtitle": "tata…bina",
+      "exercises": [
+        {
+          "id": "sav17",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：काल",
+          "sentence": "kāla",
+          "options": [
+            "kāla",
+            "kala",
+            "kālā",
+            "kalā"
+          ],
+          "answer": "kāla",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav18",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：बल",
+          "sentence": "bala",
+          "options": [
+            "bāla",
+            "bala",
+            "balā",
+            "bālā"
+          ],
+          "answer": "bala",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav19",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：गत",
+          "sentence": "gata",
+          "options": [
+            "gāta",
+            "gatā",
+            "gata",
+            "gātā"
+          ],
+          "answer": "gata",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav20",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：नील",
+          "sentence": "nīla",
+          "options": [
+            "nila",
+            "nīlā",
+            "nilā",
+            "nīla"
+          ],
+          "answer": "nīla",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav21",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：पान",
+          "sentence": "pāna",
+          "options": [
+            "pāna",
+            "pana",
+            "pānā",
+            "panā"
+          ],
+          "answer": "pāna",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav22",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：बाल",
+          "sentence": "bāla",
+          "options": [
+            "bala",
+            "bāla",
+            "bālā",
+            "balā"
+          ],
+          "answer": "bāla",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav23",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：रात",
+          "sentence": "rāta",
+          "options": [
+            "rata",
+            "rātā",
+            "rāta",
+            "ratā"
+          ],
+          "answer": "rāta",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav24",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：लाल",
+          "sentence": "lāla",
+          "options": [
+            "lala",
+            "lālā",
+            "lalā",
+            "lāla"
+          ],
+          "answer": "lāla",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav25",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：साल",
+          "sentence": "sāla",
+          "options": [
+            "sāla",
+            "sala",
+            "sālā",
+            "salā"
+          ],
+          "answer": "sāla",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav26",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：पित",
+          "sentence": "pita",
+          "options": [
+            "pīta",
+            "pita",
+            "pitā",
+            "pītā"
+          ],
+          "answer": "pita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav27",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：बित",
+          "sentence": "bita",
+          "options": [
+            "bīta",
+            "bitā",
+            "bita",
+            "bītā"
+          ],
+          "answer": "bita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav28",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：रित",
+          "sentence": "rita",
+          "options": [
+            "rīta",
+            "ritā",
+            "rītā",
+            "rita"
+          ],
+          "answer": "rita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav29",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：लित",
+          "sentence": "lita",
+          "options": [
+            "lita",
+            "līta",
+            "litā",
+            "lītā"
+          ],
+          "answer": "lita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav30",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：सित",
+          "sentence": "sita",
+          "options": [
+            "sīta",
+            "sita",
+            "sitā",
+            "sītā"
+          ],
+          "answer": "sita",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav31",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：पिन",
+          "sentence": "pina",
+          "options": [
+            "pīna",
+            "pinā",
+            "pina",
+            "pīnā"
+          ],
+          "answer": "pina",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sav32",
+          "type": "translateChoice",
+          "prompt": "选择正确的 IAST：बिन",
+          "sentence": "bina",
+          "options": [
+            "bīna",
+            "binā",
+            "bīnā",
+            "bina"
+          ],
+          "answer": "bina",
           "language": "sanskrit"
         }
       ]

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import '../../data/sources/cloud_auth_api.dart';
 import '../../data/sources/user_store.dart';
 import 'widgets/auth_text_field.dart';
 
@@ -36,7 +37,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     final notifier = ref.read(authProvider.notifier);
     if (authState.isOnline) {
       if (authState.accessToken == null) {
-        await notifier.refreshAccessToken();
+        try {
+          await notifier.refreshAccessToken();
+        } on CloudAuthException {
+          // 网络失败时仍显示本地资料
+        }
       }
       await notifier.refreshProfile();
     }

@@ -95,7 +95,16 @@ void main() {
       );
       expect(bank.skill, skill);
       expect(bank.chapters, isNotEmpty, reason: skill.name);
-      expect(bank.exercises.length, inInclusiveRange(10, 80));
+      expect(
+        bank.exercises.length,
+        greaterThanOrEqualTo(10),
+        reason: skill.name,
+      );
+      expect(
+        bank.exercises.map((e) => e.id).toSet().length,
+        bank.exercises.length,
+        reason: '${skill.name} exercise IDs must be unique',
+      );
       for (final chapter in bank.chapters) {
         expect(chapter.id, isNotEmpty);
         expect(chapter.title, isNotEmpty);

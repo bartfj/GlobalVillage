@@ -9,6 +9,7 @@ import '../features/auth/login_page.dart';
 import '../features/auth/register_page.dart';
 import '../features/auth/welcome_page.dart';
 import '../features/learning_path/completed_lessons_page.dart';
+import '../features/learning_path/debug_jump_dialog.dart';
 import '../features/learning_path/learning_path_page.dart';
 import '../features/learning_path/review_page.dart';
 import '../data/models/skill_practice.dart';
@@ -121,8 +122,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/lesson/:lessonId',
-        builder: (context, state) =>
-            LessonPage(lessonId: state.pathParameters['lessonId']!),
+        builder: (context, state) {
+          final debug = parseLessonDebugQuery(state.uri.queryParameters);
+          return LessonPage(
+            lessonId: state.pathParameters['lessonId']!,
+            initialExerciseIndex: debug.exerciseIndex,
+            bypassUnlock: debug.bypassUnlock,
+          );
+        },
       ),
       GoRoute(
         path: '/lesson/:lessonId/result',

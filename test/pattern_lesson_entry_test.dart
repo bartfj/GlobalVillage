@@ -28,6 +28,36 @@ class _CompletedProgress implements ProgressStore {
 }
 
 void main() {
+  testWidgets('debug lesson entry skips the pilot study card', (tester) async {
+    final course = Course.fromJson(
+      jsonDecode(File('assets/courses/course_beginner.json').readAsStringSync())
+          as Map<String, dynamic>,
+    );
+    for (final page in const [
+      LessonPage(lessonId: 'u1l2', bypassUnlock: true),
+      LessonPage(lessonId: 'u1l2', initialExerciseIndex: 1),
+    ]) {
+      await tester.pumpWidget(
+        ProviderScope(
+          key: UniqueKey(),
+          overrides: [
+            uiStringsOverride,
+            courseProvider.overrideWithValue(course),
+            courseRepositoryProvider.overrideWithValue(
+              CourseRepository(course),
+            ),
+            progressRepositoryProvider.overrideWithValue(
+              ProgressRepository(store: _CompletedProgress(), course: course),
+            ),
+            learningStoreProvider.overrideWithValue(null),
+          ],
+          child: MaterialApp(home: page),
+        ),
+      );
+      expect(find.text('My name is …'), findsNothing);
+      expect(find.text('检查'), findsOneWidget);
+    }
+  });
   testWidgets(
     'pilot lesson teaches the frame before starting unchanged scored questions',
     (tester) async {

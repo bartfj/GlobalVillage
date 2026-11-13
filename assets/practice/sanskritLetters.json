@@ -151,8 +151,8 @@
     },
     {
       "id": "sal-base",
-      "title": "辅音与初拼",
-      "subtitle": "क…मि",
+      "title": "辅音基字",
+      "subtitle": "क…स",
       "exercises": [
         {
           "id": "sal11",
@@ -191,7 +191,7 @@
             "ta",
             "ṭa",
             "na",
-            "ka"
+            "pa"
           ],
           "answer": "na",
           "language": "sanskrit"
@@ -203,8 +203,8 @@
           "sentence": "ta",
           "options": [
             "ṭa",
-            "ka",
-            "ma",
+            "pa",
+            "ba",
             "ta"
           ],
           "answer": "ta",
@@ -217,15 +217,92 @@
           "sentence": "ṭa",
           "options": [
             "ṭa",
-            "ka",
-            "ma",
-            "na"
+            "pa",
+            "ba",
+            "ra"
           ],
           "answer": "ṭa",
           "language": "sanskrit"
         },
         {
           "id": "sal16",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：प",
+          "sentence": "pa",
+          "options": [
+            "ba",
+            "pa",
+            "ra",
+            "la"
+          ],
+          "answer": "pa",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal17",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：ब",
+          "sentence": "ba",
+          "options": [
+            "ra",
+            "la",
+            "ba",
+            "sa"
+          ],
+          "answer": "ba",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal18",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：र",
+          "sentence": "ra",
+          "options": [
+            "la",
+            "sa",
+            "ka",
+            "ra"
+          ],
+          "answer": "ra",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal19",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：ल",
+          "sentence": "la",
+          "options": [
+            "la",
+            "sa",
+            "ka",
+            "ma"
+          ],
+          "answer": "la",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal20",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：स",
+          "sentence": "sa",
+          "options": [
+            "ka",
+            "sa",
+            "ma",
+            "na"
+          ],
+          "answer": "sa",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "sal-syllables",
+      "title": "元音符号拼读",
+      "subtitle": "का…सी",
+      "exercises": [
+        {
+          "id": "sal21",
           "type": "translateChoice",
           "prompt": "选择 IAST：का",
           "sentence": "kā",
@@ -239,7 +316,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal17",
+          "id": "sal22",
           "type": "translateChoice",
           "prompt": "选择 IAST：कि",
           "sentence": "ki",
@@ -253,7 +330,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal18",
+          "id": "sal23",
           "type": "translateChoice",
           "prompt": "选择 IAST：की",
           "sentence": "kī",
@@ -267,7 +344,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal19",
+          "id": "sal24",
           "type": "translateChoice",
           "prompt": "选择 IAST：मा",
           "sentence": "mā",
@@ -281,7 +358,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal20",
+          "id": "sal25",
           "type": "translateChoice",
           "prompt": "选择 IAST：मि",
           "sentence": "mi",
@@ -293,16 +370,9 @@
           ],
           "answer": "mi",
           "language": "sanskrit"
-        }
-      ]
-    },
-    {
-      "id": "sal-syllables",
-      "title": "元音符号拼读",
-      "subtitle": "मी…टी",
-      "exercises": [
+        },
         {
-          "id": "sal21",
+          "id": "sal26",
           "type": "translateChoice",
           "prompt": "选择 IAST：मी",
           "sentence": "mī",
@@ -316,7 +386,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal22",
+          "id": "sal27",
           "type": "translateChoice",
           "prompt": "选择 IAST：ना",
           "sentence": "nā",
@@ -330,7 +400,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal23",
+          "id": "sal28",
           "type": "translateChoice",
           "prompt": "选择 IAST：नि",
           "sentence": "ni",
@@ -344,7 +414,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal24",
+          "id": "sal29",
           "type": "translateChoice",
           "prompt": "选择 IAST：नी",
           "sentence": "nī",
@@ -358,7 +428,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal25",
+          "id": "sal30",
           "type": "translateChoice",
           "prompt": "选择 IAST：ता",
           "sentence": "tā",
@@ -372,7 +442,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal26",
+          "id": "sal31",
           "type": "translateChoice",
           "prompt": "选择 IAST：ति",
           "sentence": "ti",
@@ -386,7 +456,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal27",
+          "id": "sal32",
           "type": "translateChoice",
           "prompt": "选择 IAST：ती",
           "sentence": "tī",
@@ -400,7 +470,7 @@
           "language": "sanskrit"
         },
         {
-          "id": "sal28",
+          "id": "sal33",
           "type": "translateChoice",
           "prompt": "选择 IAST：टा",
           "sentence": "ṭā",
@@ -408,37 +478,247 @@
             "ṭā",
             "ṭi",
             "ṭī",
-            "kā"
+            "pā"
           ],
           "answer": "ṭā",
           "language": "sanskrit"
         },
         {
-          "id": "sal29",
+          "id": "sal34",
           "type": "translateChoice",
           "prompt": "选择 IAST：टि",
           "sentence": "ṭi",
           "options": [
             "ṭī",
             "ṭi",
-            "kā",
-            "ki"
+            "pā",
+            "pi"
           ],
           "answer": "ṭi",
           "language": "sanskrit"
         },
         {
-          "id": "sal30",
+          "id": "sal35",
           "type": "translateChoice",
           "prompt": "选择 IAST：टी",
           "sentence": "ṭī",
           "options": [
-            "kā",
-            "ki",
+            "pā",
+            "pi",
             "ṭī",
-            "kī"
+            "pī"
           ],
           "answer": "ṭī",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal36",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：पा",
+          "sentence": "pā",
+          "options": [
+            "pi",
+            "pī",
+            "bā",
+            "pā"
+          ],
+          "answer": "pā",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal37",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：पि",
+          "sentence": "pi",
+          "options": [
+            "pi",
+            "pī",
+            "bā",
+            "bi"
+          ],
+          "answer": "pi",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal38",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：पी",
+          "sentence": "pī",
+          "options": [
+            "bā",
+            "pī",
+            "bi",
+            "bī"
+          ],
+          "answer": "pī",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal39",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：बा",
+          "sentence": "bā",
+          "options": [
+            "bi",
+            "bī",
+            "bā",
+            "rā"
+          ],
+          "answer": "bā",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal40",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：बि",
+          "sentence": "bi",
+          "options": [
+            "bī",
+            "rā",
+            "ri",
+            "bi"
+          ],
+          "answer": "bi",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal41",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：बी",
+          "sentence": "bī",
+          "options": [
+            "bī",
+            "rā",
+            "ri",
+            "rī"
+          ],
+          "answer": "bī",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal42",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：रा",
+          "sentence": "rā",
+          "options": [
+            "ri",
+            "rā",
+            "rī",
+            "lā"
+          ],
+          "answer": "rā",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal43",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：रि",
+          "sentence": "ri",
+          "options": [
+            "rī",
+            "lā",
+            "ri",
+            "li"
+          ],
+          "answer": "ri",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal44",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：री",
+          "sentence": "rī",
+          "options": [
+            "lā",
+            "li",
+            "lī",
+            "rī"
+          ],
+          "answer": "rī",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal45",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：ला",
+          "sentence": "lā",
+          "options": [
+            "lā",
+            "li",
+            "lī",
+            "sā"
+          ],
+          "answer": "lā",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal46",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：लि",
+          "sentence": "li",
+          "options": [
+            "lī",
+            "li",
+            "sā",
+            "si"
+          ],
+          "answer": "li",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal47",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：ली",
+          "sentence": "lī",
+          "options": [
+            "sā",
+            "si",
+            "lī",
+            "sī"
+          ],
+          "answer": "lī",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal48",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：सा",
+          "sentence": "sā",
+          "options": [
+            "si",
+            "sī",
+            "kā",
+            "sā"
+          ],
+          "answer": "sā",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal49",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：सि",
+          "sentence": "si",
+          "options": [
+            "si",
+            "sī",
+            "kā",
+            "ki"
+          ],
+          "answer": "si",
+          "language": "sanskrit"
+        },
+        {
+          "id": "sal50",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：सी",
+          "sentence": "sī",
+          "options": [
+            "kā",
+            "sī",
+            "ki",
+            "kī"
+          ],
+          "answer": "sī",
           "language": "sanskrit"
         }
       ]
