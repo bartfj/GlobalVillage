@@ -97,6 +97,34 @@ class ControlledSpeechEngine implements FlutterTts {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
+/// Models Android's prepared callback: changing source while playing can start
+/// that source even without another Dart resume call.
+class PerCallSourcePlayer extends ControlledAudioPlayer {
+  final barriers = <Completer<void>>[];
+  final implicitStarts = <Source>[];
+  int sourceCalls = 0;
+  bool playing = false;
+  @override
+  Future<void> setSource(Source value) async {
+    final call = sourceCalls++;
+    if (call < barriers.length) await barriers[call].future;
+    source = value;
+    if (playing) implicitStarts.add(value);
+  }
+
+  @override
+  Future<void> stop() async {
+    playing = false;
+    await super.stop();
+  }
+
+  @override
+  Future<void> resume() async {
+    playing = true;
+    await super.resume();
+  }
+}
+
 class ControlledAssets extends CachingAssetBundle {
   Completer<void>? waiting;
   bool exists = true;
@@ -133,6 +161,163 @@ const cancellationExercise = Exercise(
 );
 
 void main() {
+  for (final location in ['asset', 'cached']) {
+    testWidgets(
+      'timed out $location raw source drains before a newer source can play',
+      (tester) async {
+        final oldReady = Completer<void>();
+        final newReady = Completer<void>()..complete();
+        final player = PerCallSourcePlayer()
+          ..barriers.addAll([oldReady, newReady]);
+        final tts = ControlledSpeechEngine();
+        final documents = ControlledDocuments();
+        if (location == 'cached') documents.path = 'old-cache.mp3';
+        final service = TtsService(
+          player: player,
+          tts: tts,
+          assets: ControlledAssets(),
+          documents: documents,
+        );
+        addTearDown(service.dispose);
+        bool? oldResult;
+        service
+            .speakExercise(cancellationExercise)
+            .then((value) => oldResult = value);
+        await tester.pump();
+        expect(player.sourceCalls, 1);
+        await tester.pump(const Duration(seconds: 9));
+        await tester.pump();
+        if (location == 'cached') documents.path = 'new-cache.mp3';
+        final next = service.speakExercise(
+          const Exercise(
+            id: 'next',
+            type: ExerciseType.speaking,
+            prompt: '',
+            sentence: 'I need a pen.',
+            answer: 'I need a pen.',
+            options: [],
+          ),
+        );
+        await tester.pump();
+        oldReady.complete();
+        await tester.pump();
+        await tester.pump();
+        expect(await next, true);
+        final source = player.source;
+        expect(
+          location == 'asset'
+              ? (source as AssetSource).path
+              : (source as DeviceFileSource).path,
+          location == 'asset' ? 'audio/listening/next.mp3' : 'new-cache.mp3',
+        );
+        expect(
+          player.implicitStarts,
+          isEmpty,
+          reason:
+              'Late old preparation must not replace a playing newer source',
+        );
+        expect(player.starts.length, 1);
+        expect(player.starts.single, source);
+        expect(oldResult, false);
+        expect(tts.spoken, isEmpty);
+      },
+    );
+  }
+  testWidgets(
+    'source timeout returns failure while late preparation stays stopped',
+    (tester) async {
+      final ready = Completer<void>();
+      final player = PerCallSourcePlayer()..barriers.add(ready);
+      final tts = ControlledSpeechEngine();
+      final service = TtsService(
+        player: player,
+        tts: tts,
+        assets: ControlledAssets(),
+      );
+      addTearDown(service.dispose);
+      bool? result;
+      service
+          .speakExercise(cancellationExercise)
+          .then((value) => result = value);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 9));
+      await tester.pump();
+      expect(result, false);
+      expect(tts.spoken, isEmpty);
+      ready.complete();
+      await tester.pump();
+      expect(player.starts, isEmpty);
+      expect(player.implicitStarts, isEmpty);
+    },
+  );
+  testWidgets(
+    'stop remains prompt while timed out raw source holds a queued request',
+    (tester) async {
+      final ready = Completer<void>();
+      final player = PerCallSourcePlayer()..barriers.add(ready);
+      final service = TtsService(
+        player: player,
+        tts: ControlledSpeechEngine(),
+        assets: ControlledAssets(),
+      );
+      addTearDown(service.dispose);
+      final old = service.speakExercise(cancellationExercise);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 9));
+      await tester.pump();
+      final next = service.speakExercise(cancellationExercise);
+      await tester.pump();
+      var stopped = false;
+      service.stop().then((_) => stopped = true);
+      await tester.pump();
+      expect(
+        stopped,
+        true,
+        reason: 'Navigation/microphone stop must not await source draining',
+      );
+      ready.complete();
+      await tester.pump();
+      await Future.wait([old, next]);
+      expect(player.starts, isEmpty);
+      expect(player.implicitStarts, isEmpty);
+    },
+  );
+  testWidgets(
+    'late source failure after timeout releases the queue without old playback',
+    (tester) async {
+      final ready = Completer<void>();
+      final player = PerCallSourcePlayer()..barriers.add(ready);
+      final service = TtsService(
+        player: player,
+        tts: ControlledSpeechEngine(),
+        assets: ControlledAssets(),
+      );
+      addTearDown(service.dispose);
+      final old = service.speakExercise(cancellationExercise);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 9));
+      await tester.pump();
+      final next = service.speakExercise(
+        const Exercise(
+          id: 'next',
+          type: ExerciseType.speaking,
+          prompt: '',
+          sentence: 'I need a pen.',
+          answer: 'I need a pen.',
+          options: [],
+        ),
+      );
+      await tester.pump();
+      ready.completeError(StateError('cache extraction failed late'));
+      await tester.pump();
+      await tester.pump();
+      expect(await old, false);
+      expect(await next, true);
+      expect((player.source as AssetSource).path, 'audio/listening/next.mp3');
+      expect(player.implicitStarts, isEmpty);
+      expect(player.starts.length, 1);
+    },
+  );
   for (final boundary in [
     'cache',
     'asset',

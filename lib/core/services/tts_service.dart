@@ -28,6 +28,7 @@ class TtsService {
   bool _disposed = false;
   Future<void> _requests = Future<void>.value();
   Future<void> _stopping = Future<void>.value();
+  Future<void> _playerDrain = Future<void>.value();
 
   bool _current(int generation) => !_disposed && generation == _generation;
   Future<bool> _request(Future<bool> Function(int) action) {
@@ -38,10 +39,26 @@ class TtsService {
       return action(generation);
     });
     _requests = pending.then<void>(
+      (_) => _playerDrain,
+      onError: (Object _, StackTrace __) => _playerDrain,
+    );
+    return pending;
+  }
+
+  Future<bool> _waitPlayer(Future<void> operation) async {
+    // timeout reports failure to the caller; it does not cancel AudioCache or
+    // native preparation. Keep the raw future on the serial tail so a late
+    // setSource cannot replace a newer playing source on this player.
+    _playerDrain = operation.then<void>(
       (_) {},
       onError: (Object _, StackTrace __) {},
     );
-    return pending;
+    try {
+      await operation.timeout(const Duration(seconds: 8));
+      return true;
+    } on TimeoutException {
+      return false;
+    }
   }
 
   Future<bool> _playSource(Source source, int generation) async {
@@ -53,9 +70,9 @@ class TtsService {
     if (!_current(generation)) return false;
     // AudioPlayer.play itself awaits source/cache preparation before native
     // resume. Prepare separately so cancellation is checked after those awaits.
-    await _player.setSource(source).timeout(const Duration(seconds: 8));
+    if (!await _waitPlayer(_player.setSource(source))) return false;
     if (!_current(generation)) return false;
-    await _player.resume().timeout(const Duration(seconds: 8));
+    if (!await _waitPlayer(_player.resume())) return false;
     return _current(generation);
   }
 
