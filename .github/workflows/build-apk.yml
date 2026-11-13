@@ -37,7 +37,9 @@ jobs:
         run: flutter pub get
 
       - name: Build arm64 release APK
-        run: flutter build apk --release --target-platform android-arm64
+        run: >-
+          flutter build apk --release --target-platform android-arm64
+          --dart-define=API_BASE_URL=https://api.vincent-tech.cn/v1
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4

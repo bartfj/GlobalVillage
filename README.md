@@ -39,8 +39,10 @@ assets/
 ```bash
 flutter pub get
 flutter test
-flutter build apk --release
+flutter build apk --release --dart-define=API_BASE_URL=https://api.vincent-tech.cn/v1
 ```
+
+服务地址默认使用 `https://api.vincent-tech.cn/v1`，未传 `API_BASE_URL` 也会连接正式服务。本地调试使用 `flutter run --dart-define=API_BASE_URL=http://127.0.0.1:8787/v1`；真机需将 `127.0.0.1` 换成电脑的局域网 IP。
 
 向 `main` 开 PR 或推送时，GitHub Actions（`.github/workflows/pr-ci.yml`）会自动跑 `flutter analyze` + `flutter test`。
 

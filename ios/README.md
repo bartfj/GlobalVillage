@@ -28,7 +28,8 @@ build/ios/ipa/english_village.ipa   # ~96MB，可上传 TestFlight
 ### 重新打包
 
 ```bash
-flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+flutter build ipa --release --export-options-plist=ios/ExportOptions.plist \
+  --dart-define=API_BASE_URL=https://api.vincent-tech.cn/v1
 ```
 
 产物：`build/ios/ipa/english_village.ipa`

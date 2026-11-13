@@ -30,6 +30,32 @@ Widget _harness() {
 }
 
 void main() {
+  test('未配置地址的在线请求使用正式服务，支持编译期覆盖', () async {
+    const expectedBaseUrl = String.fromEnvironment(
+      'API_BASE_URL',
+      defaultValue: 'https://api.vincent-tech.cn/v1',
+    );
+    final seen = <Uri>[];
+    final client = MockClient((request) async {
+      seen.add(request.url);
+      return http.Response(
+        jsonEncode({
+          'account': {'accountId': 'acc-1', 'displayName': 'a'},
+          'accessToken': 'at',
+          'refreshToken': 'rt',
+        }),
+        200,
+      );
+    });
+    addTearDown(client.close);
+
+    await CloudAuthApi(
+      client: client,
+    ).login(email: 'a@example.com', password: 'secret6');
+
+    expect(seen, [Uri.parse('$expectedBaseUrl/auth/login')]);
+  });
+
   test('整理服务地址', () {
     expect(normalizeApiBaseUrl('  '), '');
     expect(

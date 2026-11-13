@@ -1,7 +1,8 @@
-/// 服务端 API 基址。打包/运行时用 --dart-define=API_BASE_URL=https://example.com/v1 覆盖。
+/// 服务端 API 基址，默认连接正式服务。
+/// 本地调试或其他部署可用 --dart-define=API_BASE_URL=https://example.com/v1 覆盖。
 const kApiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'http://localhost:8787/v1',
+  defaultValue: 'https://api.vincent-tech.cn/v1',
 );
 
 /// 整理用户输入的服务地址。
