@@ -724,6 +724,129 @@ void main() {
   });
 
   test(
+    'interrupted append remains deduplicated after real event eviction and Hive restart',
+    () async {
+      await save('learn');
+      now = read()!.due;
+      final snapshot = store.reviewSnapshot(course.id, lesson);
+      final failingLearning = FailingTelemetryStore(
+        userKey: 'alice',
+        clock: () => now,
+        afterAppend: true,
+      );
+      final failingStore = MotherPatternStore(
+        userKey: 'alice',
+        clock: () => now,
+        learningStore: failingLearning,
+      );
+      await expectLater(
+        save('r1', snapshot: snapshot, receiver: failingStore),
+        throwsA(isA<FileSystemException>()),
+      );
+      expect(
+        learning.events.where((event) => event['sessionId'] == 'r1'),
+        hasLength(1),
+      );
+      final originalDue = read()!.due;
+      now = now.add(const Duration(days: 1));
+      for (var i = 0; i < 2000; i++) {
+        await learning.log({'kind': 'ordinary', 'number': i});
+      }
+      expect(learning.events, hasLength(2000));
+      expect(
+        learning.events.where(
+          (event) => event['kind'] == 'motherPatternSession',
+        ),
+        isEmpty,
+      );
+      await Hive.close();
+      await Hive.openBox<String>(LearningStore.boxName);
+      final retried = await save(
+        'r1',
+        snapshot: snapshot,
+        receiver: failingStore,
+      );
+      expect(retried.entry!.due, originalDue);
+      expect(retried.entry!.reviewCursor, 2);
+      expect(read()!.stage, 1);
+      expect(
+        learning.events.where(
+          (event) => event['kind'] == 'motherPatternSession',
+        ),
+        isEmpty,
+      );
+      expect(learning.events, hasLength(2000));
+      final exported = jsonDecode(learning.exportJson()) as Map;
+      expect(exported['events'], isA<List>());
+      expect(exported['events'], learning.events);
+    },
+  );
+
+  test(
+    'legacy raw event lists remain readable and preserve public list exports on append',
+    () async {
+      final legacy = [
+        {'kind': 'answer', 'correct': false, 'at': '2026-11-12T10:00:00.000Z'},
+        {
+          'kind': 'motherPatternSession',
+          'courseId': course.id,
+          'lessonId': lesson.id,
+          'patternId': lesson.patternLesson!.id,
+          'patternVersion': 1,
+          'sessionId': 'legacy-session',
+          'at': '2026-11-12T11:00:00.000Z',
+        },
+      ];
+      await Hive.box<String>(
+        LearningStore.boxName,
+      ).put('alice|events', jsonEncode(legacy));
+      expect(learning.events, legacy);
+      expect((jsonDecode(learning.exportJson()) as Map)['events'], legacy);
+      await learning.log({'kind': 'ordinary'});
+      expect(learning.events.take(2), legacy);
+      final duplicate = Map<String, dynamic>.from(legacy[1])..remove('at');
+      await learning.log(duplicate);
+      expect(learning.events, hasLength(3));
+      final exported = jsonDecode(learning.exportJson()) as Map;
+      expect(exported['events'], isA<List>());
+      expect(exported['events'], learning.events);
+      expect(exported.keys.toSet(), {
+        'version',
+        'events',
+        'reviews',
+        'patternReviews',
+        'motherPatternReviews',
+      });
+    },
+  );
+
+  test(
+    'clear resets durable append identity only for its captured account',
+    () async {
+      final event = {
+        'kind': 'motherPatternSession',
+        'courseId': course.id,
+        'lessonId': lesson.id,
+        'patternId': lesson.patternLesson!.id,
+        'patternVersion': 1,
+        'sessionId': 'same-session',
+      };
+      final bob = LearningStore(userKey: 'bob', clock: () => now);
+      await learning.log(event);
+      await bob.log(event);
+      await learning.clear();
+      now = now.add(const Duration(days: 1));
+      expect(learning.events, isEmpty);
+      await learning.log(event);
+      await learning.log(event);
+      expect(learning.events, hasLength(1));
+      expect(learning.events.single['at'], now.toUtc().toIso8601String());
+      expect(bob.events, hasLength(1));
+      expect(bob.events.single['at'], isNot(now.toUtc().toIso8601String()));
+    },
+  );
+
+  test(
     'cleared and recreated schedule never legitimizes the old identical revision snapshot',
     () async {
       await save('learn', fail: true);

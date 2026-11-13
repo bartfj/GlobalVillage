@@ -64,7 +64,7 @@ class LearningStore {
       _read('patternReviews', <String, dynamic>{});
   Map<String, dynamic> get motherPatternReviews =>
       _read('motherPatternReviews', <String, dynamic>{});
-  List<dynamic> get events => _read('events', <dynamic>[]);
+  List<dynamic> get events => _eventState().feed;
   T _read<T>(String suffix, T fallback) {
     final raw = _box.get(_key(suffix));
     return raw == null ? fallback : jsonDecode(raw) as T;
@@ -94,26 +94,56 @@ class LearningStore {
     action,
   ) => _serialize(() => action(_log));
 
-  Future<void> _log(Map<String, dynamic> event) async {
-    final list = events;
-    if (event['kind'] == 'motherPatternSession' &&
-        list.any(
-          (existing) =>
-              existing is Map &&
-              const [
-                'kind',
-                'courseId',
-                'lessonId',
-                'patternId',
-                'patternVersion',
-                'sessionId',
-              ].every((key) => existing[key] == event[key]),
-        )) {
-      return;
+  String? _sessionEventIdentity(dynamic event) {
+    if (event is! Map || event['kind'] != 'motherPatternSession') return null;
+    return jsonEncode([
+      event['kind'],
+      event['courseId'],
+      event['lessonId'],
+      event['patternId'],
+      event['patternVersion'],
+      event['sessionId'],
+    ]);
+  }
+
+  ({List<dynamic> feed, Set<String> identities}) _eventState() {
+    final raw = _read<dynamic>('events', <dynamic>[]);
+    if (raw is List) {
+      // Legacy lists migrate on their next write. Capture identities before
+      // bounding the feed so migration cannot lose an acknowledged append.
+      final identities = <String>{};
+      for (final event in raw) {
+        final identity = _sessionEventIdentity(event);
+        if (identity != null) identities.add(identity);
+      }
+      return (feed: raw, identities: identities);
     }
+    final envelope = raw as Map<String, dynamic>;
+    return (
+      feed: envelope['events'] as List<dynamic>,
+      identities: (envelope['motherPatternSessionIds'] as List)
+          .cast<String>()
+          .toSet(),
+    );
+  }
+
+  Future<void> _log(Map<String, dynamic> event) async {
+    final state = _eventState();
+    final list = state.feed;
+    final identity = _sessionEventIdentity(event);
+    if (identity != null && !state.identities.add(identity)) return;
     list.add({...event, 'at': clock().toUtc().toIso8601String()});
     if (list.length > 2000) list.removeRange(0, list.length - 2000);
-    await _box.put(_key('events'), jsonEncode(list));
+    // The append acknowledgement and bounded feed share one atomic Hive value.
+    // A session-marker failure cannot later replay an evicted session event.
+    await _box.put(
+      _key('events'),
+      jsonEncode({
+        'version': 1,
+        'events': list,
+        'motherPatternSessionIds': state.identities.toList(),
+      }),
+    );
   }
 
   Future<void> recordAnswer({
