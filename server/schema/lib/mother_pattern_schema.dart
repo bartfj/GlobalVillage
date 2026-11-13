@@ -1,3 +1,7 @@
+import 'english_answer.dart';
+
+export 'english_answer.dart' show normalizeEnglishAnswer;
+
 /// Pure JSON validation shared by the server publication boundary and client
 /// overlays. This dependency-free package stays inside the server build context.
 String? validateCourseIdentityAndPatterns(
@@ -180,14 +184,14 @@ void _exercise(Map<String, dynamic> json, String lessonId, Set<String> ids) {
   _text(json, 'prompt');
   final answer = _text(json, 'answer', english: true);
   final sentence = _text(json, 'sentence', english: true);
-  if (_normalize(answer).isEmpty ||
-      _normalize(sentence) != _normalize(answer)) {
+  if (normalizeEnglishAnswer(answer).isEmpty ||
+      normalizeEnglishAnswer(sentence) != normalizeEnglishAnswer(answer)) {
     _bad('$id 参考音频 sentence 须与 answer 一致');
   }
   for (final key in ['acceptedAnswers', 'tokens', 'options']) {
     if (json[key] == null) continue;
     for (final text in _strings(json, key)) {
-      if (_nonEnglish.hasMatch(text) || _normalize(text).isEmpty) {
+      if (_nonEnglish.hasMatch(text) || normalizeEnglishAnswer(text).isEmpty) {
         _bad('$id.$key 须为非空英文内容');
       }
     }
@@ -205,14 +209,14 @@ void _exercise(Map<String, dynamic> json, String lessonId, Set<String> ids) {
     case 'wordBank':
       final tokens = _strings(json, 'tokens');
       if (tokens.isEmpty ||
-          _normalize(tokens.join(separator as String? ?? ' ')) !=
-              _normalize(answer)) {
+          normalizeEnglishAnswer(tokens.join(separator as String? ?? ' ')) !=
+              normalizeEnglishAnswer(answer)) {
         _bad('$id 句块须还原答案');
       }
     case 'listeningChoice':
       final options = _strings(json, 'options');
       if (options.length != 4 ||
-          options.map(_normalize).toSet().length != 4 ||
+          options.map(normalizeEnglishAnswer).toSet().length != 4 ||
           !options.contains(answer)) {
         _bad('$id 听力须有四个不同选项及正确答案');
       }
@@ -306,16 +310,3 @@ String _entity(Map<String, dynamic> json, String key, Set<String> seen) {
   if (!_mpId.hasMatch(id) || !seen.add(id)) _bad('$key 无效或全局 ID 重复: $id');
   return id;
 }
-
-// Same English answer normalization used by Exercise; alternatives need not
-// equal the canonical sentence, but canonical answer audio must match it.
-String _normalize(String text) => text
-    .trim()
-    .toLowerCase()
-    .replaceAll(RegExp("[‘’´`]"), "'")
-    .replaceAll(
-      RegExp(r'[\[\].,;:!?。，、；：！？．…·・•~～—–‐‑‒―"“”„«»「」『』()（）-]+'),
-      ' ',
-    )
-    .replaceAll(RegExp(r'\s+'), ' ')
-    .trim();

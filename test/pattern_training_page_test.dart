@@ -34,10 +34,18 @@ void main() {
     temp = await Directory.systemTemp.createTemp('pattern-page');
     Hive.init(temp.path);
     await Hive.openBox<String>(LearningStore.boxName);
+    // These tests explicitly exercise retained legacy parsing/page behavior.
+    // The shipped beginner course has correctly withdrawn every pilot field.
+    final legacy = Process.runSync('git', [
+      'show',
+      'd691041:assets/courses/course_beginner.json',
+    ], stdoutEncoding: utf8);
+    expect(legacy.exitCode, 0);
     course = Course.fromJson(
-      jsonDecode(File('assets/courses/course_beginner.json').readAsStringSync())
-          as Map<String, dynamic>,
+      jsonDecode(legacy.stdout as String) as Map<String, dynamic>,
     );
+    expect(course.lessonById('u1l2')!.patternTraining, isNotNull);
+    expect(course.lessonById('u1l2')!.patternLesson, isNull);
     store = LearningStore(userKey: 'alice', clock: () => now);
   });
   tearDown(() async {
@@ -105,7 +113,7 @@ void main() {
       );
 
   testWidgets(
-    'six questions save an independent schedule without leaking input answers',
+    'legacy six questions save a separate schedule without leaking input answers',
     (tester) async {
       final lesson = course.lessonById('u1l2')!;
       final voice = _Voice();
@@ -137,7 +145,7 @@ void main() {
   );
 
   testWidgets(
-    'review hints prevent advancement and layout works on small large-text screens',
+    'legacy review hints prevent advancement on small large-text screens',
     (tester) async {
       tester.view.physicalSize = const Size(320, 560);
       tester.view.devicePixelRatio = 1;

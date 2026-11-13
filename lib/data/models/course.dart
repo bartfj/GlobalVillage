@@ -2,6 +2,8 @@
 library;
 
 import 'package:unorm_dart/unorm_dart.dart' as unicode;
+import 'package:mother_pattern_schema/mother_pattern_schema.dart'
+    show normalizeEnglishAnswer;
 import 'learning_language.dart';
 import 'pattern_training.dart';
 import 'pattern_lesson.dart';
@@ -160,21 +162,8 @@ class Exercise {
   /// Unicode 空格，以及输入法可能插入的零宽空格。
   static final _dictationSpace = RegExp(r'[\s\u200B]', unicode: true);
 
-  /// 输入法常把撇号打成弯引号；先折成直撇号，避免和标点一起删掉。
-  static final _curlyApostrophe = RegExp("[‘’´`]");
-
-  /// 句读、破折号、中圆点等不参与判题。单词内部的撇号（o'clock）不在此列。
-  static final _ignoredPunctuation = RegExp(
-    r'[\[\].,;:!?。，、；：！？．…·・•~～—–‐‑‒―"“”„«»「」『』()（）-]+',
-  );
-
-  static String normalizeAnswer(String text) => text
-      .trim()
-      .toLowerCase()
-      .replaceAll(_curlyApostrophe, "'")
-      .replaceAll(_ignoredPunctuation, ' ')
-      .replaceAll(RegExp(r'\s+'), ' ')
-      .trim();
+  /// English comparison shares the publication validator's exact rules.
+  static String normalizeAnswer(String text) => normalizeEnglishAnswer(text);
 
   /// 填空题专用：带 ____ 的句子，其他题型为 null
   final String? sentenceWithBlank;
