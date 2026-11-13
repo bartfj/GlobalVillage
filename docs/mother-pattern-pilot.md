@@ -51,6 +51,14 @@ SHA-256：`928eda9c00b244cb6dc6c4d77be295507cc1bcbac392575dc1d73d8799600a54`。
 
 本次低内存构建使用单个 Gradle worker、1536 MiB Java 堆、Serial GC 和 `--no-daemon`；此前并行测试及 4 GiB 堆构建遇到内存不足，调整后全量测试、静态分析和 release 构建均通过。
 
+## 局域网共享
+
+下载地址：`http://192.168.2.150:8080/earthvillage-0.8.51.apk`；`earthvillage-latest.apk` 指向同一安装包。二维码保存为 `.trae/apk_qr.png`，对应地址已同步到 `.trae/gen_qr.py`。
+
+Windows 上使用受管理的前台 HTTP 服务，监听 `192.168.2.150:8080`，只共享 `build/apk-share/` 目录。共享需保持这台电脑和服务运行，访问设备需处于可访问该地址的局域网。
+
+本机通过该局域网 URL 完成校验：两个下载入口均返回 HTTP 200、Content-Length 204,581,786；版本安装包完整 GET 的 SHA-256 与上述构建产物一致。`build/app/outputs/flutter-apk/app-release.apk`、`build/` 和 `.trae/` 下的分发副本也已更新并校验一致。
+
 ## 真人与实体设备待验
 
 尚未完成实体 Android 手机断网播放、逐条人工听音和真人次日回忆试学，不能将自动测试当作这些项目的通过证据。
