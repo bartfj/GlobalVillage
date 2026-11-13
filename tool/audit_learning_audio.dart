@@ -25,6 +25,20 @@ void main() {
     );
     for (final unit in data['units']) {
       for (final lesson in unit['lessons']) {
+        final pattern = lesson['patternTraining'] as Map?;
+        if (pattern != null) {
+          for (final phase in [
+            'examples',
+            'substitution',
+            'recall',
+            'transfer',
+            'review',
+          ]) {
+            for (final ex in pattern[phase]) {
+              check('assets/audio/listening/${ex['id']}.mp3', ex['sentence']);
+            }
+          }
+        }
         for (final ex in lesson['exercises']) {
           if ([
             'listeningChoice',

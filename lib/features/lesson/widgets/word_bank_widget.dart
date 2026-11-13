@@ -38,7 +38,9 @@ class _WordBankWidgetState extends ConsumerState<WordBankWidget> {
   void initState() {
     super.initState();
     // 固定种子洗牌：同一题重渲染时顺序稳定
-    final words = widget.exercise.sentence.split(' ');
+    final words = widget.exercise.tokens.isNotEmpty
+        ? List<String>.of(widget.exercise.tokens)
+        : widget.exercise.sentence.split(' ');
     words.shuffle(Random(widget.exercise.id.hashCode));
     _bank = words;
   }
@@ -46,13 +48,13 @@ class _WordBankWidgetState extends ConsumerState<WordBankWidget> {
   void _pick(int index) {
     if (!widget.enabled) return;
     setState(() => _selected.add(_bank.removeAt(index)));
-    widget.onChanged(_selected.join(' '));
+    widget.onChanged(_selected.join(widget.exercise.tokenSeparator));
   }
 
   void _unpick(int index) {
     if (!widget.enabled) return;
     setState(() => _bank.add(_selected.removeAt(index)));
-    widget.onChanged(_selected.join(' '));
+    widget.onChanged(_selected.join(widget.exercise.tokenSeparator));
   }
 
   /// 一次拖放可能被嵌套的内外 DragTarget 同时接收，用 _dragIndex 消费标记去重
@@ -63,7 +65,7 @@ class _WordBankWidgetState extends ConsumerState<WordBankWidget> {
       final item = _selected.removeAt(from);
       _selected.insert(to.clamp(0, _selected.length), item);
     });
-    widget.onChanged(_selected.join(' '));
+    widget.onChanged(_selected.join(widget.exercise.tokenSeparator));
   }
 
   @override
@@ -73,7 +75,10 @@ class _WordBankWidgetState extends ConsumerState<WordBankWidget> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (widget.showPrompt) ...[
-          Text(s.arrangeBlocks, style: Theme.of(context).textTheme.headlineSmall),
+          Text(
+            s.arrangeBlocks,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),

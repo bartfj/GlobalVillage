@@ -17,6 +17,49 @@ class S {
 
   bool get isEn => language == UiLanguage.english;
 
+  // ---- 母句型训练 ----
+  String get patternStudy => isEn ? 'Learn a sentence frame' : '认识本课母句型';
+  String get patternPractice =>
+      isEn ? 'Practice this sentence frame' : '练习本课母句型';
+  String get patternTitle => isEn ? 'Sentence frame practice' : '母句型练习';
+  String get patternReviewTitle => isEn ? 'Sentence frame review' : '母句型复习';
+  String get patternStartLesson => isEn ? 'Start lesson' : '开始闯关';
+  String get patternSubstitution => isEn ? 'Change the content' : '替换内容';
+  String get patternRecall => isEn ? 'Recall the expression' : '脱稿表达';
+  String get patternTransfer => isEn ? 'Use it in a new situation' : '换场景表达';
+  String get patternShowHint => isEn ? 'Show frame and example' : '看句型和范句';
+  String get patternHintUsed =>
+      isEn ? 'Hint used · keep practising recall' : '已使用提示 · 继续练习回忆';
+  String get patternTryFrame =>
+      isEn ? 'Try the target frame. One reference answer:' : '再试试本课句型。参考表达：';
+  String get patternCompleted => isEn ? 'Practice recorded' : '本次训练已记录';
+  String get patternToday => isEn ? 'Sentence frames due today' : '今日母句型';
+  String get patternLearned =>
+      isEn ? 'Sentence frames from completed lessons' : '已学课程的母句型';
+  String get patternNoDue => isEn ? 'No sentence frames due today' : '暂无到期母句型';
+  String get patternNoLessons => isEn
+      ? 'Complete a pilot lesson to practise its frame'
+      : '完成试点课后，可以在这里练习母句型';
+  String get patternNotStarted => isEn ? 'Not yet practised' : '尚未练习';
+  String get patternUnavailable => isEn
+      ? 'This practice is unavailable in the current account or course.'
+      : '当前账号或课程无法继续这次练习。';
+  String get patternAnswerHint =>
+      isEn ? 'Type your English expression' : '输入你的英文表达';
+  String get clearLearningRecordsBody => isEn
+      ? 'Wrong answers, sentence frame reviews and statistics will be cleared. Course results and rewards are kept.'
+      : '错题、母句型复习与统计将被清除，课程成绩和奖励不受影响。';
+  String patternCount(int current, int total) =>
+      isEn ? '$current / $total questions' : '$current / $total 题';
+  String patternHints(int count) =>
+      isEn ? 'Questions with hints: $count' : '使用提示 $count 题';
+  String patternNextReview(DateTime due) {
+    final local = due.toLocal();
+    final date =
+        '${local.year}-${local.month.toString().padLeft(2, '0')}-${local.day.toString().padLeft(2, '0')}';
+    return isEn ? 'Next review: $date' : '下次复习：$date';
+  }
+
   // ---- 通用 ----
   String get check => isEn ? 'Check' : '检查';
   String get continueLabel => isEn ? 'Continue' : '继续';
@@ -28,8 +71,9 @@ class S {
   String get exitPracticeBody =>
       isEn ? 'Progress of this session will not be saved.' : '本次练习的进度将不会保存。';
   String get keepPracticing => isEn ? 'Keep practicing' : '继续练习';
-  String get recordSaveFailed =>
-      isEn ? 'Failed to save learning record. Please try again later.' : '学习记录保存失败，请稍后重试。';
+  String get recordSaveFailed => isEn
+      ? 'Failed to save learning record. Please try again later.'
+      : '学习记录保存失败，请稍后重试。';
   String get quitPractice => isEn ? 'Quit practice' : '退出练习';
   String get questionsDone => isEn ? 'Questions completed' : '已完成题数';
   String get lessonNotFound => isEn ? 'Lesson not found' : '课程不存在';
@@ -155,10 +199,12 @@ class S {
       : '长按词块可拖动调整顺序；词库词块长按可查看音标';
   String get scriptLabelsHanzi => isEn ? 'Hanzi / Pinyin' : '汉字 / 拼音';
   String get scriptLabelsIast => isEn ? 'IAST / Devanagari' : 'IAST / 天城体';
-  String get pinyinKeyboardHint =>
-      isEn ? 'Tone numbers work too: ma4 = mà, lv = lü' : '拼音可用数字声调：ma4 = mà，lv = lü';
-  String get iastKeyboardHint =>
-      isEn ? 'Keyboard aliases work too: aa = ā, R = ṛ, T = ṭ, H = ḥ' : '也可用键盘打法：aa = ā，R = ṛ，T = ṭ，H = ḥ';
+  String get pinyinKeyboardHint => isEn
+      ? 'Tone numbers work too: ma4 = mà, lv = lü'
+      : '拼音可用数字声调：ma4 = mà，lv = lü';
+  String get iastKeyboardHint => isEn
+      ? 'Keyboard aliases work too: aa = ā, R = ṛ, T = ṭ, H = ḥ'
+      : '也可用键盘打法：aa = ā，R = ṛ，T = ṭ，H = ḥ';
 
   // ---- 结果页 ----
   String get lessonPassed => isEn ? 'Lesson complete!' : '课程完成！';
@@ -185,8 +231,7 @@ class S {
   // ---- 专项练习 ----
   String get bankEmpty => isEn ? 'Practice bank is empty' : '题库为空';
   String get cannotStart => isEn ? 'Unable to start practice' : '无法开始练习';
-  String get speakingTip =>
-      isEn ? 'Tip: say it out loud' : '提示：尽量大声说出来';
+  String get speakingTip => isEn ? 'Tip: say it out loud' : '提示：尽量大声说出来';
   String get pronunciationTip => isEn
       ? 'Listen, then repeat; watch the similarity score'
       : '听原音后跟读，注意语音相似度';
@@ -243,8 +288,9 @@ class S {
       isEn ? '${skillTitle(kind)} complete' : kind.doneTitle;
 
   String get practiceChaptersTitle => isEn ? 'Chapters' : '章节';
-  String get practiceChapterLocked =>
-      isEn ? 'Complete the previous chapter (≥80%) to unlock' : '完成上一章（正确率 ≥ 80%）后解锁';
+  String get practiceChapterLocked => isEn
+      ? 'Complete the previous chapter (≥80%) to unlock'
+      : '完成上一章（正确率 ≥ 80%）后解锁';
   String get practiceChapterPassed => isEn ? 'Passed' : '已完成';
   String get practiceRetryChapter => isEn ? 'Retry chapter' : '再练本章';
   String get practiceNextChapter => isEn ? 'Next chapter' : '去下一章';
@@ -255,9 +301,7 @@ class S {
       isEn ? 'Best $percent%' : '最高 $percent%';
   String practiceUnlockHint(bool passed) => passed
       ? (isEn ? 'Chapter passed. Next chapter unlocked.' : '本章达标，已解锁下一章。')
-      : (isEn
-          ? 'Need ≥80% to pass this chapter.'
-          : '正确率需 ≥ 80% 才算完成本章。');
+      : (isEn ? 'Need ≥80% to pass this chapter.' : '正确率需 ≥ 80% 才算完成本章。');
 
   // ---- 界面语言设置 ----
   String get uiLanguageSuggestionTitle =>

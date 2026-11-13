@@ -243,7 +243,162 @@
               "options": [],
               "answer": "What is your name?"
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_name",
+            "version": 1,
+            "frame": "My name is …",
+            "meaning": "我叫……，用来介绍自己的姓名。",
+            "slotRule": "空位填姓名。My name is 后面不再加 I 或 am，可口语缩写为 My name’s。练习按情境指定的姓名回答。",
+            "prefix": "My name is ",
+            "suffix": ".",
+            "examples": [
+              {
+                "id": "mp_name_example1",
+                "type": "speaking",
+                "prompt": "我叫李明。",
+                "sentence": "My name is Li Ming.",
+                "options": [],
+                "answer": "My name is Li Ming."
+              },
+              {
+                "id": "mp_name_example2",
+                "type": "speaking",
+                "prompt": "我叫露西。",
+                "sentence": "My name is Lucy.",
+                "options": [],
+                "answer": "My name is Lucy."
+              },
+              {
+                "id": "mp_name_example3",
+                "type": "speaking",
+                "prompt": "我叫汤姆。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom."
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_name_substitution1",
+                "type": "wordBank",
+                "prompt": "我叫李明。",
+                "sentence": "My name is Li Ming.",
+                "options": [],
+                "answer": "My name is Li Ming.",
+                "tokens": [
+                  "My name is",
+                  "Li Ming."
+                ]
+              },
+              {
+                "id": "mp_name_substitution2",
+                "type": "wordBank",
+                "prompt": "我叫露西。",
+                "sentence": "My name is Lucy.",
+                "options": [],
+                "answer": "My name is Lucy.",
+                "tokens": [
+                  "My name is",
+                  "Lucy."
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_name_recall1",
+                "type": "translateInput",
+                "prompt": "我叫汤姆。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom.",
+                "acceptedAnswers": [
+                  "My name's Tom."
+                ]
+              },
+              {
+                "id": "mp_name_recall2",
+                "type": "translateInput",
+                "prompt": "我叫艾米。",
+                "sentence": "My name is Amy.",
+                "options": [],
+                "answer": "My name is Amy.",
+                "acceptedAnswers": [
+                  "My name's Amy."
+                ]
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_name_transfer1",
+                "type": "translateInput",
+                "prompt": "认识新朋友，请用本课句型介绍自己叫汤姆。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom.",
+                "acceptedAnswers": [
+                  "My name's Tom."
+                ]
+              },
+              {
+                "id": "mp_name_transfer2",
+                "type": "translateInput",
+                "prompt": "在电话里介绍自己，请用本课句型说自己叫艾米。",
+                "sentence": "My name is Amy.",
+                "options": [],
+                "answer": "My name is Amy.",
+                "acceptedAnswers": [
+                  "My name's Amy."
+                ]
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_name_review1",
+                "type": "translateInput",
+                "prompt": "报名时对方问你的姓名，请用本课句型回答你叫艾米。",
+                "sentence": "My name is Amy.",
+                "options": [],
+                "answer": "My name is Amy.",
+                "acceptedAnswers": [
+                  "My name's Amy."
+                ]
+              },
+              {
+                "id": "mp_name_review2",
+                "type": "translateInput",
+                "prompt": "同学还不知道你的名字，请用本课句型介绍你叫李明。",
+                "sentence": "My name is Li Ming.",
+                "options": [],
+                "answer": "My name is Li Ming.",
+                "acceptedAnswers": [
+                  "My name's Li Ming."
+                ]
+              },
+              {
+                "id": "mp_name_review3",
+                "type": "translateInput",
+                "prompt": "参加小组活动，请用本课句型介绍你叫汤姆。",
+                "sentence": "My name is Tom.",
+                "options": [],
+                "answer": "My name is Tom.",
+                "acceptedAnswers": [
+                  "My name's Tom."
+                ]
+              },
+              {
+                "id": "mp_name_review4",
+                "type": "translateInput",
+                "prompt": "第一次参加聚会，请用本课句型介绍你叫露西。",
+                "sentence": "My name is Lucy.",
+                "options": [],
+                "answer": "My name is Lucy.",
+                "acceptedAnswers": [
+                  "My name's Lucy."
+                ]
+              }
+            ]
+          }
         },
         {
           "id": "u1l3",
@@ -1573,7 +1728,138 @@
               "options": [],
               "answer": "The banana is yellow."
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_like",
+            "version": 1,
+            "frame": "I like …",
+            "meaning": "我喜欢……，用来表达喜好。",
+            "slotRule": "泛指喜欢某种水果时，通常用复数，如 apples。先练名词，不把 like 后的空位当作任意动词。",
+            "prefix": "I like ",
+            "suffix": ".",
+            "examples": [
+              {
+                "id": "mp_like_example1",
+                "type": "speaking",
+                "prompt": "我喜欢苹果。",
+                "sentence": "I like apples.",
+                "options": [],
+                "answer": "I like apples."
+              },
+              {
+                "id": "mp_like_example2",
+                "type": "speaking",
+                "prompt": "我喜欢香蕉。",
+                "sentence": "I like bananas.",
+                "options": [],
+                "answer": "I like bananas."
+              },
+              {
+                "id": "mp_like_example3",
+                "type": "speaking",
+                "prompt": "我喜欢梨。",
+                "sentence": "I like pears.",
+                "options": [],
+                "answer": "I like pears."
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_like_substitution1",
+                "type": "wordBank",
+                "prompt": "我喜欢苹果。",
+                "sentence": "I like apples.",
+                "options": [],
+                "answer": "I like apples.",
+                "tokens": [
+                  "I like",
+                  "apples."
+                ]
+              },
+              {
+                "id": "mp_like_substitution2",
+                "type": "wordBank",
+                "prompt": "我喜欢香蕉。",
+                "sentence": "I like bananas.",
+                "options": [],
+                "answer": "I like bananas.",
+                "tokens": [
+                  "I like",
+                  "bananas."
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_like_recall1",
+                "type": "translateInput",
+                "prompt": "我喜欢梨。",
+                "sentence": "I like pears.",
+                "options": [],
+                "answer": "I like pears."
+              },
+              {
+                "id": "mp_like_recall2",
+                "type": "translateInput",
+                "prompt": "我喜欢西瓜。",
+                "sentence": "I like watermelons.",
+                "options": [],
+                "answer": "I like watermelons."
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_like_transfer1",
+                "type": "translateInput",
+                "prompt": "有人问你的口味，请用本课句型说你喜欢梨。",
+                "sentence": "I like pears.",
+                "options": [],
+                "answer": "I like pears."
+              },
+              {
+                "id": "mp_like_transfer2",
+                "type": "translateInput",
+                "prompt": "讨论水果喜好，请用本课句型说你喜欢西瓜。",
+                "sentence": "I like watermelons.",
+                "options": [],
+                "answer": "I like watermelons."
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_like_review1",
+                "type": "translateInput",
+                "prompt": "同伴准备买水果，请用本课句型告诉他你喜欢西瓜。",
+                "sentence": "I like watermelons.",
+                "options": [],
+                "answer": "I like watermelons."
+              },
+              {
+                "id": "mp_like_review2",
+                "type": "translateInput",
+                "prompt": "新朋友想了解你的喜好，请用本课句型说你喜欢苹果。",
+                "sentence": "I like apples.",
+                "options": [],
+                "answer": "I like apples."
+              },
+              {
+                "id": "mp_like_review3",
+                "type": "translateInput",
+                "prompt": "家人询问你的水果喜好，请用本课句型说你喜欢梨。",
+                "sentence": "I like pears.",
+                "options": [],
+                "answer": "I like pears."
+              },
+              {
+                "id": "mp_like_review4",
+                "type": "translateInput",
+                "prompt": "在班里介绍自己的喜好，请用本课句型说你喜欢香蕉。",
+                "sentence": "I like bananas.",
+                "options": [],
+                "answer": "I like bananas."
+              }
+            ]
+          }
         },
         {
           "id": "u4l2",
@@ -1811,7 +2097,138 @@
               "options": [],
               "answer": "Milk is white."
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_want",
+            "version": 1,
+            "frame": "I want …",
+            "meaning": "我想要……，用来表达想要的东西。",
+            "slotRule": "空位先练名词短语。water、milk、juice 不可数，可以加 some；一个苹果要说 an apple。I want 比 I would like 更直接。",
+            "prefix": "I want ",
+            "suffix": ".",
+            "examples": [
+              {
+                "id": "mp_want_example1",
+                "type": "speaking",
+                "prompt": "我想要一些水。",
+                "sentence": "I want some water.",
+                "options": [],
+                "answer": "I want some water."
+              },
+              {
+                "id": "mp_want_example2",
+                "type": "speaking",
+                "prompt": "我想要一些牛奶。",
+                "sentence": "I want some milk.",
+                "options": [],
+                "answer": "I want some milk."
+              },
+              {
+                "id": "mp_want_example3",
+                "type": "speaking",
+                "prompt": "我想要一些果汁。",
+                "sentence": "I want some juice.",
+                "options": [],
+                "answer": "I want some juice."
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_want_substitution1",
+                "type": "wordBank",
+                "prompt": "我想要一些水。",
+                "sentence": "I want some water.",
+                "options": [],
+                "answer": "I want some water.",
+                "tokens": [
+                  "I want",
+                  "some water."
+                ]
+              },
+              {
+                "id": "mp_want_substitution2",
+                "type": "wordBank",
+                "prompt": "我想要一些牛奶。",
+                "sentence": "I want some milk.",
+                "options": [],
+                "answer": "I want some milk.",
+                "tokens": [
+                  "I want",
+                  "some milk."
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_want_recall1",
+                "type": "translateInput",
+                "prompt": "我想要一些果汁。",
+                "sentence": "I want some juice.",
+                "options": [],
+                "answer": "I want some juice."
+              },
+              {
+                "id": "mp_want_recall2",
+                "type": "translateInput",
+                "prompt": "我想要一个苹果。",
+                "sentence": "I want an apple.",
+                "options": [],
+                "answer": "I want an apple."
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_want_transfer1",
+                "type": "translateInput",
+                "prompt": "朋友让你选饮料，请用本课句型说你想要一些果汁。",
+                "sentence": "I want some juice.",
+                "options": [],
+                "answer": "I want some juice."
+              },
+              {
+                "id": "mp_want_transfer2",
+                "type": "translateInput",
+                "prompt": "挑选水果时，请用本课句型说你想要一个苹果。",
+                "sentence": "I want an apple.",
+                "options": [],
+                "answer": "I want an apple."
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_want_review1",
+                "type": "translateInput",
+                "prompt": "家人准备水果，请用本课句型说你想要一个苹果。",
+                "sentence": "I want an apple.",
+                "options": [],
+                "answer": "I want an apple."
+              },
+              {
+                "id": "mp_want_review2",
+                "type": "translateInput",
+                "prompt": "朋友问你早餐要喝什么，请用本课句型说你想要一些牛奶。",
+                "sentence": "I want some milk.",
+                "options": [],
+                "answer": "I want some milk."
+              },
+              {
+                "id": "mp_want_review3",
+                "type": "translateInput",
+                "prompt": "运动后选择饮料，请用本课句型说你想要一些水。",
+                "sentence": "I want some water.",
+                "options": [],
+                "answer": "I want some water."
+              },
+              {
+                "id": "mp_want_review4",
+                "type": "translateInput",
+                "prompt": "准备野餐饮料，请用本课句型说你想要一些果汁。",
+                "sentence": "I want some juice.",
+                "options": [],
+                "answer": "I want some juice."
+              }
+            ]
+          }
         },
         {
           "id": "u4l4",
@@ -1930,7 +2347,178 @@
               "options": [],
               "answer": "I would like a hamburger."
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_would_like",
+            "version": 1,
+            "frame": "I would like …",
+            "meaning": "我想要……，适合礼貌点餐或表达需求。",
+            "slotRule": "空位填名词短语：a hamburger、a salad、some water。I would like 可缩写为 I’d like。本次练习用这一礼貌句型。",
+            "prefix": "I would like ",
+            "suffix": ".",
+            "examples": [
+              {
+                "id": "mp_would_like_example1",
+                "type": "speaking",
+                "prompt": "我想要一个汉堡。（礼貌点餐）",
+                "sentence": "I would like a hamburger.",
+                "options": [],
+                "answer": "I would like a hamburger."
+              },
+              {
+                "id": "mp_would_like_example2",
+                "type": "speaking",
+                "prompt": "我想要一份沙拉。（礼貌点餐）",
+                "sentence": "I would like a salad.",
+                "options": [],
+                "answer": "I would like a salad."
+              },
+              {
+                "id": "mp_would_like_example3",
+                "type": "speaking",
+                "prompt": "我想要一个三明治。（礼貌点餐）",
+                "sentence": "I would like a sandwich.",
+                "options": [],
+                "answer": "I would like a sandwich."
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_would_like_substitution1",
+                "type": "wordBank",
+                "prompt": "我想要一个汉堡。（礼貌点餐）",
+                "sentence": "I would like a hamburger.",
+                "options": [],
+                "answer": "I would like a hamburger.",
+                "tokens": [
+                  "I would like",
+                  "a hamburger."
+                ]
+              },
+              {
+                "id": "mp_would_like_substitution2",
+                "type": "wordBank",
+                "prompt": "我想要一份沙拉。（礼貌点餐）",
+                "sentence": "I would like a salad.",
+                "options": [],
+                "answer": "I would like a salad.",
+                "tokens": [
+                  "I would like",
+                  "a salad."
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_would_like_recall1",
+                "type": "translateInput",
+                "prompt": "我想要一个三明治。（礼貌点餐）",
+                "sentence": "I would like a sandwich.",
+                "options": [],
+                "answer": "I would like a sandwich.",
+                "acceptedAnswers": [
+                  "I'd like a sandwich.",
+                  "I would like a sandwich, please.",
+                  "I'd like a sandwich, please."
+                ]
+              },
+              {
+                "id": "mp_would_like_recall2",
+                "type": "translateInput",
+                "prompt": "我想要一些水。（礼貌点餐）",
+                "sentence": "I would like some water.",
+                "options": [],
+                "answer": "I would like some water.",
+                "acceptedAnswers": [
+                  "I'd like some water.",
+                  "I would like some water, please.",
+                  "I'd like some water, please."
+                ]
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_would_like_transfer1",
+                "type": "translateInput",
+                "prompt": "在餐厅点午餐，请用本课礼貌句型点一个三明治。",
+                "sentence": "I would like a sandwich.",
+                "options": [],
+                "answer": "I would like a sandwich.",
+                "acceptedAnswers": [
+                  "I'd like a sandwich.",
+                  "I would like a sandwich, please.",
+                  "I'd like a sandwich, please."
+                ]
+              },
+              {
+                "id": "mp_would_like_transfer2",
+                "type": "translateInput",
+                "prompt": "在餐厅请服务员送水，请用本课礼貌句型要一些水。",
+                "sentence": "I would like some water.",
+                "options": [],
+                "answer": "I would like some water.",
+                "acceptedAnswers": [
+                  "I'd like some water.",
+                  "I would like some water, please.",
+                  "I'd like some water, please."
+                ]
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_would_like_review1",
+                "type": "translateInput",
+                "prompt": "在餐厅吃早餐，请用本课礼貌句型点一些牛奶。",
+                "sentence": "I would like some milk.",
+                "options": [],
+                "answer": "I would like some milk.",
+                "acceptedAnswers": [
+                  "I'd like some milk.",
+                  "I would like some milk, please.",
+                  "I'd like some milk, please."
+                ]
+              },
+              {
+                "id": "mp_would_like_review2",
+                "type": "translateInput",
+                "prompt": "服务员问你想喝什么，请用本课礼貌句型点一些果汁。",
+                "sentence": "I would like some juice.",
+                "options": [],
+                "answer": "I would like some juice.",
+                "acceptedAnswers": [
+                  "I'd like some juice.",
+                  "I would like some juice, please.",
+                  "I'd like some juice, please."
+                ]
+              },
+              {
+                "id": "mp_would_like_review3",
+                "type": "translateInput",
+                "prompt": "在餐厅选择水果，请用本课礼貌句型要一个苹果。",
+                "sentence": "I would like an apple.",
+                "options": [],
+                "answer": "I would like an apple.",
+                "acceptedAnswers": [
+                  "I'd like an apple.",
+                  "I would like an apple, please.",
+                  "I'd like an apple, please."
+                ]
+              },
+              {
+                "id": "mp_would_like_review4",
+                "type": "translateInput",
+                "prompt": "在餐厅吃早餐，请用本课礼貌句型要一些面包。",
+                "sentence": "I would like some bread.",
+                "options": [],
+                "answer": "I would like some bread.",
+                "acceptedAnswers": [
+                  "I'd like some bread.",
+                  "I would like some bread, please.",
+                  "I'd like some bread, please."
+                ]
+              }
+            ]
+          }
         }
       ]
     },
@@ -3988,7 +4576,138 @@
               "options": [],
               "answer": "I want to buy a pair of shoes."
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_price",
+            "version": 1,
+            "frame": "How much is …?",
+            "meaning": "……多少钱？用来询问单个物品的价格。",
+            "slotRule": "空位填单数物品，如 this shirt。复数物品要用 are，本次只练 is；this 表示“这件/这个”，不能随意改成 that。",
+            "prefix": "How much is ",
+            "suffix": "?",
+            "examples": [
+              {
+                "id": "mp_price_example1",
+                "type": "speaking",
+                "prompt": "这件衬衫多少钱？",
+                "sentence": "How much is this shirt?",
+                "options": [],
+                "answer": "How much is this shirt?"
+              },
+              {
+                "id": "mp_price_example2",
+                "type": "speaking",
+                "prompt": "这个包多少钱？",
+                "sentence": "How much is this bag?",
+                "options": [],
+                "answer": "How much is this bag?"
+              },
+              {
+                "id": "mp_price_example3",
+                "type": "speaking",
+                "prompt": "这本书多少钱？",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?"
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_price_substitution1",
+                "type": "wordBank",
+                "prompt": "这件衬衫多少钱？",
+                "sentence": "How much is this shirt?",
+                "options": [],
+                "answer": "How much is this shirt?",
+                "tokens": [
+                  "How much is",
+                  "this shirt?"
+                ]
+              },
+              {
+                "id": "mp_price_substitution2",
+                "type": "wordBank",
+                "prompt": "这个包多少钱？",
+                "sentence": "How much is this bag?",
+                "options": [],
+                "answer": "How much is this bag?",
+                "tokens": [
+                  "How much is",
+                  "this bag?"
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_price_recall1",
+                "type": "translateInput",
+                "prompt": "这本书多少钱？",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?"
+              },
+              {
+                "id": "mp_price_recall2",
+                "type": "translateInput",
+                "prompt": "这个苹果多少钱？",
+                "sentence": "How much is this apple?",
+                "options": [],
+                "answer": "How much is this apple?"
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_price_transfer1",
+                "type": "translateInput",
+                "prompt": "在书店，请用本课句型询问这本书多少钱。",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?"
+              },
+              {
+                "id": "mp_price_transfer2",
+                "type": "translateInput",
+                "prompt": "买一个苹果，请用本课句型询问这个苹果多少钱。",
+                "sentence": "How much is this apple?",
+                "options": [],
+                "answer": "How much is this apple?"
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_price_review1",
+                "type": "translateInput",
+                "prompt": "在水果店指着一个苹果，请用本课句型询问这个苹果的价格。",
+                "sentence": "How much is this apple?",
+                "options": [],
+                "answer": "How much is this apple?"
+              },
+              {
+                "id": "mp_price_review2",
+                "type": "translateInput",
+                "prompt": "准备结账前，请用本课句型再次确认这件衬衫多少钱。",
+                "sentence": "How much is this shirt?",
+                "options": [],
+                "answer": "How much is this shirt?"
+              },
+              {
+                "id": "mp_price_review3",
+                "type": "translateInput",
+                "prompt": "在书摊看到一本书，请用本课句型询问这本书多少钱。",
+                "sentence": "How much is this book?",
+                "options": [],
+                "answer": "How much is this book?"
+              },
+              {
+                "id": "mp_price_review4",
+                "type": "translateInput",
+                "prompt": "在商店挑选礼物，请用本课句型询问这个包多少钱。",
+                "sentence": "How much is this bag?",
+                "options": [],
+                "answer": "How much is this bag?"
+              }
+            ]
+          }
         },
         {
           "id": "u9l2",
@@ -4107,7 +4826,138 @@
               "options": [],
               "answer": "Where can I find the fruit?"
             }
-          ]
+          ],
+          "patternTraining": {
+            "id": "en_need",
+            "version": 1,
+            "frame": "I need …",
+            "meaning": "我需要……，用来表达所需物品。",
+            "slotRule": "空位填物品或数量短语。a shopping bag 是一个购物袋；some eggs 是一些鸡蛋。先练名词，不加入 need to 的动词用法。",
+            "prefix": "I need ",
+            "suffix": ".",
+            "examples": [
+              {
+                "id": "mp_need_example1",
+                "type": "speaking",
+                "prompt": "我需要一些牛奶。",
+                "sentence": "I need some milk.",
+                "options": [],
+                "answer": "I need some milk."
+              },
+              {
+                "id": "mp_need_example2",
+                "type": "speaking",
+                "prompt": "我需要一些鸡蛋。",
+                "sentence": "I need some eggs.",
+                "options": [],
+                "answer": "I need some eggs."
+              },
+              {
+                "id": "mp_need_example3",
+                "type": "speaking",
+                "prompt": "我需要一个购物袋。",
+                "sentence": "I need a shopping bag.",
+                "options": [],
+                "answer": "I need a shopping bag."
+              }
+            ],
+            "substitution": [
+              {
+                "id": "mp_need_substitution1",
+                "type": "wordBank",
+                "prompt": "我需要一些牛奶。",
+                "sentence": "I need some milk.",
+                "options": [],
+                "answer": "I need some milk.",
+                "tokens": [
+                  "I need",
+                  "some milk."
+                ]
+              },
+              {
+                "id": "mp_need_substitution2",
+                "type": "wordBank",
+                "prompt": "我需要一些鸡蛋。",
+                "sentence": "I need some eggs.",
+                "options": [],
+                "answer": "I need some eggs.",
+                "tokens": [
+                  "I need",
+                  "some eggs."
+                ]
+              }
+            ],
+            "recall": [
+              {
+                "id": "mp_need_recall1",
+                "type": "translateInput",
+                "prompt": "我需要一个购物袋。",
+                "sentence": "I need a shopping bag.",
+                "options": [],
+                "answer": "I need a shopping bag."
+              },
+              {
+                "id": "mp_need_recall2",
+                "type": "translateInput",
+                "prompt": "我需要一些面包。",
+                "sentence": "I need some bread.",
+                "options": [],
+                "answer": "I need some bread."
+              }
+            ],
+            "transfer": [
+              {
+                "id": "mp_need_transfer1",
+                "type": "translateInput",
+                "prompt": "在超市结账，请用本课句型说你需要一个购物袋。",
+                "sentence": "I need a shopping bag.",
+                "options": [],
+                "answer": "I need a shopping bag."
+              },
+              {
+                "id": "mp_need_transfer2",
+                "type": "translateInput",
+                "prompt": "准备早餐，请用本课句型说你需要一些面包。",
+                "sentence": "I need some bread.",
+                "options": [],
+                "answer": "I need some bread."
+              }
+            ],
+            "review": [
+              {
+                "id": "mp_need_review1",
+                "type": "translateInput",
+                "prompt": "准备野餐清单，请用本课句型说你需要一些苹果。",
+                "sentence": "I need some apples.",
+                "options": [],
+                "answer": "I need some apples."
+              },
+              {
+                "id": "mp_need_review2",
+                "type": "translateInput",
+                "prompt": "准备出门运动，请用本课句型说你需要一些水。",
+                "sentence": "I need some water.",
+                "options": [],
+                "answer": "I need some water."
+              },
+              {
+                "id": "mp_need_review3",
+                "type": "translateInput",
+                "prompt": "补充冰箱里的食物，请用本课句型说你需要一些牛奶和鸡蛋。",
+                "sentence": "I need some milk and eggs.",
+                "options": [],
+                "answer": "I need some milk and eggs."
+              },
+              {
+                "id": "mp_need_review4",
+                "type": "translateInput",
+                "prompt": "买完东西后，请用本课句型向收银员说你需要一个购物袋。",
+                "sentence": "I need a shopping bag.",
+                "options": [],
+                "answer": "I need a shopping bag."
+              }
+            ]
+          }
         },
         {
           "id": "u9l3",

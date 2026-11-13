@@ -109,25 +109,28 @@ void main() {
     }
   });
 
-  test('SkillPracticeBank accepts legacy flat exercises as default chapter', () {
-    final bank = SkillPracticeBank.fromJson({
-      'skill': 'vocabulary',
-      'title': '单词练习',
-      'exercises': [
-        {
-          'id': 'e1',
-          'type': 'translateChoice',
-          'prompt': 'p',
-          'sentence': 's',
-          'options': ['a', 'b'],
-          'answer': 'a',
-        },
-      ],
-    });
-    expect(bank.chapters.length, 1);
-    expect(bank.chapters.first.id, 'default');
-    expect(bank.exercises.length, 1);
-  });
+  test(
+    'SkillPracticeBank accepts legacy flat exercises as default chapter',
+    () {
+      final bank = SkillPracticeBank.fromJson({
+        'skill': 'vocabulary',
+        'title': '单词练习',
+        'exercises': [
+          {
+            'id': 'e1',
+            'type': 'translateChoice',
+            'prompt': 'p',
+            'sentence': 's',
+            'options': ['a', 'b'],
+            'answer': 'a',
+          },
+        ],
+      });
+      expect(bank.chapters.length, 1);
+      expect(bank.chapters.first.id, 'default');
+      expect(bank.exercises.length, 1);
+    },
+  );
 
   test('SkillPracticeLoader pickSession respects limit', () {
     final loader = SkillPracticeLoader(random: Random(1));
@@ -309,13 +312,16 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('单词练习'), findsWidgets);
 
-    // Choose correct option（选项现按词渲染音标文本，按 widget 内容查找）
+    // Tap the option surface; a wrapped sentence's center can fall in whitespace.
+    final option = find
+        .byWidgetPredicate(
+          (w) => w is TappablePhoneticText && w.text == first.answer,
+        )
+        .first;
+    await tester.ensureVisible(option);
+    await tester.pumpAndSettle();
     await tester.tap(
-      find
-          .byWidgetPredicate(
-            (w) => w is TappablePhoneticText && w.text == first.answer,
-          )
-          .first,
+      find.ancestor(of: option, matching: find.byType(GestureDetector)).first,
     );
     await tester.pump();
     await tester.runAsync(() async {
@@ -323,7 +329,10 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 200));
     });
     await tester.pumpAndSettle();
-    await tester.tap(find.text('继续'));
+    await tester.runAsync(() async {
+      await tester.tap(find.text('继续'));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    });
     await tester.pumpAndSettle();
     expect(find.text('单词练习完成'), findsOneWidget);
     await tester.tap(find.text('返回章节'));

@@ -7,6 +7,7 @@ import '../../data/models/course.dart';
 import '../../data/models/learning_language.dart';
 import '../lesson/dialogue_practice.dart';
 import '../lesson/lesson_page.dart';
+import '../pattern_training/pattern_training_page.dart';
 
 class ReviewPage extends ConsumerStatefulWidget {
   const ReviewPage({super.key});
@@ -58,17 +59,37 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
     }
   }
 
+  Future<void> _pattern(Lesson lesson, {bool review = false}) async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => PatternTrainingPage(lesson: lesson, review: review),
+      ),
+    );
+    if (mounted) setState(() => _busy = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final course = ref.watch(courseProvider);
     final progress = ref.watch(progressRepositoryProvider);
     final store = ref.watch(learningStoreProvider);
+    final s = ref.watch(stringsProvider);
     if (progress == null || store == null) return const Scaffold();
     final unlocked = course.orderedLessons
         .where((l) => progress.isLessonUnlocked(l.id))
         .map((l) => l.id)
         .toSet();
     final due = store.dueExercises(course, unlocked);
+    final completed = course.orderedLessons
+        .where((l) => progress.isLessonCompleted(l.id))
+        .map((l) => l.id)
+        .toSet();
+    final patternDue = store.duePatternLessons(course, completed);
+    final patternLessons = course.orderedLessons
+        .where((l) => l.patternTraining != null && completed.contains(l.id))
+        .toList();
     final completedUnits = course.units
         .where((u) => u.lessons.every((l) => progress.isLessonCompleted(l.id)))
         .toList();
@@ -108,7 +129,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('清除学习记录？'),
-                  content: const Text('错题复习与统计将被清除，课程成绩和奖励不受影响。'),
+                  content: Text(s.clearLearningRecordsBody),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context, false),
@@ -144,6 +165,57 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
                 ? null
                 : () => _practice('错题复习', due, 'review'),
           ),
+          const Divider(),
+          Text(
+            s.patternToday,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          if (patternDue.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(s.patternNoDue),
+            ),
+          for (final lesson in patternDue)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(lesson.patternTraining!.frame),
+              subtitle: Text(
+                s.patternNextReview(
+                  store.patternReview(course.id, lesson.patternTraining!)!.due,
+                ),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: _busy ? null : () => _pattern(lesson, review: true),
+            ),
+          Text(
+            s.patternLearned,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          if (patternLessons.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(s.patternNoLessons),
+            ),
+          for (final lesson in patternLessons)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text('${lesson.title} · ${lesson.patternTraining!.frame}'),
+              subtitle: Builder(
+                builder: (_) {
+                  final entry = store.patternReview(
+                    course.id,
+                    lesson.patternTraining!,
+                  );
+                  return Text(
+                    entry == null
+                        ? s.patternNotStarted
+                        : '${s.firstCorrect(entry.firstCorrect, entry.totalCount)} · ${s.patternHints(entry.hints)}\n${s.patternNextReview(entry.due)}',
+                  );
+                },
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: _busy ? null : () => _pattern(lesson),
+            ),
           const Divider(),
           const Text(
             '单元复习',

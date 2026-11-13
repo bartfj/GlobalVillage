@@ -3,6 +3,7 @@ library;
 
 import 'package:unorm_dart/unorm_dart.dart' as unicode;
 import 'learning_language.dart';
+import 'pattern_training.dart';
 
 enum ExerciseType {
   translateChoice,
@@ -226,11 +227,13 @@ class Lesson {
   final String id;
   final String title;
   final List<Exercise> exercises;
+  final PatternTraining? patternTraining;
 
   const Lesson({
     required this.id,
     required this.title,
     required this.exercises,
+    this.patternTraining,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
@@ -240,6 +243,13 @@ class Lesson {
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
           .toList(),
+      patternTraining: json['patternTraining'] == null
+          ? null
+          : json['patternTraining'] is Map<String, dynamic>
+          ? PatternTraining.fromJson(
+              json['patternTraining'] as Map<String, dynamic>,
+            )
+          : throw const FormatException('patternTraining must be an object'),
     );
   }
 }

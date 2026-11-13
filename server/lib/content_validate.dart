@@ -104,8 +104,117 @@ String? _validateLesson(Map<String, dynamic> json, String where) {
     );
     if (error != null) return error;
   }
+  final training = json['patternTraining'];
+  if (training != null) {
+    if (training is! Map) return '$where.patternTraining 须为对象';
+    final error = _validatePatternTraining(
+      Map<String, dynamic>.from(training),
+      '$where.patternTraining',
+    );
+    if (error != null) return error;
+  }
   return null;
 }
+
+String? _validatePatternTraining(Map<String, dynamic> json, String where) {
+  for (final key in ['id', 'frame', 'meaning', 'slotRule', 'prefix']) {
+    if (json[key] is! String ||
+        (json[key] as String).trim().isEmpty ||
+        (['id', 'frame', 'prefix'].contains(key) &&
+            !_patternEnglish(json[key] as String))) {
+      return '$where.$key 须为非空字符串，目标句型须为英语';
+    }
+  }
+  final version = json['version'];
+  if (version is! int || version < 1) return '$where.version 须为正整数';
+  final suffix = json['suffix'] ?? '';
+  if (suffix is! String || !_patternEnglish(suffix)) {
+    return '$where.suffix 须为英文字符串';
+  }
+  final seen = <String>{};
+  const phases = {
+    'examples': (3, 'speaking'),
+    'substitution': (2, 'wordBank'),
+    'recall': (2, 'translateInput'),
+    'transfer': (2, 'translateInput'),
+    'review': (4, 'translateInput'),
+  };
+  for (final phase in phases.entries) {
+    final list = json[phase.key];
+    if (list is! List ||
+        (phase.key == 'review'
+            ? list.length < phase.value.$1
+            : list.length != phase.value.$1)) {
+      return '$where.${phase.key} 题目数量无效';
+    }
+    for (var i = 0; i < list.length; i++) {
+      final value = list[i];
+      final location = '$where.${phase.key}[$i]';
+      if (value is! Map) return '$location 须为对象';
+      final exercise = Map<String, dynamic>.from(value);
+      final error = _validateExercise(exercise, location);
+      if (error != null) return error;
+      if (!seen.add(exercise['id'] as String)) return '$location id 重复';
+      if (exercise['type'] != phase.value.$2) return '$location 题型无效';
+      if ((exercise['language'] ?? 'english') != 'english') {
+        return '$location 须为英语';
+      }
+      if ((exercise['prompt'] as String).trim().isEmpty) {
+        return '$location prompt 须为非空字符串';
+      }
+      for (final text in [
+        exercise['sentence'],
+        exercise['answer'],
+        ...?(exercise['acceptedAnswers'] as List?),
+        ...?(exercise['tokens'] as List?),
+      ]) {
+        if ((text as String).trim().isEmpty || !_patternEnglish(text)) {
+          return '$location 须为非空英文内容';
+        }
+      }
+      if (phase.key == 'substitution') {
+        final tokens = exercise['tokens'];
+        if (tokens is! List ||
+            tokens.isEmpty ||
+            _normalizePatternAnswer(
+                  tokens.join(exercise['tokenSeparator'] as String? ?? ' '),
+                ) !=
+                _normalizePatternAnswer(exercise['answer'] as String)) {
+          return '$location tokens 须还原答案';
+        }
+      }
+      if (phase.key == 'examples') {
+        final sentence = exercise['sentence'] as String;
+        final prefix = json['prefix'] as String;
+        if (!sentence.startsWith(prefix) ||
+            !sentence.endsWith(suffix) ||
+            sentence.length <= prefix.length + suffix.length ||
+            sentence
+                .substring(prefix.length, sentence.length - suffix.length)
+                .trim()
+                .isEmpty) {
+          return '$location 须包含前缀、替换部分及后缀';
+        }
+      }
+    }
+  }
+  return null;
+}
+
+bool _patternEnglish(String text) => !RegExp(
+  r'[\u3400-\u9fff\u3040-\u30ff\u0900-\u097f\u0400-\u04ff\u0600-\u06ff]',
+).hasMatch(text);
+
+String _normalizePatternAnswer(String text) => text
+    .trim()
+    .toLowerCase()
+    .replaceAll(RegExp("[‘’´`]"), "'")
+    .replaceAll(
+      RegExp(r'[\[\].,;:!?。，、；：！？．…·・•~～—–‐‑‒―"“”„«»「」『』()（）-]+'),
+      ' ',
+    )
+    .replaceAll(RegExp(r'\s+'), ' ')
+    .trim();
 
 String? _validateExercise(Map<String, dynamic> json, String where) {
   if (json['id'] is! String || (json['id'] as String).isEmpty) {

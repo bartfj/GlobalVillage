@@ -93,6 +93,8 @@ class _ProductionExerciseWidgetState
               sentence: exercise.sentence,
               options: const [],
               answer: exercise.answer,
+              tokens: exercise.tokens,
+              tokenSeparator: exercise.tokenSeparator,
             ),
             enabled: widget.enabled,
             onChanged: widget.onChanged,
