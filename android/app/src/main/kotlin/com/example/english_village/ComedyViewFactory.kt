@@ -36,20 +36,22 @@ class ComedyViewFactory(
             .put("reducedMotion", params["reducedMotion"]).put("chinese", params["chinese"])
         val asset = loader.getLookupKeyForAsset("assets/dialogues/post_lesson_comedy.html")
         val textZoom = (params["textZoom"] as? Number)?.toInt()?.coerceIn(80, 250) ?: 100
-        return ComedyView(context, viewId, messenger, "file:///android_asset/$asset", config, textZoom)
+        val startPaused = params["startPaused"] as? Boolean ?: false
+        return ComedyView(context, viewId, messenger, "file:///android_asset/$asset", config, textZoom, startPaused)
     }
 }
 
 @Suppress("SetJavaScriptEnabled", "DEPRECATION")
 private class ComedyView(
     context: Context, id: Int, messenger: BinaryMessenger,
-    private val assetUrl: String, private val config: JSONObject, textZoom: Int
+    private val assetUrl: String, private val config: JSONObject, textZoom: Int, startPaused: Boolean
 ) : PlatformView {
     private val main = Handler(Looper.getMainLooper())
     private val channel = MethodChannel(messenger, "globalvillage/comedy/$id")
     private var destroyed = false
     private var initialized = false
     private var hidden = false
+    private var pausedUntilPlay = startPaused
     private val webView = object : WebView(context) {
         override fun onWindowVisibilityChanged(visibility: Int) {
             super.onWindowVisibilityChanged(visibility)
@@ -105,7 +107,7 @@ private class ComedyView(
                         return@evaluateJavascript
                     }
                     initialized = true
-                    if (!hidden) view.evaluateJavascript("window.ComedyPlayer.play()", null)
+                    if (!hidden && !pausedUntilPlay) view.evaluateJavascript("window.ComedyPlayer.play()", null)
                     channel.invokeMethod("event", "ready")
                 }
             }
@@ -120,8 +122,9 @@ private class ComedyView(
             when (call.method) {
                 "play", "replay" -> {
                     if (!hidden) {
+                        pausedUntilPlay = false
                         webView.onResume()
-                        webView.evaluateJavascript("window.ComedyPlayer.${call.method}()", null)
+                        if (initialized) webView.evaluateJavascript("window.ComedyPlayer.${call.method}()", null)
                     }
                     result.success(null)
                 }
@@ -133,7 +136,9 @@ private class ComedyView(
     }
 
     private fun pausePlayback() {
-        if (destroyed || !initialized) return
+        if (destroyed) return
+        pausedUntilPlay = true
+        if (!initialized) return
         webView.evaluateJavascript("window.ComedyPlayer && window.ComedyPlayer.pause()", null)
         webView.onPause()
     }

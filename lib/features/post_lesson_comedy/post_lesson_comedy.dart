@@ -36,7 +36,6 @@ class _PostLessonComedyState extends State<PostLessonComedy>
   bool _loading = true, _error = false, _exited = false;
   bool _playing = true, _completed = false, _chinese = true;
   bool _backgroundPaused = false;
-  bool _appActive = true;
 
   bool get _native =>
       !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
@@ -44,6 +43,10 @@ class _PostLessonComedyState extends State<PostLessonComedy>
   @override
   void initState() {
     super.initState();
+    final lifecycle = WidgetsBinding.instance.lifecycleState;
+    _backgroundPaused =
+        lifecycle != null && lifecycle != AppLifecycleState.resumed;
+    _playing = !_backgroundPaused;
     WidgetsBinding.instance.addObserver(this);
     unawaited(_load());
   }
@@ -69,11 +72,12 @@ class _PostLessonComedyState extends State<PostLessonComedy>
         _schedule();
       }
     } catch (_) {
-      if (mounted && !_exited)
+      if (mounted && !_exited) {
         setState(() {
           _loading = false;
           _error = true;
         });
+      }
     }
   }
 
@@ -93,9 +97,16 @@ class _PostLessonComedyState extends State<PostLessonComedy>
   void _attach(int viewId) {
     final channel = MethodChannel('globalvillage/comedy/$viewId');
     _channel = channel;
+    if (_backgroundPaused) {
+      unawaited(_send('pause'));
+    }
     channel.setMethodCallHandler((call) async {
-      if (!mounted || _exited || _channel != channel || call.method != 'event')
+      if (!mounted ||
+          _exited ||
+          _channel != channel ||
+          call.method != 'event') {
         return;
+      }
       switch (call.arguments) {
         case 'ready':
           _initializationTimeout?.cancel();
@@ -103,7 +114,6 @@ class _PostLessonComedyState extends State<PostLessonComedy>
             _loading = false;
             _error = false;
             _completed = false;
-            if (_appActive) _backgroundPaused = false;
           });
           if (_backgroundPaused) await _send('pause');
         case 'completed':
@@ -219,9 +229,8 @@ class _PostLessonComedyState extends State<PostLessonComedy>
       _line = 0;
       _error = false;
       _loading = _native;
-      _playing = true;
+      _playing = !_backgroundPaused;
       _completed = false;
-      _backgroundPaused = false;
     });
     if (_episode == null) {
       unawaited(_load());
@@ -243,8 +252,7 @@ class _PostLessonComedyState extends State<PostLessonComedy>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _appActive = state == AppLifecycleState.resumed;
-    if (_appActive || _exited) return;
+    if (state == AppLifecycleState.resumed || _exited) return;
     _timer?.cancel();
     unawaited(_send('pause'));
     setState(() {
@@ -335,7 +343,7 @@ class _PostLessonComedyState extends State<PostLessonComedy>
 
   Widget _body(BuildContext context) {
     final s = widget.strings;
-    if (_error)
+    if (_error) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -349,8 +357,9 @@ class _PostLessonComedyState extends State<PostLessonComedy>
           ),
         ),
       );
+    }
     if (_episode == null) return Center(child: Text(s.comedyLoading));
-    if (_native)
+    if (_native) {
       return Stack(
         children: [
           AndroidView(
@@ -361,6 +370,7 @@ class _PostLessonComedyState extends State<PostLessonComedy>
               'english': s.isEn,
               'reducedMotion': MediaQuery.disableAnimationsOf(context),
               'chinese': _chinese,
+              'startPaused': _backgroundPaused,
               'textZoom':
                   (MediaQuery.textScalerOf(context).scale(16) / 16 * 100)
                       .round()
@@ -374,8 +384,20 @@ class _PostLessonComedyState extends State<PostLessonComedy>
               color: Theme.of(context).colorScheme.surface,
               child: Center(child: Text(s.comedyLoading)),
             ),
+          if (!_loading && _backgroundPaused)
+            ColoredBox(
+              color: Theme.of(context).colorScheme.surface,
+              child: Center(
+                child: FilledButton(
+                  key: const ValueKey('comedy-native-resume'),
+                  onPressed: _togglePlayback,
+                  child: Text(s.comedyPlay),
+                ),
+              ),
+            ),
         ],
       );
+    }
     final episode = _episode!;
     final line = episode.lines[_line];
     return SingleChildScrollView(

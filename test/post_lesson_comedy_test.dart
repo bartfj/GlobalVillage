@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:english_village/app/app_strings.dart';
 import 'package:english_village/features/post_lesson_comedy/comedy_catalog.dart';
 import 'package:english_village/features/post_lesson_comedy/post_lesson_comedy.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -108,6 +108,11 @@ void main() {
 
   Future<void> open(WidgetTester tester, VoidCallback onFinished) async {
     await tester.runAsync(ComedyCatalog.load);
+    // Exercise mounting while paused even though the scheduler suppresses its
+    // ordinary frames; production initialization must still preserve pause.
+    if (!tester.binding.framesEnabled) {
+      tester.binding.scheduleForcedFrame();
+    }
     await tester.pumpWidget(
       MaterialApp(
         home: PostLessonComedy(
@@ -123,10 +128,14 @@ void main() {
       await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 20)),
       );
+      if (!tester.binding.framesEnabled) {
+        tester.binding.scheduleForcedFrame();
+      }
       await tester.pump();
       if (find.byType(AndroidView).evaluate().isNotEmpty ||
-          find.text('I need a pen.').evaluate().isNotEmpty)
+          find.text('I need a pen.').evaluate().isNotEmpty) {
         break;
+      }
     }
   }
 
@@ -254,6 +263,95 @@ void main() {
   });
 
   testWidgets(
+    'player mounted while backgrounded waits for explicit Play',
+    (tester) async {
+      final native = _NativeHost();
+      addTearDown(native.dispose);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      addTearDown(
+        () => tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        ),
+      );
+      await open(tester, () {});
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyBackgroundPaused),
+        findsOneWidget,
+      );
+      if (find.byType(AndroidView).evaluate().isNotEmpty) {
+        expect(native.configurations.single['startPaused'], true);
+        await native.event('ready');
+        await tester.pump();
+      }
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump(const Duration(seconds: 30));
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyBackgroundPaused),
+        findsOneWidget,
+      );
+      expect(native.commands, isNot(contains('play')));
+      if (find.byType(AndroidView).evaluate().isNotEmpty) {
+        await tester.tap(find.byKey(const ValueKey('comedy-native-resume')));
+        await tester.pump();
+        expect(native.commands, contains('play'));
+      } else {
+        expect(find.text('I need a pen.'), findsOneWidget);
+        await tester.tap(find.byKey(const ValueKey('comedy-play-pause')));
+        await tester.pump(const Duration(seconds: 4));
+        expect(find.text('Here you are.'), findsOneWidget);
+      }
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyBackgroundPaused),
+        findsNothing,
+      );
+      await tester.pumpWidget(const SizedBox());
+    },
+    variant: TargetPlatformVariant({
+      TargetPlatform.linux,
+      TargetPlatform.android,
+    }),
+  );
+
+  testWidgets(
+    'native loading retains background pause after resume and ready until Play',
+    (tester) async {
+      final native = _NativeHost();
+      addTearDown(native.dispose);
+      await open(tester, () {});
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyLoading),
+        findsOneWidget,
+      );
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      await tester.pump();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      final pausesBeforeReady = native.commands
+          .where((command) => command == 'pause')
+          .length;
+      await native.event('ready');
+      await tester.pump();
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyBackgroundPaused),
+        findsOneWidget,
+      );
+      expect(
+        native.commands.where((command) => command == 'pause').length,
+        greaterThan(pausesBeforeReady),
+      );
+      expect(native.commands, isNot(contains('play')));
+      await tester.tap(find.byKey(const ValueKey('comedy-native-resume')));
+      await tester.pump();
+      expect(native.commands, contains('play'));
+      expect(
+        find.text(const S(UiLanguage.chinese).comedyBackgroundPaused),
+        findsNothing,
+      );
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets(
     'native bridge completion, replay, background and skip remain controlled',
     (tester) async {
       final native = _NativeHost();
@@ -318,6 +416,13 @@ class _NativeHost {
       if (call.method == 'create') {
         final id = (args as Map)['id'] as int;
         viewIds.add(id);
+        final bytes = args['params'] as Uint8List;
+        configurations.add(
+          const StandardMessageCodec().decodeMessage(
+                ByteData.sublistView(bytes),
+              )
+              as Map,
+        );
         messenger.setMockMethodCallHandler(
           MethodChannel('globalvillage/comedy/$id'),
           (call) async {
@@ -337,6 +442,7 @@ class _NativeHost {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
   final viewIds = <int>[];
   final commands = <String>[];
+  final configurations = <Map>[];
 
   Future<void> event(String event) async {
     final channel = MethodChannel('globalvillage/comedy/${viewIds.last}');
