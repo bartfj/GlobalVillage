@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/models/skill_practice.dart';
+import '../../features/feedback/feedback_dialog.dart';
+import '../../features/learning_path/widgets/main_menu_actions.dart';
+import '../../features/learning_path/widgets/main_menu_drawer.dart';
 import '../providers.dart';
 import 'adaptive_breakpoints.dart';
 import 'adaptive_content_column.dart';
-import 'adaptive_nav_destination.dart';
 
 /// 当前语言第一个专项练习的路由。练习轨的 `location` 只是占位。
 String practiceLocation(WidgetRef ref) {
@@ -16,7 +18,7 @@ String practiceLocation(WidgetRef ref) {
   return '/practice/${skills.first.name}';
 }
 
-/// 宽屏左侧导航轨；窄屏只渲染内容列。
+/// 宽屏复用手机完整主菜单，右侧页面占满剩余空间。
 class AppAdaptiveShell extends ConsumerWidget {
   const AppAdaptiveShell({super.key, required this.child});
 
@@ -27,47 +29,31 @@ class AppAdaptiveShell extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final wide = showAdaptiveRail(constraints.maxWidth);
-        // 轨占宽后剩余经常 < 900，内容柱自己的断点不会生效。
-        final body = AdaptiveContentColumn(forceClamp: wide, child: child);
         if (!wide) {
-          return body;
+          return AdaptiveContentColumn(child: child);
         }
-
-        final matched = GoRouterState.of(context).matchedLocation;
-        final s = ref.watch(stringsProvider);
-        // visible 回调只 read；这里 watch 以便切换学习语言时重建轨。
-        ref.watch(selectedTrackProvider);
-        final destinations = buildAdaptiveNavDestinations()
-            .where((d) => d.visible(ref))
-            .toList();
-        final selected = destinations.indexWhere((d) => d.matches(matched));
-
-        return Row(
-          children: [
-            NavigationRail(
-              scrollable: true,
-              selectedIndex: selected < 0 ? 0 : selected,
-              onDestinationSelected: (i) {
-                final d = destinations[i];
-                final loc = d.id == 'practice'
-                    ? practiceLocation(ref)
-                    : d.location;
-                if (loc != matched) {
-                  context.go(loc);
-                }
-              },
-              labelType: NavigationRailLabelType.all,
-              destinations: [
-                for (final d in destinations)
-                  NavigationRailDestination(
-                    icon: Icon(d.icon),
-                    label: Text(d.label(s)),
-                  ),
-              ],
-            ),
-            const VerticalDivider(width: 1),
-            Expanded(child: body),
-          ],
+        return ColoredBox(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                key: const ValueKey('adaptive-main-menu'),
+                width: kAdaptiveMenuWidth,
+                child: MainMenuDrawer(
+                  persistent: true,
+                  onBackupRestore: () =>
+                      showMainMenuBackupRestore(context, ref),
+                  onFeedback: () => showFeedbackDialog(context, ref),
+                  onAbout: () => showMainMenuAbout(context, ref),
+                  onLogout: () => confirmMainMenuLogout(context, ref),
+                  onLogin: () => context.push('/login'),
+                ),
+              ),
+              const VerticalDivider(width: 1),
+              Expanded(child: child),
+            ],
+          ),
         );
       },
     );

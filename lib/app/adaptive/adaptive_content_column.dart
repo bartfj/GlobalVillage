@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'adaptive_breakpoints.dart';
 
@@ -25,13 +25,16 @@ class AdaptiveContentColumn extends StatelessWidget {
         if (!clamp) {
           return child;
         }
-        return Align(
-          alignment: Alignment.topCenter,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: kAdaptiveContentMaxWidth,
+        return ColoredBox(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: kAdaptiveContentMaxWidth,
+              ),
+              child: child,
             ),
-            child: child,
           ),
         );
       },
