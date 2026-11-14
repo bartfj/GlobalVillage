@@ -1,0 +1,565 @@
+{
+  "client": {
+    "clientAnalysisExit": 0,
+    "clientTestsExit": 0,
+    "seconds": 283.39,
+    "passed": 531,
+    "skipped": 1,
+    "testFiles": 65,
+    "batches": [
+      {
+        "log": "client-test-01.log",
+        "passed": 49,
+        "skipped": 0,
+        "files": [
+          "test\\adaptive_shell_test.dart",
+          "test\\answer_normalization_test.dart",
+          "test\\api_base_url_test.dart",
+          "test\\audio_failure_test.dart",
+          "test\\award_celebration_test.dart",
+          "test\\backup_service_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-02.log",
+        "passed": 23,
+        "skipped": 0,
+        "files": [
+          "test\\content_overlay_test.dart",
+          "test\\course_expansion_test.dart",
+          "test\\course_loader_test.dart",
+          "test\\debug_jump_dialog_test.dart",
+          "test\\diagnostic_log_test.dart",
+          "test\\dialogue_performance_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-03.log",
+        "passed": 22,
+        "skipped": 0,
+        "files": [
+          "test\\english_yoga_button_test.dart",
+          "test\\language_practice_test.dart",
+          "test\\learning_improvement_test.dart",
+          "test\\learning_path_navigation_test.dart",
+          "test\\lesson_controller_test.dart",
+          "test\\lesson_design_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-04.log",
+        "passed": 61,
+        "skipped": 0,
+        "files": [
+          "test\\match_pairs_widget_test.dart",
+          "test\\mother_pattern_completion_test.dart",
+          "test\\mother_pattern_content_test.dart",
+          "test\\mother_pattern_controller_test.dart",
+          "test\\mother_pattern_hint_test.dart",
+          "test\\mother_pattern_model_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-25.log",
+        "passed": 51,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_overlay_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-26.log",
+        "passed": 27,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_page_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-27.log",
+        "passed": 4,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_review_ui_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-28.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_route_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-29.log",
+        "passed": 9,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_speech_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-30.log",
+        "passed": 26,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_store_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-31.log",
+        "passed": 14,
+        "skipped": 0,
+        "files": [
+          "test\\multilingual_course_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-32.log",
+        "passed": 0,
+        "skipped": 1,
+        "files": [
+          "test\\offline_asr_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-33.log",
+        "passed": 12,
+        "skipped": 0,
+        "files": [
+          "test\\online_auth_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-34.log",
+        "passed": 5,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_content_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-35.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_entry_integration_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-36.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_lesson_entry_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-37.log",
+        "passed": 14,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_review_store_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-38.log",
+        "passed": 9,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_training_controller_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-39.log",
+        "passed": 25,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_training_model_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-40.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_training_page_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-41.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\phonetic_bubble_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-42.log",
+        "passed": 13,
+        "skipped": 0,
+        "files": [
+          "test\\phonetic_lookup_service_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-43.log",
+        "passed": 9,
+        "skipped": 0,
+        "files": [
+          "test\\post_lesson_comedy_entry_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-44.log",
+        "passed": 13,
+        "skipped": 0,
+        "files": [
+          "test\\post_lesson_comedy_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-45.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\production_exercise_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-46.log",
+        "passed": 10,
+        "skipped": 0,
+        "files": [
+          "test\\progress_repository_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-47.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\result_session_provider_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-48.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\review_flow_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-49.log",
+        "passed": 14,
+        "skipped": 0,
+        "files": [
+          "test\\review_regression_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-50.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\reward_repository_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-51.log",
+        "passed": 5,
+        "skipped": 0,
+        "files": [
+          "test\\sanskrit_answer_display_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-52.log",
+        "passed": 6,
+        "skipped": 0,
+        "files": [
+          "test\\sanskrit_audio_navigation_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-53.log",
+        "passed": 3,
+        "skipped": 0,
+        "files": [
+          "test\\sanskrit_audio_page_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-54.log",
+        "passed": 7,
+        "skipped": 0,
+        "files": [
+          "test\\sanskrit_audio_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-55.log",
+        "passed": 5,
+        "skipped": 0,
+        "files": [
+          "test\\similarity_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-56.log",
+        "passed": 5,
+        "skipped": 0,
+        "files": [
+          "test\\skill_practice_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-57.log",
+        "passed": 5,
+        "skipped": 0,
+        "files": [
+          "test\\speech_engine_retry_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-58.log",
+        "passed": 23,
+        "skipped": 0,
+        "files": [
+          "test\\sync_service_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-59.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\translate_choice_phonetic_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-60.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\tree_growth_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-61.log",
+        "passed": 16,
+        "skipped": 0,
+        "files": [
+          "test\\tts_cancellation_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-62.log",
+        "passed": 2,
+        "skipped": 0,
+        "files": [
+          "test\\tts_speak_result_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-63.log",
+        "passed": 9,
+        "skipped": 0,
+        "files": [
+          "test\\user_repository_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-64.log",
+        "passed": 4,
+        "skipped": 0,
+        "files": [
+          "test\\word_bank_render_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-file-65.log",
+        "passed": 4,
+        "skipped": 0,
+        "files": [
+          "test\\yoga_audio_test.dart"
+        ]
+      }
+    ],
+    "baseCommitAtTestTime": "aa24f6583ffcb4fcabea4db1762946040422ce13",
+    "testedSourceCommit": "dcb01c0b2a540e36728bf94a265d5f2e8c3ea442",
+    "performedBeforeCodeCommit": true
+  },
+  "content": {
+    "scenes": 12,
+    "lines": 71,
+    "uniqueRecordings": 62,
+    "decodedNonSilentAudio": "pass",
+    "validLessonReferences": "pass",
+    "offlineAssets": "pass",
+    "assets": {
+      "assets/dialogues/post_lesson_comedy.html": "9b4dd71571c28b04e5b53d0bb9209e07b650b874c5c11fde33000460d504f074",
+      "assets/dialogues/post_lesson_comedy_catalog.json": "9e80b1d9166dcf6ca136bd073e077ca107f27e18083fe254a99ac4a224055f4b"
+    }
+  },
+  "browser": {
+    "source": "file:///C:/Users/vincent/.codex/worktrees/mother-pattern-course/GlobalVillage/assets/dialogues/post_lesson_comedy.html",
+    "scenes": 12,
+    "lines": 71,
+    "actualBrowserAudioDecode": "pass",
+    "offlineFullScenePlayback": "pass",
+    "pauseReplayStop": "pass",
+    "layouts": [
+      320,
+      390,
+      760
+    ],
+    "largeTextScale": 1.8,
+    "errors": []
+  },
+  "build": {
+    "sourceCommit": "dcb01c0b2a540e36728bf94a265d5f2e8c3ea442",
+    "exitCode": 0,
+    "seconds": 144.38,
+    "apk": "C:\\Users\\vincent\\.codex\\worktrees\\mother-pattern-course\\GlobalVillage\\build\\app\\outputs\\apk\\release\\app-release.apk",
+    "version": "0.8.53+70",
+    "platform": "android-arm64",
+    "comedyIncludedInApk": true,
+    "separateFlutterAssemble": true
+  },
+  "apk": {
+    "apk": "C:\\Users\\vincent\\.codex\\worktrees\\mother-pattern-course\\GlobalVillage\\build\\app\\outputs\\apk\\release\\app-release.apk",
+    "package": "com.example.english_village",
+    "versionName": "0.8.53",
+    "versionCode": 70,
+    "size": 217149931,
+    "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+    "sourceCommit": "dcb01c0b2a540e36728bf94a265d5f2e8c3ea442",
+    "zipCrc": "pass",
+    "signatureV2": "pass",
+    "certificateSha256": "bd50f65066dc4310c55660384c294c2c81fa49165de5c092d16d765a1fcac7a6",
+    "upgradeCertificateMatches": true,
+    "motherPattern": {
+      "units": 4,
+      "lessons": 16,
+      "scoredExercises": 160,
+      "bundledExactAudio": 483,
+      "sourceContentMatches": true
+    },
+    "beginnerPilotFields": 0,
+    "compiledProductionDefaultFound": true,
+    "physicalDevicePlayback": "not-tested",
+    "physicalDeviceASR": "not-tested",
+    "nextDayHumanRecall": "not-tested",
+    "postLessonComedy": {
+      "builtIn": true,
+      "assets": {
+        "assets/dialogues/post_lesson_comedy.html": {
+          "bytes": 877049,
+          "sha256": "9b4dd71571c28b04e5b53d0bb9209e07b650b874c5c11fde33000460d504f074"
+        },
+        "assets/dialogues/post_lesson_comedy_catalog.json": {
+          "bytes": 30292,
+          "sha256": "9e80b1d9166dcf6ca136bd073e077ca107f27e18083fe254a99ac4a224055f4b"
+        }
+      },
+      "nativePlatformRegistration": "pass",
+      "physicalAndroidWebView": "not-tested"
+    }
+  },
+  "share": {
+    "version": "0.8.53+70",
+    "sourceCommit": "dcb01c0b2a540e36728bf94a265d5f2e8c3ea442",
+    "url": "http://192.168.0.111:8080/earthvillage-0.8.53%2B70.apk",
+    "alternateUrl": "http://192.168.2.150:8080/earthvillage-0.8.53%2B70.apk",
+    "previewUrl": "http://192.168.0.111:8080/fun-dialogues-preview.html",
+    "alternatePreviewUrl": "http://192.168.2.150:8080/fun-dialogues-preview.html",
+    "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+    "checks": [
+      {
+        "url": "http://192.168.0.111:8080/earthvillage-0.8.53%2B70.apk",
+        "status": 200,
+        "bytes": 217149931,
+        "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.0.111:8080/earthvillage-latest.apk",
+        "status": 200,
+        "bytes": 217149931,
+        "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.0.111:8080/fun-dialogues-preview.html",
+        "status": 200,
+        "bytes": 969002,
+        "sha256": "759de4331164724c7e6d105159cccd6fd54586f50991cb070d78eb5557cfdd65",
+        "contentType": "text/html",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-0.8.53%2B70.apk",
+        "status": 200,
+        "bytes": 217149931,
+        "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-latest.apk",
+        "status": 200,
+        "bytes": 217149931,
+        "sha256": "18da521c482e84f2833991b317df8611e6471da18309481a798d694d73f1a6c2",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/fun-dialogues-preview.html",
+        "status": 200,
+        "bytes": 969002,
+        "sha256": "759de4331164724c7e6d105159cccd6fd54586f50991cb070d78eb5557cfdd65",
+        "contentType": "text/html",
+        "fullDownloadVerified": true
+      }
+    ],
+    "qr": "D:\\workspace\\github_code\\GlobalVillage\\build\\apk-share\\apk-download-qr.png",
+    "previewQr": "D:\\workspace\\github_code\\GlobalVillage\\build\\apk-share\\fun-dialogues-preview-qr.png",
+    "serviceRestarted": false,
+    "comedyIncludedInApk": true,
+    "verifiedUtc": "2026-11-14T08:07:13.145748+00:00"
+  },
+  "server": {
+    "passed": 115,
+    "skipped": 2,
+    "exitCode": 0,
+    "skipReason": "No independent PostgreSQL TEST_DATABASE_URL"
+  },
+  "compatibility": {
+    "courseJsonChanged": false,
+    "scoredDialogueJsonChanged": false,
+    "rewardAlgorithmChanged": false,
+    "passThresholdChanged": false
+  },
+  "physicalDevice": {
+    "connected": false,
+    "AndroidWebViewPlayback": "not-tested",
+    "offlineListeningAndASR": "not-tested",
+    "nextDayHumanRecall": "not-tested"
+  },
+  "emulator": {
+    "serial": "emulator-5580",
+    "readOnly": true,
+    "androidApi": 36,
+    "deviceAbi": "x86_64",
+    "apkAbi": "arm64-v8a",
+    "installation": "pass",
+    "launch": "blocked-by-incompatible-emulator-ABI",
+    "AndroidWebViewRuntime": "not-tested",
+    "reason": "The installed Google APIs x86_64 image cannot load the ARM64 Flutter engine. The verified ARM64 release APK was not changed for the emulator."
+  }
+}
