@@ -18,6 +18,7 @@ import 'package:english_village/features/mother_pattern/mother_pattern_providers
 import 'package:english_village/features/mother_pattern/mother_pattern_speech.dart';
 import 'package:english_village/features/mother_pattern/mother_pattern_question.dart';
 import 'package:english_village/features/lesson/widgets/award_celebration.dart';
+import 'package:english_village/features/post_lesson_comedy/post_lesson_comedy.dart';
 import 'mother_pattern_completion_test.dart'
     show PatternProgress, PatternRewards, FailingPatternStore, finishPattern;
 import 'mother_pattern_speech_test.dart'
@@ -29,6 +30,14 @@ import 'tts_cancellation_test.dart'
         ControlledSpeechEngine,
         ControlledAssets,
         ControlledDocuments;
+
+void _testComedyWidgets(String name, Future<void> Function(WidgetTester) body) {
+  testWidgets(
+    name,
+    body,
+    variant: TargetPlatformVariant.only(TargetPlatform.linux),
+  );
+}
 
 class PatternVoice implements TtsService {
   final played = <String>[];
@@ -208,83 +217,84 @@ void main() {
     'teaching start',
     'TTS volume',
   ]) {
-    testWidgets('pending native reference cannot start after $transition', (
-      tester,
-    ) async {
-      final blocked = Completer<void>();
-      final player = ControlledAudioPlayer();
-      final tts = ControlledSpeechEngine();
-      final assets = ControlledAssets();
-      final documents = ControlledDocuments();
-      switch (transition) {
-        case 'next item':
-          assets.waiting = blocked;
-        case 'microphone':
-          player.sourceWait = blocked;
-        case 'account':
-          documents.waiting = blocked;
-          documents.path = 'cached.mp3';
-        case 'departure':
-          assets.exists = false;
-          tts.languageWait = blocked;
-        case 'teaching start':
-          player.contextWait = blocked;
-        case 'TTS volume':
-          assets.exists = false;
-          tts.volumeWait = blocked;
-      }
-      final service = TtsService(
-        player: player,
-        tts: tts,
-        assets: assets,
-        documents: documents,
-      );
-      addTearDown(service.dispose);
-      await app(tester, playback: service);
-      if (transition == 'next item' || transition == 'TTS volume') {
-        await toRecall(tester);
-        await tester.enterText(
-          find.byKey(const ValueKey('pattern-input')),
-          lesson.exercises[6].answer,
+    _testComedyWidgets(
+      'pending native reference cannot start after $transition',
+      (tester) async {
+        final blocked = Completer<void>();
+        final player = ControlledAudioPlayer();
+        final tts = ControlledSpeechEngine();
+        final assets = ControlledAssets();
+        final documents = ControlledDocuments();
+        switch (transition) {
+          case 'next item':
+            assets.waiting = blocked;
+          case 'microphone':
+            player.sourceWait = blocked;
+          case 'account':
+            documents.waiting = blocked;
+            documents.path = 'cached.mp3';
+          case 'departure':
+            assets.exists = false;
+            tts.languageWait = blocked;
+          case 'teaching start':
+            player.contextWait = blocked;
+          case 'TTS volume':
+            assets.exists = false;
+            tts.volumeWait = blocked;
+        }
+        final service = TtsService(
+          player: player,
+          tts: tts,
+          assets: assets,
+          documents: documents,
         );
-        await tap(tester, 'pattern-check');
-        await tap(tester, 'reference-audio');
-        await tap(tester, 'pattern-next');
-        expect(find.text('8 / 10 题'), findsOneWidget);
-      } else if (transition == 'microphone') {
-        await tap(tester, 'pattern-start');
-        for (final e in lesson.exercises.take(4)) {
-          await guided(tester, e);
-        }
-        await tap(tester, 'reference-audio');
-        await tap(tester, 'speech-start');
-        expect(recorder.recording, true);
-      } else {
-        await tap(tester, 'dialogue-audio-0');
-        if (transition == 'teaching start') {
+        addTearDown(service.dispose);
+        await app(tester, playback: service);
+        if (transition == 'next item' || transition == 'TTS volume') {
+          await toRecall(tester);
+          await tester.enterText(
+            find.byKey(const ValueKey('pattern-input')),
+            lesson.exercises[6].answer,
+          );
+          await tap(tester, 'pattern-check');
+          await tap(tester, 'reference-audio');
+          await tap(tester, 'pattern-next');
+          expect(find.text('8 / 10 题'), findsOneWidget);
+        } else if (transition == 'microphone') {
           await tap(tester, 'pattern-start');
-        } else if (transition == 'account') {
-          await tester.runAsync(() async {
-            container!.read(testPatternAccount.notifier).state =
-                MotherPatternStore(userKey: 'bob');
-            await Future<void>.delayed(const Duration(milliseconds: 20));
-          });
-          await tester.pumpAndSettle();
+          for (final e in lesson.exercises.take(4)) {
+            await guided(tester, e);
+          }
+          await tap(tester, 'reference-audio');
+          await tap(tester, 'speech-start');
+          expect(recorder.recording, true);
         } else {
-          await tester.pumpWidget(const SizedBox());
+          await tap(tester, 'dialogue-audio-0');
+          if (transition == 'teaching start') {
+            await tap(tester, 'pattern-start');
+          } else if (transition == 'account') {
+            await tester.runAsync(() async {
+              container!.read(testPatternAccount.notifier).state =
+                  MotherPatternStore(userKey: 'bob');
+              await Future<void>.delayed(const Duration(milliseconds: 20));
+            });
+            await tester.pumpAndSettle();
+          } else {
+            await tester.pumpWidget(const SizedBox());
+          }
         }
-      }
-      await tester.runAsync(() async {
-        blocked.complete();
-        await Future<void>.delayed(const Duration(milliseconds: 20));
-      });
-      await tester.pump();
-      expect(player.starts, isEmpty);
-      expect(tts.spoken, isEmpty);
-    });
+        await tester.runAsync(() async {
+          blocked.complete();
+          await Future<void>.delayed(const Duration(milliseconds: 20));
+        });
+        await tester.pump();
+        expect(player.starts, isEmpty);
+        expect(tts.spoken, isEmpty);
+      },
+    );
   }
   for (final initialTrees in [2, 4]) {
-    testWidgets(
+    _testComedyWidgets(
       'rewarded result and tree ${initialTrees + 1} collection fit 320x560 with 1.8 fonts',
       (tester) async {
         tester.view.physicalSize = const Size(320, 560);
@@ -299,6 +309,12 @@ void main() {
         for (final e in lesson.exercises) {
           await guided(tester, e);
         }
+        expect(find.byType(PostLessonComedy), findsOneWidget);
+        expect(find.byType(AwardCelebration), findsNothing);
+        tester
+            .widget<PostLessonComedy>(find.byType(PostLessonComedy))
+            .onFinished();
+        await tester.pump();
         expect(find.byType(AwardCelebration), findsOneWidget);
         expect(tester.takeException(), isNull);
         await tester.ensureVisible(find.text('收下徽章'));
@@ -311,7 +327,55 @@ void main() {
       },
     );
   }
-  testWidgets(
+  _testComedyWidgets(
+    'formal lesson comedy replays without saving and stops on account change',
+    (tester) async {
+      await app(tester);
+      await tap(tester, 'pattern-start');
+      for (final e in lesson.exercises) {
+        await guided(tester, e);
+      }
+      expect(find.byType(PostLessonComedy), findsOneWidget);
+      expect(progress.saves, 1);
+      final record = store.latestSummary(course.id, lesson.patternLesson!);
+      tester
+          .widget<PostLessonComedy>(find.byType(PostLessonComedy))
+          .onFinished();
+      await tester.pump();
+      tester
+          .widget<AwardCelebration>(find.byType(AwardCelebration))
+          .onCollect();
+      await tester.pump();
+      await tap(tester, 'replay-pattern-comedy');
+      expect(find.byType(PostLessonComedy), findsOneWidget);
+      expect(progress.saves, 1);
+      expect(rewards.treeCount, 1);
+      final afterReplay = store.latestSummary(course.id, lesson.patternLesson!);
+      expect(afterReplay!.sessionId, record!.sessionId);
+      expect(afterReplay.completedAt, record.completedAt);
+      container!.read(testPatternAccount.notifier).state = MotherPatternStore(
+        userKey: 'bob',
+      );
+      await tester.pump();
+      expect(find.byType(PostLessonComedy), findsNothing);
+      expect(find.text('当前账号或课程无法继续这次练习。'), findsOneWidget);
+    },
+  );
+  _testComedyWidgets(
+    'non-scored teaching practice completion never opens comedy',
+    (tester) async {
+      await app(tester, practice: true);
+      await tap(tester, 'pattern-start');
+      for (final e in lesson.exercises) {
+        await guided(tester, e);
+      }
+      expect(find.byType(PostLessonComedy), findsNothing);
+      expect(find.byType(AwardCelebration), findsNothing);
+      expect(progress.saves, 0);
+      expect(rewards.treeCount, 0);
+    },
+  );
+  _testComedyWidgets(
     'stale reference completion does not stop a newer permitted answer playback',
     (tester) async {
       final player = ControlledAudioPlayer()..sourceWait = Completer<void>();
@@ -349,7 +413,7 @@ void main() {
     },
   );
   for (final modality in ['recall', 'typed fallback']) {
-    testWidgets(
+    _testComedyWidgets(
       '$modality input and submit scroll above 220px keyboard at 320x560 and 1.8 fonts',
       (tester) async {
         tester.view.physicalSize = const Size(320, 560);
@@ -393,7 +457,7 @@ void main() {
     );
   }
 
-  testWidgets(
+  _testComedyWidgets(
     'teaching includes dialogue vocabulary rules and offline-id audio before ten stages',
     (tester) async {
       await app(tester);
@@ -414,7 +478,7 @@ void main() {
       expect(voice.stopped, greaterThan(0));
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'independent hints reveal only frame support and keep answer audio hidden until submit',
     (tester) async {
       await app(tester);
@@ -470,7 +534,7 @@ void main() {
       );
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'raw scenario transcript rejects wrong object and accepts authored contractions',
     (tester) async {
       final snapshot = store.reviewSnapshot(course.id, lesson);
@@ -499,10 +563,11 @@ void main() {
         1,
       );
       expect(rewards.treeCount, 0);
+      expect(find.byType(PostLessonComedy), findsNothing);
       expect(progress.saves, 0);
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'denied empty and failed recognition offer retry and explicit typed fallback',
     (tester) async {
       final snapshot = store.reviewSnapshot(course.id, lesson);
@@ -535,50 +600,52 @@ void main() {
       expect(find.text('键盘替代首答 1'), findsOneWidget);
     },
   );
-  testWidgets('account change cancels microphone and ignores late transcript', (
-    tester,
-  ) async {
-    await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
-    await tap(tester, 'speech-start');
-    expect(recorder.recording, true);
-    await tester.runAsync(() async {
-      container!.read(testPatternAccount.notifier).state = MotherPatternStore(
-        userKey: 'bob',
-      );
-      await Future<void>.delayed(const Duration(milliseconds: 20));
-    });
-    await tester.pumpAndSettle();
-    expect(recorder.recording, false);
-    expect(find.text('当前账号或课程无法继续这次练习。'), findsOneWidget);
-    recorder.emit();
-    await tester.pump();
-    expect(find.byKey(const ValueKey('pattern-check')), findsNothing);
-  });
-  testWidgets('account interruption discards a pending offline transcript', (
-    tester,
-  ) async {
-    await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
-    recognizer.result = Completer<String>();
-    await tap(tester, 'speech-start');
-    await tester.runAsync(() async {
+  _testComedyWidgets(
+    'account change cancels microphone and ignores late transcript',
+    (tester) async {
+      await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
+      await tap(tester, 'speech-start');
+      expect(recorder.recording, true);
+      await tester.runAsync(() async {
+        container!.read(testPatternAccount.notifier).state = MotherPatternStore(
+          userKey: 'bob',
+        );
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pumpAndSettle();
+      expect(recorder.recording, false);
+      expect(find.text('当前账号或课程无法继续这次练习。'), findsOneWidget);
       recorder.emit();
-      await Future<void>.delayed(Duration.zero);
-    });
-    await tap(tester, 'speech-stop');
-    expect(find.text('正在离线识别…'), findsOneWidget);
-    await tester.runAsync(() async {
-      container!.read(testPatternAccount.notifier).state = MotherPatternStore(
-        userKey: 'bob',
-      );
-      recognizer.result!.complete('I am Tom.');
-      await Future<void>.delayed(const Duration(milliseconds: 20));
-    });
-    await tester.pumpAndSettle();
-    expect(find.text('I am Tom.'), findsNothing);
-    expect(speech.transcript, '');
-    expect(store.latestSummary(course.id, lesson.patternLesson!), isNull);
-  });
-  testWidgets(
+      await tester.pump();
+      expect(find.byKey(const ValueKey('pattern-check')), findsNothing);
+    },
+  );
+  _testComedyWidgets(
+    'account interruption discards a pending offline transcript',
+    (tester) async {
+      await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
+      recognizer.result = Completer<String>();
+      await tap(tester, 'speech-start');
+      await tester.runAsync(() async {
+        recorder.emit();
+        await Future<void>.delayed(Duration.zero);
+      });
+      await tap(tester, 'speech-stop');
+      expect(find.text('正在离线识别…'), findsOneWidget);
+      await tester.runAsync(() async {
+        container!.read(testPatternAccount.notifier).state = MotherPatternStore(
+          userKey: 'bob',
+        );
+        recognizer.result!.complete('I am Tom.');
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pumpAndSettle();
+      expect(find.text('I am Tom.'), findsNothing);
+      expect(speech.transcript, '');
+      expect(store.latestSummary(course.id, lesson.patternLesson!), isNull);
+    },
+  );
+  _testComedyWidgets(
     'silent recording stays unsubmitted with retry and typed fallback',
     (tester) async {
       await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
@@ -601,7 +668,7 @@ void main() {
       expect(store.latestSummary(course.id, lesson.patternLesson!), isNull);
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'double check and continue callbacks keep one attempt and reset the next input',
     (tester) async {
       final snapshot = store.reviewSnapshot(course.id, lesson);
@@ -636,46 +703,47 @@ void main() {
     },
   );
   for (final order in ['fallback then next', 'next then fallback']) {
-    testWidgets('mixed delayed $order keeps fallback on the originating item', (
-      tester,
-    ) async {
-      final snapshot = store.reviewSnapshot(course.id, lesson);
-      await app(tester, snapshot: snapshot);
-      await spoken(tester, 'I am a teacher.');
-      await tap(tester, 'pattern-check');
-      final question = tester.widget<MotherPatternQuestion>(
-        find.byType(MotherPatternQuestion),
-      );
-      final blocked = Completer<void>();
-      recorder.cancelWaiters.add(blocked);
-      await tester.runAsync(() async {
-        if (order == 'fallback then next') {
-          question.onFallback();
-          await Future<void>.delayed(Duration.zero);
-          question.onNext();
-        } else {
-          question.onNext();
-          await Future<void>.delayed(Duration.zero);
-          question.onFallback();
-        }
-        await Future<void>.delayed(const Duration(milliseconds: 20));
-        blocked.complete();
-        await Future<void>.delayed(const Duration(milliseconds: 20));
-      });
-      await tester.pumpAndSettle();
-      final next = tester.widget<MotherPatternQuestion>(
-        find.byType(MotherPatternQuestion),
-      );
-      expect(next.state.current.id, snapshot.exercises[1].id);
-      expect(next.state.currentTypedFallback, false);
-      expect(
-        next.state.typedFallbackIds.contains(snapshot.exercises[1].id),
-        false,
-      );
-      expect(next.answer, '');
-    });
+    _testComedyWidgets(
+      'mixed delayed $order keeps fallback on the originating item',
+      (tester) async {
+        final snapshot = store.reviewSnapshot(course.id, lesson);
+        await app(tester, snapshot: snapshot);
+        await spoken(tester, 'I am a teacher.');
+        await tap(tester, 'pattern-check');
+        final question = tester.widget<MotherPatternQuestion>(
+          find.byType(MotherPatternQuestion),
+        );
+        final blocked = Completer<void>();
+        recorder.cancelWaiters.add(blocked);
+        await tester.runAsync(() async {
+          if (order == 'fallback then next') {
+            question.onFallback();
+            await Future<void>.delayed(Duration.zero);
+            question.onNext();
+          } else {
+            question.onNext();
+            await Future<void>.delayed(Duration.zero);
+            question.onFallback();
+          }
+          await Future<void>.delayed(const Duration(milliseconds: 20));
+          blocked.complete();
+          await Future<void>.delayed(const Duration(milliseconds: 20));
+        });
+        await tester.pumpAndSettle();
+        final next = tester.widget<MotherPatternQuestion>(
+          find.byType(MotherPatternQuestion),
+        );
+        expect(next.state.current.id, snapshot.exercises[1].id);
+        expect(next.state.currentTypedFallback, false);
+        expect(
+          next.state.typedFallbackIds.contains(snapshot.exercises[1].id),
+          false,
+        );
+        expect(next.answer, '');
+      },
+    );
   }
-  testWidgets(
+  _testComedyWidgets(
     'a changed opening review snapshot saves as stale practice without formal advancement',
     (tester) async {
       var now = DateTime(2026, 11, 13);
@@ -721,7 +789,7 @@ void main() {
       expect(rewards.treeCount, 0);
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'course change and page disposal release recording and reference audio',
     (tester) async {
       await app(tester, snapshot: store.reviewSnapshot(course.id, lesson));
@@ -741,7 +809,7 @@ void main() {
       expect(recorder.disposals, 1);
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     'failed final save has no saved label or celebration and retry saves once',
     (tester) async {
       store.fail = true;
@@ -751,6 +819,7 @@ void main() {
         await guided(tester, e);
       }
       expect(find.text('本次训练已记录'), findsNothing);
+      expect(find.byType(PostLessonComedy), findsNothing);
       expect(find.byType(AwardCelebration), findsNothing);
       expect(find.text('学习记录保存失败，请稍后重试。'), findsOneWidget);
       expect(rewards.treeCount, 1);
@@ -771,9 +840,10 @@ void main() {
         2,
       );
       expect(find.text('独立首答 4 / 4'), findsOneWidget);
+      expect(find.byType(PostLessonComedy), findsOneWidget);
     },
   );
-  testWidgets(
+  _testComedyWidgets(
     '320x560 and 1.8 text scaling keep teaching and scenario actions reachable',
     (tester) async {
       tester.view.physicalSize = const Size(320, 560);

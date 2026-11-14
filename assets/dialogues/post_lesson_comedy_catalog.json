@@ -1,0 +1,822 @@
+{
+  "episodes": [
+    {
+      "id": "Z01",
+      "courseId": "zero",
+      "lessonId": "z_u2l1",
+      "title": "一块也可以",
+      "titleEn": "One Is Enough",
+      "lines": [
+        {
+          "action": "摆出一块小饼干。",
+          "speaker": "艾米",
+          "english": "One.",
+          "number": 1,
+          "audioId": "Z01_1",
+          "chinese": "一。",
+          "duration": 1.515,
+          "recording": "10c71c6aee022a38c55f4795ddfa78ac2bb997df3dabf995065a078cb82225d1"
+        },
+        {
+          "action": "在自己的一侧摆出两块小饼干。",
+          "speaker": "汤姆",
+          "english": "Two.",
+          "number": 2,
+          "audioId": "Z01_2",
+          "chinese": "二。",
+          "duration": 1.332,
+          "recording": "9910296ef3dc82a5680d8bb143afb039fbae8a5241a18a871d4db0e410d27dff"
+        },
+        {
+          "action": "把自己的一侧补到三块。",
+          "speaker": "艾米",
+          "english": "Three.",
+          "number": 3,
+          "audioId": "Z01_3",
+          "chinese": "三。",
+          "duration": 1.463,
+          "recording": "16955d04da7b6b09197893b1582caae6f79f9469cc523b8dcf591edbf81c84f4"
+        },
+        {
+          "action": "把自己的一侧补到四块，得意挑眉。",
+          "speaker": "汤姆",
+          "english": "Four.",
+          "number": 4,
+          "audioId": "Z01_4",
+          "chinese": "四。",
+          "duration": 1.567,
+          "recording": "f617aa60cb57e8c93c61e827108c8c6e2b56f49b2b443d0b11a7a77a302e2ebf"
+        },
+        {
+          "action": "把自己的一侧补到五块，伸手展示。",
+          "speaker": "艾米",
+          "english": "Five.",
+          "number": 5,
+          "audioId": "Z01_5",
+          "chinese": "五。",
+          "duration": 1.62,
+          "recording": "ce3e4c8c7fc48a39a0ee5a3b28a03b619650ace771d9378a46b81033a27b9271"
+        },
+        {
+          "action": "移开遮盖布：另一盘只有一块饼干，但大得几乎占满桌面。",
+          "speaker": "汤姆",
+          "english": "One!",
+          "number": 6,
+          "audioId": "Z01_6",
+          "chinese": "一！",
+          "duration": 1.515,
+          "recording": "4ce5b0ea503574ff9d76aabd86547237ce140d4599ae8666432259d5631435f3"
+        }
+      ]
+    },
+    {
+      "id": "Z02",
+      "courseId": "zero",
+      "lessonId": "z_u3l1",
+      "title": "今天的作品",
+      "titleEn": "Today's Artwork",
+      "lines": [
+        {
+          "action": "蘸红色画笔，画第一条线。",
+          "speaker": "艾米",
+          "english": "Red.",
+          "number": 1,
+          "audioId": "Z02_1",
+          "chinese": "红色。",
+          "duration": 1.411,
+          "recording": "b2bdecb330c8efa0dd79263ddbe9dc7ab9a2cb8809bf586129e922541fcb0ecd"
+        },
+        {
+          "action": "指向画上的红线，点头。",
+          "speaker": "汤姆",
+          "english": "Red.",
+          "number": 2,
+          "audioId": "Z02_2",
+          "chinese": "红色。",
+          "duration": 1.411,
+          "recording": "8a7fae3eafcd7ad178e20afd9e25bcb98a68a8705894350fda6a7cd2860969c2"
+        },
+        {
+          "action": "画第二条线，袖口不小心蹭上一点黄色。",
+          "speaker": "艾米",
+          "english": "Yellow.",
+          "number": 3,
+          "audioId": "Z02_3",
+          "chinese": "黄色。",
+          "duration": 1.515,
+          "recording": "7d093838ea4a407dca10787c41d329c4c2dce515d6df89f3f2c8ff28fc3a81bc"
+        },
+        {
+          "action": "指向黄色线，注意到袖口，忍住笑。",
+          "speaker": "汤姆",
+          "english": "Yellow.",
+          "number": 4,
+          "audioId": "Z02_4",
+          "chinese": "黄色。",
+          "duration": 1.515,
+          "recording": "17d7974222a4a453dfe5821f8edb00fbf677455edb1cae222c19b2908b3663d0"
+        },
+        {
+          "action": "完成第三条线，自豪地站到画旁。",
+          "speaker": "艾米",
+          "english": "Blue.",
+          "number": 5,
+          "audioId": "Z02_5",
+          "chinese": "蓝色。",
+          "duration": 1.384,
+          "recording": "7a4f644fe50ed20ec59328ff826349e747a0f19964f4d523c23aa03cbda1ba16"
+        },
+        {
+          "action": "依次指向艾米罩衣上的三种色点；镜头拉开，衣服比画还鲜艳。",
+          "speaker": "汤姆",
+          "english": "Red. Yellow. Blue.",
+          "number": 6,
+          "audioId": "Z02_6",
+          "chinese": "红色。黄色。蓝色。",
+          "duration": 4.206,
+          "recording": "eff40ba4dfa6d52bffbb5a36e7c9aadbd402b5af07f11df79e6fc8c7dae482cb"
+        }
+      ]
+    },
+    {
+      "id": "Z03",
+      "courseId": "zero",
+      "lessonId": "z_u4l1",
+      "title": "换你来试试",
+      "titleEn": "Your Turn",
+      "lines": [
+        {
+          "action": "艾米站起来；汤姆仍坐着。",
+          "speaker": "汤姆",
+          "english": "Stand up.",
+          "number": 1,
+          "audioId": "Z03_1",
+          "chinese": "站起来。",
+          "duration": 1.802,
+          "recording": "4edacc42d22149718452c80915e8743def054e3c80dd998e426317e0648a36fa"
+        },
+        {
+          "action": "艾米坐下；汤姆轻松地换一张卡。",
+          "speaker": "汤姆",
+          "english": "Sit down.",
+          "number": 2,
+          "audioId": "Z03_2",
+          "chinese": "坐下。",
+          "duration": 1.776,
+          "recording": "73d73c59579b15a86b28ad12fdef637cc9672d8652f6c6983aec71e398481b67"
+        },
+        {
+          "action": "艾米又站起来，看看一直坐着的汤姆。",
+          "speaker": "汤姆",
+          "english": "Stand up.",
+          "number": 3,
+          "audioId": "Z03_3",
+          "chinese": "站起来。",
+          "duration": 1.802,
+          "recording": "4edacc42d22149718452c80915e8743def054e3c80dd998e426317e0648a36fa"
+        },
+        {
+          "action": "艾米接过卡，指向汤姆；汤姆意外地站起来。",
+          "speaker": "艾米",
+          "english": "Stand up.",
+          "number": 4,
+          "audioId": "Z03_4",
+          "chinese": "站起来。",
+          "duration": 1.802,
+          "recording": "1f51070061f3ff0a894fcafa10084303e503354a45403cb209cf97260155d608"
+        },
+        {
+          "action": "汤姆立即给自己和艾米下达坐下指令，两人坐回去。",
+          "speaker": "汤姆",
+          "english": "Sit down.",
+          "number": 5,
+          "audioId": "Z03_5",
+          "chinese": "坐下。",
+          "duration": 1.776,
+          "recording": "73d73c59579b15a86b28ad12fdef637cc9672d8652f6c6983aec71e398481b67"
+        },
+        {
+          "action": "汤姆正要继续开口，艾米做安静手势，把指令卡放到桌上。",
+          "speaker": "艾米",
+          "english": "Be quiet.",
+          "number": 6,
+          "audioId": "Z03_6",
+          "chinese": "安静。",
+          "duration": 1.646,
+          "recording": "60a4efaa80d17cdb2c6d078a01704805a3479838684a006b7fe196742092f472"
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "courseId": "beginner",
+      "lessonId": "u4l4",
+      "title": "一份沙拉",
+      "titleEn": "A Salad",
+      "lines": [
+        {
+          "action": "拿出点餐本。",
+          "speaker": "艾米",
+          "english": "Can I help you?",
+          "number": 1,
+          "audioId": "B01_1",
+          "chinese": "您需要点什么？",
+          "duration": 1.933,
+          "recording": "8e6fa0f1ef5d19b9fb2fb164568b563998139a0fa71a685e86270de63d2d4a73"
+        },
+        {
+          "action": "很坚定地点一下菜单上的沙拉。",
+          "speaker": "汤姆",
+          "english": "I would like a salad.",
+          "number": 2,
+          "audioId": "B01_2",
+          "chinese": "我想要一份沙拉。",
+          "duration": 2.142,
+          "recording": "ec42fd15590c5f632c44f1667e9443390660856eb0abcec05920fa85264683c2"
+        },
+        {
+          "action": "指向饮料一栏。",
+          "speaker": "艾米",
+          "english": "Anything to drink?",
+          "number": 3,
+          "audioId": "B01_3",
+          "chinese": "要喝点什么吗？",
+          "duration": 2.168,
+          "recording": "714fbe3e9b3aac51e2d96349d34e88b8b1c56ff50022a6b540736d75ed4fdf3b"
+        },
+        {
+          "action": "再次认真点头。",
+          "speaker": "汤姆",
+          "english": "I would like some water.",
+          "number": 4,
+          "audioId": "B01_4",
+          "chinese": "我想要一些水。",
+          "duration": 2.273,
+          "recording": "f978061a32d71064a04fa57acc04d41637b46b60f52fcfc19819e0f445e2b04b"
+        },
+        {
+          "action": "端来一份沙拉和水。",
+          "speaker": "艾米",
+          "english": "Here you are.",
+          "number": 5,
+          "audioId": "B01_5",
+          "chinese": "给您。",
+          "duration": 1.776,
+          "recording": "2691e97a8d23d487a21f382fe7382e7ab8e23d4e1e1e9a7347afbfcc0fc5128d"
+        },
+        {
+          "action": "从包里拿出汉堡，小心地从沙拉里取一片生菜，放进汉堡。",
+          "speaker": "汤姆",
+          "english": "Thank you very much.",
+          "number": 6,
+          "audioId": "B01_6",
+          "chinese": "非常感谢。",
+          "duration": 2.273,
+          "recording": "1f703b713d86bda9e2865a6f802b3c9412ce73f39b21116cf48ffe48e4185a7a"
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "courseId": "beginner",
+      "lessonId": "u9l1",
+      "title": "朋友的价格",
+      "titleEn": "The Friend Price",
+      "lines": [
+        {
+          "action": "指向手里的衬衫。",
+          "speaker": "艾米",
+          "english": "How much is this shirt?",
+          "number": 1,
+          "audioId": "B02_1",
+          "chinese": "这件衬衫多少钱？",
+          "duration": 2.273,
+          "recording": "cbe0c4706d7571e92c7d6ea7483d2181115de838e06b976cef60e7fc53eeb197"
+        },
+        {
+          "action": "指向正常价签。",
+          "speaker": "汤姆",
+          "english": "Ten dollars.",
+          "number": 2,
+          "audioId": "B02_2",
+          "chinese": "十美元。",
+          "duration": 1.881,
+          "recording": "2a737952d4134ea2ef29db02a62e646612a0322d56ffeabe880af3ddec75211e"
+        },
+        {
+          "action": "试探地向前凑一点。",
+          "speaker": "艾米",
+          "english": "And for a friend?",
+          "number": 3,
+          "audioId": "B02_3",
+          "chinese": "朋友价呢？",
+          "duration": 1.907,
+          "recording": "18f889a2611f2a690223794ba5a3563ac52b1d807b36edc74f2313b5e1be7f18"
+        },
+        {
+          "action": "举起写着朋友价的小牌。",
+          "speaker": "汤姆",
+          "english": "Eight dollars.",
+          "number": 4,
+          "audioId": "B02_4",
+          "chinese": "八美元。",
+          "duration": 1.881,
+          "recording": "d1d2f9bb1ad2b3d273c4f3103f0f2b101a77b634a3f31309abc9d5657c420970"
+        },
+        {
+          "action": "立刻热情地伸出手准备握手。",
+          "speaker": "艾米",
+          "english": "Hello, my friend!",
+          "number": 5,
+          "audioId": "B02_5",
+          "chinese": "你好，我的朋友！",
+          "duration": 2.612,
+          "recording": "9d597aafd5907a77ae9cd20e3fcd1b0ef38cfb75d6398f637565cd6fbcb7ec89"
+        },
+        {
+          "action": "笑着把正常价签轻轻放到她伸出的手里。",
+          "speaker": "汤姆",
+          "english": "Nice to meet you. Ten dollars.",
+          "number": 6,
+          "audioId": "B02_6",
+          "chinese": "很高兴认识你。十美元。",
+          "duration": 3.788,
+          "recording": "952cbdf14e73afc5575a1f1a74d7aa08e0927d8cd0a891a117875f91b09beb7b"
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "courseId": "beginner",
+      "lessonId": "u23l1",
+      "title": "帮我找一下",
+      "titleEn": "Help Me Find It",
+      "lines": [
+        {
+          "action": "一边翻桌面，一边检查包。",
+          "speaker": "汤姆",
+          "english": "I can't find my phone.",
+          "number": 1,
+          "audioId": "B03_1",
+          "chinese": "我找不到手机了。",
+          "duration": 2.508,
+          "recording": "703bfe66ae5790c20afcecff82c44cc72091da7d56f9025069e479c3867b0f99"
+        },
+        {
+          "action": "拿出自己的手机拨号。",
+          "speaker": "艾米",
+          "english": "I'll call it.",
+          "number": 2,
+          "audioId": "B03_2",
+          "chinese": "我打一下你的手机。",
+          "duration": 1.855,
+          "recording": "ba114727c1146d12bb85c7734aa4009a57d8a1a09c7fd9c1e3991f13fbf81886"
+        },
+        {
+          "action": "口袋铃声响起，他习惯性地拿出手机接听，另一只手仍在找。",
+          "speaker": "汤姆",
+          "english": "Hello?",
+          "number": 3,
+          "audioId": "B03_3",
+          "chinese": "喂？",
+          "duration": 1.437,
+          "recording": "d49817b62062baf2710b62e2839c1834f8eed227ba3f0e50c337ce6cd677b64b"
+        },
+        {
+          "action": "看着他手里的手机。",
+          "speaker": "艾米",
+          "english": "Did you find your phone?",
+          "number": 4,
+          "audioId": "B03_4",
+          "chinese": "找到手机了吗？",
+          "duration": 2.403,
+          "recording": "f0865621e2d1e0554ce87fe0a369ef3cb59a6c5a2972d2ea735690a13002e8ae"
+        },
+        {
+          "action": "继续低头找；手机贴着耳朵。",
+          "speaker": "汤姆",
+          "english": "Not yet. I'm still looking.",
+          "number": 5,
+          "audioId": "B03_5",
+          "chinese": "还没有，我还在找。",
+          "duration": 3.709,
+          "recording": "72d583b4bc1f503677fa8d7e3cacc7158125c91d983bb97fc3b9b49bad0662a5"
+        }
+      ]
+    },
+    {
+      "id": "M01",
+      "courseId": "motherPattern",
+      "lessonId": "mp_u1l3",
+      "title": "一起拍张照",
+      "titleEn": "A Photo Together",
+      "lines": [
+        {
+          "action": "把汤姆拉到镜头中间。",
+          "speaker": "艾米",
+          "english": "This is my friend Tom.",
+          "number": 1,
+          "audioId": "M01_1",
+          "chinese": "这是我的朋友汤姆。",
+          "duration": 2.429,
+          "recording": "dc54931ca2888e2f35c3d285d39c23782b9f1684a027bd73b4f5210e0bca714b"
+        },
+        {
+          "action": "把艾米也拉到镜头中间。",
+          "speaker": "汤姆",
+          "english": "This is my friend Amy.",
+          "number": 2,
+          "audioId": "M01_2",
+          "chinese": "这是我的朋友艾米。",
+          "duration": 2.377,
+          "recording": "52dc92eda6fcc0d016d4d8c3acdae0403359ab7954dc65fec2624d99bb90c61c"
+        },
+        {
+          "action": "兴奋地把书举到脸前展示。",
+          "speaker": "艾米",
+          "english": "This is a book.",
+          "number": 3,
+          "audioId": "M01_3",
+          "chinese": "这是一本书。",
+          "duration": 1.829,
+          "recording": "e3bb40e6a6ec7710f5d40908942dc0db6c29ae9bd8e1ce457efdfe466f918978"
+        },
+        {
+          "action": "同样把包举到脸前。相机在这一刻拍下照片。",
+          "speaker": "汤姆",
+          "english": "This is a bag.",
+          "number": 4,
+          "audioId": "M01_4",
+          "chinese": "这是一个包。",
+          "duration": 1.855,
+          "recording": "d3af57435cb240ff868743c27d3ab0f48c848251460689bbdfc65803a08389c2"
+        },
+        {
+          "action": "看照片：自己该出现的位置只有一本书，语气从自豪变成无奈。",
+          "speaker": "艾米",
+          "english": "This is a book.",
+          "number": 5,
+          "audioId": "M01_5",
+          "chinese": "这是一本书。",
+          "duration": 1.829,
+          "recording": "e3bb40e6a6ec7710f5d40908942dc0db6c29ae9bd8e1ce457efdfe466f918978"
+        },
+        {
+          "action": "看照片：自己该出现的位置只有一个包，缓缓点头。",
+          "speaker": "汤姆",
+          "english": "This is a bag.",
+          "number": 6,
+          "audioId": "M01_6",
+          "chinese": "这是一个包。",
+          "duration": 1.855,
+          "recording": "d3af57435cb240ff868743c27d3ab0f48c848251460689bbdfc65803a08389c2"
+        }
+      ]
+    },
+    {
+      "id": "M02",
+      "courseId": "motherPattern",
+      "lessonId": "mp_u2l2",
+      "title": "一起换一下",
+      "titleEn": "A Little Swap",
+      "lines": [
+        {
+          "action": "指向面前的茶杯，轻轻摇头。",
+          "speaker": "艾米",
+          "english": "I don't like tea.",
+          "number": 1,
+          "audioId": "M02_1",
+          "chinese": "我不喜欢茶。",
+          "duration": 1.985,
+          "recording": "8c827548cefbce3d070f1195c314b4a5d2f988d57e15fee3bcb478e976049906"
+        },
+        {
+          "action": "指向面前的牛奶，也摇头。",
+          "speaker": "汤姆",
+          "english": "I don't like milk.",
+          "number": 2,
+          "audioId": "M02_2",
+          "chinese": "我不喜欢牛奶。",
+          "duration": 2.09,
+          "recording": "912b282b45b5c1ce4c2f2b2308bd66f74816abc24542234d3ad68e00a064263d"
+        },
+        {
+          "action": "先伸手交换两杯，自己拿到牛奶，汤姆拿到茶。",
+          "speaker": "艾米",
+          "english": "I like milk.",
+          "number": 3,
+          "audioId": "M02_3",
+          "chinese": "我喜欢牛奶。",
+          "duration": 1.829,
+          "recording": "de8df61c955ab588ee141f0777cf23f6d2ffbea8cc3b7c531ce0d4eb47257a21"
+        },
+        {
+          "action": "他也想帮忙，却没有注意艾米已经换过，低头又把两杯交换一次。",
+          "speaker": "汤姆",
+          "english": "I like tea.",
+          "number": 4,
+          "audioId": "M02_4",
+          "chinese": "我喜欢茶。",
+          "duration": 1.698,
+          "recording": "e5acee15ec1f0a3e3d06258fc979c56b4aab72ae637ef35b010efc5681c80b62"
+        },
+        {
+          "action": "看看又回到面前的茶杯，抬头看汤姆，停住。",
+          "speaker": "艾米",
+          "english": "I don't like tea.",
+          "number": 5,
+          "audioId": "M02_5",
+          "chinese": "我不喜欢茶。",
+          "duration": 1.985,
+          "recording": "8c827548cefbce3d070f1195c314b4a5d2f988d57e15fee3bcb478e976049906"
+        },
+        {
+          "action": "看看又回来的牛奶，再看看艾米，两人同时意识到重复帮忙。",
+          "speaker": "汤姆",
+          "english": "I don't like milk.",
+          "number": 6,
+          "audioId": "M02_6",
+          "chinese": "我不喜欢牛奶。",
+          "duration": 2.09,
+          "recording": "912b282b45b5c1ce4c2f2b2308bd66f74816abc24542234d3ad68e00a064263d"
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "courseId": "motherPattern",
+      "lessonId": "mp_u3l1",
+      "title": "准备出门",
+      "titleEn": "Ready to Go",
+      "lines": [
+        {
+          "action": "伸出一只手。",
+          "speaker": "汤姆",
+          "english": "I need a pen.",
+          "number": 1,
+          "audioId": "M03_1",
+          "chinese": "我需要一支笔。",
+          "duration": 1.802,
+          "recording": "6e020e45a77eaef24baaa2bc23b503a2226c22bc83cd1db2c0e1f6e17f8aa252"
+        },
+        {
+          "action": "把笔递给他。",
+          "speaker": "艾米",
+          "english": "Here you are.",
+          "number": 2,
+          "audioId": "M03_2",
+          "chinese": "给你。",
+          "duration": 1.776,
+          "recording": "2691e97a8d23d487a21f382fe7382e7ab8e23d4e1e1e9a7347afbfcc0fc5128d"
+        },
+        {
+          "action": "换另一只手接书。",
+          "speaker": "汤姆",
+          "english": "I need a book.",
+          "number": 3,
+          "audioId": "M03_3",
+          "chinese": "我需要一本书。",
+          "duration": 1.802,
+          "recording": "2f09902f0b02c43773a526bc2a2c033e26de5ab666d0d4366591d65fd14be856"
+        },
+        {
+          "action": "把大书放到他的手臂上，他开始腾不出手。",
+          "speaker": "艾米",
+          "english": "Here you are.",
+          "number": 4,
+          "audioId": "M03_4",
+          "chinese": "给你。",
+          "duration": 1.776,
+          "recording": "2691e97a8d23d487a21f382fe7382e7ab8e23d4e1e1e9a7347afbfcc0fc5128d"
+        },
+        {
+          "action": "看看手上的东西，指向桌边两个空包，希望方便装起来。",
+          "speaker": "汤姆",
+          "english": "I need two bags.",
+          "number": 5,
+          "audioId": "M03_5",
+          "chinese": "我需要两个包。",
+          "duration": 2.168,
+          "recording": "db5cb7ce9704b92f8fff6cec8f30da5ce4cc03e3f35a46cc8b0ac5402692f8b5"
+        },
+        {
+          "action": "很认真地把两个空包也堆到他的手臂上，东西反而更多了。",
+          "speaker": "艾米",
+          "english": "Here you are.",
+          "number": 6,
+          "audioId": "M03_6",
+          "chinese": "给你。",
+          "duration": 1.776,
+          "recording": "2691e97a8d23d487a21f382fe7382e7ab8e23d4e1e1e9a7347afbfcc0fc5128d"
+        }
+      ]
+    },
+    {
+      "id": "I01",
+      "courseId": "intermediate",
+      "lessonId": "i_u3l4",
+      "title": "我的选择",
+      "titleEn": "My Choice",
+      "lines": [
+        {
+          "action": "在“时间”一栏打勾。",
+          "speaker": "艾米",
+          "english": "The online option would save me an hour each day.",
+          "number": 1,
+          "audioId": "I01_1",
+          "chinese": "线上课程能让我每天省一个小时。",
+          "duration": 3.709,
+          "recording": "9da93cde4508ebf03f86a15dfe9306c80969bb12a5a1f0d89ea2423af56a1537"
+        },
+        {
+          "action": "指向她已经勾选的晚间课。",
+          "speaker": "汤姆",
+          "english": "Then why did you choose the evening course?",
+          "number": 2,
+          "audioId": "I01_2",
+          "chinese": "那你为什么选了晚间课程？",
+          "duration": 3.291,
+          "recording": "e6ddc3ec743d58068555feee6086959e7b372e055344bbd04bfe032fd3fe61fc"
+        },
+        {
+          "action": "从课程介绍下面抽出一张蛋糕菜单。",
+          "speaker": "艾米",
+          "english": "The café next door has better cake.",
+          "number": 3,
+          "audioId": "I01_3",
+          "chinese": "隔壁咖啡馆的蛋糕更好吃。",
+          "duration": 3.135,
+          "recording": "7628fb83a8f0c156ddc73463b69b5e342b2ee4b72b1d89f3d463d7b899d56496"
+        },
+        {
+          "action": "看看她的比较表。",
+          "speaker": "汤姆",
+          "english": "That wasn't on your list.",
+          "number": 4,
+          "audioId": "I01_4",
+          "chinese": "你的清单上没写这个。",
+          "duration": 2.456,
+          "recording": "f322e0ffdf82d3115d2a09b7cfc2d20e24dc99764e81380fb440ef4bc6a513d3"
+        },
+        {
+          "action": "郑重地指向蛋糕菜单，用课程句型解释自己的选择。",
+          "speaker": "艾米",
+          "english": "I chose this option because it meets my main needs.",
+          "number": 5,
+          "audioId": "I01_5",
+          "chinese": "我选择这个方案，因为它满足我的主要需求。",
+          "duration": 4.049,
+          "recording": "c246f99a3f0d478de176fa438a618e404d81a44af0519c212c27fc23dce20a2d"
+        },
+        {
+          "action": "给她一支笔，把菜单放到表格最上方。",
+          "speaker": "汤姆",
+          "english": "Next time, put cake at the top.",
+          "number": 6,
+          "audioId": "I01_6",
+          "chinese": "下次把蛋糕写在最上面。",
+          "duration": 3.448,
+          "recording": "04fd673e8ee75aa5c5aef8e8e7ab0689dcd8db3d5055b2555152374d2d061dcb"
+        }
+      ]
+    },
+    {
+      "id": "I02",
+      "courseId": "intermediate",
+      "lessonId": "i_u5l1",
+      "title": "测试很顺利",
+      "titleEn": "The Test Went Well",
+      "lines": [
+        {
+          "action": "指向设备，准备分工。",
+          "speaker": "汤姆",
+          "english": "Who will be responsible for testing the new system?",
+          "number": 1,
+          "audioId": "I02_1",
+          "chinese": "谁负责测试这个新系统？",
+          "duration": 3.709,
+          "recording": "5b2613a8102d10240158f1640fb96adaa9c43aa147353a86aa795af61ac7d958"
+        },
+        {
+          "action": "拿出清单和数据卡。",
+          "speaker": "艾米",
+          "english": "I can lead the testing if you prepare the sample data.",
+          "number": 2,
+          "audioId": "I02_2",
+          "chinese": "如果你准备样本数据，我可以负责测试。",
+          "duration": 3.84,
+          "recording": "7a6b694deae3f4e42896080b421362285dbf42e916a905879b9ba99c2d3c118b"
+        },
+        {
+          "action": "指着亮着的电源灯，得意地收起清单。",
+          "speaker": "汤姆",
+          "english": "I've already tested it. Everything works.",
+          "number": 3,
+          "audioId": "I02_3",
+          "chinese": "我已经测试过了。一切正常。",
+          "duration": 4.362,
+          "recording": "d476155763f57ca124f771def8183e78cf62e2164d1c78d7513163bab181a698"
+        },
+        {
+          "action": "看看还完全空白的清单。",
+          "speaker": "艾米",
+          "english": "What did you test?",
+          "number": 4,
+          "audioId": "I02_4",
+          "chinese": "你测试了什么？",
+          "duration": 2.09,
+          "recording": "4d949e0ca5b493aa79d55539b02e1073346a623f3afcee1f29b4e29a88d78402"
+        },
+        {
+          "action": "用一根手指展示自己按过的按钮。",
+          "speaker": "汤姆",
+          "english": "The power button.",
+          "number": 5,
+          "audioId": "I02_5",
+          "chinese": "电源按钮。",
+          "duration": 1.985,
+          "recording": "7b1984d6c51d42e05b10bc2b7584a446bc365d5e80e3f1af76d5430093124f29"
+        },
+        {
+          "action": "笑着把清单重新打开，放到两人中间。",
+          "speaker": "艾米",
+          "english": "Great. Now we can start the testing.",
+          "number": 6,
+          "audioId": "I02_6",
+          "chinese": "很好。现在我们可以开始测试了。",
+          "duration": 4.18,
+          "recording": "0b9604687ad01e9ea42105987748d89c55c33a9c66112779e5a06517139c468e"
+        }
+      ]
+    },
+    {
+      "id": "I03",
+      "courseId": "intermediate",
+      "lessonId": "i_u7l2",
+      "title": "等你回复",
+      "titleEn": "Waiting for Your Reply",
+      "lines": [
+        {
+          "action": "很有把握地指向日历上的周五。",
+          "speaker": "艾米",
+          "english": "Would it be possible to confirm the details by Friday?",
+          "number": 1,
+          "audioId": "I03_1",
+          "chinese": "能否在周五之前确认这些细节？",
+          "duration": 4.127,
+          "recording": "fae70bb30bf4abdb8a77ca8c942530a4e17cbac29d43375e19864bb2ca9823cd"
+        },
+        {
+          "action": "打开邮件，找附件。",
+          "speaker": "汤姆",
+          "english": "Of course. Could you send me the schedule?",
+          "number": 2,
+          "audioId": "I03_2",
+          "chinese": "当然可以。你能把日程发给我吗？",
+          "duration": 4.232,
+          "recording": "01228ea7886256e5531da7d3d20430959b7c8dc594ff3a7a2c19dfdf2058f734"
+        },
+        {
+          "action": "指向自己的已发送邮件。",
+          "speaker": "艾米",
+          "english": "I sent it this morning.",
+          "number": 3,
+          "audioId": "I03_3",
+          "chinese": "我今天早上已经发了。",
+          "duration": 2.299,
+          "recording": "cd93082df3c50dea1a930ca95536c5b6fe4dee17beedf40b5c8fb370188b4404"
+        },
+        {
+          "action": "把邮件正文转向她。",
+          "speaker": "汤姆",
+          "english": "Your email says, “Please find the updated schedule attached.”",
+          "number": 4,
+          "audioId": "I03_4",
+          "chinese": "你的邮件写着：“更新后的日程请见附件。”",
+          "duration": 5.068,
+          "recording": "ea347594a506d7c0949e1a70c2ca2211c59710fcaa5eb967b2e3436cb8e15e35"
+        },
+        {
+          "action": "还在自信点头。",
+          "speaker": "艾米",
+          "english": "Yes. Is there a problem?",
+          "number": 5,
+          "audioId": "I03_5",
+          "chinese": "对呀。有什么问题吗？",
+          "duration": 3.605,
+          "recording": "5a0cd7ea97ff38c763dc3f74d3cbc763da11d6566d307aaf0f42749bf69abee2"
+        },
+        {
+          "action": "指向正文下面空空的附件区域。",
+          "speaker": "汤姆",
+          "english": "Only one. There isn't an attachment.",
+          "number": 6,
+          "audioId": "I03_6",
+          "chinese": "就一个问题。没有附件。",
+          "duration": 3.997,
+          "recording": "b046bde19cd31e9f6509f8bc9a9028a89e0c36d263758658bb7fa5ed8779bffc"
+        }
+      ]
+    }
+  ]
+}

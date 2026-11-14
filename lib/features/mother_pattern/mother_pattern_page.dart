@@ -9,6 +9,7 @@ import '../../core/services/tts_service.dart';
 import '../../data/models/course.dart';
 import '../../data/sources/mother_pattern_store.dart';
 import '../lesson/widgets/award_celebration.dart';
+import '../post_lesson_comedy/post_lesson_comedy.dart';
 import 'mother_pattern_controller.dart';
 import 'mother_pattern_completion.dart';
 import 'mother_pattern_providers.dart';
@@ -55,6 +56,8 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
   bool _allowExit = false;
   bool _askingExit = false;
   bool _showAward = false;
+  bool _showComedy = false;
+  bool _awardAfterComedy = false;
   int _audioGeneration = 0;
   int _questionSerial = 0;
   MotherPatternCompletionResult? _saved;
@@ -258,7 +261,8 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
       }
       setState(() {
         _saved = saved;
-        _showAward = saved.award != null;
+        _showComedy = saved.award != null;
+        _awardAfterComedy = saved.award != null;
       });
     } catch (_) {
       if (_active) setState(() => _failed = true);
@@ -332,24 +336,26 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
     return PopScope(
       canPop: _allowExit || (_saved != null && !_saving) || _interrupted,
       onPopInvokedWithResult: (popped, result) {
-        if (!popped) unawaited(_exit());
+        if (!popped && !_showComedy) unawaited(_exit());
       },
       child: AdaptiveContentColumn(
         child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              _teaching
-                  ? s.motherPatternTitle
-                  : state.isReview
-                  ? s.patternReviewTitle
-                  : s.motherPatternIndependentTitle,
-            ),
-            leading: IconButton(
-              tooltip: s.back,
-              onPressed: _saving ? null : _exit,
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
+          appBar: _showComedy
+              ? null
+              : AppBar(
+                  title: Text(
+                    _teaching
+                        ? s.motherPatternTitle
+                        : state.isReview
+                        ? s.patternReviewTitle
+                        : s.motherPatternIndependentTitle,
+                  ),
+                  leading: IconButton(
+                    tooltip: s.back,
+                    onPressed: _saving ? null : _exit,
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                ),
           body: Stack(
             children: [
               SafeArea(
@@ -382,6 +388,12 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
                               !widget.practice && widget.reviewSnapshot == null,
                           onRetry: _save,
                           onDone: _exit,
+                          onComedyReplay: _saved?.award == null
+                              ? null
+                              : () => setState(() {
+                                  _awardAfterComedy = false;
+                                  _showComedy = true;
+                                }),
                         )
                       else
                         MotherPatternQuestion(
@@ -418,6 +430,22 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
                     isPerfect: state.accuracy >= 1,
                     treeCount: _saved!.treeCount,
                     onCollect: () => setState(() => _showAward = false),
+                  ),
+                ),
+              if (_showComedy && _saved?.award != null)
+                Positioned.fill(
+                  child: PostLessonComedy(
+                    courseId: _course.id,
+                    lessonId: _lesson!.id,
+                    strings: s,
+                    onFinished: () {
+                      if (!_active) return;
+                      setState(() {
+                        _showComedy = false;
+                        _showAward = _awardAfterComedy;
+                        _awardAfterComedy = false;
+                      });
+                    },
                   ),
                 ),
             ],
