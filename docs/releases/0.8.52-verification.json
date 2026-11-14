@@ -22,26 +22,38 @@
   "physicalDeviceASR": "not-tested",
   "nextDayHumanRecall": "not-tested",
   "share": {
-    "url": "http://192.168.2.150:8080/earthvillage-0.8.52.apk",
-    "latestUrl": "http://192.168.2.150:8080/earthvillage-latest.apk",
-    "headChecks": [
+    "url": "http://192.168.0.111:8080/earthvillage-0.8.52.apk",
+    "latestUrl": "http://192.168.0.111:8080/earthvillage-latest.apk",
+    "alternateUrl": "http://192.168.2.150:8080/earthvillage-0.8.52.apk",
+    "versionCode": 69,
+    "fullDownloads": [
       {
-        "name": "earthvillage-0.8.52.apk",
+        "url": "http://192.168.0.111:8080/earthvillage-0.8.52.apk",
         "status": 200,
-        "contentLength": 216682551
+        "bytes": 216682551,
+        "sha256": "c07daffd72e6109dff855e8f6bab9055936bd412a07b629b211c3773a6f26b64"
       },
       {
-        "name": "earthvillage-latest.apk",
+        "url": "http://192.168.0.111:8080/earthvillage-latest.apk",
         "status": 200,
-        "contentLength": 216682551
+        "bytes": 216682551,
+        "sha256": "c07daffd72e6109dff855e8f6bab9055936bd412a07b629b211c3773a6f26b64"
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-0.8.52.apk",
+        "status": 200,
+        "bytes": 216682551,
+        "sha256": "c07daffd72e6109dff855e8f6bab9055936bd412a07b629b211c3773a6f26b64"
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-latest.apk",
+        "status": 200,
+        "bytes": 216682551,
+        "sha256": "c07daffd72e6109dff855e8f6bab9055936bd412a07b629b211c3773a6f26b64"
       }
     ],
-    "downloadedBytes": 216682551,
-    "downloadedSha256": "c07daffd72e6109dff855e8f6bab9055936bd412a07b629b211c3773a6f26b64",
     "downloadMatchesRelease": true,
-    "bothFullDownloadsVerified": true,
-    "versionCode": 69,
-    "serviceRestarted": false
+    "serviceRestarted": true
   },
   "tests": {
     "clientPassed": 505,
