@@ -200,7 +200,7 @@ final courseRepositoryProvider = Provider<CourseRepository>(
 
 /// 无会话时返回 null，避免登出瞬间 `userKey!` 空断言崩溃
 final progressStoreProvider = Provider<ProgressStore?>((ref) {
-  final userKey = ref.watch(authProvider).userKey;
+  final userKey = ref.watch(authProvider.select((state) => state.userKey));
   if (userKey == null) return null;
   return ProgressStore(userKey: userKey);
 });
@@ -216,7 +216,7 @@ final progressRepositoryProvider = Provider<ProgressRepository?>((ref) {
 });
 
 final rewardRepositoryProvider = Provider<RewardRepository?>((ref) {
-  final userKey = ref.watch(authProvider).userKey;
+  final userKey = ref.watch(authProvider.select((state) => state.userKey));
   if (userKey == null) return null;
   return RewardRepository(
     store: RewardStore(userKey: userKey),
@@ -238,10 +238,10 @@ final learningStoreProvider = Provider<LearningStore?>((ref) {
 /// 专项章节进度；无会话时 null
 final skillPracticeProgressStoreProvider =
     Provider<SkillPracticeProgressStore?>((ref) {
-  final userKey = ref.watch(authProvider).userKey;
-  if (userKey == null) return null;
-  return SkillPracticeProgressStore(userKey: userKey);
-});
+      final userKey = ref.watch(authProvider).userKey;
+      if (userKey == null) return null;
+      return SkillPracticeProgressStore(userKey: userKey);
+    });
 
 /// 专项章节进度版本：完成一章后 +1，驱动章节地图刷新
 final skillPracticeProgressRevisionProvider = StateProvider<int>((ref) => 0);

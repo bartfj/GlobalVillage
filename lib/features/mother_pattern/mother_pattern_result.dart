@@ -15,12 +15,14 @@ class MotherPatternResult extends StatelessWidget {
     required this.mainLesson,
     required this.onRetry,
     required this.onDone,
+    this.onComedyReplay,
   });
   final MotherPatternState state;
   final S strings;
   final MotherPatternCompletionResult? saved;
   final bool saving, failed, mainLesson;
   final VoidCallback onRetry, onDone;
+  final VoidCallback? onComedyReplay;
   @override
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -94,6 +96,13 @@ class MotherPatternResult extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 24),
           child: FilledButton(onPressed: onDone, child: Text(strings.done)),
+        ),
+      if (onComedyReplay != null)
+        TextButton.icon(
+          key: const ValueKey('replay-pattern-comedy'),
+          onPressed: onComedyReplay,
+          icon: const Icon(Icons.replay_rounded),
+          label: Text(strings.comedyReplay),
         ),
     ],
   );

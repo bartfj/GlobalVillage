@@ -17,6 +17,22 @@ class S {
 
   bool get isEn => language == UiLanguage.english;
 
+  String get comedyTitle => isEn ? 'After-lesson comedy' : '课后趣味短剧';
+  String get comedySkip => isEn ? 'Skip comedy' : '跳过短剧';
+  String get comedyContinue => isEn ? 'Continue' : '继续';
+  String get comedyLoading => isEn ? 'Loading comedy…' : '正在准备短剧…';
+  String get comedyLoadFailed =>
+      isEn ? 'Could not play this comedy' : '短剧暂时无法播放';
+  String get comedyRetry => isEn ? 'Try again' : '重试播放';
+  String get comedyReplay => isEn ? 'Watch comedy again' : '重看趣味短剧';
+  String get comedyPlay => isEn ? 'Play' : '播放';
+  String get comedyPause => isEn ? 'Pause' : '暂停';
+  String get comedySubtitles => isEn ? 'Chinese subtitles' : '中文字幕';
+  String get comedyBackgroundPaused =>
+      isEn ? 'Paused; tap Play to continue' : '已暂停，点击播放继续';
+  String get comedyNextLine => isEn ? 'Next line' : '下一句';
+  String get comedyPreviousLine => isEn ? 'Previous line' : '上一句';
+
   String get motherPatternTitle => isEn ? 'Mother Pattern English' : '母句型英语';
   String get motherPatternDialogue => isEn ? 'Dialogue' : '生活对话';
   String get motherPatternVocabulary => isEn ? 'Words and phrases' : '本课词汇与短语';

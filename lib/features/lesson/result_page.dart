@@ -11,9 +11,10 @@ import '../../core/constants.dart';
 import '../../core/services/diagnostic_log.dart';
 import '../../data/models/lesson_badge.dart';
 import '../../data/models/learning_language.dart';
+import '../../data/repositories/progress_repository.dart';
 import '../../data/repositories/reward_repository.dart';
 import 'widgets/award_celebration.dart';
-import 'widgets/dialogue_performance.dart';
+import '../post_lesson_comedy/post_lesson_comedy.dart';
 
 /// 课程结算数据（由答题页通过路由 extra 传入）
 class LessonResult {
@@ -55,10 +56,38 @@ class _ResultPageState extends ConsumerState<ResultPage> {
   String? _saveError;
   bool _showCelebration = false;
   bool _showDialogue = false;
+  bool _celebrateAfterComedy = false;
+  late final String _courseId;
+  late final String _trackId;
+  late final ProgressRepository? _progress;
+  late final RewardRepository? _rewards;
+  bool _sessionStopped = false;
+
+  bool get _sessionCurrent =>
+      mounted &&
+      !_sessionStopped &&
+      ref.read(selectedTrackProvider).id == _trackId &&
+      ref.read(courseProvider).id == _courseId &&
+      identical(ref.read(progressRepositoryProvider), _progress) &&
+      identical(ref.read(rewardRepositoryProvider), _rewards);
+
+  void _stopSession() {
+    if (!mounted || _sessionStopped) return;
+    setState(() {
+      _sessionStopped = true;
+      _showDialogue = false;
+      _showCelebration = false;
+      _celebrateAfterComedy = false;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _courseId = ref.read(courseProvider).id;
+    _trackId = ref.read(selectedTrackProvider).id;
+    _progress = ref.read(progressRepositoryProvider);
+    _rewards = ref.read(rewardRepositoryProvider);
     // 回写学习结果并驱动学习路径刷新
     WidgetsBinding.instance.addPostFrameCallback((_) => _saveResult());
     final log = DiagnosticLog.instance;
@@ -75,14 +104,14 @@ class _ResultPageState extends ConsumerState<ResultPage> {
   }
 
   Future<void> _saveResult() async {
-    if (_saving || _saved) return;
+    if (_saving || _saved || _sessionStopped) return;
     setState(() {
       _saving = true;
       _saveError = null;
     });
     try {
-      final progressRepo = ref.read(progressRepositoryProvider);
-      final rewardRepo = ref.read(rewardRepositoryProvider);
+      final progressRepo = _progress;
+      final rewardRepo = _rewards;
       if (progressRepo == null || rewardRepo == null) {
         throw StateError('无有效会话，无法保存进度');
       }
@@ -91,7 +120,10 @@ class _ResultPageState extends ConsumerState<ResultPage> {
         correctCount: widget.result.correctCount,
         totalCount: widget.result.totalCount,
       );
-      if (!mounted) return;
+      if (!_sessionCurrent) {
+        _stopSession();
+        return;
+      }
       ref.read(progressRevisionProvider.notifier).state++;
       if (widget.result.passed) {
         final award = await rewardRepo.awardForPassedAttempt(
@@ -99,16 +131,20 @@ class _ResultPageState extends ConsumerState<ResultPage> {
           widget.result.attemptId,
         );
         if (award == null) throw StateError('无法保存徽章奖励');
-        if (!mounted) return;
+        if (!_sessionCurrent) {
+          _stopSession();
+          return;
+        }
         ref.read(rewardRevisionProvider.notifier).state++;
         setState(() {
           _award = award;
           _treeCount = rewardRepo.treeCount;
-          // 每次通关都播放趣味对话 + 庆祝（不只首次发徽章时）
+          // 保存后观看独立短剧；播放和重播均不再次写入学习或奖励。
           _showDialogue =
               ref.read(selectedTrackProvider).language ==
               LearningLanguage.english;
           _showCelebration = !_showDialogue;
+          _celebrateAfterComedy = _showDialogue;
         });
       }
       _saved = true;
@@ -124,6 +160,18 @@ class _ResultPageState extends ConsumerState<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(selectedTrackProvider, (_, track) {
+      if (track.id != _trackId) _stopSession();
+    });
+    ref.listen(courseProvider, (_, course) {
+      if (course.id != _courseId) _stopSession();
+    });
+    ref.listen(progressRepositoryProvider, (_, progress) {
+      if (!identical(progress, _progress)) _stopSession();
+    });
+    ref.listen(rewardRepositoryProvider, (_, rewards) {
+      if (!identical(rewards, _rewards)) _stopSession();
+    });
     final s = ref.watch(stringsProvider);
     final result = widget.result;
     final passed = result.passed;
@@ -213,14 +261,21 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                             ],
                           ),
                         ),
-                        if (_award!.newlyAwarded &&
+                        if (_saved &&
+                            !_sessionStopped &&
                             ref.watch(selectedTrackProvider).language ==
                                 LearningLanguage.english)
                           TextButton.icon(
-                            onPressed: () =>
-                                setState(() => _showDialogue = true),
+                            key: const ValueKey('replay-comedy'),
+                            onPressed: () {
+                              if (!_sessionCurrent) return;
+                              setState(() {
+                                _celebrateAfterComedy = false;
+                                _showDialogue = true;
+                              });
+                            },
                             icon: const Icon(Icons.replay_rounded),
-                            label: Text(s.replayDialogue),
+                            label: Text(s.comedyReplay),
                           ),
                       ],
                       if (_saveError != null) ...[
@@ -263,14 +318,18 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                 ),
               if (_showDialogue && _award != null)
                 Positioned.fill(
-                  child: DialoguePerformance(
-                    unitId: _award!.unit.id,
-                    unitTitle: _award!.unit.title,
-                    documents: ref.watch(contentCacheProvider).asData?.value,
-                    onFinished: () => setState(() {
-                      _showDialogue = false;
-                      _showCelebration = true;
-                    }),
+                  child: PostLessonComedy(
+                    courseId: _courseId,
+                    lessonId: widget.lessonId,
+                    strings: s,
+                    onFinished: () {
+                      if (!_sessionCurrent) return;
+                      setState(() {
+                        _showDialogue = false;
+                        _showCelebration = _celebrateAfterComedy;
+                        _celebrateAfterComedy = false;
+                      });
+                    },
                   ),
                 ),
             ],
