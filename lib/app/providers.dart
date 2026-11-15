@@ -105,8 +105,10 @@ final diagnosticUploaderProvider = Provider<DiagnosticUploader>((ref) {
   );
 });
 
-/// 同步状态（抽屉展示）
-final syncStatusProvider = StateProvider<SyncStatus>((ref) => SyncStatus.idle);
+/// 同步过程（抽屉展示当前步骤和已等待时间）
+final syncActivityProvider = StateProvider<SyncActivity>(
+  (ref) => const SyncActivity(),
+);
 
 /// 进度同步服务（仅在线会话启用）
 // 显式声明变量类型：与 authProvider 相互引用，避免顶层类型推断循环
@@ -121,8 +123,8 @@ final Provider<SyncService?> syncServiceProvider = Provider<SyncService?>((
     readAuth: () => ref.read(authProvider),
     refreshAccessToken: () =>
         ref.read(authProvider.notifier).refreshAccessToken(),
-    onStatus: (status) {
-      ref.read(syncStatusProvider.notifier).state = status;
+    onActivity: (activity) {
+      ref.read(syncActivityProvider.notifier).state = activity;
     },
     onMerged: () {
       ref.read(selectedTrackProvider.notifier).reload();

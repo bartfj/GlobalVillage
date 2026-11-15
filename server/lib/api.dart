@@ -211,6 +211,7 @@ Handler buildRouter(
         clientUpdatedAt,
         baseClientUpdatedAt: base is int ? base : null,
         device: _readDevice(body['device']),
+        trace: readSyncTrace(body['trace']),
       );
       return _json(200, {
         'clientUpdatedAt': record.clientUpdatedAt,
@@ -223,6 +224,25 @@ Handler buildRouter(
         'currentClientUpdatedAt': e.currentClientUpdatedAt,
       });
     }
+  });
+
+  // POST /v1/sync/trace：上传结束后补报上传耗时。不影响同步是否成功。
+  router.post('/v1/sync/trace', (Request request) async {
+    final account = await _accessAccount(request, repo, auth);
+    if (account == null) return _unauthorized();
+    final body = await _readJson(request);
+    final clientUpdatedAt = body?['clientUpdatedAt'];
+    final trace = readSyncTrace(body?['trace']);
+    if (clientUpdatedAt is! int || trace == null) {
+      return _error(400, 'invalid_body', '同步过程格式不正确');
+    }
+    final saved = await sync.attachTrace(
+      account.accountId,
+      clientUpdatedAt,
+      trace,
+    );
+    if (!saved) return _error(404, 'not_found', '没有匹配的同步记录');
+    return _json(200, {'ok': true});
   });
 
   router.post('/v1/reports', (Request request) async {

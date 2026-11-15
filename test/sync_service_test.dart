@@ -41,10 +41,13 @@ class _FakeSyncApi extends SyncApi {
   RemoteSnapshot? remote;
   Map<String, dynamic>? pushedPayload;
   Map<String, dynamic>? pushedDevice;
+  Map<String, dynamic>? pushedTrace;
+  Map<String, dynamic>? reportedTrace;
   int? pushedBase;
   int? pushedClientUpdatedAt;
   int pullCalls = 0;
   int pushCalls = 0;
+  int traceCalls = 0;
   Future<void> Function()? onPull;
 
   @override
@@ -56,18 +59,31 @@ class _FakeSyncApi extends SyncApi {
   }
 
   @override
-  Future<void> push(
+  Future<int> push(
     String accessToken,
     Map<String, dynamic> payload,
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
+    Map<String, dynamic>? trace,
   }) async {
     pushCalls++;
     pushedPayload = payload;
     pushedBase = baseClientUpdatedAt;
     pushedClientUpdatedAt = clientUpdatedAt;
     pushedDevice = device;
+    pushedTrace = trace;
+    return 120;
+  }
+
+  @override
+  Future<void> reportTrace(
+    String accessToken,
+    int clientUpdatedAt,
+    Map<String, dynamic> trace,
+  ) async {
+    traceCalls++;
+    reportedTrace = trace;
   }
 }
 
@@ -236,6 +252,47 @@ void main() {
       expect(device['platform'], isNotEmpty);
       expect(device['appVersion'], kAppVersion);
       expect(device['installId'], await settings.ensureInstallId());
+    });
+
+    test('同步过程按拉取、合并、写入、上传推进，并上报耗时', () async {
+      final phases = <SyncPhase>[];
+      service.dispose();
+      service = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+        debounce: const Duration(milliseconds: 10),
+        onActivity: (activity) => phases.add(activity.phase),
+      );
+      api.remote = RemoteSnapshot(
+        clientUpdatedAt: 1,
+        byteLength: 80,
+        payload: SyncSnapshot(
+          progress: {
+            'l1': _lesson('l1', completed: true, score: 80, completedAtMs: 1),
+          },
+          rewards: const {},
+          track: const {},
+          clientUpdatedAt: 1,
+        ).toPayload(),
+      );
+      await service.pullMergePush();
+      expect(phases, [
+        SyncPhase.pulling,
+        SyncPhase.merging,
+        SyncPhase.writing,
+        SyncPhase.pushing,
+        SyncPhase.synced,
+      ]);
+      expect(api.pushedTrace!['pullBytes'], 80);
+      expect(api.pushedTrace!['pullMs'], isA<int>());
+      expect(api.pushedTrace!['mergeMs'], isA<int>());
+      expect(api.pushedTrace!['writeMs'], isA<int>());
+      expect(api.pushedTrace!.containsKey('pushMs'), isFalse);
+      expect(api.traceCalls, 1);
+      expect(api.reportedTrace!['pushMs'], isA<int>());
+      expect(api.reportedTrace!['pushBytes'], 120);
     });
 
     test('拉取合并：云端已完成的课写入本地并回传并集', () async {

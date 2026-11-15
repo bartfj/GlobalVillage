@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -821,31 +823,65 @@ class _MenuRow extends StatelessWidget {
   }
 }
 
-/// 在线账号的同步状态行：同步中 / 上次同步时间 / 同步失败
-class _SyncStatusLine extends ConsumerWidget {
+/// 在线账号的同步状态行：当前步骤和已等待秒数 / 上次同步时间 / 同步失败
+class _SyncStatusLine extends ConsumerStatefulWidget {
   const _SyncStatusLine({required this.userKey});
 
   final String userKey;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_SyncStatusLine> createState() => _SyncStatusLineState();
+}
+
+class _SyncStatusLineState extends ConsumerState<_SyncStatusLine> {
+  Timer? _tick;
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
+  }
+
+  void _keepTicking(bool active) {
+    if (active && _tick == null) {
+      _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+        if (mounted) setState(() {});
+      });
+    } else if (!active) {
+      _tick?.cancel();
+      _tick = null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final s = ref.watch(stringsProvider);
-    final status = ref.watch(syncStatusProvider);
-    final lastSyncAt = ref.watch(settingsStoreProvider).lastSyncAt(userKey);
-    final (text, color) = switch (status) {
-      SyncStatus.syncing => (s.syncNow, AppColors.textSecondary),
-      SyncStatus.failed => (s.syncFailed, AppColors.textSecondary),
-      _ when lastSyncAt != null => (
-        s.syncLastAt(_format(lastSyncAt)),
-        AppColors.textSecondary,
-      ),
-      _ => (s.syncWaiting, AppColors.textSecondary),
-    };
+    final activity = ref.watch(syncActivityProvider);
+    final lastSyncAt = ref.watch(settingsStoreProvider).lastSyncAt(widget.userKey);
+    _keepTicking(activity.active);
+    final String text;
+    if (activity.phase == SyncPhase.failed) {
+      text = s.syncFailed;
+    } else if (activity.active) {
+      final step = switch (activity.phase) {
+        SyncPhase.pulling => s.syncPulling,
+        SyncPhase.merging => s.syncMerging,
+        SyncPhase.writing => s.syncWriting,
+        SyncPhase.pushing => s.syncUploading,
+        _ => s.syncNow,
+      };
+      text = s.syncStep(step, activity.elapsedSeconds(DateTime.now()));
+    } else if (lastSyncAt != null) {
+      text = s.syncLastAt(_format(lastSyncAt));
+    } else {
+      text = s.syncWaiting;
+    }
+    const color = AppColors.textSecondary;
     return Row(
       children: [
-        Icon(Icons.sync_rounded, size: 13, color: color),
+        const Icon(Icons.sync_rounded, size: 13, color: color),
         const SizedBox(width: 4),
-        Text(text, style: TextStyle(fontSize: 12, color: color)),
+        Text(text, style: const TextStyle(fontSize: 12, color: color)),
       ],
     );
   }

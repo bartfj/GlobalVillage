@@ -600,6 +600,109 @@ void main() {
     expect(targetHistory.first['lessonCount'], 11);
   });
 
+  test('客户端上报的同步耗时写入历史，并能补上上传耗时', () async {
+    final handler = open(token: adminToken);
+    final registered = await json(
+      await send(
+        handler,
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'trace@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
+    final id = registered['account']['accountId'] as String;
+    final access = registered['accessToken'] as String;
+    final uploaded = await send(
+      handler,
+      'PUT',
+      '/v1/sync',
+      bearer: access,
+      body: {
+        'clientUpdatedAt': 10,
+        'trace': {
+          'pullMs': 1200,
+          'mergeMs': 4,
+          'writeMs': 12,
+          'pullBytes': 40000,
+          'pushBytes': 40100,
+          'note': 'drop-me',
+          'pullMsNegative': -5,
+        },
+        'payload': {
+          'schemaVersion': 1,
+          'progress': {
+            'l1': {'completed': true},
+          },
+          'track': {},
+        },
+      },
+    );
+    expect(uploaded.statusCode, 200, reason: await uploaded.readAsString());
+
+    final pulled = await json(
+      await send(handler, 'GET', '/v1/sync', bearer: access),
+    );
+    expect(pulled.containsKey('trace'), isFalse);
+
+    Future<Map<String, dynamic>> latest() async {
+      final detail = await json(
+        await send(
+          handler,
+          'GET',
+          '/admin/api/accounts/$id',
+          bearer: adminToken,
+        ),
+      );
+      return (detail['syncHistory'] as List).first as Map<String, dynamic>;
+    }
+
+    final before = await latest();
+    expect(before['trace'], {
+      'pullMs': 1200,
+      'mergeMs': 4,
+      'writeMs': 12,
+      'pullBytes': 40000,
+      'pushBytes': 40100,
+    });
+
+    final reported = await send(
+      handler,
+      'POST',
+      '/v1/sync/trace',
+      bearer: access,
+      body: {
+        'clientUpdatedAt': 10,
+        'trace': {
+          'pullMs': 1200,
+          'mergeMs': 4,
+          'writeMs': 12,
+          'pushMs': 8300,
+          'pullBytes': 40000,
+          'pushBytes': 40100,
+        },
+      },
+    );
+    expect(reported.statusCode, 200, reason: await reported.readAsString());
+    expect((await latest())['trace']['pushMs'], 8300);
+
+    final missed = await send(
+      handler,
+      'POST',
+      '/v1/sync/trace',
+      bearer: access,
+      body: {
+        'clientUpdatedAt': 9,
+        'trace': {'pushMs': 1},
+      },
+    );
+    expect(missed.statusCode, 404);
+    expect((await latest())['trace']['pushMs'], 8300);
+  });
+
   test('没有 cv 的旧 token 不能同步', () async {
     final handler = open(token: adminToken);
     final registered = await json(
