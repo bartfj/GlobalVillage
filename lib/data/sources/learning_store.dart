@@ -172,17 +172,26 @@ class LearningStore {
     if (mode == 'dialogue') return;
     if (mode == 'review' && !first) return;
     final map = reviews;
-    final existing = map[exercise.id] as Map<String, dynamic>?;
+    final previous = map[exercise.id] as Map<String, dynamic>?;
+    final existing = _isReviewForCourse(previous, courseId) ? previous : null;
     // In-session correction does not replace spaced review.
     if (mode != 'review' && correct) return;
-    if (existing == null && correct) return;
+    if (mode == 'review' && existing == null) return;
+    final skillPractice =
+        mode.startsWith('skill-') ||
+        (mode == 'review' &&
+            (_isPracticeReview(existing) ||
+                _legacyPracticeReviewIds(courseId).contains(exercise.id)));
     final stage = correct
         ? ((existing?['stage'] as int? ?? 0) + 1).clamp(1, 4)
         : 0;
     final days = [0, 1, 3, 7, 14][stage];
     map[exercise.id] = {
-      'lessonId': lessonId,
+      'lessonId': mode == 'review' && lessonId == 'practice'
+          ? (existing?['lessonId'] ?? lessonId)
+          : lessonId,
       'courseId': courseId,
+      if (skillPractice) 'skillPractice': true,
       'stage': stage,
       'due': clock().add(Duration(days: days)).toUtc().toIso8601String(),
       'resolved': stage == 4,
@@ -310,18 +319,91 @@ class LearningStore {
     return entry;
   });
 
-  List<Exercise> dueExercises(Course course, Set<String> unlockedLessons) {
+  bool _isDue(Object? record, DateTime now) {
+    if (record is! Map || record['resolved'] == true) return false;
+    final due = record['due'];
+    final date = due is String ? DateTime.tryParse(due) : null;
+    return date != null && !date.isAfter(now);
+  }
+
+  bool _isReviewForCourse(Object? record, String courseId) =>
+      record is Map &&
+      (record['courseId'] == courseId || record['courseId'] == null);
+
+  bool _isPracticeReview(Object? record) {
+    if (record is! Map) return false;
+    if (record['skillPractice'] == true) return true;
+    final lessonId = record['lessonId'];
+    return lessonId is String &&
+        (lessonId.startsWith('practice-') || lessonId == 'practice');
+  }
+
+  // Older records used the system lesson ID whenever a bank shared its exercise.
+  // Recover the source from the latest wrong answer that created that schedule.
+  Set<String> _legacyPracticeReviewIds(String courseId) {
+    final seen = <String>{};
+    final practiceIds = <String>{};
+    for (final event in events.reversed) {
+      if (event
+          case {
+            'kind': 'answer',
+            'courseId': final eventCourse,
+            'exerciseId': final String id,
+            'correct': false,
+            'mode': final String mode,
+          }
+          when eventCourse == courseId &&
+              mode != 'review' &&
+              mode != 'dialogue' &&
+              event['skipped'] != true &&
+              seen.add(id)) {
+        if (mode.startsWith('skill-')) practiceIds.add(id);
+      }
+    }
+    return practiceIds;
+  }
+
+  bool hasDuePracticeReviews(String courseId) {
+    final now = clock();
+    final candidates = reviews.entries.where(
+      (entry) =>
+          _isReviewForCourse(entry.value, courseId) && _isDue(entry.value, now),
+    );
+    if (candidates.isEmpty) return false;
+    if (candidates.any((entry) => _isPracticeReview(entry.value))) return true;
+    final practiceIds = _legacyPracticeReviewIds(courseId);
+    return candidates.any((entry) => practiceIds.contains(entry.key));
+  }
+
+  List<Exercise> dueExercises(
+    Course course,
+    Set<String> unlockedLessons, {
+    Iterable<Exercise> practiceExercises = const [],
+  }) {
     final map = reviews;
-    final candidates = course.orderedLessons
-        .where((l) => unlockedLessons.contains(l.id))
-        .expand((l) => l.exercises)
-        .where((e) {
-          final r = map[e.id] as Map<String, dynamic>?;
-          return r != null &&
-              r['resolved'] != true &&
-              !DateTime.parse(r['due'] as String).isAfter(clock());
-        })
-        .toList();
+    final now = clock();
+    final due = <String, Exercise>{};
+    for (final lesson in course.orderedLessons) {
+      if (!unlockedLessons.contains(lesson.id)) continue;
+      for (final exercise in lesson.exercises) {
+        final record = map[exercise.id];
+        if (_isReviewForCourse(record, course.id) && _isDue(record, now)) {
+          due.putIfAbsent(exercise.id, () => exercise);
+        }
+      }
+    }
+    final practiceIds = practiceExercises.isEmpty
+        ? const <String>{}
+        : _legacyPracticeReviewIds(course.id);
+    for (final exercise in practiceExercises) {
+      final record = map[exercise.id];
+      if (_isReviewForCourse(record, course.id) &&
+          _isDue(record, now) &&
+          (_isPracticeReview(record) || practiceIds.contains(exercise.id))) {
+        due.putIfAbsent(exercise.id, () => exercise);
+      }
+    }
+    final candidates = due.values.toList();
     candidates.sort(
       (a, b) =>
           (map[a.id]['due'] as String).compareTo(map[b.id]['due'] as String),

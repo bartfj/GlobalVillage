@@ -4,11 +4,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../data/models/course.dart';
+import '../../data/models/course_track.dart';
 import '../../data/models/learning_language.dart';
+import '../../data/models/skill_practice.dart';
+import '../../data/sources/skill_practice_loader.dart';
 import '../lesson/dialogue_practice.dart';
 import '../lesson/lesson_page.dart';
 import '../mother_pattern/mother_pattern_review_page.dart';
-import '../../data/models/course_track.dart';
+
+final _reviewPracticeExercisesProvider = FutureProvider.autoDispose
+    .family<List<Exercise>, LearningLanguage>((ref, language) async {
+      final loader = SkillPracticeLoader(
+        documents: await ref.watch(contentCacheProvider.future),
+      );
+      final banks = await Future.wait(
+        SkillPracticeKind.forLanguage(language).map(loader.load),
+      );
+      return [for (final bank in banks) ...bank.exercises];
+    });
 
 class ReviewPage extends ConsumerStatefulWidget {
   const ReviewPage({super.key});
@@ -20,6 +33,15 @@ class ReviewPage extends ConsumerStatefulWidget {
 class _ReviewPageState extends ConsumerState<ReviewPage> {
   bool _busy = false;
   String _statsMode = 'lesson';
+
+  String _sessionSummary(List<Map<String, dynamic>> sessions, bool english) {
+    final started = sessions.where((e) => e['kind'] == 'start').length;
+    final finished = sessions.where((e) => e['kind'] == 'finish').length;
+    final exited = sessions.where((e) => e['kind'] == 'exit').length;
+    return english
+        ? 'Started $started · Finished $finished · Exited $exited'
+        : '开始 $started 次 · 完成 $finished 次 · 退出 $exited 次';
+  }
 
   Future<void> _practice(
     String title,
@@ -63,7 +85,8 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     final course = ref.watch(courseProvider);
-    if (ref.watch(selectedTrackProvider) == CourseTrack.motherPattern) {
+    final track = ref.watch(selectedTrackProvider);
+    if (track == CourseTrack.motherPattern) {
       return const MotherPatternReviewPage();
     }
     final progress = ref.watch(progressRepositoryProvider);
@@ -74,22 +97,39 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
         .where((l) => progress.isLessonUnlocked(l.id))
         .map((l) => l.id)
         .toSet();
-    final due = store.dueExercises(course, unlocked);
+    final practiceProvider = _reviewPracticeExercisesProvider(track.language);
+    final practiceExercises = store.hasDuePracticeReviews(course.id)
+        ? ref.watch(practiceProvider)
+        : null;
+    final due = store.dueExercises(
+      course,
+      unlocked,
+      practiceExercises: practiceExercises?.asData?.value ?? const [],
+    );
     final completedUnits = course.units
         .where((u) => u.lessons.every((l) => progress.isLessonCompleted(l.id)))
         .toList();
-    final events = store.events
-        .where(
-          (e) =>
-              e['courseId'] == course.id &&
-              e['mode'] == _statsMode &&
-              e['kind'] == 'answer' &&
-              e['skipped'] != true,
-        )
+    final courseEvents = store.events
+        .whereType<Map<String, dynamic>>()
+        .where((e) => e['courseId'] == course.id)
         .toList();
-    final sessions = store.events
-        .where((e) => e['courseId'] == course.id && e['mode'] == _statsMode)
+    final sessions = courseEvents
+        .where((e) => e['mode'] == _statsMode)
         .toList();
+    final events = sessions
+        .where((e) => e['kind'] == 'answer' && e['skipped'] != true)
+        .toList();
+    final practiceRecords = {
+      for (final skill in SkillPracticeKind.forLanguage(track.language))
+        skill: courseEvents
+            .where(
+              (e) =>
+                  e['mode'] == skill.mode ||
+                  (e['mode'] is String &&
+                      (e['mode'] as String).startsWith('${skill.mode}/')),
+            )
+            .toList(),
+    }.entries.where((entry) => entry.value.isNotEmpty).toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('复习与学习记录'),
@@ -144,14 +184,39 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.history_rounded),
             title: const Text('今日错题'),
-            subtitle: Text('${due.length} 题待复习'),
+            subtitle: Text(
+              practiceExercises?.isLoading == true && due.isEmpty
+                  ? (s.isEn ? 'Loading practice mistakes…' : '正在加载专项错题…')
+                  : '${due.length} 题待复习',
+            ),
             trailing: const Icon(Icons.chevron_right),
             onTap: due.isEmpty || _busy
                 ? null
                 : () => _practice('错题复习', due, 'review'),
           ),
+          if (practiceExercises?.hasError == true)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                s.isEn ? 'Could not load skill practice mistakes' : '专项错题加载失败',
+              ),
+              trailing: const Icon(Icons.refresh_rounded),
+              onTap: () => ref.invalidate(practiceProvider),
+            ),
           const Divider(),
-          const Divider(),
+          if (practiceRecords.isNotEmpty) ...[
+            Text(
+              s.isEn ? 'Skill practice records' : '专项练习记录',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            ),
+            for (final record in practiceRecords)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(s.skillTitle(record.key)),
+                subtitle: Text(_sessionSummary(record.value, s.isEn)),
+              ),
+            const Divider(),
+          ],
           const Text(
             '单元复习',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
@@ -216,11 +281,7 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Text(
-              '开始 ${sessions.where((e) => e['kind'] == 'start').length} 次 · '
-              '完成 ${sessions.where((e) => e['kind'] == 'finish').length} 次 · '
-              '退出 ${sessions.where((e) => e['kind'] == 'exit').length} 次',
-            ),
+            child: Text(_sessionSummary(sessions, s.isEn)),
           ),
           for (final type in ExerciseType.values)
             if (events.any((e) => e['type'] == type.name && e['first'] == true))
