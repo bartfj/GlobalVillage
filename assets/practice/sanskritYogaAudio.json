@@ -3,8 +3,8 @@
   "source": {
     "name": "Google Translate TTS",
     "language": "hi",
-    "synthesizedOn": "2026-10-22",
-    "note": "合成参考音，非真人录音；原条目为印地语 TTS，新增条目为 macOS say 英文近似读法。 体式、调息、课堂词汇三章的 24 段音频使用 eSpeak NG（espeak-ng 1.0.2 WebAssembly 发行包）的印地语音库，按梵文音素合成近似读法。",
+    "synthesizedOn": "2026-11-22",
+    "note": "合成参考音，非真人录音；原 20 条与本次补齐的 24 条均为印地语 Google Translate TTS 按天城体合成近似读法；另有一批中间扩充条目为 macOS say 英文近似读法。",
     "reviewStatus": "syntheticReference"
   },
   "terms": [
@@ -292,169 +292,169 @@
       "id": "adhomukhashvanasana",
       "devanagari": "अधोमुखश्वानासन",
       "iast": "adhomukhaśvānāsana",
-      "sha256": "eedfab10d285a4ea1d33030a78194b2c5a42d62923293c43f1f200f89fd93936",
-      "byteLength": 12139
+      "sha256": "bdae90a84437199572b52891f98f81a4c2d64a6933f85de28f7df7d53f59bd35",
+      "byteLength": 14400
     },
     {
       "id": "urdhvamukhashvanasana",
       "devanagari": "ऊर्ध्वमुखश्वानासन",
       "iast": "ūrdhvamukhaśvānāsana",
-      "sha256": "39450f6323a5af948e74cccda7e7612fcfc2e82b04cd7d227e56ff73918e1999",
-      "byteLength": 12922
+      "sha256": "243bba576b06200b97b40589ef3b524573e6b582ad2d847161369df2df57ac68",
+      "byteLength": 14784
     },
     {
       "id": "utkatasana",
       "devanagari": "उत्कटासन",
       "iast": "utkaṭāsana",
-      "sha256": "3f18573c1b9fd81ade6c3972e114d24694f04cb197b233075a6fc5f82e318b48",
-      "byteLength": 8847
+      "sha256": "213f3f5f5c293b08311d5d2bb0df292c0596c66d6f537d3338ab9a7a32563821",
+      "byteLength": 10176
     },
     {
       "id": "dandasana",
       "devanagari": "दण्डासन",
       "iast": "daṇḍāsana",
-      "sha256": "c9d003d59ffca7d573cc04ca819f343d1f85dd3e6a4205aebd4e59bcb89ee5dd",
-      "byteLength": 7750
+      "sha256": "a4a8848c1323ae477836b151c591ccf4abb064f121fa45c7fe9953582df23598",
+      "byteLength": 9792
     },
     {
       "id": "navasana",
       "devanagari": "नावासन",
       "iast": "nāvāsana",
-      "sha256": "cdbbe4101690be2570c7bf708f526e6eb2e6b3631babb2561894039d409b8d7d",
-      "byteLength": 8063
+      "sha256": "7e97031648247ecf704d8d9e1abe58707f7b11e4c4d35405c344fe207c00d93a",
+      "byteLength": 9408
     },
     {
       "id": "garudasana",
       "devanagari": "गरुडासन",
       "iast": "garuḍāsana",
-      "sha256": "3316c141201e8b7ed3d4eff53e17837b7cee0547c632d9c912028b824e19db12",
-      "byteLength": 8377
+      "sha256": "ea91d1f37bd6094ee4aa977d4d338a6a9bdfcab437a5dccd2272b0140f53da36",
+      "byteLength": 10368
     },
     {
       "id": "ardhachandrasana",
       "devanagari": "अर्धचन्द्रासन",
       "iast": "ardhacandrāsana",
-      "sha256": "ca15ee975dfcb0a36f0c753114da2be6c8fa405540d2a846618bafeaa899efab",
-      "byteLength": 10101
+      "sha256": "70569258b338551e908071e9b70012b0bd7df81d03b7c941b210ee283892b654",
+      "byteLength": 12864
     },
     {
       "id": "utthitaparshvakonasana",
       "devanagari": "उत्थितपार्श्वकोणासन",
       "iast": "utthitapārśvakoṇāsana",
-      "sha256": "c862c52b72b3d57c1312248ca73cfc9af9c8273bdbfed76bb5d9930fc637272f",
-      "byteLength": 13863
+      "sha256": "76308ff32deecdcd0badab14c5834b10592cfbf2a5576906591d11b74f5c8e8b",
+      "byteLength": 16128
     },
     {
       "id": "puraka",
       "devanagari": "पूरक",
       "iast": "pūraka",
-      "sha256": "2f40fb2be6250cc4e6eaa7a997edcf1c67aa4b73660aae3d45e54a7a818ac0c5",
-      "byteLength": 7123
+      "sha256": "21a05acff61f13c77fd81e3dbf3b394e53edce065a8610172d4ef15826808f76",
+      "byteLength": 7488
     },
     {
       "id": "recaka",
       "devanagari": "रेचक",
       "iast": "recaka",
-      "sha256": "917eda0da34d2d415f5f3f00cc99297e20ebdbed4f1ee6d283c3e79dceb42326",
-      "byteLength": 7123
+      "sha256": "420384747043becd4106d5f5a274e573258eae665ab7cc139d020d89380918b0",
+      "byteLength": 8256
     },
     {
       "id": "kumbhaka",
       "devanagari": "कुम्भक",
       "iast": "kumbhaka",
-      "sha256": "f9b67f7bd9eb7ff41f454ec9b9b8e59b64013130f4a7551f611829ef745a1e9c",
-      "byteLength": 7437
+      "sha256": "661fcbe294a6fbe3a7068f7df899d058adaaeea1e14115edbbb64fdafb3dc965",
+      "byteLength": 7872
     },
     {
       "id": "ujjayi",
       "devanagari": "उज्जायी",
       "iast": "ujjāyī",
-      "sha256": "d39c3f4a89492135089203b615b134891d5df51b687048c3df0c68fd1106a4aa",
-      "byteLength": 7437
+      "sha256": "eb4db85415ebc8135e40197513969a448a3c98205d9ffb7798b1c454af955c1a",
+      "byteLength": 7488
     },
     {
       "id": "bhastrika",
       "devanagari": "भस्त्रिका",
       "iast": "bhastrikā",
-      "sha256": "8d19b0307fab47f28e3ba3823ebb89eb32354cfd215b329b1c5b70a0fafaf45a",
-      "byteLength": 7123
+      "sha256": "d3a706d0aa955040c3bc039a6bc6528f552f73f5300d7c6e498beb23c7d76492",
+      "byteLength": 9792
     },
     {
       "id": "bhramari",
       "devanagari": "भ्रामरी",
       "iast": "bhrāmarī",
-      "sha256": "2c17b2d4b72818ba91962d38cead8b1a0feeeef20a2c686c3856bb34ea683673",
-      "byteLength": 6966
+      "sha256": "15fa5d6393db68d213fecfc68b1b5f9a2eca75d5b5c7fb2e8719ad0105c3cf0e",
+      "byteLength": 9024
     },
     {
       "id": "shitali",
       "devanagari": "शीतली",
       "iast": "śītalī",
-      "sha256": "d1edb2d31171ee181a5001be08d8f840ae0f8e0a4237d23458c39dfdb7a62935",
-      "byteLength": 7593
+      "sha256": "ce5ad43dc42213a19b5f394403c39a080dc0de17f1fc0b8ef84cbb9f929a8bef",
+      "byteLength": 8832
     },
     {
       "id": "nadishodhana",
       "devanagari": "नाडीशोधन",
       "iast": "nāḍīśodhana",
-      "sha256": "0cc2e9bdf48d320736fa25c12776a3a348008184fef27bd55f3907dc2b7e8413",
-      "byteLength": 9474
+      "sha256": "a78e8712f4ff03d112af35738757e9a6773ae5cb40944606483f625fe55fd833",
+      "byteLength": 10752
     },
     {
       "id": "urdhva",
       "devanagari": "ऊर्ध्व",
       "iast": "ūrdhva",
-      "sha256": "d2aa41308693200a943183f21dd36415a9bd7b08f5222c367b1eeb54b8eec885",
-      "byteLength": 6496
+      "sha256": "130a77accae28e56bccd72599131fa19b553306197bbd8db79050f49553b5e02",
+      "byteLength": 7488
     },
     {
       "id": "adhah",
       "devanagari": "अधः",
       "iast": "adhaḥ",
-      "sha256": "976bdf87303ab8cbd48ed4eecb939bf27bf1028661a780f312d6a01667027593",
-      "byteLength": 5556
+      "sha256": "e8a718aaed1a39a8bc769e5dd7869e9d77d4774875ddb5bbd4888dec76f1685d",
+      "byteLength": 6720
     },
     {
       "id": "vama",
       "devanagari": "वाम",
       "iast": "vāma",
-      "sha256": "6ba2bcf351f51628d77bdaead730c0cb489617def711701bf27bf1c7c750414a",
-      "byteLength": 5869
+      "sha256": "bb8e3f6c4f7c0dcd3c3ed3bd1a2ae49787a5aee99e8cea1d03ac6f0bd36f7c7d",
+      "byteLength": 6720
     },
     {
       "id": "dakshina",
       "devanagari": "दक्षिण",
       "iast": "dakṣiṇa",
-      "sha256": "1f5ce5daef8697dede322e39612a3d2deef5743f037b93a3947a7eb561a47897",
-      "byteLength": 6810
+      "sha256": "18338af7d711571ac85a7f17103b2c6ccfd8fdd95314e476a72ce6ff0efe0910",
+      "byteLength": 8256
     },
     {
       "id": "hasta",
       "devanagari": "हस्त",
       "iast": "hasta",
-      "sha256": "5025ee9c291ba3af560fda50d5872046d18c73409099e3fee6220cb2d1fac5d5",
-      "byteLength": 6026
+      "sha256": "17eed1e7bf5f30e78012516bb3e2302497103b97dc08c9e674aed7b55f6170ec",
+      "byteLength": 7296
     },
     {
       "id": "pada",
       "devanagari": "पाद",
       "iast": "pāda",
-      "sha256": "e21af61554d6fb8eac80aee89fc2767255f145f0c777795581b9190719cd7337",
-      "byteLength": 6026
+      "sha256": "62938be2b717cdbfaa032f473d5a01b9a4f119d9865a9386137f46c99b046f14",
+      "byteLength": 6336
     },
     {
       "id": "janu",
       "devanagari": "जानु",
       "iast": "jānu",
-      "sha256": "e78c17f50018160f2bf2a5a06ef0300298abd3e530f6f7f94aeb6326dbf4fb32",
-      "byteLength": 5869
+      "sha256": "f0d1a2fdbb93c40286f3b2c1e2979bfb0c75aa77a3d8871344d550e16e833f89",
+      "byteLength": 7488
     },
     {
       "id": "mukha",
       "devanagari": "मुख",
       "iast": "mukha",
-      "sha256": "e90296deb40efa2d69163437291d486c43eab8dbb256e26d0bc8f8a6291c13ae",
-      "byteLength": 6026
+      "sha256": "c11d0f63f9cb45eccdf2fe7976b545e8c35e02cbce3ec8c14d19cb8d8a75cace",
+      "byteLength": 6144
     }
   ]
 }
