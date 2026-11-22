@@ -391,7 +391,9 @@ List<Exercise> _buildSanskritVowels() {
 // ---------------------------------------------------------------------------
 
 /// （天城体, IAST, 中文释义, 音频 id）——均为瑜伽课堂常见术语。
-const _saYogaTerms = <(String, String, String, String)>[
+typedef _YogaTerm = (String, String, String, String);
+
+const _saYogaTerms = <_YogaTerm>[
   ('नमस्ते', 'namaste', '合十礼', 'namaste'),
   ('ॐ', 'oṃ', '唵（神圣音节）', 'om'),
   ('योग', 'yoga', '瑜伽', 'yoga'),
@@ -434,20 +436,58 @@ const _saYogaTerms = <(String, String, String, String)>[
   ('नमस्कार', 'namaskāra', '礼敬', 'namaskara'),
 ];
 
-List<Exercise> _buildSanskritYoga() {
+const _saYogaMoreAsanas = <_YogaTerm>[
+  ('अधोमुखश्वानासन', 'adhomukhaśvānāsana', '下犬式', 'adhomukhashvanasana'),
+  ('ऊर्ध्वमुखश्वानासन', 'ūrdhvamukhaśvānāsana', '上犬式', 'urdhvamukhashvanasana'),
+  ('उत्कटासन', 'utkaṭāsana', '幻椅式', 'utkatasana'),
+  ('दण्डासन', 'daṇḍāsana', '手杖式', 'dandasana'),
+  ('नावासन', 'nāvāsana', '船式', 'navasana'),
+  ('गरुडासन', 'garuḍāsana', '鹰式', 'garudasana'),
+  ('अर्धचन्द्रासन', 'ardhacandrāsana', '半月式', 'ardhachandrasana'),
+  (
+    'उत्थितपार्श्वकोणासन',
+    'utthitapārśvakoṇāsana',
+    '伸展侧角式',
+    'utthitaparshvakonasana',
+  ),
+];
+
+const _saYogaBreath = <_YogaTerm>[
+  ('पूरक', 'pūraka', '吸气', 'puraka'),
+  ('रेचक', 'recaka', '呼气', 'recaka'),
+  ('कुम्भक', 'kumbhaka', '屏息', 'kumbhaka'),
+  ('उज्जायी', 'ujjāyī', '胜利式呼吸', 'ujjayi'),
+  ('भस्त्रिका', 'bhastrikā', '风箱式呼吸', 'bhastrika'),
+  ('भ्रामरी', 'bhrāmarī', '蜂鸣式呼吸', 'bhramari'),
+  ('शीतली', 'śītalī', '清凉式呼吸', 'shitali'),
+  ('नाडीशोधन', 'nāḍīśodhana', '经脉净化调息', 'nadishodhana'),
+];
+
+const _saYogaClassroom = <_YogaTerm>[
+  ('ऊर्ध्व', 'ūrdhva', '向上', 'urdhva'),
+  ('अधः', 'adhaḥ', '向下', 'adhah'),
+  ('वाम', 'vāma', '左侧', 'vama'),
+  ('दक्षिण', 'dakṣiṇa', '右侧', 'dakshina'),
+  ('हस्त', 'hasta', '手', 'hasta'),
+  ('पाद', 'pāda', '脚', 'pada'),
+  ('जानु', 'jānu', '膝', 'janu'),
+  ('मुख', 'mukha', '面部', 'mukha'),
+];
+
+List<Exercise> _buildSanskritYoga(List<_YogaTerm> terms, {int idOffset = 0}) {
   final exercises = <Exercise>[];
-  final n = _saYogaTerms.length;
+  final n = terms.length;
   for (var i = 0; i < n; i++) {
-    final (sign, iast, gloss, audioId) = _saYogaTerms[i];
+    final (sign, iast, gloss, audioId) = terms[i];
     String nextId() =>
-        'syg${(exercises.length + 1).toString().padLeft(2, '0')}';
+        'syg${(idOffset + exercises.length + 1).toString().padLeft(2, '0')}';
 
     // 识读：天城体 → IAST（prompt 带中文释义，供反馈栏展示）
     final iastOptions = [
       iast,
-      _saYogaTerms[(i + 1) % n].$2,
-      _saYogaTerms[(i + 2) % n].$2,
-      _saYogaTerms[(i + 3) % n].$2,
+      terms[(i + 1) % n].$2,
+      terms[(i + 2) % n].$2,
+      terms[(i + 3) % n].$2,
     ];
     final iastShift = i % 4;
     exercises.add(
@@ -470,9 +510,9 @@ List<Exercise> _buildSanskritYoga() {
     // 意义：IAST → 中文（support 带天城体，供反馈栏展示）
     final glossOptions = [
       gloss,
-      _saYogaTerms[(i + 1) % n].$3,
-      _saYogaTerms[(i + 2) % n].$3,
-      _saYogaTerms[(i + 3) % n].$3,
+      terms[(i + 1) % n].$3,
+      terms[(i + 2) % n].$3,
+      terms[(i + 3) % n].$3,
     ];
     final glossShift = (i + 1) % 4;
     exercises.add(
@@ -685,10 +725,27 @@ List<Map<String, dynamic>> _sanskritVowelChapters() {
 }
 
 List<Map<String, dynamic>> _sanskritYogaChapters() {
-  // 40 术语 × 2 题 = 80
-  final all = _buildSanskritYoga();
+  final all = _buildSanskritYoga(_saYogaTerms);
+  var idOffset = all.length;
+
+  Map<String, dynamic> newChapter(
+    String id,
+    String title,
+    String subtitle,
+    List<_YogaTerm> terms,
+  ) {
+    final exercises = _buildSanskritYoga(terms, idOffset: idOffset);
+    idOffset += exercises.length;
+    return _chapterPayload(id, title, subtitle, exercises);
+  }
+
   return [
-    _chapterPayload('syg-core', '问候与核心', 'namaste…prāṇāyāma', all.sublist(0, 20)),
+    _chapterPayload(
+      'syg-core',
+      '问候与核心',
+      'namaste…prāṇāyāma',
+      all.sublist(0, 20),
+    ),
     _chapterPayload('syg-mind', '呼吸与心法', 'śvāsa…chakra', all.sublist(20, 40)),
     _chapterPayload(
       'syg-asanas',
@@ -702,6 +759,9 @@ List<Map<String, dynamic>> _sanskritYogaChapters() {
       'sukhāsana…namaskāra',
       all.sublist(60),
     ),
+    newChapter('syg-more-asanas', '常见体式', '下犬式、幻椅式、半月式', _saYogaMoreAsanas),
+    newChapter('syg-breath', '呼吸与调息', '吸气、呼气、屏息', _saYogaBreath),
+    newChapter('syg-classroom', '方向与身体部位', '左右、手脚、膝与面部', _saYogaClassroom),
   ];
 }
 

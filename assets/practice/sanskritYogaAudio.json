@@ -4,7 +4,7 @@
     "name": "Google Translate TTS",
     "language": "hi",
     "synthesizedOn": "2026-10-22",
-    "note": "合成参考音，非真人录音；原条目为印地语 TTS，新增条目为 macOS say 英文近似读法。",
+    "note": "合成参考音，非真人录音；原条目为印地语 TTS，新增条目为 macOS say 英文近似读法。 体式、调息、课堂词汇三章的 24 段音频使用 eSpeak NG（espeak-ng 1.0.2 WebAssembly 发行包）的印地语音库，按梵文音素合成近似读法。",
     "reviewStatus": "syntheticReference"
   },
   "terms": [
@@ -287,6 +287,174 @@
       "iast": "namaskāra",
       "sha256": "a5137ecfbd01d6df923a43652c4971c5b13733041f9f3d70135238d7b2218a7f",
       "byteLength": 6004
+    },
+    {
+      "id": "adhomukhashvanasana",
+      "devanagari": "अधोमुखश्वानासन",
+      "iast": "adhomukhaśvānāsana",
+      "sha256": "eedfab10d285a4ea1d33030a78194b2c5a42d62923293c43f1f200f89fd93936",
+      "byteLength": 12139
+    },
+    {
+      "id": "urdhvamukhashvanasana",
+      "devanagari": "ऊर्ध्वमुखश्वानासन",
+      "iast": "ūrdhvamukhaśvānāsana",
+      "sha256": "39450f6323a5af948e74cccda7e7612fcfc2e82b04cd7d227e56ff73918e1999",
+      "byteLength": 12922
+    },
+    {
+      "id": "utkatasana",
+      "devanagari": "उत्कटासन",
+      "iast": "utkaṭāsana",
+      "sha256": "3f18573c1b9fd81ade6c3972e114d24694f04cb197b233075a6fc5f82e318b48",
+      "byteLength": 8847
+    },
+    {
+      "id": "dandasana",
+      "devanagari": "दण्डासन",
+      "iast": "daṇḍāsana",
+      "sha256": "c9d003d59ffca7d573cc04ca819f343d1f85dd3e6a4205aebd4e59bcb89ee5dd",
+      "byteLength": 7750
+    },
+    {
+      "id": "navasana",
+      "devanagari": "नावासन",
+      "iast": "nāvāsana",
+      "sha256": "cdbbe4101690be2570c7bf708f526e6eb2e6b3631babb2561894039d409b8d7d",
+      "byteLength": 8063
+    },
+    {
+      "id": "garudasana",
+      "devanagari": "गरुडासन",
+      "iast": "garuḍāsana",
+      "sha256": "3316c141201e8b7ed3d4eff53e17837b7cee0547c632d9c912028b824e19db12",
+      "byteLength": 8377
+    },
+    {
+      "id": "ardhachandrasana",
+      "devanagari": "अर्धचन्द्रासन",
+      "iast": "ardhacandrāsana",
+      "sha256": "ca15ee975dfcb0a36f0c753114da2be6c8fa405540d2a846618bafeaa899efab",
+      "byteLength": 10101
+    },
+    {
+      "id": "utthitaparshvakonasana",
+      "devanagari": "उत्थितपार्श्वकोणासन",
+      "iast": "utthitapārśvakoṇāsana",
+      "sha256": "c862c52b72b3d57c1312248ca73cfc9af9c8273bdbfed76bb5d9930fc637272f",
+      "byteLength": 13863
+    },
+    {
+      "id": "puraka",
+      "devanagari": "पूरक",
+      "iast": "pūraka",
+      "sha256": "2f40fb2be6250cc4e6eaa7a997edcf1c67aa4b73660aae3d45e54a7a818ac0c5",
+      "byteLength": 7123
+    },
+    {
+      "id": "recaka",
+      "devanagari": "रेचक",
+      "iast": "recaka",
+      "sha256": "917eda0da34d2d415f5f3f00cc99297e20ebdbed4f1ee6d283c3e79dceb42326",
+      "byteLength": 7123
+    },
+    {
+      "id": "kumbhaka",
+      "devanagari": "कुम्भक",
+      "iast": "kumbhaka",
+      "sha256": "f9b67f7bd9eb7ff41f454ec9b9b8e59b64013130f4a7551f611829ef745a1e9c",
+      "byteLength": 7437
+    },
+    {
+      "id": "ujjayi",
+      "devanagari": "उज्जायी",
+      "iast": "ujjāyī",
+      "sha256": "d39c3f4a89492135089203b615b134891d5df51b687048c3df0c68fd1106a4aa",
+      "byteLength": 7437
+    },
+    {
+      "id": "bhastrika",
+      "devanagari": "भस्त्रिका",
+      "iast": "bhastrikā",
+      "sha256": "8d19b0307fab47f28e3ba3823ebb89eb32354cfd215b329b1c5b70a0fafaf45a",
+      "byteLength": 7123
+    },
+    {
+      "id": "bhramari",
+      "devanagari": "भ्रामरी",
+      "iast": "bhrāmarī",
+      "sha256": "2c17b2d4b72818ba91962d38cead8b1a0feeeef20a2c686c3856bb34ea683673",
+      "byteLength": 6966
+    },
+    {
+      "id": "shitali",
+      "devanagari": "शीतली",
+      "iast": "śītalī",
+      "sha256": "d1edb2d31171ee181a5001be08d8f840ae0f8e0a4237d23458c39dfdb7a62935",
+      "byteLength": 7593
+    },
+    {
+      "id": "nadishodhana",
+      "devanagari": "नाडीशोधन",
+      "iast": "nāḍīśodhana",
+      "sha256": "0cc2e9bdf48d320736fa25c12776a3a348008184fef27bd55f3907dc2b7e8413",
+      "byteLength": 9474
+    },
+    {
+      "id": "urdhva",
+      "devanagari": "ऊर्ध्व",
+      "iast": "ūrdhva",
+      "sha256": "d2aa41308693200a943183f21dd36415a9bd7b08f5222c367b1eeb54b8eec885",
+      "byteLength": 6496
+    },
+    {
+      "id": "adhah",
+      "devanagari": "अधः",
+      "iast": "adhaḥ",
+      "sha256": "976bdf87303ab8cbd48ed4eecb939bf27bf1028661a780f312d6a01667027593",
+      "byteLength": 5556
+    },
+    {
+      "id": "vama",
+      "devanagari": "वाम",
+      "iast": "vāma",
+      "sha256": "6ba2bcf351f51628d77bdaead730c0cb489617def711701bf27bf1c7c750414a",
+      "byteLength": 5869
+    },
+    {
+      "id": "dakshina",
+      "devanagari": "दक्षिण",
+      "iast": "dakṣiṇa",
+      "sha256": "1f5ce5daef8697dede322e39612a3d2deef5743f037b93a3947a7eb561a47897",
+      "byteLength": 6810
+    },
+    {
+      "id": "hasta",
+      "devanagari": "हस्त",
+      "iast": "hasta",
+      "sha256": "5025ee9c291ba3af560fda50d5872046d18c73409099e3fee6220cb2d1fac5d5",
+      "byteLength": 6026
+    },
+    {
+      "id": "pada",
+      "devanagari": "पाद",
+      "iast": "pāda",
+      "sha256": "e21af61554d6fb8eac80aee89fc2767255f145f0c777795581b9190719cd7337",
+      "byteLength": 6026
+    },
+    {
+      "id": "janu",
+      "devanagari": "जानु",
+      "iast": "jānu",
+      "sha256": "e78c17f50018160f2bf2a5a06ef0300298abd3e530f6f7f94aeb6326dbf4fb32",
+      "byteLength": 5869
+    },
+    {
+      "id": "mukha",
+      "devanagari": "मुख",
+      "iast": "mukha",
+      "sha256": "e90296deb40efa2d69163437291d486c43eab8dbb256e26d0bc8f8a6291c13ae",
+      "byteLength": 6026
     }
   ]
 }

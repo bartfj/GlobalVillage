@@ -288,6 +288,8 @@ class S {
       isEn ? 'Read this first, then start' : '先看本课内容，再开始练习';
   String get startPractice => isEn ? 'Start' : '开始练习';
   String get playPronunciation => isEn ? 'Play pronunciation' : '播放发音';
+  String get playSyntheticPronunciation =>
+      isEn ? 'Play synthetic reference pronunciation' : '播放合成参考发音';
   String audioPlaybackFailed(LearningLanguage language) {
     final name = language == LearningLanguage.chinese ? '中文' : '英文';
     return isEn

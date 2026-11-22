@@ -55,7 +55,7 @@ class _YogaAudioButtonState extends ConsumerState<YogaAudioButton> {
         );
     if (term == null) return const SizedBox.shrink();
     return IconButton(
-      tooltip: ref.read(stringsProvider).playPronunciation,
+      tooltip: ref.watch(stringsProvider).playSyntheticPronunciation,
       visualDensity: VisualDensity.compact,
       onPressed: _playing ? null : () => _play(term),
       icon: _playing

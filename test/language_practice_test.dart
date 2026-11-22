@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/data/models/skill_practice.dart';
+import 'package:english_village/data/models/skill_practice_progress.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:unorm_dart/unorm_dart.dart' as unicode;
 
@@ -76,7 +77,7 @@ void main() {
         expect(bank.exercises.length, greaterThanOrEqualTo(10), reason: path);
         for (final chapter in bank.chapters) {
           expect(chapter.id, isNotEmpty, reason: path);
-          expect(chapter.exercises, isNotEmpty, reason: '${path}/${chapter.id}');
+          expect(chapter.exercises, isNotEmpty, reason: '$path/${chapter.id}');
         }
         for (final e in bank.exercises) {
           // 无音频安全：只出识读选择题
@@ -151,7 +152,7 @@ void main() {
 
     test('瑜伽梵文：识读与意义成对，术语不重复', () {
       final bank = _load('assets/practice/sanskritYoga.json');
-      expect(bank.exercises.length, 80);
+      expect(bank.exercises.length, 128);
       final terms = <String>{};
       for (var i = 0; i < bank.exercises.length; i += 2) {
         final reading = bank.exercises[i];
@@ -161,7 +162,11 @@ void main() {
         expect(reading.prompt.substring('选择 IAST：'.length), isNotEmpty);
         expect(_hanzi.hasMatch(reading.prompt), isTrue, reason: reading.id);
         expect(reading.support, isNotNull, reason: reading.id);
-        expect(_devanagari.hasMatch(reading.support!), isTrue, reason: reading.id);
+        expect(
+          _devanagari.hasMatch(reading.support!),
+          isTrue,
+          reason: reading.id,
+        );
         expect(meaning.prompt, contains(reading.answer), reason: meaning.id);
         expect(meaning.support, reading.support, reason: meaning.id);
         for (final options in [reading.options, meaning.options]) {
@@ -169,7 +174,50 @@ void main() {
         }
         expect(terms.add(reading.answer), isTrue, reason: reading.answer);
       }
-      expect(terms.length, 40);
+      expect(terms.length, 64);
+    });
+
+    test('瑜伽梵文：新增章节使用章内选项并承接已有进度', () {
+      final bank = _load('assets/practice/sanskritYoga.json');
+      final chapterIds = bank.chapters.map((chapter) => chapter.id).toList();
+      expect(chapterIds, [
+        'syg-core',
+        'syg-mind',
+        'syg-asanas',
+        'syg-path',
+        'syg-more-asanas',
+        'syg-breath',
+        'syg-classroom',
+      ]);
+      expect(bank.exercises[79].id, 'syg80');
+      expect(bank.exercises[80].id, 'syg81');
+      expect(bank.exercises.last.id, 'syg128');
+      expect(bank.exercises.map((e) => e.id).toSet(), hasLength(128));
+      for (final chapter in bank.chapters.skip(4)) {
+        expect(chapter.exercises, hasLength(16), reason: chapter.id);
+        for (final offset in [0, 1]) {
+          final questions = [
+            for (var i = offset; i < chapter.exercises.length; i += 2)
+              chapter.exercises[i],
+          ];
+          final answers = questions.map((e) => e.answer).toSet();
+          expect(answers, hasLength(8), reason: chapter.id);
+          for (final question in questions) {
+            expect(answers, containsAll(question.options), reason: question.id);
+          }
+        }
+      }
+
+      final completedIds = {'syg-core', 'syg-mind', 'syg-asanas', 'syg-path'};
+      final completed = chapterIds.map(completedIds.contains).toList();
+      expect(
+        skillPracticeChapterStatus(index: 4, chapterCompletedFlags: completed),
+        SkillPracticeChapterStatus.available,
+      );
+      expect(
+        skillPracticeChapterStatus(index: 5, chapterCompletedFlags: completed),
+        SkillPracticeChapterStatus.locked,
+      );
     });
 
     test('瑜伽英文：听音识义与译英成对，选项语言不混排', () {
