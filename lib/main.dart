@@ -9,8 +9,10 @@ import 'app/providers.dart';
 import 'app/router.dart';
 import 'app/theme.dart';
 import 'core/services/diagnostic_log.dart';
+import 'data/models/check_in.dart';
 import 'data/models/progress.dart';
 import 'data/models/user.dart';
+import 'data/sources/check_in_store.dart';
 import 'data/sources/progress_store.dart';
 import 'data/sources/learning_store.dart';
 import 'data/sources/reward_store.dart';
@@ -28,6 +30,7 @@ void main() {
       await Hive.openBox<LessonProgress>(ProgressStore.boxName);
       await Hive.openBox<String>(LearningStore.boxName);
       await Hive.openBox<String>(RewardStore.boxName);
+      await Hive.openBox<String>(CheckInStore.boxName);
       await Hive.openBox<String>(SkillPracticeProgressStore.boxName);
       await Hive.openBox<User>(UserStore.usersBoxName);
       await Hive.openBox<String>(UserStore.sessionBoxName);
@@ -71,6 +74,11 @@ class EnglishVillageApp extends ConsumerStatefulWidget {
 
 class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
     with WidgetsBindingObserver {
+  Timer? _checkInMidnight;
+  bool _remindersDirty = false;
+  bool _aligningReminders = false;
+  bool _openLearningWhenReady = false;
+
   @override
   void initState() {
     super.initState();
@@ -79,11 +87,14 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
       if (!mounted) return;
       unawaited(ref.read(diagnosticUploaderProvider).flush());
       _alignForegroundSync();
+      _refreshCheckInDay();
+      _alignCheckInReminders();
     });
   }
 
   @override
   void dispose() {
+    _checkInMidnight?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -91,6 +102,60 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _alignForegroundSync(state);
+    if (state == AppLifecycleState.resumed) {
+      _refreshCheckInDay();
+      _alignCheckInReminders();
+    } else if (state != AppLifecycleState.inactive) {
+      _checkInMidnight?.cancel();
+    }
+  }
+
+  void _refreshCheckInDay() {
+    if (!Hive.isBoxOpen(CheckInStore.boxName)) return;
+    _checkInMidnight?.cancel();
+    final now = ref.read(checkInClockProvider)();
+    final midnight = checkInDay(now).add(const Duration(hours: 16));
+    ref.read(checkInDayRevisionProvider.notifier).state++;
+    _checkInMidnight = Timer(midnight.difference(now), _refreshCheckInDay);
+  }
+
+  void _alignCheckInReminders() {
+    if (!Hive.isBoxOpen(CheckInStore.boxName)) return;
+    _remindersDirty = true;
+    if (!_aligningReminders) unawaited(_reconcileCheckInReminders());
+  }
+
+  Future<void> _reconcileCheckInReminders() async {
+    _aligningReminders = true;
+    try {
+      while (mounted && _remindersDirty) {
+        _remindersDirty = false;
+        try {
+          await ref.read(checkInRemindersReadyProvider.future);
+          if (!mounted) return;
+          final latest = ref.read(checkInStatusProvider)?.latestDay;
+          await ref
+              .read(checkInRemindersProvider)
+              .reconcile(
+                optedInAt: ref.read(checkInReminderOptInProvider),
+                latestCheckInDay: latest == null ? null : checkInDayKey(latest),
+                isEnglish: ref.read(stringsProvider).isEn,
+              );
+        } catch (error, stack) {
+          recordDiagnosticError('check_in_reminders', error, stack);
+        }
+      }
+    } finally {
+      _aligningReminders = false;
+    }
+  }
+
+  void _openLearningFromReminder() {
+    if (!_openLearningWhenReady || !ref.read(allCoursesProvider).hasValue) {
+      return;
+    }
+    _openLearningWhenReady = false;
+    handleCheckInReminderTap(ref.read(goRouterProvider));
   }
 
   /// 前台立刻拉取并开始轮询；离开前台停止并上传未发出的变更。
@@ -137,10 +202,29 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
           pending: auth.pendingImportFrom,
         ),
       ),
-      (_, _) => _alignForegroundSync(),
+      (previous, next) {
+        _alignForegroundSync();
+        if (previous?.userKey != next.userKey) _alignCheckInReminders();
+      },
     );
-    ref.listen(allCoursesProvider, (_, _) => _rememberCurrentCourse());
+    ref.listen(allCoursesProvider, (_, _) {
+      _rememberCurrentCourse();
+      _openLearningFromReminder();
+    });
     ref.listen(selectedTrackProvider, (_, _) => _rememberCurrentCourse());
+    ref.listen(
+      checkInStatusProvider.select((status) => status?.latestDay),
+      (_, _) => _alignCheckInReminders(),
+    );
+    ref.listen(
+      checkInReminderOptInProvider,
+      (_, _) => _alignCheckInReminders(),
+    );
+    ref.listen(uiLanguageProvider, (_, _) => _alignCheckInReminders());
+    ref.listen(checkInReminderTapProvider, (_, _) {
+      _openLearningWhenReady = true;
+      _openLearningFromReminder();
+    });
     final courses = ref.watch(allCoursesProvider);
     return courses.when(
       loading: () => const MaterialApp(

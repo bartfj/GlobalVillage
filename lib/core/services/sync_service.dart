@@ -7,6 +7,7 @@ import '../../app/auth_controller.dart';
 import '../constants.dart';
 import 'diagnostic_log.dart';
 import '../../data/models/progress.dart';
+import '../../data/sources/check_in_store.dart';
 import '../../data/sources/cloud_auth_api.dart';
 import '../../data/sources/progress_store.dart';
 import '../../data/sources/reward_store.dart';
@@ -16,13 +17,14 @@ import '../../data/sources/sync_api.dart';
 /// 同步状态（抽屉展示用）
 enum SyncStatus { idle, syncing, synced, failed }
 
-/// 同步快照（schemaVersion=1）：progress / rewards / track。
+/// 同步快照（schemaVersion=1）：progress / rewards / track / checkInDays。
 class SyncSnapshot {
   const SyncSnapshot({
     required this.progress,
     required this.rewards,
     required this.track,
     required this.clientUpdatedAt,
+    this.checkInDays = const {},
   });
 
   /// lessonId → 进度
@@ -33,6 +35,9 @@ class SyncSnapshot {
 
   /// {selected, perLanguage, updatedAt}
   final Map<String, dynamic> track;
+
+  /// 已完成打卡的北京时间日期。
+  final Set<String> checkInDays;
 
   final int clientUpdatedAt;
 
@@ -51,6 +56,7 @@ class SyncSnapshot {
     },
     'rewards': rewards,
     'track': track,
+    if (checkInDays.isNotEmpty) 'checkInDays': checkInDays.toList()..sort(),
   };
 
   static SyncSnapshot fromPayload(Map<String, dynamic> payload) {
@@ -90,10 +96,11 @@ class SyncSnapshot {
       rewards: rewards,
       track: track is Map ? Map<String, dynamic>.from(track) : const {},
       clientUpdatedAt: (payload['clientUpdatedAt'] as num?)?.toInt() ?? 0,
+      checkInDays: CheckInStore.parseDays(payload['checkInDays']),
     );
   }
 
-  /// 进度、奖励、轨道是否相同（不计 clientUpdatedAt）。
+  /// 判断快照内容是否相同（不计 clientUpdatedAt）。
   static bool sameContent(SyncSnapshot a, SyncSnapshot b) {
     if (a.progress.length != b.progress.length) return false;
     for (final entry in a.progress.entries) {
@@ -104,7 +111,8 @@ class SyncSnapshot {
     for (final entry in a.rewards.entries) {
       if (b.rewards[entry.key] != entry.value) return false;
     }
-    return _sameValue(a.track, b.track);
+    return setEquals(a.checkInDays, b.checkInDays) &&
+        _sameValue(a.track, b.track);
   }
 
   static bool _sameLesson(LessonProgress a, LessonProgress b) =>
@@ -189,6 +197,7 @@ class SyncMerger {
       },
       rewards: mergeRewards(local.rewards, remote.rewards),
       track: mergeTrack(local.track, remote.track),
+      checkInDays: {...local.checkInDays, ...remote.checkInDays},
       clientUpdatedAt: DateTime.now().millisecondsSinceEpoch,
     );
   }
@@ -228,7 +237,6 @@ class SyncService {
   Future<void>? _inFlight;
   bool _followUp = false;
   int _changeEpoch = 0;
-  bool _applyingRemote = false;
   bool _dirty = false;
 
   bool _canSync() {
@@ -243,6 +251,7 @@ class SyncService {
     progress: ProgressStore(userKey: userKey).entries,
     rewards: RewardStore(userKey: userKey).attempts,
     track: _settings.exportTrackPrefs(userKey),
+    checkInDays: CheckInStore(userKey: userKey).days,
     clientUpdatedAt: DateTime.now().millisecondsSinceEpoch,
   );
 
@@ -373,32 +382,27 @@ class SyncService {
 
   /// 把合并结果写回本地 Hive（轨道仅在远端更新时覆盖）。
   Future<void> _writeLocal(String userKey, SyncSnapshot snapshot) async {
-    _applyingRemote = true;
-    try {
-      final progressStore = ProgressStore(userKey: userKey);
-      for (final progress in snapshot.progress.values) {
-        await progressStore.save(progress);
-      }
-      final rewardStore = RewardStore(userKey: userKey);
-      final existing = rewardStore.attempts;
-      for (final entry in snapshot.rewards.entries) {
-        if (!existing.containsKey(entry.key)) {
-          await rewardStore.save(entry.key, entry.value);
-        }
-      }
-      final remoteTrackAt = (snapshot.track['updatedAt'] as num?)?.toInt() ?? 0;
-      if (remoteTrackAt > _settings.trackUpdatedAt(userKey)) {
-        await _settings.importTrackPrefs(userKey, snapshot.track);
-      }
-    } finally {
-      _applyingRemote = false;
+    final progressStore = ProgressStore(userKey: userKey);
+    for (final progress in snapshot.progress.values) {
+      await progressStore.save(progress);
     }
+    final rewardStore = RewardStore(userKey: userKey);
+    final existing = rewardStore.attempts;
+    for (final entry in snapshot.rewards.entries) {
+      if (!existing.containsKey(entry.key)) {
+        await rewardStore.save(entry.key, entry.value);
+      }
+    }
+    final remoteTrackAt = (snapshot.track['updatedAt'] as num?)?.toInt() ?? 0;
+    if (remoteTrackAt > _settings.trackUpdatedAt(userKey)) {
+      await _settings.importTrackPrefs(userKey, snapshot.track);
+    }
+    await CheckInStore(userKey: userKey).mergeDays(snapshot.checkInDays);
     _onMerged?.call();
   }
 
-  /// 本地进度/奖励/轨道变更后调用（防抖上传；在线且无待导入时才生效）。
+  /// 本机学习或轨道变更后调用（防抖上传；在线且无待导入时才生效）。
   void scheduleUpload() {
-    if (_applyingRemote) return;
     if (!_canSync()) return;
     _dirty = true;
     _changeEpoch++;
@@ -438,7 +442,7 @@ class SyncService {
     if (flushPending) unawaited(flushUpload());
   }
 
-  /// 槽位复制（绑定升级/游客导入）：progress + rewards + track，保留源槽位。
+  /// 槽位复制（绑定升级/游客导入），保留源槽位。
   Future<void> copySlot(String fromUserKey, String toUserKey) async {
     await copyStoredSlot(_settings, fromUserKey, toUserKey);
     _onMerged?.call();
@@ -468,6 +472,9 @@ class SyncService {
         await targetRewards.save(entry.key, entry.value);
       }
     }
+    await CheckInStore(
+      userKey: toUserKey,
+    ).mergeDays(CheckInStore(userKey: fromUserKey).days);
     await settings.importTrackPrefs(
       toUserKey,
       settings.exportTrackPrefs(fromUserKey),

@@ -19,6 +19,7 @@ class TreePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(rewardRevisionProvider);
+    ref.watch(checkInStatusProvider.select((status) => status?.bonusTrees));
     final rewards = ref.watch(rewardRepositoryProvider);
     if (rewards == null) {
       return const Scaffold(

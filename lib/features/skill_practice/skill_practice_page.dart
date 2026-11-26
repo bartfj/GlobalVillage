@@ -8,11 +8,14 @@ import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
+import '../../data/models/check_in.dart';
 import '../../data/models/course.dart';
 import '../../data/models/skill_practice.dart';
 import '../../data/models/skill_practice_progress.dart';
+import '../../data/repositories/check_in_repository.dart';
 import '../../data/sources/learning_store.dart';
 import '../../data/sources/skill_practice_loader.dart';
+import '../check_in/check_in_feedback.dart';
 import '../feedback/feedback_dialog.dart';
 import '../lesson/sanskrit_answer_display.dart';
 import '../lesson/widgets/answer_feedback_bar.dart';
@@ -53,10 +56,15 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   Object? _loadError;
   bool _loading = true;
   bool _completed = false;
+  bool _saving = false;
+  bool _saveFailed = false;
+  DateTime? _completedAt;
+  SkillPracticeChapterProgress? _finishedProgress;
   bool _allowExit = false;
   bool _recording = false;
   final Set<String> _attempted = {};
   LearningStore? _learningStore;
+  late final CheckInRepository? _checkIns;
   late String _courseId;
   late String _mode;
 
@@ -70,6 +78,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     _startTime = DateTime.now();
     _questionStart = _startTime;
     _learningStore = ref.read(learningStoreProvider);
+    _checkIns = ref.read(checkInRepositoryProvider);
     _courseId = ref.read(courseProvider).id;
     _mode = widget.skill.modeForChapter(widget.chapterId);
     final place =
@@ -82,6 +91,13 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     );
     unawaited(_bootstrap());
   }
+
+  bool get _active =>
+      mounted &&
+      ref.read(courseProvider).id == _courseId &&
+      ref.read(learningStoreProvider)?.userKey == _learningStore?.userKey &&
+      (_checkIns == null ||
+          identical(ref.read(checkInRepositoryProvider), _checkIns));
 
   Future<void> _bootstrap() async {
     final loader =
@@ -150,7 +166,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
 
   Future<void> _onCheck() async {
     final session = _session;
-    if (session == null || _recording) return;
+    if (session == null || _recording || !_active) return;
     final controller = ref.read(
       skillPracticeControllerProvider(session).notifier,
     );
@@ -178,20 +194,18 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
       final source = course.orderedLessons.where(
         (l) => l.exercises.any((e) => e.id == exercise.id),
       );
-      await ref
-          .read(learningStoreProvider)
-          ?.recordAnswer(
-            courseId: course.id,
-            lessonId: source.isEmpty
-                ? 'practice-${widget.skill.name}-${widget.chapterId}'
-                : source.first.id,
-            exercise: exercise,
-            correct: correct,
-            first: _attempted.add(exercise.id),
-            elapsedMs: DateTime.now().difference(_questionStart).inMilliseconds,
-            mode: _mode,
-            skipped: skipped,
-          );
+      await _learningStore?.recordAnswer(
+        courseId: course.id,
+        lessonId: source.isEmpty
+            ? 'practice-${widget.skill.name}-${widget.chapterId}'
+            : source.first.id,
+        exercise: exercise,
+        correct: correct,
+        first: _attempted.add(exercise.id),
+        elapsedMs: DateTime.now().difference(_questionStart).inMilliseconds,
+        mode: _mode,
+        skipped: skipped,
+      );
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -205,7 +219,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
 
   Future<void> _onSkipSpeaking() async {
     final session = _session;
-    if (session == null || _recording) return;
+    if (session == null || _recording || !_active) return;
     final controller = ref.read(
       skillPracticeControllerProvider(session).notifier,
     );
@@ -217,7 +231,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
 
   void _onContinue() {
     final session = _session;
-    if (session == null || _recording) return;
+    if (session == null || _recording || _completed || !_active) return;
     final controller = ref.read(
       skillPracticeControllerProvider(session).notifier,
     );
@@ -228,37 +242,65 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     final state = ref.read(skillPracticeControllerProvider(session));
     if (state.finished) {
       _completed = true;
-      unawaited(_finishSession(session, state.correctCount, state.totalCount));
+      _completedAt = ref.read(checkInClockProvider)();
+      unawaited(_finishSession());
     }
   }
 
-  Future<void> _finishSession(
-    SkillPracticeSession session,
-    int correctCount,
-    int totalCount,
-  ) async {
-    await _log({
-      'kind': 'finish',
-      'lessonId': session.lesson.id,
-      'correctCount': correctCount,
-      'totalCount': totalCount,
-      'elapsedMs': DateTime.now().difference(_startTime).inMilliseconds,
+  Future<void> _finishSession() async {
+    final session = _session;
+    final completedAt = _completedAt;
+    if (session == null || completedAt == null || _saving || !_active) return;
+    final state = ref.read(skillPracticeControllerProvider(session));
+    if (!state.finished) return;
+    final correctCount = state.correctCount;
+    final totalCount = state.totalCount;
+    setState(() {
+      _saving = true;
+      _saveFailed = false;
     });
+    CheckInUpdate? checkIn;
+    try {
+      if (_finishedProgress == null) {
+        final progressStore = ref.read(skillPracticeProgressStoreProvider);
+        final previous = progressStore?.get(
+          widget.skill.name,
+          widget.chapterId,
+        );
+        final updated = applySkillPracticeSessionResult(
+          skill: widget.skill.name,
+          chapterId: widget.chapterId,
+          correctCount: correctCount,
+          totalCount: totalCount,
+          previous: previous,
+          now: completedAt,
+        );
+        await progressStore?.save(updated);
+        _finishedProgress = updated;
+        if (!_active) return;
+        ref.read(skillPracticeProgressRevisionProvider.notifier).state++;
+        await _log({
+          'kind': 'finish',
+          'lessonId': session.lesson.id,
+          'correctCount': correctCount,
+          'totalCount': totalCount,
+          'elapsedMs': completedAt.difference(_startTime).inMilliseconds,
+        });
+      }
+      if (!_active) return;
+      if (state.qualifiesForCheckIn) {
+        checkIn = await _checkIns?.recordCompletion(completedAt);
+      }
+    } catch (_) {
+      if (_active) setState(() => _saveFailed = true);
+      return;
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
 
-    final progressStore = ref.read(skillPracticeProgressStoreProvider);
-    final previous = progressStore?.get(widget.skill.name, widget.chapterId);
-    final updated = applySkillPracticeSessionResult(
-      skill: widget.skill.name,
-      chapterId: widget.chapterId,
-      correctCount: correctCount,
-      totalCount: totalCount,
-      previous: previous,
-    );
-    await progressStore?.save(updated);
-    ref.read(skillPracticeProgressRevisionProvider.notifier).state++;
-
-    if (!mounted) return;
+    if (!mounted || !_active) return;
     final s = ref.read(stringsProvider);
+    final updated = _finishedProgress!;
     final passed = updated.lastAccuracy >= skillPracticePassAccuracy;
     final percent = (updated.lastAccuracy * 100).round();
     final bank = _bank;
@@ -273,44 +315,48 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Text(s.skillDoneTitle(widget.skill)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(s.firstCorrect(correctCount, totalCount)),
-            const SizedBox(height: 8),
-            Text(s.practiceAccuracy(percent)),
-            const SizedBox(height: 8),
-            Text(s.practiceUnlockHint(passed)),
+      builder: (context) => PopScope(
+        canPop: false,
+        child: AlertDialog(
+          title: Text(s.skillDoneTitle(widget.skill)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(s.firstCorrect(correctCount, totalCount)),
+              const SizedBox(height: 8),
+              Text(s.practiceAccuracy(percent)),
+              const SizedBox(height: 8),
+              Text(s.practiceUnlockHint(passed)),
+              CheckInFeedback(update: checkIn),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _leaveToChapters();
+              },
+              child: Text(s.practiceBackToChapters),
+            ),
+            if (!passed)
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _restartChapter();
+                },
+                child: Text(s.practiceRetryChapter),
+              ),
+            if (passed && nextChapterId != null)
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _goChapter(nextChapterId!);
+                },
+                child: Text(s.practiceNextChapter),
+              ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _leaveToChapters();
-            },
-            child: Text(s.practiceBackToChapters),
-          ),
-          if (!passed)
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _restartChapter();
-              },
-              child: Text(s.practiceRetryChapter),
-            ),
-          if (passed && nextChapterId != null)
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _goChapter(nextChapterId!);
-              },
-              child: Text(s.practiceNextChapter),
-            ),
-        ],
       ),
     );
   }
@@ -373,6 +419,7 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
   }
 
   Future<void> _onClose() async {
+    if (_saving) return;
     dismissPhoneticBubble();
     final s = ref.read(stringsProvider);
     final quit = await showDialog<bool>(
@@ -456,9 +503,29 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
     final session = _session!;
     final state = ref.watch(skillPracticeControllerProvider(session));
     if (state.finished) {
-      return Scaffold(
-        body: Center(
-          child: Icon(Icons.check_circle_outline, size: 64, color: _accent),
+      return PopScope(
+        canPop: !_saving,
+        child: Scaffold(
+          body: Center(
+            child: _saving
+                ? const CircularProgressIndicator()
+                : _saveFailed
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(s.recordSaveFailed),
+                      FilledButton(
+                        onPressed: _finishSession,
+                        child: Text(s.retrySave),
+                      ),
+                      TextButton(
+                        onPressed: _leaveToChapters,
+                        child: Text(s.practiceBackToChapters),
+                      ),
+                    ],
+                  )
+                : Icon(Icons.check_circle_outline, size: 64, color: _accent),
+          ),
         ),
       );
     }

@@ -9,6 +9,7 @@ import '../../app/theme.dart';
 import '../../app/widgets/app_version_label.dart';
 import '../../data/models/course_track.dart';
 import '../../data/repositories/user_repository.dart';
+import '../check_in/check_in_page.dart';
 import '../feedback/feedback_dialog.dart';
 import 'widgets/lesson_node.dart';
 import 'widgets/main_menu_drawer.dart';
@@ -262,6 +263,7 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
         .where((l) => progress.isLessonCompleted(l.id))
         .length;
     final current = progress.currentLesson;
+    final checkIn = ref.watch(checkInStatusProvider);
     // 零基础全部完成后直接引导进入同语言的入门课程。
     final nextTrack = current == null
         ? CourseTrack.fromId(course.id).nextTrack
@@ -307,6 +309,12 @@ class _LearningPathPageState extends ConsumerState<LearningPathPage> {
               },
             ),
       appBar: AppBar(
+        bottom: checkIn == null
+            ? null
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: CheckInHomeBanner(status: checkIn),
+              ),
         title: InkWell(
           key: const ValueKey('course-selector'),
           onTap: () => showCourseSelector(context, ref),

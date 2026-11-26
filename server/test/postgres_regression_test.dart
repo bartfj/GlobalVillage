@@ -34,6 +34,7 @@ void main() {
       final second = await PostgresSyncRepo.connect(databaseUrl);
       final id = newAccountId();
       await first.put(id, {
+        'checkInDays': ['2026-11-18'],
         'progress': {
           'u1l1': {'score': 80},
         },
@@ -51,6 +52,7 @@ void main() {
             return await repo.put(
               id,
               {
+                'checkInDays': [version == 200 ? '2026-11-19' : '2026-11-20'],
                 'progress': {
                   'u1l1': {'score': version},
                 },
@@ -83,7 +85,19 @@ void main() {
         expect(results.whereType<SyncRecord>(), hasLength(1));
         expect(results.whereType<SyncConflictException>(), hasLength(1));
         final winner = results.whereType<SyncRecord>().single;
-        expect((await first.get(id))!.clientUpdatedAt, winner.clientUpdatedAt);
+        final winnerDays = [
+          '2026-11-18',
+          winner.clientUpdatedAt == 200 ? '2026-11-19' : '2026-11-20',
+        ];
+        expect(winner.payload['checkInDays'], winnerDays);
+        final oldClient = await first.put(
+          id,
+          {'schemaVersion': 1},
+          400,
+          baseClientUpdatedAt: winner.clientUpdatedAt,
+        );
+        expect(oldClient.payload['checkInDays'], winnerDays);
+        expect((await first.get(id))!.payload['checkInDays'], winnerDays);
       } finally {
         await control.execute('ROLLBACK');
         await first.delete(id);
@@ -126,5 +140,6 @@ void main() {
       );
       await upgraded.delete(account.accountId);
     });
+
   }, skip: databaseUrl == null ? '设置 TEST_DATABASE_URL 指向独立测试数据库' : false);
 }

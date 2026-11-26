@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:english_village/app/providers.dart';
 import 'package:english_village/core/services/sound_service.dart';
+import 'package:english_village/data/models/check_in.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/progress.dart';
+import 'package:english_village/data/repositories/check_in_repository.dart';
 import 'package:english_village/data/repositories/course_repository.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
 import 'package:english_village/data/sources/course_loader.dart';
@@ -31,10 +34,12 @@ class SilentSound implements SoundService {
 class MemoryLearningStore extends LearningStore {
   MemoryLearningStore() : super(userKey: 'guest');
   final List<dynamic> _events = [];
+  final finishSave = Completer<void>();
   @override
   List<dynamic> get events => _events;
   @override
   Future<void> log(Map<String, dynamic> event) async {
+    if (event['kind'] == 'finish') await finishSave.future;
     _events.add(event);
   }
 
@@ -49,6 +54,19 @@ class MemoryLearningStore extends LearningStore {
     required String mode,
     bool skipped = false,
   }) async {}
+}
+
+class _CheckIns implements CheckInRepository {
+  int calls = 0;
+
+  @override
+  Future<CheckInUpdate> recordCompletion(DateTime completedAt) async {
+    calls++;
+    return const CheckInUpdate(newDay: true, earned: []);
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 void main() {
@@ -80,7 +98,7 @@ void main() {
     },
   );
 
-  testWidgets('practice completes and exits without updating course progress', (
+  testWidgets('review protects pending completion from system Back', (
     tester,
   ) async {
     final temp = (await tester.runAsync(
@@ -100,10 +118,9 @@ void main() {
         await temp.delete(recursive: true);
       });
     });
-    final course = (await tester.runAsync(
-      () => CourseLoader().load(CourseTrack.zero),
-    ))!;
+    const course = Course(id: 'zero', title: '零基础', units: []);
     final store = MemoryLearningStore();
+    final checkIns = _CheckIns();
     const ex = Exercise(
       id: 'practice-input',
       type: ExerciseType.translateInput,
@@ -118,6 +135,7 @@ void main() {
           courseProvider.overrideWithValue(course),
           courseRepositoryProvider.overrideWithValue(CourseRepository(course)),
           learningStoreProvider.overrideWithValue(store),
+          checkInRepositoryProvider.overrideWithValue(checkIns),
           soundServiceProvider.overrideWithValue(SilentSound()),
           progressRepositoryProvider.overrideWithValue(
             ProgressRepository(
@@ -162,6 +180,21 @@ void main() {
     });
     await tester.pumpAndSettle();
     await tester.tap(find.text('继续'));
+    await tester.pump();
+    expect(checkIns.calls, 0);
+
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 750));
+    expect(find.byType(LessonPage), findsOneWidget);
+    expect(find.text('开始复习'), findsNothing);
+
+    store.finishSave.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('练习完成'), findsOneWidget);
+    expect(find.text('今日已打卡'), findsOneWidget);
+    expect(checkIns.calls, 1);
+    await tester.binding.handlePopRoute();
     await tester.pumpAndSettle();
     expect(find.text('练习完成'), findsOneWidget);
     await tester.tap(find.text('完成'));

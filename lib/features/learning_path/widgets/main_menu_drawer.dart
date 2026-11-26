@@ -98,6 +98,7 @@ class MainMenuDrawer extends ConsumerWidget {
     final selectedTrack = ref.watch(selectedTrackProvider);
     final allCourses = ref.watch(allCoursesProvider).asData?.value;
     final s = ref.watch(stringsProvider);
+    final checkIn = ref.watch(checkInStatusProvider);
     if (progress == null || rewards == null || allCourses == null) {
       return const Drawer(
         backgroundColor: _background,
@@ -111,7 +112,8 @@ class MainMenuDrawer extends ConsumerWidget {
         .length;
     final treeCount = rewards.treeCount;
     final treeStage = stageFor(treeCount);
-    final badgeUnits = rewards.unlockedBadgeCount(allCourses);
+    final badgeUnits =
+        rewards.unlockedBadgeCount(allCourses) + (checkIn?.earned.length ?? 0);
 
     final isGuest = auth.isGuest;
     final displayName = isGuest

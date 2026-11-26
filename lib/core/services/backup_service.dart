@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import '../../data/models/progress.dart';
 import '../../data/models/user.dart';
 import '../../data/repositories/user_repository.dart';
+import '../../data/sources/check_in_store.dart';
 import '../../data/sources/progress_store.dart';
 import '../../data/sources/reward_store.dart';
 import '../../data/sources/user_store.dart';
@@ -44,7 +45,7 @@ class BackupService {
         .toList();
 
     return jsonEncode({
-      'version': 2,
+      'version': 3,
       'exportedAt': DateTime.now().millisecondsSinceEpoch,
       'user': {
         'nickname': user.nickname,
@@ -54,6 +55,7 @@ class BackupService {
       },
       'progress': progress,
       'rewards': rewards,
+      'checkInDays': CheckInStore(userKey: userKey).days.toList()..sort(),
     });
   }
 
@@ -65,7 +67,8 @@ class BackupService {
     } catch (_) {
       return '备份码格式错误，无法解析';
     }
-    if (data['version'] != 1 && data['version'] != 2) return '不支持的备份码版本';
+    final version = data['version'];
+    if (version != 1 && version != 2 && version != 3) return '不支持的备份码版本';
     final userJson = data['user'];
     if (userJson is! Map<String, dynamic> ||
         userJson['nickname'] is! String ||
@@ -80,7 +83,7 @@ class BackupService {
     }
 
     final rewardEntries = <String, String>{};
-    if (data['version'] == 2) {
+    if (version == 2 || version == 3) {
       final rewards = data['rewards'];
       if (rewards is! List) return '备份码徽章数据错误';
       for (final item in rewards) {
@@ -103,6 +106,14 @@ class BackupService {
         }
         rewardEntries[attemptId] = unitId;
       }
+    }
+
+    final rawCheckInDays = data['checkInDays'];
+    final checkInDays = CheckInStore.parseDays(rawCheckInDays);
+    if (version == 3 &&
+        (rawCheckInDays is! List ||
+            rawCheckInDays.toSet().length != checkInDays.length)) {
+      return '备份码打卡日期错误';
     }
 
     final user = User(
@@ -145,6 +156,9 @@ class BackupService {
       if (rewardStore.get(entry.key) == null) {
         await rewardStore.save(entry.key, entry.value);
       }
+    }
+    if (version == 3) {
+      await CheckInStore(userKey: nickname).mergeDays(checkInDays);
     }
 
     await _userStore.setSession(nickname);

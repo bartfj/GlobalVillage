@@ -1,4 +1,6 @@
+import '../../data/models/check_in.dart';
 import '../../data/models/course.dart';
+import '../../data/repositories/check_in_repository.dart';
 import '../../data/repositories/progress_repository.dart';
 import '../../data/repositories/reward_repository.dart';
 import '../../data/sources/mother_pattern_store.dart';
@@ -6,10 +8,16 @@ import 'mother_pattern_controller.dart';
 import '../../core/constants.dart';
 
 class MotherPatternCompletionResult {
-  const MotherPatternCompletionResult(this.record, this.award, this.treeCount);
+  const MotherPatternCompletionResult(
+    this.record,
+    this.award,
+    this.treeCount, {
+    this.checkIn,
+  });
   final MotherPatternSessionResult record;
   final RewardAward? award;
   final int treeCount;
+  final CheckInUpdate? checkIn;
 }
 
 class MotherPatternCompletion {
@@ -22,6 +30,8 @@ class MotherPatternCompletion {
     required this.sessionId,
     this.reviewSnapshot,
     this.practice = false,
+    this.checkIns,
+    this.clock = DateTime.now,
   });
   final Course course;
   final Lesson lesson;
@@ -31,8 +41,11 @@ class MotherPatternCompletion {
   final String sessionId;
   final MotherPatternReviewSnapshot? reviewSnapshot;
   final bool practice;
+  final CheckInRepository? checkIns;
+  final DateTime Function() clock;
   Future<MotherPatternCompletionResult>? _pending;
   MotherPatternCompletionResult? _saved;
+  DateTime? _completedAt;
   bool _progressSaved = false;
   RewardAward? _award;
   Future<MotherPatternCompletionResult> save(
@@ -43,7 +56,8 @@ class MotherPatternCompletion {
     if (!state.finished) throw StateError('Complete the session before saving');
     if (_saved != null) return _saved!;
     if (_pending != null) return _pending!;
-    final pending = _save(state, isCurrent);
+    final completedAt = _completedAt ??= clock();
+    final pending = _save(state, completedAt, isCurrent);
     _pending = pending;
     try {
       return await pending;
@@ -58,6 +72,7 @@ class MotherPatternCompletion {
 
   Future<MotherPatternCompletionResult> _save(
     MotherPatternState state,
+    DateTime completedAt,
     bool Function() isCurrent,
   ) async {
     final mainLesson = !practice && reviewSnapshot == null;
@@ -88,10 +103,15 @@ class MotherPatternCompletion {
       reviewSnapshot: reviewSnapshot,
     );
     _check(isCurrent);
+    final checkIn = state.attempts.isEmpty
+        ? null
+        : await checkIns?.recordCompletion(completedAt);
+    _check(isCurrent);
     return _saved = MotherPatternCompletionResult(
       record,
       _award,
       _award == null ? 0 : rewards!.treeCount,
+      checkIn: checkIn,
     );
   }
 }

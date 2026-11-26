@@ -21,11 +21,13 @@ class RewardRepository {
 
   /// 新奖励入账后触发（在线会话的同步防抖上传）
   final void Function()? onAwarded;
+  final int Function()? readBonusTrees;
 
   const RewardRepository({
     required this.store,
     required this.course,
     this.onAwarded,
+    this.readBonusTrees,
   });
 
   /// 某关徽章获得次数（存储值为 lessonId）
@@ -52,8 +54,8 @@ class RewardRepository {
     return store.attempts.values.contains(unitId);
   }
 
-  /// 梭梭树总数 = 累计通关次数（每次通关存一条记录，attemptId 幂等、按账号隔离）
-  int get treeCount => store.attempts.length;
+  /// 梭梭树总数包含通关奖励与连续打卡奖励。
+  int get treeCount => store.attempts.length + (readBonusTrees?.call() ?? 0);
 
   Future<RewardAward?> awardForPassedAttempt(
     String lessonId,

@@ -18,6 +18,33 @@ Lesson _lesson(List<Exercise> exercises) => Lesson(
     );
 
 void main() {
+  test(
+    'a finished round qualifies even when every submitted answer is wrong',
+    () {
+      final controller = LessonController(_lesson([_ex('e1'), _ex('e2')]));
+      controller.skipWithoutCredit();
+      controller.next();
+      controller.submit('incorrect');
+      controller.next();
+      expect(controller.state.qualifiesForCheckIn, isFalse);
+      controller.submit('still incorrect');
+      controller.next();
+
+      expect(controller.state.correctCount, 0);
+      expect(controller.state.qualifiesForCheckIn, isTrue);
+    },
+  );
+
+  test('empty and all-skipped rounds do not qualify', () {
+    final empty = LessonController(_lesson([]));
+    final skipped = LessonController(_lesson([_ex('e1')]));
+    skipped.skipWithoutCredit();
+    skipped.next();
+
+    expect(empty.state.qualifiesForCheckIn, isFalse);
+    expect(skipped.state.qualifiesForCheckIn, isFalse);
+  });
+
   test('skipWithoutCredit 不计正确且不重做，继续后出队', () {
     final controller = LessonController(
       _lesson([_ex('e1'), _ex('e2', answer: 'World')]),

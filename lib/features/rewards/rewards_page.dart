@@ -5,6 +5,7 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../data/models/course_track.dart';
 import '../../data/models/lesson_badge.dart';
+import '../check_in/check_in_page.dart';
 
 class RewardsPage extends ConsumerWidget {
   const RewardsPage({super.key});
@@ -21,7 +22,17 @@ class RewardsPage extends ConsumerWidget {
       );
     }
 
-    final rows = <Widget>[];
+    final checkIn = ref.watch(checkInStatusProvider);
+    final rows = <Widget>[
+      if (checkIn != null && checkIn.earned.isNotEmpty) ...[
+        Text(
+          ref.watch(stringsProvider).checkInMilestones,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        for (final milestone in checkIn.earned)
+          CheckInMilestoneTile(milestone: milestone, earned: true),
+      ],
+    ];
     for (final course in courses) {
       final track = CourseTrack.fromId(course.id);
       rows.add(

@@ -150,6 +150,38 @@ void main() {
     expect(ok.statusCode, 200);
   });
 
+  test('离线设备上传取日期并集，旧客户端上传保留打卡日期', () async {
+    for (final (updatedAt, days) in [
+      (1000, ['2026-11-18', '2026-11-20']),
+      (2000, ['2026-11-19', '2026-11-20', '2026-02-30']),
+      (3000, null),
+    ]) {
+      final response = await request(
+        'PUT',
+        '/v1/sync',
+        bearer: accessToken,
+        body: {
+          'clientUpdatedAt': updatedAt,
+          if (updatedAt > 1000) 'baseClientUpdatedAt': updatedAt - 1000,
+          'payload': {
+            'schemaVersion': 1,
+            if (days != null) 'checkInDays': days,
+            'track': {'updatedAt': updatedAt},
+          },
+        },
+      );
+      expect(response.statusCode, 200);
+    }
+    final response = await request('GET', '/v1/sync', bearer: accessToken);
+    final body = await json(response);
+    expect(body['payload']['checkInDays'], [
+      '2026-11-18',
+      '2026-11-19',
+      '2026-11-20',
+    ]);
+    expect(body['payload']['track']['updatedAt'], 3000);
+  });
+
   test('快照按账号隔离', () async {
     await request(
       'PUT',

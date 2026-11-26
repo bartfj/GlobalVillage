@@ -8,6 +8,7 @@ import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/models/user.dart';
 import 'package:english_village/data/repositories/user_repository.dart';
+import 'package:english_village/data/sources/check_in_store.dart';
 import 'package:english_village/data/sources/cloud_auth_api.dart';
 import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/reward_store.dart';
@@ -99,8 +100,44 @@ class _FakeCloudAuth extends CloudAuthApi {
       register(email: email, phone: phone, password: password);
 }
 
+class _SettingsStoreWithImportHook extends SettingsStore {
+  Future<void> Function()? onImport;
+
+  @override
+  Future<void> importTrackPrefs(
+    String userKey,
+    Map<String, dynamic> prefs,
+  ) async {
+    await super.importTrackPrefs(userKey, prefs);
+    await onImport?.call();
+  }
+}
+
 void main() {
   group('SyncMerger 合并规则', () {
+    test('旧快照与另一设备的日期合并并规范化', () {
+      final old = SyncSnapshot.fromPayload({'schemaVersion': 1});
+      final deviceA = SyncSnapshot.fromPayload({
+        'checkInDays': ['2026-11-20', '2026-11-18', '2026-02-30'],
+      });
+      final deviceB = SyncSnapshot.fromPayload({
+        'checkInDays': ['2026-11-19', '2026-11-20'],
+      });
+      final merged = SyncMerger.merge(SyncMerger.merge(old, deviceA), deviceB);
+      expect(merged.toPayload()['checkInDays'], [
+        '2026-11-18',
+        '2026-11-19',
+        '2026-11-20',
+      ]);
+      expect(SyncSnapshot.sameContent(merged, deviceA), isFalse);
+      expect(
+        SyncSnapshot.sameContent(
+          merged,
+          SyncSnapshot.fromPayload(merged.toPayload()),
+        ),
+        isTrue,
+      );
+    });
     test('完成优先：一侧完成一侧未完成保留完成', () {
       final merged = SyncMerger.mergeLesson(
         _lesson('l1', completed: false, correctCount: 5),
@@ -182,6 +219,7 @@ void main() {
       }
       await Hive.openBox<LessonProgress>(ProgressStore.boxName);
       await Hive.openBox<String>(RewardStore.boxName);
+      await Hive.openBox<String>(CheckInStore.boxName);
       await Hive.openBox<String>(SettingsStore.boxName);
       await Hive.openBox<User>(UserStore.usersBoxName);
       await Hive.openBox<String>(UserStore.sessionBoxName);
@@ -212,6 +250,7 @@ void main() {
       auth.dispose();
       await Hive.box<LessonProgress>(ProgressStore.boxName).deleteFromDisk();
       await Hive.box<String>(RewardStore.boxName).deleteFromDisk();
+      await Hive.box<String>(CheckInStore.boxName).deleteFromDisk();
       await Hive.box<String>(SettingsStore.boxName).deleteFromDisk();
       await Hive.box<User>(UserStore.usersBoxName).deleteFromDisk();
       await Hive.box<String>(UserStore.sessionBoxName).deleteFromDisk();
@@ -236,6 +275,46 @@ void main() {
       expect(device['platform'], isNotEmpty);
       expect(device['appVersion'], kAppVersion);
       expect(device['installId'], await settings.ensureInstallId());
+    });
+
+    test('拉取合并将两端打卡日期写入本地和云端', () async {
+      const dates = CheckInStore(userKey: userKey);
+      await dates.mergeDays(['2026-11-18', '2026-11-20']);
+      api.remote = const RemoteSnapshot(
+        payload: {
+          'checkInDays': ['2026-11-19', '2026-11-20'],
+        },
+        clientUpdatedAt: 100,
+      );
+      await service.pullMergePush();
+      const expected = ['2026-11-18', '2026-11-19', '2026-11-20'];
+      expect(dates.days, expected.toSet());
+      expect(api.pushedPayload!['checkInDays'], expected);
+    });
+
+    test('写入远端数据时本机新增打卡会再次上传', () async {
+      api.remote = const RemoteSnapshot(
+        payload: {
+          'checkInDays': ['2026-11-19'],
+          'track': {'selected': 'beginner', 'updatedAt': 100},
+        },
+        clientUpdatedAt: 100,
+      );
+      final settingsWithHook = _SettingsStoreWithImportHook();
+      final concurrent = SyncService(
+        api: api,
+        settings: settingsWithHook,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+      );
+      addTearDown(concurrent.dispose);
+      settingsWithHook.onImport = () async {
+        await const CheckInStore(userKey: userKey).mergeDays(['2026-11-20']);
+        concurrent.scheduleUpload();
+      };
+      await concurrent.pullMergePush();
+      expect(api.pullCalls, 2);
+      expect(api.pushedPayload!['checkInDays'], ['2026-11-19', '2026-11-20']);
     });
 
     test('拉取合并：云端已完成的课写入本地并回传并集', () async {
@@ -403,18 +482,24 @@ void main() {
       expect(api.pushCalls, greaterThan(0));
     });
 
-    test('copySlot 复制进度/奖励/轨道且保留源槽位', () async {
+    test('copySlot 复制进度、奖励、轨道和打卡日期且保留源槽位', () async {
       await ProgressStore(userKey: 'alice').save(
           _lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await RewardStore(userKey: 'alice').save('a1', 'l1');
+      const sourceDays = CheckInStore(userKey: 'alice');
+      const targetDays = CheckInStore(userKey: userKey);
+      await sourceDays.mergeDays(['2026-11-18', '2026-11-19']);
+      await targetDays.mergeDays(['2026-11-19', '2026-11-20']);
       await settings.setTrack('alice', CourseTrack.intermediate);
       await service.copySlot('alice', userKey);
       expect(
           ProgressStore(userKey: userKey).entries['l1']!.completed, isTrue);
       expect(RewardStore(userKey: userKey).attempts, {'a1': 'l1'});
       expect(settings.getTrack(userKey), CourseTrack.intermediate);
+      expect(targetDays.days, {'2026-11-18', '2026-11-19', '2026-11-20'});
       // 源槽位保留
       expect(ProgressStore(userKey: 'alice').entries['l1']!.completed, isTrue);
+      expect(sourceDays.days, {'2026-11-18', '2026-11-19'});
     });
 
     test('本地账号绑定在线：会话切换、标记绑定、回调迁移', () async {
@@ -590,6 +675,21 @@ void main() {
       addTearDown(auth.dispose);
       expect(auth.state.userKey, 'online:acc-1');
       expect(auth.localAccountsToImport(), ['alice']);
+    });
+
+    test('本地槽位只有尚未同步的打卡日期也可导入', () async {
+      await UserStore().putUser(User(
+        nickname: 'alice',
+        passwordHash: 'h',
+        salt: 's',
+        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        onlineAccountId: 'acc-1',
+        onlineBoundAt: 1,
+      ));
+      await const CheckInStore(userKey: 'alice').mergeDays(['2026-11-20']);
+      expect(auth.localAccountsToImport(), ['alice']);
+      await service.copySlot('alice', userKey);
+      expect(auth.localAccountsToImport(), isEmpty);
     });
 
     test('本机可重设本地账号密码', () async {

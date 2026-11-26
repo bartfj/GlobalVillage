@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:english_village/data/models/check_in.dart';
 import 'package:english_village/data/models/course.dart';
+import 'package:english_village/data/repositories/check_in_repository.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
 import 'package:english_village/data/repositories/reward_repository.dart';
 import 'package:english_village/data/sources/learning_store.dart';
@@ -43,14 +45,17 @@ class PatternRewards implements RewardRepository {
   @override
   final Course course;
   final attempts = <String>{};
+  int calls = 0;
+  int bonusTrees = 0;
   bool fail = false;
   @override
-  int get treeCount => attempts.length;
+  int get treeCount => attempts.length + bonusTrees;
   @override
   Future<RewardAward?> awardForPassedAttempt(
     String lesson,
     String attempt,
   ) async {
+    calls++;
     if (fail) throw StateError('reward disk full');
     return RewardAward(
       lesson: course.lessonById(lesson)!,
@@ -88,6 +93,24 @@ class FailingPatternStore extends MotherPatternStore {
       reviewSnapshot: reviewSnapshot,
     );
   }
+}
+
+class PatternCheckIns implements CheckInRepository {
+  final completedAt = <DateTime>[];
+  bool fail = false;
+  @override
+  void Function()? onRecorded;
+
+  @override
+  Future<CheckInUpdate> recordCompletion(DateTime time) async {
+    completedAt.add(time);
+    if (fail) throw StateError('check-in save failed');
+    onRecorded?.call();
+    return const CheckInUpdate(newDay: true, earned: [CheckInMilestone(3, 1)]);
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 MotherPatternState finishPattern(
@@ -145,6 +168,8 @@ void main() {
   MotherPatternCompletion session({
     bool practice = false,
     MotherPatternReviewSnapshot? snapshot,
+    CheckInRepository? checkIns,
+    DateTime Function()? clock,
   }) => MotherPatternCompletion(
     course: course,
     lesson: lesson,
@@ -154,6 +179,56 @@ void main() {
     sessionId: 'attempt-1',
     practice: practice,
     reviewSnapshot: snapshot,
+    checkIns: checkIns,
+    clock: clock ?? DateTime.now,
+  );
+
+  test('practice retries check-in for its original completion time', () async {
+    var now = DateTime.utc(2026, 11, 21, 15, 59);
+    final checkIns = PatternCheckIns()..fail = true;
+    final completion = session(
+      practice: true,
+      checkIns: checkIns,
+      clock: () => now,
+    );
+    final state = finishPattern(lesson);
+
+    await expectLater(
+      completion.save(state, isCurrent: () => true),
+      throwsStateError,
+    );
+    checkIns.fail = false;
+    now = now.add(const Duration(minutes: 2));
+    final saved = await completion.save(state, isCurrent: () => true);
+
+    final original = DateTime.utc(2026, 11, 21, 15, 59);
+    expect(checkIns.completedAt, [original, original]);
+    expect(saved.checkIn?.newDay, isTrue);
+    expect(progress.saves, 0);
+  });
+
+  test(
+    'course check-in retry retains its regular award and adds bonus trees',
+    () async {
+      final checkIns = PatternCheckIns()
+        ..fail = true
+        ..onRecorded = () => rewards.bonusTrees = 1;
+      final completion = session(checkIns: checkIns);
+      final state = finishPattern(lesson);
+
+      await expectLater(
+        completion.save(state, isCurrent: () => true),
+        throwsStateError,
+      );
+      expect(rewards.treeCount, 1);
+      checkIns.fail = false;
+      final saved = await completion.save(state, isCurrent: () => true);
+
+      expect(saved.award?.newlyAwarded, isTrue);
+      expect(saved.treeCount, 2);
+      expect(rewards.calls, 1);
+      expect(progress.saves, 1);
+    },
   );
 
   test(

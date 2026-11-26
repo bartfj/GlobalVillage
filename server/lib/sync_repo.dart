@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:postgres/postgres.dart';
 
+import 'snapshot_merge.dart';
+
 /// 每个账号保留的同步记录条数。
 const maxSyncHistory = 10;
 
@@ -38,7 +40,7 @@ class SyncRecord {
     this.history = const [],
   });
 
-  /// SyncSnapshot JSON（progress/rewards/track，schemaVersion=1）
+  /// SyncSnapshot JSON（progress/rewards/track/checkInDays，schemaVersion=1）
   final Map<String, dynamic> payload;
 
   /// 客户端提交快照时的时钟（毫秒），track 合并参考
@@ -78,7 +80,8 @@ abstract class SyncRepo {
   /// 读取最新快照；从未同步返回 null。
   Future<SyncRecord?> get(String accountId);
 
-  /// 整包替换快照；[baseClientUpdatedAt] 提供且与现值不一致时抛 [SyncConflictException]。
+  /// 整包替换快照，打卡日期与已有记录取并集。
+  /// [baseClientUpdatedAt] 提供且与现值不一致时抛 [SyncConflictException]。
   /// [device] 为空时保留上一次记录，避免旧客户端或后台同步清空设备信息。
   /// [source] 为 [syncSourceClient] 或 [syncSourceAdmin]，写入最近 10 次记录。
   Future<SyncRecord> put(
@@ -137,7 +140,7 @@ class InMemorySyncRepo implements SyncRepo {
     }
     final now = DateTime.now().toUtc();
     final record = SyncRecord(
-      payload: payload,
+      payload: mergeSnapshotCheckInDays(payload, previous: current?.payload),
       clientUpdatedAt: clientUpdatedAt,
       serverUpdatedAt: now,
       device: device ?? current?.device,
@@ -257,8 +260,9 @@ ADD COLUMN IF NOT EXISTS history jsonb NOT NULL DEFAULT '[]'::jsonb
       source: source,
       device: device,
     );
+    final normalized = mergeSnapshotCheckInDays(payload);
     // 版本比较必须与写入处于同一 SQL 操作，避免并发请求同时通过预读检查。
-    // 同步记录在同一条语句里前插，并只保留最近 10 次。
+    // 同一条语句合并打卡日期并保留最近 10 次同步记录。
     final result = await _conn.execute(
       Sql.named('''
 INSERT INTO sync_snapshots (
@@ -269,7 +273,19 @@ VALUES (
   @serverUpdatedAt, jsonb_build_array(@entry::jsonb)
 )
 ON CONFLICT (account_id) DO UPDATE
-SET payload = EXCLUDED.payload,
+SET payload = CASE
+      WHEN jsonb_typeof(sync_snapshots.payload -> 'checkInDays') = 'array'
+      THEN jsonb_set(EXCLUDED.payload, '{checkInDays}', (
+        SELECT COALESCE(jsonb_agg(day ORDER BY day), '[]'::jsonb)
+        FROM (
+          SELECT jsonb_array_elements_text(sync_snapshots.payload -> 'checkInDays') AS day
+          UNION
+          SELECT jsonb_array_elements_text(COALESCE(EXCLUDED.payload -> 'checkInDays', '[]'::jsonb))
+        ) dates
+        WHERE day IS NOT NULL
+      ))
+      ELSE EXCLUDED.payload
+    END,
     client_updated_at = EXCLUDED.client_updated_at,
     device = COALESCE(EXCLUDED.device, sync_snapshots.device),
     server_updated_at = @serverUpdatedAt,
@@ -289,11 +305,11 @@ SET payload = EXCLUDED.payload,
     )
 WHERE @baseClientUpdatedAt::bigint IS NULL
    OR sync_snapshots.client_updated_at = @baseClientUpdatedAt::bigint
-RETURNING server_updated_at, device, history
+RETURNING payload, server_updated_at, device, history
 '''),
       parameters: {
         'id': accountId,
-        'payload': jsonEncode(payload),
+        'payload': jsonEncode(normalized),
         'clientUpdatedAt': clientUpdatedAt,
         'baseClientUpdatedAt': baseClientUpdatedAt,
         'device': device == null ? null : jsonEncode(device),
@@ -306,7 +322,7 @@ RETURNING server_updated_at, device, history
     }
     final row = result.first.toColumnMap();
     return SyncRecord(
-      payload: payload,
+      payload: Map<String, dynamic>.from(row['payload'] as Map),
       clientUpdatedAt: clientUpdatedAt,
       serverUpdatedAt: row['server_updated_at'] as DateTime,
       device: _deviceOf(row['device']),

@@ -34,7 +34,7 @@ Map<String, dynamic> mergeSnapshots({
 
   final sourceTrack = _map(from['track']);
   final now = DateTime.now().millisecondsSinceEpoch;
-  return {
+  return mergeSnapshotCheckInDays({
     'schemaVersion': 1,
     'clientUpdatedAt': now,
     'progress': progress,
@@ -43,7 +43,39 @@ Map<String, dynamic> mergeSnapshots({
       ..._stringMap(_map(from['rewards'])),
     },
     'track': sourceTrack.isEmpty ? _map(into['track']) : sourceTrack,
+    'checkInDays': from['checkInDays'],
+  }, previous: into);
+}
+
+/// 打卡日期只能追加。旧客户端整包上传时可能不包含该字段。
+Map<String, dynamic> mergeSnapshotCheckInDays(
+  Map<String, dynamic> incoming, {
+  Map<String, dynamic>? previous,
+}) {
+  final days = {
+    ..._parseCheckInDays(previous?['checkInDays']),
+    ..._parseCheckInDays(incoming['checkInDays']),
   };
+  return {
+    for (final entry in incoming.entries)
+      if (entry.key != 'checkInDays') entry.key: entry.value,
+    if (days.isNotEmpty) 'checkInDays': days.toList()..sort(),
+  };
+}
+
+final _checkInDayPattern = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+
+Iterable<String> _parseCheckInDays(Object? raw) sync* {
+  if (raw is! List) return;
+  for (final day in raw.whereType<String>()) {
+    if (!_checkInDayPattern.hasMatch(day)) continue;
+    final date = DateTime.tryParse('${day}T00:00:00Z');
+    if (date != null &&
+        date.year >= 1 &&
+        date.toIso8601String().startsWith('${day}T')) {
+      yield day;
+    }
+  }
 }
 
 Map<String, dynamic> _mergeLesson(

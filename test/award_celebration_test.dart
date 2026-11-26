@@ -130,13 +130,14 @@ void main() {
         home: Scaffold(
           body: AwardCelebration(
             award: _award(count: 1),
-            treeCount: 5,
+            treeCount: 6,
+            bonusTrees: 1,
             onCollect: () {},
           ),
         ),
       ),
     );
-    // 升阶（5 棵 = 小树阈值）：显示高亮升阶文案
+    // 课程奖励和打卡奖励一起越过 5 棵的小树阈值。
     expect(find.text('梭梭树成长为「小树」啦！'), findsOneWidget);
     await tester.pump(const Duration(seconds: 3));
     expect(tester.takeException(), isNull);

@@ -17,6 +17,7 @@ class AwardCelebration extends StatefulWidget {
   final RewardAward? award;
   final bool isPerfect;
   final int? treeCount;
+  final int bonusTrees;
   final VoidCallback onCollect;
 
   const AwardCelebration({
@@ -24,6 +25,7 @@ class AwardCelebration extends StatefulWidget {
     required this.award,
     this.isPerfect = false,
     this.treeCount,
+    this.bonusTrees = 0,
     required this.onCollect,
   });
 
@@ -281,7 +283,9 @@ class _AwardCelebrationState extends State<AwardCelebration>
   Widget _buildTreeLine() {
     final count = widget.treeCount!;
     final stage = stageFor(count);
-    final leveledUp = hasStageUp(count);
+    final lessonTree = widget.award?.newlyAwarded == false ? 0 : 1;
+    final previous = count - lessonTree - widget.bonusTrees;
+    final leveledUp = stage != stageFor(previous);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -298,7 +302,9 @@ class _AwardCelebrationState extends State<AwardCelebration>
             child: Text(
               leveledUp
                   ? '梭梭树成长为「${stage.label}」啦！'
-                  : '梭梭树 +1 · 累计 $count 棵 · ${stage.label}',
+                  : lessonTree == 1
+                  ? '梭梭树 +1 · 累计 $count 棵 · ${stage.label}'
+                  : '梭梭树 · 累计 $count 棵 · ${stage.label}',
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w800,

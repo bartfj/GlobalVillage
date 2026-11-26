@@ -172,6 +172,44 @@ class S {
   String get questionsDone => isEn ? 'Questions completed' : '已完成题数';
   String get lessonNotFound => isEn ? 'Lesson not found' : '课程不存在';
 
+  // ---- 连续打卡 ----
+  String get checkInTitle => isEn ? 'Learning streak' : '连续打卡';
+  String get checkInTodayDone => isEn ? 'Checked in today' : '今日已打卡';
+  String checkInRecordedFor(int month, int day) =>
+      isEn ? 'Check-in saved for $month/$day' : '已记录 $month 月 $day 日打卡';
+  String get checkInTodayPending => isEn ? 'Check in today' : '今日待打卡';
+  String get checkInRestart => isEn ? 'Start a new streak today' : '新一轮从今天开始';
+  String get checkInWeek => isEn ? 'Last 7 days' : '最近 7 天';
+  String get checkInMilestones => isEn ? 'Streak rewards' : '打卡奖励';
+  String get checkInAllEarned =>
+      isEn ? 'All streak rewards earned' : '已获得全部打卡奖励';
+  String get checkInEarned => isEn ? 'Earned' : '已获得';
+  String get checkInPending => isEn ? 'Pending' : '待达成';
+  String get checkInReminders => isEn ? 'Check-in reminders' : '打卡提醒';
+  String get checkInRemindersTime => isEn
+      ? 'Around 8 PM Beijing time, when a check-in is missed'
+      : '未打卡或断签时，于北京时间 20:00 左右提醒';
+  String get checkInPermissionHint => isEn
+      ? 'Allow notifications in your device settings to receive reminders.'
+      : '请在系统设置中允许通知，以接收提醒。';
+  String get checkInRule => isEn
+      ? 'Finish one round of learning to check in. The day resets at midnight Beijing time.'
+      : '完成一轮学习即可打卡，每天北京时间 0 点换日。';
+  String checkInDayCount(int days) =>
+      isEn ? '$days ${days == 1 ? 'day' : 'days'}' : '$days 天';
+  String checkInCurrent(int days) =>
+      isEn ? '${checkInDayCount(days)} in a row' : '连续 $days 天';
+  String checkInBest(int days) =>
+      isEn ? 'Best streak · ${checkInDayCount(days)}' : '最长纪录 $days 天';
+  String checkInUntil(int remaining, int target) => isEn
+      ? '${checkInDayCount(remaining)} to the $target-day reward'
+      : '距 $target 天奖励还差 $remaining 天';
+  String checkInMilestoneTitle(int days) =>
+      isEn ? '$days-day streak badge' : '连续 $days 天徽章';
+  String checkInTreeBonus(int trees) => isEn
+      ? '+$trees ${trees == 1 ? 'saxaul tree' : 'saxaul trees'}'
+      : '梭梭树 +$trees';
+
   // ---- 侧栏 ----
   String get guest => isEn ? 'Guest' : '游客';
   String get onlineUser => isEn ? 'Online user' : '在线用户';

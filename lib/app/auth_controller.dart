@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/models/user.dart';
 import '../data/repositories/user_repository.dart';
+import '../data/sources/check_in_store.dart';
 import '../data/sources/cloud_auth_api.dart';
 import '../data/sources/progress_store.dart';
 import '../data/sources/reward_store.dart';
@@ -325,12 +326,14 @@ class AuthController extends StateNotifier<AuthState> {
     for (final attemptId in localRewards.keys) {
       if (!onlineRewards.containsKey(attemptId)) return true;
     }
-    return false;
+    final localDays = CheckInStore(userKey: localKey).days;
+    return !CheckInStore(userKey: onlineKey).days.containsAll(localDays);
   }
 
   bool _slotHasData(String userKey) =>
       ProgressStore(userKey: userKey).entries.isNotEmpty ||
-      RewardStore(userKey: userKey).attempts.isNotEmpty;
+      RewardStore(userKey: userKey).attempts.isNotEmpty ||
+      CheckInStore(userKey: userKey).days.isNotEmpty;
 
   /// 本地账号「注册并绑定」在线账号（§7.2），成功返回 null
   Future<String?> registerAndBind({

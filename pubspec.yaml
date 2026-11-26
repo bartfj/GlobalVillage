@@ -25,6 +25,8 @@ dependencies:
   http: ^1.2.2
   unorm_dart: ^0.3.2
   flutter_secure_storage: ^9.2.4
+  flutter_local_notifications: ^19.5.0
+  timezone: ^0.10.1
 
 dev_dependencies:
   flutter_test:

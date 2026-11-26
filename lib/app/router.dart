@@ -8,6 +8,7 @@ import '../features/auth/account_page.dart';
 import '../features/auth/login_page.dart';
 import '../features/auth/register_page.dart';
 import '../features/auth/welcome_page.dart';
+import '../features/check_in/check_in_page.dart';
 import '../features/learning_path/completed_lessons_page.dart';
 import '../features/learning_path/debug_jump_dialog.dart';
 import '../features/learning_path/learning_path_page.dart';
@@ -25,6 +26,20 @@ import 'adaptive/app_adaptive_shell.dart';
 import 'providers.dart';
 
 const _authLocations = ['/welcome', '/login', '/register'];
+
+void handleCheckInReminderTap(GoRouter router) {
+  if (router.routerDelegate.currentConfiguration.isNotEmpty) {
+    final current = router.state;
+    final location = current.matchedLocation;
+    // Review opens its practice rounds on a nested Navigator.
+    if (location == '/review' ||
+        location.startsWith('/lesson/') ||
+        current.pathParameters.containsKey('chapterId')) {
+      return;
+    }
+  }
+  router.go('/');
+}
 
 /// 路由：感知认证状态，无会话时重定向到欢迎页。
 /// 登录态变化只触发重定向，不重建路由器，避免当前页被 initialLocation 冲掉。
@@ -76,6 +91,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/review',
             builder: (context, state) => const ReviewPage(),
+          ),
+          GoRoute(
+            path: '/check-in',
+            builder: (context, state) => const CheckInPage(),
           ),
           GoRoute(
             path: '/sanskrit-audio',

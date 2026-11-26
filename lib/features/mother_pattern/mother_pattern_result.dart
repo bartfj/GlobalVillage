@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../app/app_strings.dart';
 import '../../data/sources/mother_pattern_store.dart';
+import '../check_in/check_in_feedback.dart';
 import 'mother_pattern_completion.dart';
 import 'mother_pattern_controller.dart';
 
@@ -68,6 +69,7 @@ class MotherPatternResult extends StatelessWidget {
         }),
         if (saved!.record.entry != null)
           Text(strings.patternNextReview(saved!.record.entry!.due)),
+        CheckInFeedback(update: saved!.checkIn),
         if (saved!.award != null) ...[
           Text(
             strings.badgeEarned(

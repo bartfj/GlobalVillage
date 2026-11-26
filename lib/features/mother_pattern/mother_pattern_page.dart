@@ -106,6 +106,8 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
         sessionId: _sessionId,
         reviewSnapshot: widget.reviewSnapshot,
         practice: widget.practice,
+        checkIns: ref.read(checkInRepositoryProvider),
+        clock: ref.read(checkInClockProvider),
       );
       _teaching = widget.reviewSnapshot == null;
     }
@@ -117,7 +119,12 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
       widget.lessonId == _lesson?.id &&
       ref.read(motherPatternStoreProvider)?.userKey == _store?.userKey &&
       ref.read(selectedTrackProvider).id == _course.id &&
-      ref.read(courseProvider).id == _course.id;
+      ref.read(courseProvider).id == _course.id &&
+      (_completion?.checkIns == null ||
+          identical(
+            ref.read(checkInRepositoryProvider),
+            _completion?.checkIns,
+          ));
   void _speechChanged() {
     if (mounted && !_interrupted) setState(() {});
   }
@@ -429,6 +436,12 @@ class _MotherPatternPageState extends ConsumerState<MotherPatternPage>
                     award: _saved!.award!,
                     isPerfect: state.accuracy >= 1,
                     treeCount: _saved!.treeCount,
+                    bonusTrees:
+                        _saved!.checkIn?.earned.fold<int>(
+                          0,
+                          (sum, item) => sum + item.trees,
+                        ) ??
+                        0,
                     onCollect: () => setState(() => _showAward = false),
                   ),
                 ),

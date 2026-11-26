@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:english_village/app/providers.dart';
 import 'package:english_village/app/selected_track_controller.dart';
+import 'package:english_village/data/models/check_in.dart';
 import 'package:english_village/data/models/course.dart';
 import 'package:english_village/data/models/course_track.dart';
+import 'package:english_village/data/repositories/check_in_repository.dart';
 import 'package:english_village/data/repositories/progress_repository.dart';
 import 'package:english_village/data/repositories/reward_repository.dart';
 import 'package:english_village/features/lesson/result_page.dart';
@@ -59,7 +61,7 @@ class _Rewards implements RewardRepository {
   }
 
   @override
-  int get treeCount => 1;
+  int treeCount = 1;
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
@@ -68,6 +70,24 @@ class _Track extends StateNotifier<CourseTrack>
     implements SelectedTrackController {
   _Track(super.state);
   void change(CourseTrack track) => state = track;
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _CheckIns implements CheckInRepository {
+  final completedAt = <DateTime>[];
+  bool fail = true;
+  @override
+  VoidCallback? onRecorded;
+
+  @override
+  Future<CheckInUpdate> recordCompletion(DateTime time) async {
+    completedAt.add(time);
+    if (fail) throw StateError('check-in disk failure');
+    onRecorded?.call();
+    return const CheckInUpdate(newDay: true, earned: [CheckInMilestone(3, 1)]);
+  }
+
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
@@ -82,7 +102,12 @@ void main() {
     progress = _Progress();
     rewards = _Rewards();
   });
-  Widget app({CourseTrack track = CourseTrack.beginner, bool passed = true}) {
+  Widget app({
+    CourseTrack track = CourseTrack.beginner,
+    bool passed = true,
+    CheckInRepository? checkIns,
+    DateTime? checkInCompletedAt,
+  }) {
     selected = _Track(track);
     return ProviderScope(
       overrides: [
@@ -93,6 +118,7 @@ void main() {
           (ref) => ref.watch(_testAccount),
         ),
         rewardRepositoryProvider.overrideWithValue(rewards),
+        checkInRepositoryProvider.overrideWithValue(checkIns),
         selectedTrackProvider.overrideWith((ref) => selected),
       ],
       child: MaterialApp(
@@ -103,6 +129,7 @@ void main() {
             totalCount: 10,
             elapsedSeconds: 30,
             attemptId: 'attempt',
+            checkInCompletedAt: checkInCompletedAt,
           ),
         ),
       ),
@@ -133,6 +160,34 @@ void main() {
 
   Future<void> remove(WidgetTester tester) =>
       tester.pumpWidget(const SizedBox());
+
+  _testComedyWidgets(
+    'failed course saves check-in using the original completion time',
+    (tester) async {
+      final checkIns = _CheckIns();
+      final completedAt = DateTime.utc(2026, 11, 21, 15, 59);
+      await tester.pumpWidget(
+        app(passed: false, checkIns: checkIns, checkInCompletedAt: completedAt),
+      );
+      expect(checkIns.completedAt, isEmpty);
+
+      progress.pending.complete(false);
+      await flush(tester);
+      expect(find.text('保存失败，请重试'), findsOneWidget);
+      expect(checkIns.completedAt, [completedAt]);
+
+      checkIns.fail = false;
+      await tester.ensureVisible(find.text('重试保存'));
+      await tester.tap(find.text('重试保存'));
+      await flush(tester);
+
+      expect(checkIns.completedAt, [completedAt, completedAt]);
+      expect(find.text('今日已打卡'), findsOneWidget);
+      expect(rewards.calls, 0);
+      expect(progress.calls, 1);
+      await remove(tester);
+    },
+  );
 
   _testComedyWidgets('English comedy waits for both result and reward saves', (
     tester,
@@ -167,6 +222,38 @@ void main() {
     expect(rewards.calls, 1);
     await remove(tester);
   });
+
+  _testComedyWidgets(
+    'passed course retains its regular award if the check-in must be retried',
+    (tester) async {
+      final checkIns = _CheckIns()..onRecorded = () => rewards.treeCount++;
+      await tester.pumpWidget(
+        app(checkIns: checkIns, checkInCompletedAt: DateTime.utc(2026, 11, 21)),
+      );
+      await save(tester);
+      expect(find.byType(PostLessonComedy), findsNothing);
+      expect(rewards.treeCount, 1);
+
+      checkIns.fail = false;
+      await tester.ensureVisible(find.text('重试保存'));
+      await tester.tap(find.text('重试保存'));
+      await flush(tester);
+      tester
+          .widget<PostLessonComedy>(find.byType(PostLessonComedy))
+          .onFinished();
+      await tester.pump();
+
+      final celebration = tester.widget<AwardCelebration>(
+        find.byType(AwardCelebration),
+      );
+      expect(celebration.award?.newlyAwarded, isTrue);
+      expect(celebration.treeCount, 2);
+      expect(celebration.bonusTrees, 1);
+      expect(progress.calls, 1);
+      expect(rewards.calls, 1);
+      await remove(tester);
+    },
+  );
 
   _testComedyWidgets(
     'repeat passes still show comedy and replay never awards again',

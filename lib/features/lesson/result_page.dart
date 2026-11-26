@@ -9,10 +9,13 @@ import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
 import '../../core/services/diagnostic_log.dart';
+import '../../data/models/check_in.dart';
 import '../../data/models/lesson_badge.dart';
 import '../../data/models/learning_language.dart';
+import '../../data/repositories/check_in_repository.dart';
 import '../../data/repositories/progress_repository.dart';
 import '../../data/repositories/reward_repository.dart';
+import '../check_in/check_in_feedback.dart';
 import 'widgets/award_celebration.dart';
 import '../post_lesson_comedy/post_lesson_comedy.dart';
 
@@ -22,12 +25,16 @@ class LessonResult {
   final int totalCount;
   final int elapsedSeconds;
   final String attemptId;
+  final DateTime? checkInCompletedAt;
+  final String? checkInUserKey;
 
   const LessonResult({
     required this.correctCount,
     required this.totalCount,
     required this.elapsedSeconds,
     required this.attemptId,
+    this.checkInCompletedAt,
+    this.checkInUserKey,
   });
 
   double get accuracy => totalCount == 0 ? 0 : correctCount / totalCount;
@@ -51,7 +58,10 @@ class ResultPage extends ConsumerStatefulWidget {
 class _ResultPageState extends ConsumerState<ResultPage> {
   bool _saving = false;
   bool _saved = false;
+  bool _progressSaved = false;
+  RewardAward? _pendingAward;
   RewardAward? _award;
+  CheckInUpdate? _checkIn;
   int _treeCount = 0;
   String? _saveError;
   bool _showCelebration = false;
@@ -61,6 +71,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
   late final String _trackId;
   late final ProgressRepository? _progress;
   late final RewardRepository? _rewards;
+  late final CheckInRepository? _checkIns;
   bool _sessionStopped = false;
 
   bool get _sessionCurrent =>
@@ -69,7 +80,10 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       ref.read(selectedTrackProvider).id == _trackId &&
       ref.read(courseProvider).id == _courseId &&
       identical(ref.read(progressRepositoryProvider), _progress) &&
-      identical(ref.read(rewardRepositoryProvider), _rewards);
+      identical(ref.read(rewardRepositoryProvider), _rewards) &&
+      (widget.result.checkInUserKey == null ||
+          (widget.result.checkInUserKey == _checkIns?.store.userKey &&
+              identical(ref.read(checkInRepositoryProvider), _checkIns)));
 
   void _stopSession() {
     if (!mounted || _sessionStopped) return;
@@ -88,6 +102,9 @@ class _ResultPageState extends ConsumerState<ResultPage> {
     _trackId = ref.read(selectedTrackProvider).id;
     _progress = ref.read(progressRepositoryProvider);
     _rewards = ref.read(rewardRepositoryProvider);
+    _checkIns = widget.result.checkInCompletedAt == null
+        ? null
+        : ref.read(checkInRepositoryProvider);
     // 回写学习结果并驱动学习路径刷新
     WidgetsBinding.instance.addPostFrameCallback((_) => _saveResult());
     final log = DiagnosticLog.instance;
@@ -105,6 +122,10 @@ class _ResultPageState extends ConsumerState<ResultPage> {
 
   Future<void> _saveResult() async {
     if (_saving || _saved || _sessionStopped) return;
+    if (!_sessionCurrent) {
+      _stopSession();
+      return;
+    }
     setState(() {
       _saving = true;
       _saveError = null;
@@ -115,29 +136,42 @@ class _ResultPageState extends ConsumerState<ResultPage> {
       if (progressRepo == null || rewardRepo == null) {
         throw StateError('无有效会话，无法保存进度');
       }
-      await progressRepo.recordResult(
-        lessonId: widget.lessonId,
-        correctCount: widget.result.correctCount,
-        totalCount: widget.result.totalCount,
-      );
-      if (!_sessionCurrent) {
-        _stopSession();
-        return;
+      if (!_progressSaved) {
+        await progressRepo.recordResult(
+          lessonId: widget.lessonId,
+          correctCount: widget.result.correctCount,
+          totalCount: widget.result.totalCount,
+        );
+        _progressSaved = true;
+        if (!_sessionCurrent) {
+          _stopSession();
+          return;
+        }
+        ref.read(progressRevisionProvider.notifier).state++;
       }
-      ref.read(progressRevisionProvider.notifier).state++;
-      if (widget.result.passed) {
-        final award = await rewardRepo.awardForPassedAttempt(
+      if (widget.result.passed && _pendingAward == null) {
+        _pendingAward = await rewardRepo.awardForPassedAttempt(
           widget.lessonId,
           widget.result.attemptId,
         );
-        if (award == null) throw StateError('无法保存徽章奖励');
+        if (_pendingAward == null) throw StateError('无法保存徽章奖励');
         if (!_sessionCurrent) {
           _stopSession();
           return;
         }
         ref.read(rewardRevisionProvider.notifier).state++;
+      }
+      final completedAt = widget.result.checkInCompletedAt;
+      if (completedAt != null && widget.result.totalCount > 0) {
+        _checkIn = await _checkIns?.recordCompletion(completedAt);
+        if (!_sessionCurrent) {
+          _stopSession();
+          return;
+        }
+      }
+      if (_pendingAward != null) {
         setState(() {
-          _award = award;
+          _award = _pendingAward;
           _treeCount = rewardRepo.treeCount;
           // 保存后观看独立短剧；播放和重播均不再次写入学习或奖励。
           _showDialogue =
@@ -172,6 +206,11 @@ class _ResultPageState extends ConsumerState<ResultPage> {
     ref.listen(rewardRepositoryProvider, (_, rewards) {
       if (!identical(rewards, _rewards)) _stopSession();
     });
+    if (_checkIns != null) {
+      ref.listen(checkInRepositoryProvider, (_, checkIns) {
+        if (!identical(checkIns, _checkIns)) _stopSession();
+      });
+    }
     final s = ref.watch(stringsProvider);
     final result = widget.result;
     final passed = result.passed;
@@ -229,6 +268,7 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                           ),
                         ],
                       ),
+                      if (!_sessionStopped) CheckInFeedback(update: _checkIn),
                       if (_award != null) ...[
                         const SizedBox(height: 18),
                         TweenAnimationBuilder<double>(
@@ -292,8 +332,11 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                       if (!passed) ...[
                         PushableButton(
                           label: s.relearn,
-                          onPressed: () =>
-                              context.replace('/lesson/${widget.lessonId}'),
+                          onPressed: _saving
+                              ? null
+                              : () => context.replace(
+                                  '/lesson/${widget.lessonId}',
+                                ),
                           color: AppColors.blue,
                           shadowColor: AppColors.blueDark,
                         ),
@@ -313,6 +356,12 @@ class _ResultPageState extends ConsumerState<ResultPage> {
                     award: _award!,
                     isPerfect: result.accuracy >= 1.0,
                     treeCount: _treeCount,
+                    bonusTrees:
+                        _checkIn?.earned.fold<int>(
+                          0,
+                          (sum, item) => sum + item.trees,
+                        ) ??
+                        0,
                     onCollect: () => setState(() => _showCelebration = false),
                   ),
                 ),

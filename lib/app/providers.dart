@@ -1,22 +1,27 @@
 import 'dart:io' show Directory, Platform;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../core/services/backup_service.dart';
+import '../core/services/check_in_reminders.dart';
 import '../core/services/diagnostic_log.dart';
 import '../core/services/diagnostic_uploader.dart';
 import '../core/services/phonetic_lookup_service.dart';
 import '../core/services/sound_service.dart';
 import '../core/services/sync_service.dart';
 import '../core/services/tts_service.dart';
+import '../data/models/check_in.dart';
 import '../data/models/course.dart';
 import '../data/models/course_track.dart';
 import '../data/models/learning_language.dart';
+import '../data/repositories/check_in_repository.dart';
 import '../data/repositories/course_repository.dart';
 import '../data/repositories/progress_repository.dart';
 import '../data/repositories/reward_repository.dart';
 import '../data/repositories/user_repository.dart';
+import '../data/sources/check_in_store.dart';
 import '../data/sources/cloud_auth_api.dart';
 import '../data/sources/content_cache.dart';
 import '../data/sources/content_documents.dart';
@@ -222,10 +227,89 @@ final rewardRepositoryProvider = Provider<RewardRepository?>((ref) {
     store: RewardStore(userKey: userKey),
     course: ref.watch(courseProvider),
     onAwarded: () => ref.read(syncServiceProvider)?.scheduleUpload(),
+    readBonusTrees: () => CheckInStatus.fromDays(
+      CheckInStore(userKey: userKey).days,
+      ref.read(checkInClockProvider)(),
+    ).bonusTrees,
   );
 });
 
 final rewardRevisionProvider = StateProvider<int>((ref) => 0);
+
+final checkInClockProvider = Provider<DateTime Function()>(
+  (ref) => DateTime.now,
+);
+
+final checkInRepositoryProvider = Provider<CheckInRepository?>((ref) {
+  if (!Hive.isBoxOpen(CheckInStore.boxName)) return null;
+  final userKey = ref.watch(authProvider.select((state) => state.userKey));
+  if (userKey == null) return null;
+  var active = true;
+  ref.onDispose(() => active = false);
+  return CheckInRepository(
+    store: CheckInStore(userKey: userKey),
+    onRecorded: () {
+      if (active && ref.read(authProvider).userKey == userKey) {
+        ref.read(syncServiceProvider)?.scheduleUpload();
+      }
+    },
+  );
+});
+
+final _checkInEventsProvider = StreamProvider<BoxEvent>((ref) {
+  final repository = ref.watch(checkInRepositoryProvider);
+  return repository?.store.watch() ?? const Stream.empty();
+});
+
+final checkInDayRevisionProvider = StateProvider<int>((ref) => 0);
+
+final checkInStatusProvider = Provider<CheckInStatus?>((ref) {
+  final repository = ref.watch(checkInRepositoryProvider);
+  if (repository == null) return null;
+  ref.watch(_checkInEventsProvider);
+  ref.watch(checkInDayRevisionProvider);
+  return CheckInStatus.fromDays(
+    repository.store.days,
+    ref.watch(checkInClockProvider)(),
+  );
+});
+
+final checkInRemindersProvider = Provider<CheckInReminders>(
+  (ref) => CheckInReminders(),
+);
+
+final checkInReminderTapProvider = StateProvider<int>((ref) => 0);
+
+final checkInRemindersReadyProvider = FutureProvider<void>((ref) async {
+  void openLearning() => ref.read(checkInReminderTapProvider.notifier).state++;
+
+  final openedFromNotification = await ref
+      .watch(checkInRemindersProvider)
+      .initialize(openLearning);
+  if (openedFromNotification) openLearning();
+});
+
+final _checkInReminderEventsProvider = StreamProvider<BoxEvent>((ref) {
+  final userKey = ref.watch(checkInRepositoryProvider)?.store.userKey;
+  if (userKey == null) return const Stream.empty();
+  return ref.watch(settingsStoreProvider).watchCheckInReminderOptIn(userKey);
+});
+
+final checkInReminderOptInProvider = Provider<DateTime?>((ref) {
+  final userKey = ref.watch(checkInRepositoryProvider)?.store.userKey;
+  if (userKey == null) return null;
+  ref.watch(_checkInReminderEventsProvider);
+  return ref.watch(settingsStoreProvider).checkInReminderOptIn(userKey);
+});
+
+final checkInReminderPermissionProvider = FutureProvider.autoDispose<bool>((
+  ref,
+) async {
+  ref.watch(checkInDayRevisionProvider);
+  final reminders = ref.watch(checkInRemindersProvider);
+  await ref.watch(checkInRemindersReadyProvider.future);
+  return reminders.hasPermission();
+});
 
 /// 进度版本号：完成课程后 +1，驱动学习路径页刷新
 final progressRevisionProvider = StateProvider<int>((ref) => 0);

@@ -297,7 +297,7 @@ void main() {
     );
   });
 
-  test('两个账号的进度合并后写回两边', () async {
+  test('来源账号的进度和打卡日期合并到目标账号', () async {
     final handler = open(token: adminToken);
     final first = await json(
       await send(
@@ -342,6 +342,7 @@ void main() {
               'u1l1': {'completed': true, 'score': 80, 'completedAt': 1},
             },
             'rewards': {'attempt-a': 'u1l1'},
+            'checkInDays': ['2026-11-18', '2026-11-19'],
             'track': {'selected': 'english', 'updatedAt': 10},
           },
         },
@@ -363,6 +364,7 @@ void main() {
               'sa_u1l1': {'completed': true, 'score': 90, 'completedAt': 3},
             },
             'rewards': {'attempt-b': 'sa_u1l1'},
+            'checkInDays': ['2026-11-19', '2026-11-20'],
             'track': {'selected': 'sanskrit', 'updatedAt': 20},
           },
         },
@@ -395,6 +397,12 @@ void main() {
     expect(target['payload']['progress']['sa_u1l1']['score'], 90);
     expect(target['payload']['rewards']['attempt-a'], 'u1l1');
     expect(target['payload']['rewards']['attempt-b'], 'sa_u1l1');
+    expect(source['payload']['checkInDays'], ['2026-11-19', '2026-11-20']);
+    expect(target['payload']['checkInDays'], [
+      '2026-11-18',
+      '2026-11-19',
+      '2026-11-20',
+    ]);
     expect(target['payload']['track']['selected'], 'sanskrit');
   });
 

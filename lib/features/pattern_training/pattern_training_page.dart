@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
+import '../../data/models/check_in.dart';
 import '../../data/models/course.dart';
 import '../../data/models/pattern_training.dart';
+import '../../data/repositories/check_in_repository.dart';
 import '../../data/sources/learning_store.dart';
+import '../check_in/check_in_feedback.dart';
 import '../lesson/widgets/word_bank_widget.dart';
 import 'pattern_training_controller.dart';
 
@@ -24,7 +27,7 @@ final _controllerProvider = StateNotifierProvider.autoDispose
       ),
     );
 
-/// Independent practice: this page never writes course results or awards.
+/// Independent practice with its own review progress.
 class PatternTrainingPage extends ConsumerStatefulWidget {
   const PatternTrainingPage({
     super.key,
@@ -42,6 +45,7 @@ class PatternTrainingPage extends ConsumerStatefulWidget {
 class _PatternTrainingPageState extends ConsumerState<PatternTrainingPage> {
   _PatternSession? _session;
   LearningStore? _store;
+  late final CheckInRepository? _checkIns;
   late final String _courseId;
   late final String _sessionId;
   String _answer = '';
@@ -52,12 +56,15 @@ class _PatternTrainingPageState extends ConsumerState<PatternTrainingPage> {
   bool _allowExit = false;
   bool _askingExit = false;
   DateTime? _due;
+  DateTime? _completedAt;
+  CheckInUpdate? _checkIn;
 
   @override
   void initState() {
     super.initState();
     _courseId = ref.read(courseProvider).id;
     _store = ref.read(learningStoreProvider);
+    _checkIns = ref.read(checkInRepositoryProvider);
     final random = Random.secure();
     _sessionId = List.generate(
       16,
@@ -77,12 +84,15 @@ class _PatternTrainingPageState extends ConsumerState<PatternTrainingPage> {
   bool get _active =>
       mounted &&
       ref.read(courseProvider).id == _courseId &&
-      ref.read(learningStoreProvider)?.userKey == _store?.userKey;
+      ref.read(learningStoreProvider)?.userKey == _store?.userKey &&
+      (_checkIns == null ||
+          identical(ref.read(checkInRepositoryProvider), _checkIns));
 
   Future<void> _save() async {
     if (_saving || _saved || !_active || _session == null) return;
     final state = ref.read(_controllerProvider(_session!));
     if (!state.finished) return;
+    final completedAt = _completedAt ??= ref.read(checkInClockProvider)();
     setState(() {
       _saving = true;
       _saveError = false;
@@ -100,9 +110,12 @@ class _PatternTrainingPageState extends ConsumerState<PatternTrainingPage> {
         hints: state.hintedCount,
       );
       if (!_active) return;
+      final checkIn = await _checkIns?.recordCompletion(completedAt);
+      if (!_active) return;
       setState(() {
         _saved = true;
         _due = entry.due;
+        _checkIn = checkIn;
       });
     } catch (_) {
       if (_active) setState(() => _saveError = true);
@@ -203,6 +216,7 @@ class _PatternTrainingPageState extends ConsumerState<PatternTrainingPage> {
                   ),
                   Text(s.patternHints(state.hintedCount)),
                   if (_due != null) Text(s.patternNextReview(_due!)),
+                  CheckInFeedback(update: _checkIn),
                   if (_saving)
                     const Padding(
                       padding: EdgeInsets.all(24),

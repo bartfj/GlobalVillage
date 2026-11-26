@@ -9,9 +9,12 @@ import '../../app/adaptive/adaptive_content_column.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
+import '../../data/models/check_in.dart';
 import '../../data/models/course.dart';
 import '../../data/models/learning_language.dart';
+import '../../data/repositories/check_in_repository.dart';
 import '../../data/sources/learning_store.dart';
+import '../check_in/check_in_feedback.dart';
 import '../feedback/feedback_dialog.dart';
 import 'lesson_controller.dart';
 import 'result_page.dart';
@@ -57,8 +60,13 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   Lesson? _lesson;
   bool _locked = false;
   bool _completed = false;
+  bool _savingPractice = false;
+  bool _practiceLogged = false;
+  bool _practiceSaveFailed = false;
+  late DateTime _completedAt;
   bool _allowExit = false;
   LearningStore? _learningStore;
+  late final CheckInRepository? _checkIns;
   late String _courseId;
   bool _recording = false;
   late bool _showStudyCard;
@@ -88,6 +96,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     // 进入答题页即计时（late final 惰性初始化若首次访问在结算时会得到 0）
     _startTime = DateTime.now();
     _learningStore = ref.read(learningStoreProvider);
+    _checkIns = ref.read(checkInRepositoryProvider);
     _courseId = ref.read(courseProvider).id;
     // 新文字系统课程（中文、梵文）先展示本课核心内容，避免零基础直接开考。
     // 调试直达某题时跳过学习卡，方便立刻测跟读等。
@@ -126,6 +135,13 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     }
   }
 
+  bool get _sessionCurrent =>
+      mounted &&
+      ref.read(courseProvider).id == _courseId &&
+      ref.read(learningStoreProvider)?.userKey == _learningStore?.userKey &&
+      (_checkIns == null ||
+          identical(ref.read(checkInRepositoryProvider), _checkIns));
+
   void _rememberFeedbackPlace() {
     final log = DiagnosticLog.instance;
     if (log == null) return;
@@ -155,7 +171,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   }
 
   Future<void> _onCheck() async {
-    if (_recording) return;
+    if (_recording || !_sessionCurrent) return;
     final controller = ref.read(lessonControllerProvider(_lesson!).notifier);
     final state = ref.read(lessonControllerProvider(_lesson!));
     if (state.checked) return;
@@ -181,18 +197,16 @@ class _LessonPageState extends ConsumerState<LessonPage> {
       final source = course.orderedLessons.where(
         (l) => l.exercises.any((e) => e.id == exercise.id),
       );
-      await ref
-          .read(learningStoreProvider)
-          ?.recordAnswer(
-            courseId: course.id,
-            lessonId: source.isEmpty ? widget.lessonId : source.first.id,
-            exercise: exercise,
-            correct: correct,
-            first: _attempted.add(exercise.id),
-            elapsedMs: DateTime.now().difference(_questionStart).inMilliseconds,
-            mode: widget.mode,
-            skipped: skipped,
-          );
+      await _learningStore?.recordAnswer(
+        courseId: course.id,
+        lessonId: source.isEmpty ? widget.lessonId : source.first.id,
+        exercise: exercise,
+        correct: correct,
+        first: _attempted.add(exercise.id),
+        elapsedMs: DateTime.now().difference(_questionStart).inMilliseconds,
+        mode: widget.mode,
+        skipped: skipped,
+      );
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -205,7 +219,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   }
 
   Future<void> _onSkipSpeaking() async {
-    if (_recording) return;
+    if (_recording || !_sessionCurrent) return;
     final controller = ref.read(lessonControllerProvider(_lesson!).notifier);
     final exercise = ref.read(lessonControllerProvider(_lesson!)).current;
     controller.skipWithoutCredit();
@@ -214,7 +228,7 @@ class _LessonPageState extends ConsumerState<LessonPage> {
   }
 
   void _onContinue() {
-    if (_recording) return;
+    if (_recording || _completed || !_sessionCurrent) return;
     final controller = ref.read(lessonControllerProvider(_lesson!).notifier);
     controller.next();
     _currentAnswer = '';
@@ -223,41 +237,17 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     final state = ref.read(lessonControllerProvider(_lesson!));
     if (state.finished) {
       _completed = true;
-      unawaited(
-        _log({
-          'kind': 'finish',
-          'lessonId': widget.lessonId,
-          'mode': widget.mode,
-          'correctCount': state.correctCount,
-          'totalCount': state.totalCount,
-          'elapsedMs': DateTime.now().difference(_startTime).inMilliseconds,
-        }),
-      );
+      _completedAt = ref.read(checkInClockProvider)();
       if (widget.practiceLesson != null) {
-        final s = ref.read(stringsProvider);
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: Text(s.practiceDone),
-            content: Text(s.firstCorrect(state.correctCount, state.totalCount)),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  setState(() => _allowExit = true);
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) Navigator.of(this.context).pop();
-                  });
-                },
-                child: Text(s.done),
-              ),
-            ],
-          ),
-        );
+        unawaited(_finishPractice(state));
         return;
       }
+      unawaited(_log(_finishEvent(state)));
       final elapsed = DateTime.now().difference(_startTime).inSeconds;
+      final qualifies =
+          state.qualifiesForCheckIn &&
+          !widget.bypassUnlock &&
+          widget.initialExerciseIndex <= 0;
       context.replace(
         '/lesson/${widget.lessonId}/result',
         extra: LessonResult(
@@ -265,12 +255,83 @@ class _LessonPageState extends ConsumerState<LessonPage> {
           totalCount: state.totalCount,
           elapsedSeconds: elapsed,
           attemptId: _attemptId,
+          checkInCompletedAt: qualifies ? _completedAt : null,
+          checkInUserKey: qualifies ? _checkIns?.store.userKey : null,
         ),
       );
     }
   }
 
+  Map<String, dynamic> _finishEvent(LessonState state) => {
+    'kind': 'finish',
+    'lessonId': widget.lessonId,
+    'mode': widget.mode,
+    'correctCount': state.correctCount,
+    'totalCount': state.totalCount,
+    'elapsedMs': _completedAt.difference(_startTime).inMilliseconds,
+  };
+
+  Future<void> _finishPractice(LessonState state) async {
+    if (_savingPractice || !_sessionCurrent) return;
+    setState(() {
+      _savingPractice = true;
+      _practiceSaveFailed = false;
+    });
+    CheckInUpdate? checkIn;
+    try {
+      if (!_practiceLogged) {
+        await _learningStore?.log({
+          ..._finishEvent(state),
+          'courseId': _courseId,
+        });
+        _practiceLogged = true;
+      }
+      if (!_sessionCurrent) return;
+      if (state.qualifiesForCheckIn) {
+        checkIn = await _checkIns?.recordCompletion(_completedAt);
+      }
+    } catch (_) {
+      if (_sessionCurrent) setState(() => _practiceSaveFailed = true);
+      return;
+    } finally {
+      if (mounted) setState(() => _savingPractice = false);
+    }
+    if (!mounted || !_sessionCurrent) return;
+    final s = ref.read(stringsProvider);
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => PopScope(
+        canPop: false,
+        child: AlertDialog(
+          title: Text(s.practiceDone),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(s.firstCorrect(state.correctCount, state.totalCount)),
+              CheckInFeedback(update: checkIn),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                setState(() => _allowExit = true);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (mounted) Navigator.of(this.context).pop();
+                });
+              },
+              child: Text(s.done),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Future<void> _onClose() async {
+    if (_savingPractice) return;
     dismissPhoneticBubble();
     final s = ref.read(stringsProvider);
     final quit = await showDialog<bool>(
@@ -317,12 +378,32 @@ class _LessonPageState extends ConsumerState<LessonPage> {
     final state = ref.watch(lessonControllerProvider(lesson));
     if (state.finished) {
       if (widget.practiceLesson != null) {
-        return const Scaffold(
-          body: Center(
-            child: Icon(
-              Icons.check_circle_outline,
-              size: 64,
-              color: LessonColors.green,
+        return PopScope(
+          canPop: !_savingPractice,
+          child: Scaffold(
+            body: Center(
+              child: _savingPractice
+                  ? const CircularProgressIndicator()
+                  : _practiceSaveFailed
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(s.recordSaveFailed),
+                        FilledButton(
+                          onPressed: () => _finishPractice(state),
+                          child: Text(s.retrySave),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).maybePop(),
+                          child: Text(s.exit),
+                        ),
+                      ],
+                    )
+                  : const Icon(
+                      Icons.check_circle_outline,
+                      size: 64,
+                      color: LessonColors.green,
+                    ),
             ),
           ),
         );

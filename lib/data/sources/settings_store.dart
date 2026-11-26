@@ -79,6 +79,22 @@ class SettingsStore {
   Future<void> setLastSyncAt(String userKey, int milliseconds) =>
       _box.put(_lastSyncKey(userKey), milliseconds.toString());
 
+  String _checkInReminderKey(String userKey) => '$userKey|checkInReminderOptIn';
+
+  DateTime? checkInReminderOptIn(String userKey) {
+    final value = _box.get(_checkInReminderKey(userKey));
+    return value == null ? null : DateTime.tryParse(value);
+  }
+
+  Stream<BoxEvent> watchCheckInReminderOptIn(String userKey) =>
+      _box.watch(key: _checkInReminderKey(userKey));
+
+  Future<void> setCheckInReminderOptIn(String userKey, DateTime? time) {
+    final key = _checkInReminderKey(userKey);
+    if (time == null) return _box.delete(key);
+    return _box.put(key, time.toUtc().toIso8601String());
+  }
+
   static const _installIdKey = 'installId';
 
   /// 本机安装标识。首次调用时生成并写入设置，之后保持不变。

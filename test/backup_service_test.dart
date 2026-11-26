@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:english_village/core/services/backup_service.dart';
 import 'package:english_village/data/models/progress.dart';
 import 'package:english_village/data/models/user.dart';
+import 'package:english_village/data/sources/check_in_store.dart';
 import 'package:english_village/data/sources/progress_store.dart';
 import 'package:english_village/data/sources/reward_store.dart';
 import 'package:english_village/data/sources/user_store.dart';
@@ -25,6 +26,7 @@ void main() {
     await Hive.openBox<String>(UserStore.sessionBoxName);
     await Hive.openBox<LessonProgress>(ProgressStore.boxName);
     await Hive.openBox<String>(RewardStore.boxName);
+    await Hive.openBox<String>(CheckInStore.boxName);
   });
 
   tearDown(() async {
@@ -32,7 +34,7 @@ void main() {
     await tempDir.delete(recursive: true);
   });
 
-  test('备份导出/导入 round-trip 恢复账号、进度与会话', () async {
+  test('备份导出/导入恢复账号、进度、会话并合并打卡日期', () async {
     final store = UserStore();
     final service = BackupService(userStore: store);
 
@@ -80,19 +82,29 @@ void main() {
       ),
     );
 
+    const dates = CheckInStore(userKey: 'tester');
+    await dates.mergeDays(['2026-11-19', '2026-11-18']);
+    await const CheckInStore(userKey: 'other').mergeDays(['2026-11-16']);
+
     final code = await service.exportBackup();
     expect(code, isNotNull);
-    expect((jsonDecode(code!) as Map<String, dynamic>)['version'], 2);
+    final payload = jsonDecode(code!) as Map<String, dynamic>;
+    expect(payload['version'], 3);
+    expect(payload['checkInDays'], ['2026-11-18', '2026-11-19']);
 
     // 模拟换机：清空全部 box
     await Hive.box<User>(UserStore.usersBoxName).clear();
     await Hive.box<String>(UserStore.sessionBoxName).clear();
     await Hive.box<LessonProgress>(ProgressStore.boxName).clear();
+    await Hive.box<String>(CheckInStore.boxName).clear();
+    await dates.mergeDays(['2026-11-19', '2026-11-20']);
     expect(store.currentSession, isNull);
 
     // 导入恢复
     final error = await service.importBackup(code);
     expect(error, isNull);
+    expect(dates.days, {'2026-11-18', '2026-11-19', '2026-11-20'});
+    expect(const CheckInStore(userKey: 'other').days, isEmpty);
 
     final user = store.getUser('tester');
     expect(user, isNotNull);
@@ -158,6 +170,7 @@ void main() {
         'user',
         'progress',
         'rewards',
+        'checkInDays',
       });
       expect(code, isNot(contains('motherPatternReviews')));
       expect(code, isNot(contains('scenario')));
@@ -186,12 +199,12 @@ void main() {
     final store = UserStore();
     final service = BackupService(userStore: store);
     expect(await service.importBackup('not json'), '备份码格式错误，无法解析');
-    expect(await service.importBackup('{"version":3}'), '不支持的备份码版本');
+    expect(await service.importBackup('{"version":4}'), '不支持的备份码版本');
     expect(await service.importBackup('{"version":1}'), '备份码缺少账号信息');
   });
 
   test(
-    'v2 rewards round-trip, repeated import merges, and account isolation',
+    'rewards round-trip, repeated import merges, and account isolation',
     () async {
       final users = UserStore();
       final service = BackupService(userStore: users);
@@ -237,6 +250,7 @@ void main() {
           jsonDecode((await service.exportBackup())!) as Map<String, dynamic>;
       data['version'] = 1;
       data.remove('rewards');
+      data.remove('checkInDays');
       await Hive.box<User>(UserStore.usersBoxName).clear();
       await Hive.box<String>(UserStore.sessionBoxName).clear();
       expect(await service.importBackup(jsonEncode(data)), isNull);
@@ -246,6 +260,12 @@ void main() {
       data['version'] = 2;
       data['rewards'] = [
         {'attemptId': 'a', 'unitId': 'u1'},
+      ];
+      expect(await service.importBackup(jsonEncode(data)), isNull);
+      expect(const RewardStore(userKey: 'tester').attempts, {'a': 'u1'});
+
+      data['rewards'] = [
+        {'attemptId': 'a', 'unitId': 'u1'},
         {'attemptId': 'a', 'unitId': 'u2'},
       ];
       await Hive.box<User>(UserStore.usersBoxName).clear();
@@ -253,4 +273,24 @@ void main() {
       expect(users.getUser('tester'), isNull);
     },
   );
+
+  test('导入无效打卡日期时保留现有会话和数据', () async {
+    final users = UserStore();
+    await users.setSession('guest');
+    final service = BackupService(userStore: users);
+    final error = await service.importBackup(jsonEncode({
+      'version': 3,
+      'user': {
+        'nickname': 'tester',
+        'passwordHash': 'hash',
+        'salt': 'salt',
+        'createdAt': 0,
+      },
+      'rewards': [],
+      'checkInDays': ['2026-02-30'],
+    }));
+    expect(error, '备份码打卡日期错误');
+    expect(users.getUser('tester'), isNull);
+    expect(users.currentSession, 'guest');
+  });
 }

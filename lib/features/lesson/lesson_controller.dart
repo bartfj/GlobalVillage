@@ -26,6 +26,7 @@ class LessonState {
 
   /// 降级跳过（如跟读完成）：已判定但不计正确、不重做
   final bool skipped;
+  final bool hasSubmittedAnswer;
 
   const LessonState({
     required this.queue,
@@ -35,6 +36,7 @@ class LessonState {
     required this.lastAnswerCorrect,
     required this.pendingRetry,
     this.skipped = false,
+    this.hasSubmittedAnswer = false,
   });
 
   factory LessonState.initial(Lesson lesson) => LessonState(
@@ -49,6 +51,7 @@ class LessonState {
   Exercise get current => queue.first;
   bool get checked => lastAnswerCorrect != null;
   bool get finished => queue.isEmpty;
+  bool get qualifiesForCheckIn => finished && hasSubmittedAnswer;
 
   /// 进度条：已完成题数 / 总题数
   double get progress =>
@@ -63,6 +66,7 @@ class LessonState {
     Object? lastAnswerCorrect = _unset,
     bool? pendingRetry,
     bool? skipped,
+    bool? hasSubmittedAnswer,
   }) {
     return LessonState(
       queue: queue ?? this.queue,
@@ -74,6 +78,7 @@ class LessonState {
           : lastAnswerCorrect as bool?,
       pendingRetry: pendingRetry ?? this.pendingRetry,
       skipped: skipped ?? this.skipped,
+      hasSubmittedAnswer: hasSubmittedAnswer ?? this.hasSubmittedAnswer,
     );
   }
 }
@@ -102,6 +107,7 @@ class LessonController extends StateNotifier<LessonState> {
       lastAnswerCorrect: correct,
       pendingRetry: !correct && !isRetry,
       skipped: false,
+      hasSubmittedAnswer: true,
     );
     return correct;
   }
