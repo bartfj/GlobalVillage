@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:global_village_server/accounts_repo.dart';
 import 'package:global_village_server/auth_service.dart';
 import 'package:global_village_server/postgres_accounts_repo.dart';
+import 'package:global_village_server/report_repo.dart';
 import 'package:global_village_server/sync_repo.dart';
+import 'package:image/image.dart' as image;
 import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
@@ -141,5 +143,62 @@ void main() {
       await upgraded.delete(account.accountId);
     });
 
+    test('反馈截图迁移保留旧报告并往返保存附件', () async {
+      final legacyId = newAccountId();
+      final screenshotId = newAccountId();
+      await control.execute('''
+CREATE TABLE IF NOT EXISTS client_reports (
+  report_id text PRIMARY KEY,
+  received_at timestamptz NOT NULL DEFAULT now(),
+  account_id uuid,
+  app_version text NOT NULL,
+  note text,
+  context jsonb NOT NULL,
+  events jsonb NOT NULL
+)
+''');
+      try {
+        await control.execute(
+          Sql.named('''
+INSERT INTO client_reports (report_id, app_version, note, context, events)
+VALUES (@id, 'legacy', '旧版反馈', '{}'::jsonb, '[]'::jsonb)
+'''),
+          parameters: {'id': legacyId},
+        );
+        final reports = await PostgresReportRepo.connect(databaseUrl!);
+        final legacy = (await reports.get(legacyId))!;
+        expect(legacy.note, '旧版反馈');
+        expect(legacy.screenshot, isNull);
+
+        final screenshot = image.encodeJpg(image.Image(width: 1, height: 1));
+        final report = ClientReport(
+          reportId: screenshotId,
+          receivedAt: DateTime.now(),
+          appVersion: 'new',
+          context: {},
+          events: [],
+          screenshot: screenshot,
+        );
+        expect(await reports.insert(report), isTrue);
+        expect(await reports.insert(report), isFalse);
+        expect(
+          (await reports.get(screenshotId))!.screenshot,
+          orderedEquals(screenshot),
+        );
+        expect(
+          (await reports.list())
+              .firstWhere((item) => item.reportId == screenshotId)
+              .screenshot,
+          isNull,
+        );
+      } finally {
+        await control.execute(
+          Sql.named(
+            'DELETE FROM client_reports WHERE report_id IN (@legacyId, @screenshotId)',
+          ),
+          parameters: {'legacyId': legacyId, 'screenshotId': screenshotId},
+        );
+      }
+    });
   }, skip: databaseUrl == null ? '设置 TEST_DATABASE_URL 指向独立测试数据库' : false);
 }

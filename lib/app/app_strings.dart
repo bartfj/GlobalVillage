@@ -248,6 +248,28 @@ class S {
       isEn ? '$done/$total completed' : '已通关 $done/$total';
   String get serverUrl => isEn ? 'Server' : '服务地址';
   String get feedbackRow => isEn ? 'Send feedback' : '反馈问题';
+  String get feedbackHint => isEn ? 'What happened? (Optional)' : '发生了什么（可以不填）';
+  String get feedbackScreenshot => isEn ? 'Feedback screenshot' : '反馈截图';
+  String get feedbackAddScreenshot =>
+      isEn ? 'Add screenshot from photos' : '从相册添加截图';
+  String get feedbackPreviewScreenshot => isEn ? 'Enlarge screenshot' : '放大截图';
+  String get feedbackReplaceScreenshot => isEn ? 'Replace screenshot' : '替换截图';
+  String get feedbackRemoveScreenshot => isEn ? 'Remove screenshot' : '移除截图';
+  String get feedbackScreenshotError => isEn
+      ? 'Could not add this image. Choose another PNG or JPEG.'
+      : '无法添加这张图片，请重新选择 PNG 或 JPEG 截图。';
+  String get feedbackCancel => isEn ? 'Cancel' : '取消';
+  String get feedbackSend => isEn ? 'Send' : '发送';
+  String get feedbackSubmitting =>
+      isEn ? 'Submitting feedback…' : '正在提交反馈…';
+  String get feedbackSent => isEn ? 'Feedback sent' : '反馈提交成功';
+  String get feedbackUnconfirmed =>
+      isEn ? 'Delivery not confirmed' : '反馈未确认送达';
+  String get feedbackSendFailed =>
+      isEn ? 'Could not submit feedback. Please try again.' : '反馈提交失败，请重试。';
+  String get feedbackQueued => isEn
+      ? 'Saved on this device. Sending will be retried when you open or return to the app.'
+      : '已保存在手机上，下次打开或返回应用时会重试';
 
   // ---- 语言与课程选择 ----
   String get chooseLanguageTitle => isEn ? 'Learning language' : '学习语言';

@@ -85,7 +85,7 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      unawaited(ref.read(diagnosticUploaderProvider).flush());
+      unawaited(_flushDiagnostics());
       _alignForegroundSync();
       _refreshCheckInDay();
       _alignCheckInReminders();
@@ -103,10 +103,20 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _alignForegroundSync(state);
     if (state == AppLifecycleState.resumed) {
+      unawaited(_flushDiagnostics());
       _refreshCheckInDay();
       _alignCheckInReminders();
     } else if (state != AppLifecycleState.inactive) {
       _checkInMidnight?.cancel();
+    }
+  }
+
+  Future<void> _flushDiagnostics() async {
+    if (!Hive.isBoxOpen(DiagnosticLog.boxName)) return;
+    try {
+      await ref.read(diagnosticUploaderProvider).flush();
+    } catch (error, stack) {
+      recordDiagnosticError('diagnostic_upload', error, stack);
     }
   }
 
@@ -205,6 +215,9 @@ class _EnglishVillageAppState extends ConsumerState<EnglishVillageApp>
       (previous, next) {
         _alignForegroundSync();
         if (previous?.userKey != next.userKey) _alignCheckInReminders();
+        if (next.token != null && previous?.token != next.token) {
+          unawaited(_flushDiagnostics());
+        }
       },
     );
     ref.listen(allCoursesProvider, (_, _) {

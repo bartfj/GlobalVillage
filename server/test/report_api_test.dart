@@ -5,6 +5,7 @@ import 'package:global_village_server/auth_service.dart';
 import 'package:global_village_server/inmemory_accounts_repo.dart';
 import 'package:global_village_server/report_repo.dart';
 import 'package:global_village_server/sync_repo.dart';
+import 'package:image/image.dart' as image;
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
@@ -68,6 +69,203 @@ void main() {
     reportRepo: reports,
     adminToken: token,
   );
+
+  final jpeg = base64Encode(image.encodeJpg(image.Image(width: 1, height: 1)));
+  Map<String, Object?> withScreenshot() => {
+    'reportId': 'screenshot01',
+    'events': [],
+    'screenshot': jpeg,
+  };
+
+  test('仅截图反馈可发送，图片仅出现在受保护的详情，重试不覆盖', () async {
+    final handler = open(token: adminToken);
+    const upload = '/v1/reports/with-screenshot';
+    const detail = '/admin/api/reports/screenshot01';
+    final first = await send(handler, 'POST', upload, body: withScreenshot());
+    expect(first.statusCode, 200);
+    expect(await json(first), {
+      'ok': true,
+      'duplicate': false,
+      'reportId': 'screenshot01',
+      'screenshotAccepted': true,
+    });
+
+    final retry = await send(
+      handler,
+      'POST',
+      upload,
+      body: {...withScreenshot(), 'note': '重复发送的备注'},
+    );
+    expect(retry.statusCode, 200);
+    expect(await json(retry), {
+      'ok': true,
+      'duplicate': true,
+      'reportId': 'screenshot01',
+      'screenshotAccepted': true,
+    });
+
+    expect((await send(handler, 'GET', detail)).statusCode, 401);
+    final listed = await json(
+      await send(handler, 'GET', '/admin/api/reports', bearer: adminToken),
+    );
+    expect(listed['reports'], hasLength(1));
+    expect(listed['reports'][0], isNot(contains('screenshot')));
+    final response = await json(
+      await send(handler, 'GET', detail, bearer: adminToken),
+    );
+    expect(response['report']['screenshot'], jpeg);
+    expect(response['report']['note'], isNull);
+    expect(response['report']['events'], isEmpty);
+  });
+
+  test('截图不能复用文字报告的编号，也不能覆盖另一张图片', () async {
+    final reports = InMemoryReportRepo();
+    final handler = open(reports: reports);
+    const upload = '/v1/reports/with-screenshot';
+    final textOnly = await send(
+      handler,
+      'POST',
+      '/v1/reports',
+      body: sample(id: 'screenshot01'),
+    );
+    expect(textOnly.statusCode, 200);
+    final sameId = await send(handler, 'POST', upload, body: withScreenshot());
+    expect(sameId.statusCode, 409);
+    expect((await json(sameId))['code'], 'report_conflict');
+    expect((await reports.get('screenshot01'))!.screenshot, isNull);
+
+    final picture = {...withScreenshot(), 'reportId': 'screenshot02'};
+    expect(
+      (await send(handler, 'POST', upload, body: picture)).statusCode,
+      200,
+    );
+    final replacement = await send(
+      handler,
+      'POST',
+      upload,
+      body: {
+        ...picture,
+        'screenshot': base64Encode(
+          image.encodeJpg(image.Image(width: 2, height: 1)),
+        ),
+      },
+    );
+    expect(replacement.statusCode, 409);
+    expect(
+      base64Encode((await reports.get('screenshot02'))!.screenshot!),
+      jpeg,
+    );
+  });
+
+  test('截图上报拒绝缺失、无效和超限图片', () async {
+    final reports = InMemoryReportRepo();
+    final handler = open(token: adminToken, reports: reports);
+    final jpegBytes = base64Decode(jpeg);
+    final oversized = base64Encode(List.filled(512 * 1024 + 1, 0));
+    final overwide = base64Encode(
+      image.encodeJpg(image.Image(width: 1921, height: 1)),
+    );
+    for (final invalid in [
+      null,
+      'not-base64!',
+      base64Encode([0xff, 0xd8, 0xff, 0xd9]),
+      base64Encode(jpegBytes.sublist(0, jpegBytes.length - 2)),
+      oversized,
+      overwide,
+    ]) {
+      final response = await send(
+        handler,
+        'POST',
+        '/v1/reports/with-screenshot',
+        body: {...withScreenshot(), 'screenshot': invalid},
+      );
+      expect(response.statusCode, 400);
+    }
+    expect(await reports.list(), isEmpty);
+  });
+
+  test('截图接口按流限制没有 Content-Length 的请求', () async {
+    final handler = open();
+    final response = await handler(
+      Request(
+        'POST',
+        Uri.parse('http://localhost/v1/reports/with-screenshot'),
+        body: Stream<List<int>>.fromIterable([
+          List.filled(512 * 1024, 32),
+          List.filled(256 * 1024 + 1, 32),
+        ]),
+      ),
+    );
+    expect(response.statusCode, 413);
+  });
+
+  test('持失效令牌的截图上报等待重新登录，游客可匿名上报', () async {
+    final reports = InMemoryReportRepo();
+    final handler = open(reports: reports);
+    const upload = '/v1/reports/with-screenshot';
+    final unauthorized = await send(
+      handler,
+      'POST',
+      upload,
+      body: withScreenshot(),
+      bearer: 'expired-or-invalid',
+    );
+    expect(unauthorized.statusCode, 401);
+    expect(await reports.list(), isEmpty);
+    final anonymous = await send(
+      handler,
+      'POST',
+      upload,
+      body: withScreenshot(),
+    );
+    expect(anonymous.statusCode, 200);
+    expect((await reports.list()).single.accountId, isNull);
+  });
+
+  test('截图反馈只能绑定与有效令牌一致的原账号', () async {
+    final reports = InMemoryReportRepo();
+    final handler = open(reports: reports);
+    final registered = await json(
+      await send(
+        handler,
+        'POST',
+        '/v1/auth/register',
+        body: {
+          'email': 'a@example.com',
+          'password': 'secret6',
+          'displayName': 'Ann',
+        },
+      ),
+    );
+    final accountId = registered['account']['accountId'] as String;
+    final access = registered['accessToken'] as String;
+    Future<Response> submit({String? bearer, required String account}) => send(
+      handler,
+      'POST',
+      '/v1/reports/with-screenshot',
+      body: {
+        ...withScreenshot(),
+        'context': {'accountId': account},
+      },
+      bearer: bearer,
+    );
+
+    expect((await submit(account: accountId)).statusCode, 401);
+    expect((await submit(account: 'other', bearer: access)).statusCode, 401);
+    expect(await reports.list(), isEmpty);
+
+    expect((await submit(account: accountId, bearer: access)).statusCode, 200);
+    expect((await reports.list()).single.accountId, accountId);
+
+    final guestReplay = await send(
+      handler,
+      'POST',
+      '/v1/reports/with-screenshot',
+      body: withScreenshot(),
+    );
+    expect(guestReplay.statusCode, 409);
+    expect((await reports.list()).single.accountId, accountId);
+  });
 
   test('合法上报 200，相同 id 不重复入库', () async {
     final reports = InMemoryReportRepo();

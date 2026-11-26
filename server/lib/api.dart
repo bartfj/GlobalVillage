@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -225,34 +226,85 @@ Handler buildRouter(
     }
   });
 
-  router.post('/v1/reports', (Request request) async {
+  Future<Response> submitReport(
+    Request request, {
+    bool withScreenshot = false,
+  }) async {
+    final maxBytes = withScreenshot
+        ? maxScreenshotReportBodyBytes
+        : maxReportBodyBytes;
     final declared = int.tryParse(request.headers['content-length'] ?? '');
-    if (declared != null && declared > maxReportBodyBytes) {
+    if (declared != null && declared > maxBytes) {
       return _error(413, 'payload_too_large', '请求体过大');
     }
-    final text = await request.readAsString();
-    if (utf8.encode(text).length > maxReportBodyBytes) {
-      return _error(413, 'payload_too_large', '请求体过大');
+    final bytes = BytesBuilder(copy: false);
+    await for (final chunk in request.read()) {
+      if (bytes.length + chunk.length > maxBytes) {
+        return _error(413, 'payload_too_large', '请求体过大');
+      }
+      bytes.add(chunk);
     }
     Map<String, dynamic>? body;
     try {
-      final value = jsonDecode(text);
+      final value = jsonDecode(utf8.decode(bytes.takeBytes()));
       if (value is Map<String, dynamic>) body = value;
     } catch (_) {
       body = null;
     }
     if (body == null) return _error(400, 'invalid_body', '请求体必须是 JSON 对象');
+    if (withScreenshot) {
+      final metadata = Map<String, dynamic>.from(body)..remove('screenshot');
+      if (utf8.encode(jsonEncode(metadata)).length > maxReportBodyBytes) {
+        return _error(413, 'payload_too_large', '报告正文过大');
+      }
+    }
 
     final accountId = await _reportAccountId(request, repo, auth);
+    if (withScreenshot) {
+      final context = body['context'];
+      final claimedAccountId = context is Map ? context['accountId'] : null;
+      final rejectedToken =
+          request.headers.containsKey('authorization') && accountId == null;
+      final wrongAccount =
+          claimedAccountId is String &&
+          claimedAccountId.isNotEmpty &&
+          accountId != claimedAccountId;
+      if (rejectedToken || wrongAccount) {
+        return _error(401, 'unauthorized', '请使用提交反馈时的账号登录');
+      }
+    }
     final ClientReport report;
     try {
-      report = parseClientReport(body, accountId: accountId);
+      report = parseClientReport(
+        body,
+        accountId: accountId,
+        withScreenshot: withScreenshot,
+      );
     } on InvalidReportException {
       return _error(400, 'invalid_body', '报告格式不正确');
     }
     final created = await reports.insert(report);
-    return _json(200, {'ok': true, 'duplicate': !created});
-  });
+    if (withScreenshot && !created) {
+      final stored = await reports.get(report.reportId);
+      if (stored == null || !stored.matchesScreenshot(report)) {
+        return _error(409, 'report_conflict', '反馈编号已被另一条报告使用');
+      }
+    }
+    return _json(200, {
+      'ok': true,
+      'duplicate': !created,
+      if (withScreenshot) ...{
+        'reportId': report.reportId,
+        'screenshotAccepted': true,
+      },
+    });
+  }
+
+  router.post('/v1/reports', submitReport);
+  router.post(
+    '/v1/reports/with-screenshot',
+    (Request request) => submitReport(request, withScreenshot: true),
+  );
 
   mountPublicContent(router, content);
 
@@ -424,7 +476,7 @@ void _mountAdmin(
         : await repo.findById(report.accountId!);
     return _json(200, {
       'report': _adminReportJson(report, account, detail: true),
-    });
+    }).change(headers: {'cache-control': 'no-store'});
   });
 
   router.delete('/admin/api/accounts/<id>', (Request request, String id) async {

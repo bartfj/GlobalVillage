@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:image/image.dart';
 import 'package:postgres/postgres.dart';
 
 /// 单次上报正文上限。
 const maxReportBodyBytes = 64 * 1024;
+const maxScreenshotReportBodyBytes = 768 * 1024;
+const maxReportScreenshotBytes = 512 * 1024;
+const maxReportScreenshotEdge = 1920;
 
 /// 库存最多保留的报告条数。
 const maxStoredReports = 500;
@@ -32,6 +37,7 @@ class ClientReport {
     required this.events,
     this.accountId,
     this.note,
+    this.screenshot,
   });
 
   final String reportId;
@@ -41,6 +47,7 @@ class ClientReport {
   final String? note;
   final Map<String, dynamic> context;
   final List<Map<String, dynamic>> events;
+  final Uint8List? screenshot;
 
   Map<String, Object?> toListJson() => {
     'reportId': reportId,
@@ -56,7 +63,23 @@ class ClientReport {
     ...toListJson(),
     'context': context,
     'events': events,
+    if (screenshot case final bytes?) 'screenshot': base64Encode(bytes),
   };
+
+  bool matchesScreenshot(ClientReport submitted) {
+    final stored = screenshot;
+    final incoming = submitted.screenshot;
+    if (accountId != submitted.accountId ||
+        stored == null ||
+        incoming == null ||
+        stored.length != incoming.length) {
+      return false;
+    }
+    for (var index = 0; index < stored.length; index++) {
+      if (stored[index] != incoming[index]) return false;
+    }
+    return true;
+  }
 }
 
 /// 请求体不是合法报告。
@@ -69,6 +92,7 @@ ClientReport parseClientReport(
   Map<String, dynamic> body, {
   String? accountId,
   DateTime? receivedAt,
+  bool withScreenshot = false,
 }) {
   final reportId = body['reportId'];
   if (reportId is! String || !RegExp(_reportIdPattern).hasMatch(reportId)) {
@@ -84,6 +108,7 @@ ClientReport parseClientReport(
   }
 
   final note = _note(body['note']);
+  final screenshot = withScreenshot ? _screenshot(body['screenshot']) : null;
   final events = [
     for (final item in rawEvents)
       if (item is Map) _event(item),
@@ -91,7 +116,9 @@ ClientReport parseClientReport(
   if (events.length > 200) {
     events.removeRange(0, events.length - 200);
   }
-  if (note == null && events.isEmpty) throw const InvalidReportException();
+  if (note == null && events.isEmpty && screenshot == null) {
+    throw const InvalidReportException();
+  }
 
   final context = _context(rawContext);
   final version = context['appVersion'] ?? 'unknown';
@@ -107,7 +134,45 @@ ClientReport parseClientReport(
     note: note,
     context: context,
     events: events,
+    screenshot: screenshot,
   );
+}
+
+Uint8List _screenshot(Object? value) {
+  const maxEncodedSize = ((maxReportScreenshotBytes + 2) ~/ 3) * 4;
+  if (value is! String || value.length > maxEncodedSize) {
+    throw const InvalidReportException();
+  }
+  try {
+    final bytes = base64Decode(value);
+    if (bytes.length < 4 ||
+        bytes.length > maxReportScreenshotBytes ||
+        base64Encode(bytes) != value ||
+        bytes[0] != 0xff ||
+        bytes[1] != 0xd8 ||
+        bytes[bytes.length - 2] != 0xff ||
+        bytes.last != 0xd9) {
+      throw const InvalidReportException();
+    }
+    final decoder = JpegDecoder(
+      maxPixels: maxReportScreenshotEdge * maxReportScreenshotEdge,
+      scale: 8,
+    );
+    final info = decoder.startDecode(bytes);
+    if (info == null ||
+        info.width <= 0 ||
+        info.height <= 0 ||
+        info.width > maxReportScreenshotEdge ||
+        info.height > maxReportScreenshotEdge ||
+        decoder.decodeFrame(0) == null) {
+      throw const InvalidReportException();
+    }
+    return bytes;
+  } on FormatException {
+    throw const InvalidReportException();
+  } on ImageException {
+    throw const InvalidReportException();
+  }
 }
 
 String? _note(Object? value) {
@@ -218,6 +283,9 @@ CREATE TABLE IF NOT EXISTS client_reports (
   events jsonb NOT NULL
 )
 ''');
+    await _conn.execute('''
+ALTER TABLE client_reports ADD COLUMN IF NOT EXISTS screenshot bytea
+''');
   }
 
   @override
@@ -225,7 +293,7 @@ CREATE TABLE IF NOT EXISTS client_reports (
     final result = await _conn.execute(
       Sql.named('''
 INSERT INTO client_reports (
-  report_id, account_id, app_version, note, context, events
+  report_id, account_id, app_version, note, context, events, screenshot
 )
 VALUES (
   @id,
@@ -233,7 +301,8 @@ VALUES (
   @version,
   NULLIF(@note, ''),
   @context::jsonb,
-  @events::jsonb
+  @events::jsonb,
+  @screenshot
 )
 ON CONFLICT (report_id) DO NOTHING
 RETURNING report_id
@@ -245,6 +314,7 @@ RETURNING report_id
         'note': report.note ?? '',
         'context': jsonEncode(report.context),
         'events': jsonEncode(report.events),
+        'screenshot': TypedValue(Type.byteArray, report.screenshot),
       },
     );
     if (result.isEmpty) return false;
@@ -279,7 +349,7 @@ LIMIT @limit
     final result = await _conn.execute(
       Sql.named('''
 SELECT report_id, received_at, account_id::text AS account_id, app_version,
-       note, context, events
+       note, context, events, screenshot
 FROM client_reports
 WHERE report_id = @id
 LIMIT 1
@@ -299,6 +369,7 @@ LIMIT 1
       accountId: row['account_id'] as String?,
       appVersion: row['app_version'] as String,
       note: row['note'] as String?,
+      screenshot: row['screenshot'] as Uint8List?,
       context: context is Map
           ? Map<String, dynamic>.from(context)
           : <String, dynamic>{},

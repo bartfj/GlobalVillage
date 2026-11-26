@@ -13,6 +13,7 @@ dependencies:
   shelf_router: ^1.1.0
   dart_jsonwebtoken: ^2.14.0
   cryptography: ^2.7.0
+  image: ^4.13.1
   postgres: ^3.4.0
 
 dev_dependencies:

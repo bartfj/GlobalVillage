@@ -34,6 +34,10 @@ String adminPageHtml() => r'''<!DOCTYPE html>
   .view[hidden] { display: none; }
   .panel { background: #fff; border: 1px solid #e4e4e4; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
   .detail-wrap { background: #fff; border: 1px solid #e4e4e4; border-radius: 12px; padding: 16px; }
+  .report-screenshot { display: block; max-width: 100%; margin: 12px 0; padding: 4px; background: #fff; border: 1px solid #ddd; border-radius: 6px; cursor: zoom-in; }
+  .report-screenshot img { display: block; max-width: min(100%, 240px); max-height: 300px; }
+  .report-screenshot.expanded { cursor: zoom-out; }
+  .report-screenshot.expanded img { max-width: 100%; max-height: none; }
   .table-wrap { overflow-x: auto; }
   .dlg-line { border: 1px solid #e4e4e4; border-radius: 8px; padding: 8px; margin-bottom: 8px; }
   @media (max-width: 760px) {
@@ -234,6 +238,9 @@ function showLogin(message) {
   document.getElementById('login').hidden = false;
   document.getElementById('app').hidden = true;
   document.getElementById('login-error').textContent = message || '';
+  const reportDetail = document.getElementById('report-detail');
+  reportDetail.innerHTML = '';
+  reportDetail.hidden = true;
   for (const id of VIEW_IDS) delete loadedViews[id];
 }
 
@@ -311,9 +318,11 @@ async function loadReports() {
 }
 
 async function openReport(id) {
+  const requestToken = token();
   const response = await api('/admin/api/reports/' + encodeURIComponent(id));
   if (response.status === 404) return;
   const body = await response.json();
+  if (!requestToken || token() !== requestToken) return;
   const report = body.report || {};
   const box = document.getElementById('report-detail');
   box.innerHTML = '';
@@ -331,6 +340,23 @@ async function openReport(id) {
     const note = document.createElement('p');
     note.textContent = report.note;
     box.appendChild(note);
+  }
+  if (report.screenshot) {
+    const preview = document.createElement('button');
+    preview.type = 'button';
+    preview.className = 'report-screenshot';
+    preview.setAttribute('aria-label', '放大反馈截图');
+    preview.setAttribute('aria-expanded', 'false');
+    const image = document.createElement('img');
+    image.alt = '反馈截图';
+    image.src = 'data:image/jpeg;base64,' + report.screenshot;
+    preview.appendChild(image);
+    preview.addEventListener('click', function () {
+      const expanded = preview.classList.toggle('expanded');
+      preview.setAttribute('aria-expanded', String(expanded));
+      preview.setAttribute('aria-label', expanded ? '缩小反馈截图' : '放大反馈截图');
+    });
+    box.appendChild(preview);
   }
   const lesson = report.context && report.context.lesson;
   if (lesson) {

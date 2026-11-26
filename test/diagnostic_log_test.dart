@@ -129,6 +129,9 @@ void main() {
         reportId ??= body['reportId'] as String;
         expect(body['reportId'], reportId);
         if (calls == 1) return http.Response('fail', 500);
+        if (calls == 2) {
+          return http.Response('<html>Proxy fallback</html>', 200);
+        }
         return http.Response('{"ok":true}', 200);
       }),
     );
@@ -144,8 +147,10 @@ void main() {
 
     expect(await uploader.submitNote('听不到'), isFalse);
     expect(log.pending, hasLength(1));
+    expect(await uploader.flush(), isFalse);
+    expect(log.pending, hasLength(1));
     expect(await uploader.flush(), isTrue);
-    expect(calls, 2);
+    expect(calls, 3);
     expect(log.pending, isEmpty);
   });
 

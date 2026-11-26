@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
 
@@ -21,6 +22,14 @@ const diagnosticNoteRunes = 500;
 
 /// 单次上报体目标上限，留给传输层余量，服务端硬限制是 64KB。
 const diagnosticMaxBodyBytes = 60 * 1024;
+
+/// 单张截图在 Base64 编码前的上限。
+const diagnosticMaxScreenshotBytes = 512 * 1024;
+
+typedef PendingDiagnosticReport = ({
+  Map<String, dynamic> report,
+  String? screenshotBaseUrl,
+});
 
 const diagnosticContextKeys = {
   'appVersion',
@@ -174,6 +183,7 @@ class DiagnosticLog {
   static const boxName = 'diagnostics';
   static const _eventsKey = 'events';
   static const _pendingKey = 'pending';
+  static const _pendingScreenshotPrefix = 'pending_screenshot:';
   static const _routeKey = 'route';
   static const _lessonKey = 'lesson';
   static const _courseKey = 'course';
@@ -199,6 +209,7 @@ class DiagnosticLog {
   String course = '';
   String? _lastCrashKey;
   DateTime? _lastCrashAt;
+  Future<void> _writes = Future.value();
 
   Box<String> get box => _box ?? Hive.box<String>(boxName);
 
@@ -259,8 +270,7 @@ class DiagnosticLog {
           : truncateUtf8(redactDiagnosticText('$stack'), diagnosticStackBytes);
       if (level == 'crash' && _duplicateCrash(safeMessage)) return;
 
-      final list = _readList(_eventsKey);
-      list.add({
+      final event = {
         'id': newDiagnosticId(),
         'at': clock().toUtc().toIso8601String(),
         'level': level,
@@ -268,11 +278,14 @@ class DiagnosticLog {
         'message': safeMessage,
         'queued': false,
         if (safeStack != null && safeStack.isNotEmpty) 'stack': safeStack,
+      };
+      await _writeInOrder(() async {
+        final list = _readList(_eventsKey)..add(event);
+        if (list.length > diagnosticMaxEvents) {
+          list.removeRange(0, list.length - diagnosticMaxEvents);
+        }
+        await box.put(_eventsKey, jsonEncode(list));
       });
-      if (list.length > diagnosticMaxEvents) {
-        list.removeRange(0, list.length - diagnosticMaxEvents);
-      }
-      await box.put(_eventsKey, jsonEncode(list));
     } catch (_) {}
   }
 
@@ -292,80 +305,161 @@ class DiagnosticLog {
 
   List<Map<String, dynamic>> get events => _readList(_eventsKey);
 
-  List<Map<String, dynamic>> get pending => _readList(_pendingKey);
+  List<Map<String, dynamic>> get pending => [
+    for (final item in pendingReports) item.report,
+  ];
 
-  /// 把还没装进报告的事件打成一条无说明报告。没有新事件时不产生报告。
-  Future<void> enqueueUnsent({
-    required String installId,
-    String? accountId,
-  }) async {
-    final fresh = [
-      for (final event in events)
-        if (event['queued'] != true) event,
-    ];
-    if (fresh.isEmpty) return;
-    await _enqueue(
-      fresh,
-      note: null,
-      installId: installId,
-      accountId: accountId,
-    );
+  /// 逐条读取图片，仅在发送前将该附件从 Hive 读出。
+  Iterable<PendingDiagnosticReport> get pendingReports sync* {
+    final screenshotKeys = box.keys
+        .whereType<String>()
+        .where((key) => key.startsWith(_pendingScreenshotPrefix))
+        .toList();
+    for (final report in _readList(_pendingKey)) {
+      yield (report: report, screenshotBaseUrl: null);
+    }
+    for (final key in screenshotKeys) {
+      final stored = box.get(key);
+      if (stored == null) continue;
+      try {
+        final entry = jsonDecode(stored);
+        if (entry is! Map<String, dynamic>) continue;
+        final report = entry['report'];
+        final baseUrl = entry['screenshotBaseUrl'];
+        if (report is Map<String, dynamic>) {
+          yield (
+            report: report,
+            screenshotBaseUrl: baseUrl is String ? baseUrl : null,
+          );
+        } else if (entry.containsKey('screenshot')) {
+          // 早期没有来源地址的待发记录保留在本机。
+          yield (report: entry, screenshotBaseUrl: null);
+        }
+      } on FormatException {
+        // 损坏的本地记录不应阻塞其他报告。
+      }
+    }
   }
 
+  String _screenshotKey(String reportId) =>
+      '$_pendingScreenshotPrefix$reportId';
+
+  bool isPending(String reportId) =>
+      box.containsKey(_screenshotKey(reportId)) ||
+      _readList(_pendingKey).any((report) => report['reportId'] == reportId);
+
+  /// 把还没装进报告的事件打成一条无说明报告。没有新事件时不产生报告。
+  Future<void> enqueueUnsent({required String installId, String? accountId}) =>
+      _writeInOrder(() async {
+        final fresh = [
+          for (final event in events)
+            if (event['queued'] != true) event,
+        ];
+        if (fresh.isEmpty) return;
+        await _enqueue(
+          fresh,
+          note: null,
+          installId: installId,
+          accountId: accountId,
+        );
+      });
+
   /// 用户反馈：带上当前环形日志里的最近记录。说明可空。
-  Future<void> enqueueFeedback({
+  Future<PendingDiagnosticReport> enqueueFeedback({
     required String note,
     required String installId,
     String? accountId,
-  }) async {
-    await _enqueue(
+    Uint8List? screenshot,
+    String? screenshotBaseUrl,
+  }) => _writeInOrder(() async {
+    if (screenshot != null &&
+        (screenshot.isEmpty ||
+            screenshot.length > diagnosticMaxScreenshotBytes)) {
+      throw ArgumentError('截图大小不符合要求');
+    }
+    if (screenshot != null &&
+        (screenshotBaseUrl == null || screenshotBaseUrl.isEmpty)) {
+      throw ArgumentError('截图反馈缺少服务器地址');
+    }
+    return _enqueue(
       events,
       note: note,
       installId: installId,
       accountId: accountId,
+      screenshot: screenshot,
+      screenshotBaseUrl: screenshotBaseUrl,
     );
-  }
+  });
 
-  Future<void> markSent(String reportId) async {
-    final list = pending;
+  Future<void> markSent(String reportId) => _writeInOrder(() async {
+    final key = _screenshotKey(reportId);
+    if (box.containsKey(key)) {
+      await box.delete(key);
+      return;
+    }
+    final list = _readList(_pendingKey);
     list.removeWhere((report) => report['reportId'] == reportId);
     await box.put(_pendingKey, jsonEncode(list));
+  });
+
+  Future<T> _writeInOrder<T>(Future<T> Function() write) {
+    final result = _writes.then((_) => write());
+    _writes = result.then<void>((_) {}, onError: (Object _, StackTrace _) {});
+    return result;
   }
 
-  Future<void> _enqueue(
+  Future<PendingDiagnosticReport> _enqueue(
     List<Map<String, dynamic>> source, {
     required String? note,
     required String installId,
     required String? accountId,
+    Uint8List? screenshot,
+    String? screenshotBaseUrl,
   }) async {
     final included = {
       for (final event in source)
         if (event['id'] is String) event['id'] as String,
     };
-    final report = _fit({
-      'reportId': newDiagnosticId(),
-      'note': truncateNote(note),
-      'context': {
-        'appVersion': kAppVersion,
-        'os': os ?? Platform.operatingSystem,
-        'osVersion': osVersion ?? Platform.operatingSystemVersion,
-        'route': route,
-        if (lesson.isNotEmpty) 'lesson': lesson,
-        'installId': installId,
-        if (accountId != null && accountId.isNotEmpty) 'accountId': accountId,
-      },
-      'events': [for (final event in source) _publicEvent(event)],
-    });
-    final queue = pending;
-    queue.add(sanitizeDiagnosticReport(report));
-    await box.put(_pendingKey, jsonEncode(queue));
-
-    if (included.isEmpty) return;
-    final list = events;
-    for (final event in list) {
-      if (included.contains(event['id'])) event['queued'] = true;
+    final id = newDiagnosticId();
+    final report = sanitizeDiagnosticReport(
+      _fit({
+        'reportId': id,
+        'note': truncateNote(note),
+        'context': {
+          'appVersion': kAppVersion,
+          'os': os ?? Platform.operatingSystem,
+          'osVersion': osVersion ?? Platform.operatingSystemVersion,
+          'route': route,
+          if (lesson.isNotEmpty) 'lesson': lesson,
+          'installId': installId,
+          if (accountId != null && accountId.isNotEmpty) 'accountId': accountId,
+        },
+        'events': [for (final event in source) _publicEvent(event)],
+      }),
+    );
+    if (screenshot == null) {
+      final queue = _readList(_pendingKey)..add(report);
+      await box.put(_pendingKey, jsonEncode(queue));
+    } else {
+      report['screenshot'] = base64Encode(screenshot);
+      await box.put(
+        _screenshotKey(id),
+        jsonEncode({'report': report, 'screenshotBaseUrl': screenshotBaseUrl}),
+      );
     }
-    await box.put(_eventsKey, jsonEncode(list));
+
+    if (included.isNotEmpty) {
+      final list = events;
+      for (final event in list) {
+        if (included.contains(event['id'])) event['queued'] = true;
+      }
+      try {
+        await box.put(_eventsKey, jsonEncode(list));
+      } catch (_) {
+        // 报告已存盘，后续可以重新打包这部分事件。
+      }
+    }
+    return (report: report, screenshotBaseUrl: screenshotBaseUrl);
   }
 
   Map<String, dynamic> _publicEvent(Map<String, dynamic> event) => {
