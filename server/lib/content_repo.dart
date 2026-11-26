@@ -96,6 +96,10 @@ class ContentFileManifestEntry {
   };
 }
 
+class ContentDraftChangedException implements Exception {
+  const ContentDraftChangedException();
+}
+
 abstract class ContentRepo {
   Future<List<StoredDocument>> listDocuments();
 
@@ -103,8 +107,12 @@ abstract class ContentRepo {
 
   Future<StoredDocument> saveDraft(String packId, String text);
 
-  /// 没有草稿时返回 null。
-  Future<StoredDocument?> publishDocument(String packId);
+  /// 没有草稿时返回 null。有 [expectedDraft] 时仅发布这一版草稿。
+  /// 草稿在提交前被替换时抛 [ContentDraftChangedException]。
+  Future<StoredDocument?> publishDocument(
+    String packId, {
+    String? expectedDraft,
+  });
 
   /// 没有记录时返回 null。撤回后已发布正文清空，修订号保留。
   Future<StoredDocument?> unpublishDocument(String packId);
@@ -185,13 +193,20 @@ class InMemoryContentRepo implements ContentRepo {
   }
 
   @override
-  Future<StoredDocument?> publishDocument(String packId) async {
+  Future<StoredDocument?> publishDocument(
+    String packId, {
+    String? expectedDraft,
+  }) async {
+    final draft = expectedDraft ?? _documents[packId]?.draftText;
+    if (draft == null) return null;
+    final sha = await contentSha256(utf8.encode(draft));
     final doc = _documents[packId];
-    final draft = doc?.draftText;
-    if (doc == null || draft == null) return null;
+    if (doc == null || doc.draftText != draft) {
+      throw const ContentDraftChangedException();
+    }
     doc.publishedText = draft;
     doc.revision += 1;
-    doc.sha256 = await contentSha256(utf8.encode(draft));
+    doc.sha256 = sha;
     doc.publishedAt = DateTime.now().toUtc();
     doc.updatedAt = doc.publishedAt!;
     return doc.toStored(packId);
@@ -394,10 +409,12 @@ RETURNING pack_id, draft_text, published_text, revision, sha256,
   }
 
   @override
-  Future<StoredDocument?> publishDocument(String packId) async {
-    final current = await getDocument(packId);
-    final draft = current?.draftText;
-    if (current == null || draft == null) return null;
+  Future<StoredDocument?> publishDocument(
+    String packId, {
+    String? expectedDraft,
+  }) async {
+    final draft = expectedDraft ?? (await getDocument(packId))?.draftText;
+    if (draft == null) return null;
     final sha = await contentSha256(utf8.encode(draft));
     final result = await _conn.execute(
       Sql.named('''
@@ -407,13 +424,13 @@ SET published_text = @text,
     sha256 = @sha,
     published_at = now(),
     updated_at = now()
-WHERE pack_id = @id AND draft_text IS NOT NULL
+WHERE pack_id = @id AND draft_text = @text
 RETURNING pack_id, draft_text, published_text, revision, sha256,
           published_at, updated_at
 '''),
       parameters: {'id': packId, 'text': draft, 'sha': sha},
     );
-    if (result.isEmpty) return null;
+    if (result.isEmpty) throw const ContentDraftChangedException();
     return _documentFull(result.first.toColumnMap());
   }
 

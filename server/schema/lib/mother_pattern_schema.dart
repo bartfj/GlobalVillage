@@ -3,7 +3,7 @@ import 'english_answer.dart';
 export 'english_answer.dart' show normalizeEnglishAnswer;
 
 /// Pure JSON validation shared by the server publication boundary and client
-/// overlays. This dependency-free package stays inside the server build context.
+/// overlays. The shared schema package stays inside the server build context.
 String? validateCourseIdentityAndPatterns(
   Map<String, dynamic> json,
   String courseId,

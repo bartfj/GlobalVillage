@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'content_catalog.dart';
 
+import 'package:mother_pattern_schema/chinese_exercise.dart';
 import 'package:mother_pattern_schema/mother_pattern_schema.dart';
 
 const _exerciseTypes = {
@@ -69,7 +70,7 @@ String? _validateCourse(Map<String, dynamic> json, String courseId) {
     final error = _validateUnit(Map<String, dynamic>.from(unit), 'units[$i]');
     if (error != null) return error;
   }
-  return null;
+  return validateChineseCourseExercises(json, courseId);
 }
 
 String? _validateUnit(Map<String, dynamic> json, String where) {

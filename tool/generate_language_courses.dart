@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 // Target, teaching translation, reading support, explicit word blocks.
 const material = {
@@ -144,6 +145,13 @@ const _courseSpecs = [
   ),
 ];
 
+const _chineseSingleBlockChoices = [
+  ['mā', 'má', 'mǎ', 'mà'],
+  ['bā', 'bá', 'bǎ', 'bà'],
+  ['你好', '谢谢', '再见', '不客气'],
+  ['一', '二', '三', '四'],
+];
+
 Map<String, String> generateLanguageCourses({bool write = true}) {
   final output = <String, String>{};
   final ledger = StringBuffer(
@@ -186,40 +194,67 @@ Map<String, String> generateLanguageCourses({bool write = true}) {
           final id = '$prefix${u + 1}l${l + 1}';
           final selected = [for (final i in selections[l]) rows[i]];
           final exercises = <Map<String, dynamic>>[];
+          var choiceIndex = 0;
+          var answerPositions = const <int>[];
           for (var e = 0; e < 9; e++) {
             final row = selected[e % 4];
+            final answer = row[0];
+            final blocks = row[3].split('|');
+            final singleBlock =
+                chinese && e >= 4 && e < 7 && blocks.length == 1;
             // 中文零基础第 2 题改为听音辨调：播放汉字读音，选带声调拼音。
             final listening = chinese && u == 0 && e == 1;
             final type = listening
                 ? 'listeningChoice'
-                : e < 4
+                : e < 4 || singleBlock
                 ? 'translateChoice'
                 : e < 7
                 ? 'wordBank'
                 : 'translateInput';
             final prompt = listening
                 ? 'Listen and choose the tone you hear'
+                : singleBlock
+                ? 'Choose the ${u == 0 ? "tone-marked pinyin" : "simplified Chinese"}: ${row[1]}'
                 : type == 'translateChoice'
                 ? (chinese ? 'Choose: ${row[1]}' : '选择IAST：${row[1]}')
                 : (chinese
                       ? 'Write ${u == 0 ? "tone-marked pinyin" : "simplified Chinese"}: ${row[1]}'
                       : '用IAST表达：${row[1]}');
-            final options = selected.map((r) => r[0]).toList();
-            final rotation = e % 4;
+            final isChoice = type == 'translateChoice' || listening;
+            final options = <String>[];
+            if (isChoice) {
+              final candidates = singleBlock
+                  ? _chineseSingleBlockChoices.singleWhere(
+                      (group) => group.contains(answer),
+                    )
+                  : [for (final target in selected) target[0]];
+              if (chinese) {
+                if (choiceIndex % 4 == 0) {
+                  final seed = (u + 1) * 100 + (l + 1) * 10 + choiceIndex ~/ 4;
+                  answerPositions = [0, 1, 2, 3]..shuffle(Random(seed));
+                }
+                options.addAll(
+                  candidates.where((candidate) => candidate != answer),
+                );
+                options.insert(answerPositions[choiceIndex % 4], answer);
+                choiceIndex++;
+              } else {
+                final rotation = e % 4;
+                options.addAll(candidates.skip(rotation));
+                options.addAll(candidates.take(rotation));
+              }
+            }
             exercises.add({
               'id': '${id}e${e + 1}',
               'type': type,
               'language': language,
               'prompt': prompt,
-              'sentence': row[0],
-              'answer': row[0],
-              'options': type == 'translateChoice' || listening
-                  ? [...options.skip(rotation), ...options.take(rotation)]
-                  : [],
-              'tokens': type == 'wordBank' ? row[3].split('|') : [],
+              'sentence': answer,
+              'answer': answer,
+              'options': options,
+              'tokens': type == 'wordBank' ? blocks : [],
               'tokenSeparator': chinese ? '' : ' ',
-              if ((type == 'translateChoice' || listening) &&
-                  (!chinese || u == 0))
+              if (isChoice && !singleBlock && (!chinese || u == 0))
                 'support': row[2],
             });
           }

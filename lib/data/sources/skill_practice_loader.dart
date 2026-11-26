@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
+import 'package:mother_pattern_schema/chinese_exercise.dart';
 
 import '../models/course.dart';
+import '../models/learning_language.dart';
 import '../models/skill_practice.dart';
 import 'content_documents.dart';
 
@@ -29,7 +31,13 @@ class SkillPracticeLoader {
         try {
           final decoded = jsonDecode(raw);
           if (decoded is! Map) return false;
-          SkillPracticeBank.fromJson(Map<String, dynamic>.from(decoded));
+          final json = Map<String, dynamic>.from(decoded);
+          if (skill.language == LearningLanguage.chinese &&
+              (json['skill'] != skill.name ||
+                  validateChinesePracticeExercises(json) != null)) {
+            return false;
+          }
+          SkillPracticeBank.fromJson(json);
           return true;
         } catch (_) {
           return false;

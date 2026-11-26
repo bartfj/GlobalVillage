@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:english_village/data/models/course_track.dart';
+import 'package:english_village/data/models/skill_practice.dart';
 import 'package:english_village/data/sources/content_cache.dart';
 import 'package:english_village/data/sources/content_documents.dart';
 import 'package:english_village/data/sources/course_loader.dart';
+import 'package:english_village/data/sources/skill_practice_loader.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -87,6 +89,155 @@ void main() {
     final course = await loader.load(CourseTrack.zero);
     expect(course.title, '内置课');
     expect(docs.dropped, ['course/zero']);
+  });
+
+  group('中文覆盖包的题目校验', () {
+    const choice = <String, Object?>{
+      'id': 'zh_fixture_choice',
+      'type': 'translateChoice',
+      'language': 'chinese',
+      'prompt': 'Choose: mother',
+      'sentence': 'mā',
+      'answer': 'mā',
+      'options': ['mā', 'má', 'mǎ', 'mà'],
+    };
+
+    String chineseCourse(
+      CourseTrack track,
+      String title,
+      Map<String, Object?> exercise,
+    ) => jsonEncode({
+      'id': track.id,
+      'language': 'chinese',
+      'title': title,
+      'units': [
+        {
+          'id': 'zh_fixture_unit',
+          'title': '拼音',
+          'description': 'Pinyin',
+          'lessons': [
+            {
+              'id': 'zh_fixture_lesson',
+              'title': '声调',
+              'exercises': [exercise],
+            },
+          ],
+        },
+      ],
+    });
+
+    for (final track in [CourseTrack.chineseZero, CourseTrack.chinese]) {
+      test('${track.id} 丢弃不合格的覆盖并回退到内置', () async {
+        final packId = 'course/${track.id}';
+        for (final invalid in <Map<String, Object?>>[
+          {
+            'options': ['mā'],
+          },
+          {
+            'type': 'listeningChoice',
+            'options': ['mā', 'má', 'mǎ'],
+          },
+          {
+            'options': ['mā', 'mā', 'mǎ', 'mà'],
+          },
+          {
+            'options': ['mā', 'ma\u0304', 'mǎ', 'mà'],
+          },
+          {
+            'options': ['mā', 'ma1', 'mǎ', 'mà'],
+          },
+          {
+            'options': ['mā', 'má', ' ', 'mà'],
+          },
+          {
+            'options': ['mā', 'má', '\u200E', 'mà'],
+          },
+          {
+            'options': ['mā', 'má', 'má\u200E', 'mà'],
+          },
+          {
+            'options': ['mi', 'má', 'mǎ', 'mà'],
+          },
+          {
+            'type': 'wordBank',
+            'tokens': ['mā'],
+            'tokenSeparator': '',
+          },
+          {
+            'type': 'wordBank',
+            'answer': '你好',
+            'tokens': ['好', '你'],
+            'tokenSeparator': '',
+          },
+          {
+            'type': 'wordBank',
+            'answer': '好好好',
+            'tokens': ['好', '好好'],
+            'tokenSeparator': '',
+          },
+        ]) {
+          final docs = _MemoryDocuments({
+            packId: chineseCourse(track, '覆盖课', {...choice, ...invalid}),
+          });
+          final loader = CourseLoader(
+            assetBundle: _MemoryBundle({
+              track.assetPath: chineseCourse(track, '内置课', choice),
+            }),
+            documents: docs,
+          );
+          expect((await loader.load(track)).title, '内置课', reason: '$invalid');
+          expect(docs.dropped, [packId]);
+        }
+      });
+
+      test('${track.id} 接受合格覆盖并保留中文声调判分', () async {
+        final packId = 'course/${track.id}';
+        final docs = _MemoryDocuments({
+          packId: chineseCourse(track, '覆盖课', {
+            ...choice,
+            'options': ['ma\u0304', 'má', 'mǎ', 'mà'],
+          }),
+        });
+        final loader = CourseLoader(
+          assetBundle: _MemoryBundle({}),
+          documents: docs,
+        );
+        final course = await loader.load(track);
+        expect(course.title, '覆盖课');
+        final exercise = course.orderedLessons.single.exercises.single;
+        expect(exercise.options.where(exercise.accepts), ['ma\u0304']);
+        expect(exercise.accepts('ma1'), isTrue);
+        expect(docs.dropped, isEmpty);
+      });
+    }
+
+    test('中文专项读取章节内的选择题时丢弃不合格覆盖', () async {
+      const skill = SkillPracticeKind.chineseTones;
+      String bank(String title, Map<String, Object?> exercise) => jsonEncode({
+        'skill': skill.name,
+        'title': title,
+        'chapters': [
+          {
+            'id': 'tones',
+            'exercises': [exercise],
+          },
+        ],
+      });
+
+      final docs = _MemoryDocuments({
+        'practice/${skill.name}': bank('覆盖专项', {
+          ...choice,
+          'options': ['mā', 'ma1', 'mǎ', 'mà'],
+        }),
+      });
+      final loader = SkillPracticeLoader(
+        assetBundle: _MemoryBundle({skill.assetPath: bank('内置专项', choice)}),
+        documents: docs,
+      );
+
+      expect((await loader.load(skill)).title, '内置专项');
+      expect(docs.dropped, ['practice/${skill.name}']);
+    });
   });
 
   test('清单里的内容会缓存，坏正文不缓存，撤回后删除', () async {

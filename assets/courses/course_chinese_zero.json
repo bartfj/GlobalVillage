@@ -21,9 +21,9 @@
               "sentence": "mā",
               "answer": "mā",
               "options": [
-                "mā",
                 "má",
                 "mǎ",
+                "mā",
                 "mà"
               ],
               "tokens": [],
@@ -39,9 +39,9 @@
               "answer": "má",
               "options": [
                 "má",
+                "mā",
                 "mǎ",
-                "mà",
-                "mā"
+                "mà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -55,10 +55,10 @@
               "sentence": "mǎ",
               "answer": "mǎ",
               "options": [
-                "mǎ",
-                "mà",
                 "mā",
-                "má"
+                "mǎ",
+                "má",
+                "mà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -72,10 +72,10 @@
               "sentence": "mà",
               "answer": "mà",
               "options": [
-                "mà",
                 "mā",
                 "má",
-                "mǎ"
+                "mǎ",
+                "mà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -83,41 +83,50 @@
             },
             {
               "id": "zh_u1l1e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "prompt": "Choose the tone-marked pinyin: mother (pinyin, first tone)",
               "sentence": "mā",
               "answer": "mā",
-              "options": [],
-              "tokens": [
+              "options": [
+                "má",
+                "mǎ",
+                "mà",
                 "mā"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l1e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: hemp (pinyin, second tone)",
+              "prompt": "Choose the tone-marked pinyin: hemp (pinyin, second tone)",
               "sentence": "má",
               "answer": "má",
-              "options": [],
-              "tokens": [
-                "má"
+              "options": [
+                "má",
+                "mā",
+                "mǎ",
+                "mà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l1e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: horse (pinyin, third tone)",
+              "prompt": "Choose the tone-marked pinyin: horse (pinyin, third tone)",
               "sentence": "mǎ",
               "answer": "mǎ",
-              "options": [],
-              "tokens": [
-                "mǎ"
+              "options": [
+                "mā",
+                "mǎ",
+                "má",
+                "mà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -173,10 +182,10 @@
               "sentence": "bá",
               "answer": "bá",
               "options": [
+                "bā",
                 "bá",
                 "bǎ",
-                "bà",
-                "bā"
+                "bà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -190,10 +199,10 @@
               "sentence": "bǎ",
               "answer": "bǎ",
               "options": [
-                "bǎ",
-                "bà",
                 "bā",
-                "bá"
+                "bá",
+                "bǎ",
+                "bà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -207,10 +216,10 @@
               "sentence": "bà",
               "answer": "bà",
               "options": [
-                "bà",
                 "bā",
                 "bá",
-                "bǎ"
+                "bǎ",
+                "bà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -218,41 +227,50 @@
             },
             {
               "id": "zh_u1l2e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: eight (pinyin, first tone)",
+              "prompt": "Choose the tone-marked pinyin: eight (pinyin, first tone)",
               "sentence": "bā",
               "answer": "bā",
-              "options": [],
-              "tokens": [
-                "bā"
+              "options": [
+                "bá",
+                "bā",
+                "bǎ",
+                "bà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l2e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: pull out (pinyin, second tone)",
+              "prompt": "Choose the tone-marked pinyin: pull out (pinyin, second tone)",
               "sentence": "bá",
               "answer": "bá",
-              "options": [],
-              "tokens": [
-                "bá"
+              "options": [
+                "bā",
+                "bǎ",
+                "bá",
+                "bà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l2e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: hold (pinyin, third tone)",
+              "prompt": "Choose the tone-marked pinyin: hold (pinyin, third tone)",
               "sentence": "bǎ",
               "answer": "bǎ",
-              "options": [],
-              "tokens": [
-                "bǎ"
+              "options": [
+                "bǎ",
+                "bā",
+                "bá",
+                "bà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -308,10 +326,10 @@
               "sentence": "mǎ",
               "answer": "mǎ",
               "options": [
-                "mǎ",
+                "mā",
                 "bā",
                 "bǎ",
-                "mā"
+                "mǎ"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -325,10 +343,10 @@
               "sentence": "bā",
               "answer": "bā",
               "options": [
-                "bā",
-                "bǎ",
                 "mā",
-                "mǎ"
+                "bā",
+                "mǎ",
+                "bǎ"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -342,9 +360,9 @@
               "sentence": "bǎ",
               "answer": "bǎ",
               "options": [
-                "bǎ",
                 "mā",
                 "mǎ",
+                "bǎ",
                 "bā"
               ],
               "tokens": [],
@@ -353,41 +371,50 @@
             },
             {
               "id": "zh_u1l3e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: mother (pinyin, first tone)",
+              "prompt": "Choose the tone-marked pinyin: mother (pinyin, first tone)",
               "sentence": "mā",
               "answer": "mā",
-              "options": [],
-              "tokens": [
+              "options": [
+                "má",
+                "mǎ",
+                "mà",
                 "mā"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l3e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: horse (pinyin, third tone)",
+              "prompt": "Choose the tone-marked pinyin: horse (pinyin, third tone)",
               "sentence": "mǎ",
               "answer": "mǎ",
-              "options": [],
-              "tokens": [
-                "mǎ"
+              "options": [
+                "mǎ",
+                "mā",
+                "má",
+                "mà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l3e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: eight (pinyin, first tone)",
+              "prompt": "Choose the tone-marked pinyin: eight (pinyin, first tone)",
               "sentence": "bā",
               "answer": "bā",
-              "options": [],
-              "tokens": [
-                "bā"
+              "options": [
+                "bá",
+                "bā",
+                "bǎ",
+                "bà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -426,10 +453,10 @@
               "sentence": "má",
               "answer": "má",
               "options": [
-                "má",
                 "mà",
                 "bá",
-                "bà"
+                "bà",
+                "má"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -443,10 +470,10 @@
               "sentence": "mà",
               "answer": "mà",
               "options": [
-                "mà",
+                "má",
                 "bá",
-                "bà",
-                "má"
+                "mà",
+                "bà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -461,9 +488,9 @@
               "answer": "bá",
               "options": [
                 "bá",
-                "bà",
                 "má",
-                "mà"
+                "mà",
+                "bà"
               ],
               "tokens": [],
               "tokenSeparator": "",
@@ -477,8 +504,8 @@
               "sentence": "bà",
               "answer": "bà",
               "options": [
-                "bà",
                 "má",
+                "bà",
                 "mà",
                 "bá"
               ],
@@ -488,41 +515,50 @@
             },
             {
               "id": "zh_u1l4e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: hemp (pinyin, second tone)",
+              "prompt": "Choose the tone-marked pinyin: hemp (pinyin, second tone)",
               "sentence": "má",
               "answer": "má",
-              "options": [],
-              "tokens": [
-                "má"
+              "options": [
+                "mā",
+                "má",
+                "mǎ",
+                "mà"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l4e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: scold (pinyin, fourth tone)",
+              "prompt": "Choose the tone-marked pinyin: scold (pinyin, fourth tone)",
               "sentence": "mà",
               "answer": "mà",
-              "options": [],
-              "tokens": [
-                "mà"
+              "options": [
+                "mā",
+                "má",
+                "mà",
+                "mǎ"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u1l4e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write tone-marked pinyin: pull out (pinyin, second tone)",
+              "prompt": "Choose the tone-marked pinyin: pull out (pinyin, second tone)",
               "sentence": "bá",
               "answer": "bá",
-              "options": [],
-              "tokens": [
+              "options": [
+                "bā",
+                "bǎ",
+                "bà",
                 "bá"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {

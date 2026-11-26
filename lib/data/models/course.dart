@@ -2,6 +2,8 @@
 library;
 
 import 'package:unorm_dart/unorm_dart.dart' as unicode;
+import 'package:mother_pattern_schema/chinese_exercise.dart'
+    show expandChinesePinyinAliases, normalizeChineseInput;
 import 'package:mother_pattern_schema/mother_pattern_schema.dart'
     show normalizeEnglishAnswer;
 import 'learning_language.dart';
@@ -68,9 +70,12 @@ class Exercise {
   final String tokenSeparator;
   final SpeakingMode speakingMode;
 
-  String normalizeInput(String text) => language == LearningLanguage.english
-      ? normalizeAnswer(text)
-      : unicode.nfc(text.trim()).replaceAll(RegExp(r'\s+'), ' ');
+  String normalizeInput(String text) => switch (language) {
+    LearningLanguage.english => normalizeAnswer(text),
+    LearningLanguage.chinese => normalizeChineseInput(text),
+    LearningLanguage.sanskrit =>
+      unicode.nfc(text.trim()).replaceAll(RegExp(r'\s+'), ' '),
+  };
 
   /// 听写在现有归一化之后再删掉全部空白；其他题型保留词间空格。
   String _forComparison(String text) {
@@ -100,7 +105,7 @@ class Exercise {
   /// 不会放宽声调、长短元音或卷舌差异。
   String expandKeyboardAliases(String text) => switch (language) {
     LearningLanguage.sanskrit => _expandSanskritAliases(text),
-    LearningLanguage.chinese => _expandPinyinAliases(text),
+    LearningLanguage.chinese => expandChinesePinyinAliases(text),
     LearningLanguage.english => text,
   };
 
@@ -126,37 +131,6 @@ class Exercise {
       out = out.replaceAll(entry.key, entry.value);
     }
     return out.split('').map((c) => _sanskritCapitals[c] ?? c).join();
-  }
-
-  static const _pinyinTones = {
-    'a': ['ā', 'á', 'ǎ', 'à'],
-    'e': ['ē', 'é', 'ě', 'è'],
-    'i': ['ī', 'í', 'ǐ', 'ì'],
-    'o': ['ō', 'ó', 'ǒ', 'ò'],
-    'u': ['ū', 'ú', 'ǔ', 'ù'],
-    'v': ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
-  };
-
-  static String _expandPinyinAliases(String text) {
-    final out = text.replaceAllMapped(RegExp(r'([a-zü]+)([1-4])'), (m) {
-      final syllable = m[1]!.replaceAll('ü', 'v');
-      // a、e 优先；ou 标在 o 上，其余复韵母标在最后一个元音上。
-      var index = syllable.indexOf('a');
-      if (index < 0) index = syllable.indexOf('e');
-      if (index < 0) index = syllable.indexOf('ou');
-      if (index < 0) {
-        for (var i = syllable.length - 1; i >= 0; i--) {
-          if (_pinyinTones.containsKey(syllable[i])) {
-            index = i;
-            break;
-          }
-        }
-      }
-      if (index < 0) return m[0]!;
-      final toned = _pinyinTones[syllable[index]]![int.parse(m[2]!) - 1];
-      return syllable.replaceRange(index, index + 1, toned);
-    });
-    return out.replaceAll('v', 'ü');
   }
 
   /// Unicode 空格，以及输入法可能插入的零宽空格。

@@ -10,6 +10,7 @@ import '../../app/theme.dart';
 import '../../core/services/diagnostic_log.dart';
 import '../../data/models/check_in.dart';
 import '../../data/models/course.dart';
+import '../../data/models/learning_language.dart';
 import '../../data/models/skill_practice.dart';
 import '../../data/models/skill_practice_progress.dart';
 import '../../data/repositories/check_in_repository.dart';
@@ -649,6 +650,9 @@ class _SkillPracticePageState extends ConsumerState<SkillPracticePage> {
               ),
               Expanded(
                 child: SingleChildScrollView(
+                  key: exercise.language == LearningLanguage.chinese
+                      ? PageStorageKey(questionKey.value)
+                      : null,
                   padding: const EdgeInsets.fromLTRB(24, 27, 24, 16),
                   child: buildExerciseWidget(
                     exercise: exercise,

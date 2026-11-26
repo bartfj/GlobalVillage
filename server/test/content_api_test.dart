@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:global_village_server/api.dart';
@@ -107,6 +108,189 @@ void main() {
       )).statusCode,
       404,
     );
+  });
+
+  test('中文课程发布时拒绝不合格的选择题和词块题', () async {
+    final handler = open();
+    for (final id in ['chineseZero', 'chinese']) {
+      final path = '/admin/api/content/packs/course/$id';
+      Map<String, Object?> pack(Map<String, Object?> changes) => {
+        'id': id,
+        'language': 'chinese',
+        'title': '中文',
+        'units': [
+          {
+            'id': 'zh_fixture_unit',
+            'title': '拼音',
+            'description': 'Pinyin',
+            'lessons': [
+              {
+                'id': 'zh_fixture_lesson',
+                'title': '声调',
+                'exercises': [
+                  {
+                    'id': 'zh_fixture_choice',
+                    'type': 'translateChoice',
+                    'language': 'chinese',
+                    'prompt': 'Choose: mother',
+                    'sentence': 'mā',
+                    'answer': 'mā',
+                    'options': ['mā', 'má', 'mǎ', 'mà'],
+                    ...changes,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      for (final invalid in <Map<String, Object?>>[
+        {
+          'options': ['mā'],
+        },
+        {
+          'type': 'listeningChoice',
+          'options': ['mā', 'má', 'mǎ'],
+        },
+        {
+          'options': ['mā', 'mā', 'mǎ', 'mà'],
+        },
+        {
+          'options': ['mā', 'ma\u0304', 'mǎ', 'mà'],
+        },
+        {
+          'options': ['mā', 'ma1', 'mǎ', 'mà'],
+        },
+        {
+          'options': ['mā', 'má', ' ', 'mà'],
+        },
+        {
+          'options': ['mā', 'má', '\u200E', 'mà'],
+        },
+        {
+          'options': ['mā', 'má', 'má\u200E', 'mà'],
+        },
+        {
+          'options': ['mi', 'má', 'mǎ', 'mà'],
+        },
+        {
+          'type': 'wordBank',
+          'tokens': ['mā'],
+          'tokenSeparator': '',
+        },
+        {
+          'type': 'wordBank',
+          'answer': '你好',
+          'tokens': ['好', '你'],
+          'tokenSeparator': '',
+        },
+        {
+          'type': 'wordBank',
+          'answer': '好好好',
+          'tokens': ['好', '好好'],
+          'tokenSeparator': '',
+        },
+      ]) {
+        expect(
+          (await send(
+            handler,
+            'PUT',
+            path,
+            bearer: adminToken,
+            body: pack(invalid),
+          )).statusCode,
+          200,
+        );
+        final publish = await send(
+          handler,
+          'POST',
+          '$path/publish',
+          bearer: adminToken,
+        );
+        expect(publish.statusCode, 400, reason: '$id: $invalid');
+        expect((await json(publish))['message'], contains('zh_fixture_choice'));
+        expect(
+          (await send(
+            handler,
+            'GET',
+            '/v1/content/packs/course/$id',
+          )).statusCode,
+          404,
+        );
+      }
+
+      expect(
+        (await send(
+          handler,
+          'PUT',
+          path,
+          bearer: adminToken,
+          body: pack({
+            'options': ['ma\u0304', 'má', 'mǎ', 'mà'],
+          }),
+        )).statusCode,
+        200,
+      );
+      expect(
+        (await send(
+          handler,
+          'POST',
+          '$path/publish',
+          bearer: adminToken,
+        )).statusCode,
+        200,
+      );
+      expect(
+        (await send(handler, 'GET', '/v1/content/packs/course/$id')).statusCode,
+        200,
+      );
+    }
+  });
+
+  test('发布遇到并发替换草稿时保留原发布版本', () async {
+    final repo = _PausedDraftReadRepo();
+    final handler = open(content: repo);
+    const path = '/admin/api/content/packs/course/beginner';
+    const publicPath = '/v1/content/packs/course/beginner';
+    Future<Response> save(Map<String, Object?> body) =>
+        send(handler, 'PUT', path, bearer: adminToken, body: body);
+
+    final initial = course(title: '第一版');
+    expect((await save(initial)).statusCode, 200);
+    expect(
+      (await send(
+        handler,
+        'POST',
+        '$path/publish',
+        bearer: adminToken,
+      )).statusCode,
+      200,
+    );
+
+    expect((await save(course(title: '第二版'))).statusCode, 200);
+    repo.pauseNextRead = true;
+    final publishing = send(
+      handler,
+      'POST',
+      '$path/publish',
+      bearer: adminToken,
+    );
+    await repo.snapshotRead.future;
+    try {
+      // The editor may store a draft whose shape would fail validation.
+      expect((await save({'id': 'beginner', 'title': '坏'})).statusCode, 200);
+    } finally {
+      repo.allowRead.complete();
+    }
+
+    final conflict = await publishing;
+    expect(conflict.statusCode, 409);
+    expect((await json(conflict))['code'], 'draft_changed');
+    expect(await json(await send(handler, 'GET', publicPath)), initial);
+    final manifest = await json(
+      await send(handler, 'GET', '/v1/content/manifest'),
+    );
+    expect(manifest['documents'][0]['revision'], 1);
   });
 
   test('错误口令不能改草稿，发布后可下载且修订号增加，撤回后清单消失', () async {
@@ -366,4 +550,21 @@ void main() {
       404,
     );
   });
+}
+
+class _PausedDraftReadRepo extends InMemoryContentRepo {
+  bool pauseNextRead = false;
+  final snapshotRead = Completer<void>();
+  final allowRead = Completer<void>();
+
+  @override
+  Future<StoredDocument?> getDocument(String packId) async {
+    final document = await super.getDocument(packId);
+    if (pauseNextRead) {
+      pauseNextRead = false;
+      snapshotRead.complete();
+      await allowRead.future;
+    }
+    return document;
+  }
 }

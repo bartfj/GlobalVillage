@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
+import 'package:mother_pattern_schema/chinese_exercise.dart';
 import 'package:mother_pattern_schema/mother_pattern_schema.dart';
 
 import '../models/course.dart';
@@ -39,7 +40,8 @@ class CourseLoader {
       final decoded = jsonDecode(raw);
       if (decoded is! Map) return false;
       final json = Map<String, dynamic>.from(decoded);
-      if (validateCourseIdentityAndPatterns(json, courseId) != null) {
+      if (validateCourseIdentityAndPatterns(json, courseId) != null ||
+          validateChineseCourseExercises(json, courseId) != null) {
         return false;
       }
       Course.fromJson(json);

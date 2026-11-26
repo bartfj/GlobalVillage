@@ -505,6 +505,9 @@ class _LessonPageState extends ConsumerState<LessonPage> {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
+                    key: exercise.language == LearningLanguage.chinese
+                        ? PageStorageKey(questionKey.value)
+                        : null,
                     padding: const EdgeInsets.fromLTRB(24, 27, 24, 16),
                     child: _buildExercise(exercise, state, questionKey),
                   ),

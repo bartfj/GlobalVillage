@@ -114,9 +114,16 @@ void mountAdminContent(
     }
     final error = validateContentPack(spec.id, draft);
     if (error != null) return _error(400, 'invalid_content', error);
-    final published = await content.publishDocument(spec.id);
-    if (published == null) return _error(400, 'no_draft', '没有可发布的草稿');
-    return _json(200, _packDetail(spec, published));
+    try {
+      final published = await content.publishDocument(
+        spec.id,
+        expectedDraft: draft,
+      );
+      if (published == null) return _error(400, 'no_draft', '没有可发布的草稿');
+      return _json(200, _packDetail(spec, published));
+    } on ContentDraftChangedException {
+      return _error(409, 'draft_changed', '草稿已更新，请重新确认后发布');
+    }
   });
 
   router.post('/admin/api/content/packs/<kind>/<name>/unpublish', (

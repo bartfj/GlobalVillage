@@ -21,10 +21,10 @@
               "sentence": "你好",
               "answer": "你好",
               "options": [
-                "你好",
                 "谢谢",
                 "再见",
-                "我叫安娜"
+                "我叫安娜",
+                "你好"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -37,10 +37,10 @@
               "sentence": "谢谢",
               "answer": "谢谢",
               "options": [
+                "你好",
                 "谢谢",
                 "再见",
-                "我叫安娜",
-                "你好"
+                "我叫安娜"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -53,10 +53,10 @@
               "sentence": "再见",
               "answer": "再见",
               "options": [
-                "再见",
-                "我叫安娜",
                 "你好",
-                "谢谢"
+                "谢谢",
+                "再见",
+                "我叫安娜"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -93,28 +93,34 @@
             },
             {
               "id": "zh_u2l1e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: Thank you",
+              "prompt": "Choose the simplified Chinese: Thank you",
               "sentence": "谢谢",
               "answer": "谢谢",
-              "options": [],
-              "tokens": [
-                "谢谢"
+              "options": [
+                "你好",
+                "谢谢",
+                "再见",
+                "不客气"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u2l1e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: Goodbye",
+              "prompt": "Choose the simplified Chinese: Goodbye",
               "sentence": "再见",
               "answer": "再见",
-              "options": [],
-              "tokens": [
-                "再见"
+              "options": [
+                "再见",
+                "你好",
+                "谢谢",
+                "不客气"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -169,10 +175,10 @@
               "sentence": "你叫什么名字",
               "answer": "你叫什么名字",
               "options": [
-                "你叫什么名字",
+                "我是学生",
                 "很高兴认识你",
                 "不客气",
-                "我是学生"
+                "你叫什么名字"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -185,10 +191,10 @@
               "sentence": "很高兴认识你",
               "answer": "很高兴认识你",
               "options": [
-                "很高兴认识你",
-                "不客气",
                 "我是学生",
-                "你叫什么名字"
+                "很高兴认识你",
+                "你叫什么名字",
+                "不客气"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -201,9 +207,9 @@
               "sentence": "不客气",
               "answer": "不客气",
               "options": [
-                "不客气",
                 "我是学生",
                 "你叫什么名字",
+                "不客气",
                 "很高兴认识你"
               ],
               "tokens": [],
@@ -292,10 +298,10 @@
               "sentence": "你好",
               "answer": "你好",
               "options": [
-                "你好",
                 "再见",
                 "我是学生",
-                "很高兴认识你"
+                "很高兴认识你",
+                "你好"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -308,10 +314,10 @@
               "sentence": "再见",
               "answer": "再见",
               "options": [
-                "再见",
+                "你好",
                 "我是学生",
-                "很高兴认识你",
-                "你好"
+                "再见",
+                "很高兴认识你"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -325,9 +331,9 @@
               "answer": "我是学生",
               "options": [
                 "我是学生",
-                "很高兴认识你",
                 "你好",
-                "再见"
+                "再见",
+                "很高兴认识你"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -340,8 +346,8 @@
               "sentence": "很高兴认识你",
               "answer": "很高兴认识你",
               "options": [
-                "很高兴认识你",
                 "你好",
+                "很高兴认识你",
                 "再见",
                 "我是学生"
               ],
@@ -364,15 +370,18 @@
             },
             {
               "id": "zh_u2l3e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: Goodbye",
+              "prompt": "Choose the simplified Chinese: Goodbye",
               "sentence": "再见",
               "answer": "再见",
-              "options": [],
-              "tokens": [
+              "options": [
+                "你好",
+                "谢谢",
+                "不客气",
                 "再见"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -426,10 +435,10 @@
               "sentence": "谢谢",
               "answer": "谢谢",
               "options": [
-                "谢谢",
                 "我叫安娜",
                 "你叫什么名字",
-                "不客气"
+                "不客气",
+                "谢谢"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -442,10 +451,10 @@
               "sentence": "我叫安娜",
               "answer": "我叫安娜",
               "options": [
+                "谢谢",
                 "我叫安娜",
                 "你叫什么名字",
-                "不客气",
-                "谢谢"
+                "不客气"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -458,10 +467,10 @@
               "sentence": "你叫什么名字",
               "answer": "你叫什么名字",
               "options": [
-                "你叫什么名字",
-                "不客气",
                 "谢谢",
-                "我叫安娜"
+                "我叫安娜",
+                "你叫什么名字",
+                "不客气"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -484,15 +493,18 @@
             },
             {
               "id": "zh_u2l4e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: Thank you",
+              "prompt": "Choose the simplified Chinese: Thank you",
               "sentence": "谢谢",
               "answer": "谢谢",
-              "options": [],
-              "tokens": [
-                "谢谢"
+              "options": [
+                "你好",
+                "再见",
+                "谢谢",
+                "不客气"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -569,8 +581,8 @@
               "sentence": "一",
               "answer": "一",
               "options": [
-                "一",
                 "二",
+                "一",
                 "三",
                 "这是书"
               ],
@@ -586,9 +598,9 @@
               "answer": "二",
               "options": [
                 "二",
+                "一",
                 "三",
-                "这是书",
-                "一"
+                "这是书"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -601,10 +613,10 @@
               "sentence": "三",
               "answer": "三",
               "options": [
-                "三",
-                "这是书",
                 "一",
-                "二"
+                "二",
+                "三",
+                "这是书"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -617,51 +629,60 @@
               "sentence": "这是书",
               "answer": "这是书",
               "options": [
-                "这是书",
                 "一",
                 "二",
-                "三"
+                "三",
+                "这是书"
               ],
               "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u3l1e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: one",
+              "prompt": "Choose the simplified Chinese: one",
               "sentence": "一",
               "answer": "一",
-              "options": [],
-              "tokens": [
-                "一"
+              "options": [
+                "二",
+                "三",
+                "一",
+                "四"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u3l1e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: two",
+              "prompt": "Choose the simplified Chinese: two",
               "sentence": "二",
               "answer": "二",
-              "options": [],
-              "tokens": [
-                "二"
+              "options": [
+                "一",
+                "二",
+                "三",
+                "四"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u3l1e7",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: three",
+              "prompt": "Choose the simplified Chinese: three",
               "sentence": "三",
               "answer": "三",
-              "options": [],
-              "tokens": [
-                "三"
+              "options": [
+                "三",
+                "一",
+                "二",
+                "四"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -700,10 +721,10 @@
               "sentence": "一个人",
               "answer": "一个人",
               "options": [
-                "一个人",
                 "两本书",
                 "我有三个杯子",
-                "那是我的老师"
+                "那是我的老师",
+                "一个人"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -717,9 +738,9 @@
               "answer": "两本书",
               "options": [
                 "两本书",
+                "一个人",
                 "我有三个杯子",
-                "那是我的老师",
-                "一个人"
+                "那是我的老师"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -732,10 +753,10 @@
               "sentence": "我有三个杯子",
               "answer": "我有三个杯子",
               "options": [
-                "我有三个杯子",
-                "那是我的老师",
                 "一个人",
-                "两本书"
+                "我有三个杯子",
+                "两本书",
+                "那是我的老师"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -748,9 +769,9 @@
               "sentence": "那是我的老师",
               "answer": "那是我的老师",
               "options": [
-                "那是我的老师",
                 "一个人",
                 "两本书",
+                "那是我的老师",
                 "我有三个杯子"
               ],
               "tokens": [],
@@ -839,8 +860,8 @@
               "sentence": "一",
               "answer": "一",
               "options": [
-                "一",
                 "三",
+                "一",
                 "一个人",
                 "我有三个杯子"
               ],
@@ -856,9 +877,9 @@
               "answer": "三",
               "options": [
                 "三",
+                "一",
                 "一个人",
-                "我有三个杯子",
-                "一"
+                "我有三个杯子"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -871,10 +892,10 @@
               "sentence": "一个人",
               "answer": "一个人",
               "options": [
-                "一个人",
-                "我有三个杯子",
                 "一",
-                "三"
+                "三",
+                "我有三个杯子",
+                "一个人"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -887,9 +908,9 @@
               "sentence": "我有三个杯子",
               "answer": "我有三个杯子",
               "options": [
-                "我有三个杯子",
                 "一",
                 "三",
+                "我有三个杯子",
                 "一个人"
               ],
               "tokens": [],
@@ -897,28 +918,34 @@
             },
             {
               "id": "zh_u3l3e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: one",
+              "prompt": "Choose the simplified Chinese: one",
               "sentence": "一",
               "answer": "一",
-              "options": [],
-              "tokens": [
-                "一"
+              "options": [
+                "二",
+                "一",
+                "三",
+                "四"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u3l3e6",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: three",
+              "prompt": "Choose the simplified Chinese: three",
               "sentence": "三",
               "answer": "三",
-              "options": [],
-              "tokens": [
-                "三"
+              "options": [
+                "一",
+                "二",
+                "三",
+                "四"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -972,9 +999,9 @@
               "sentence": "二",
               "answer": "二",
               "options": [
-                "二",
                 "这是书",
                 "两本书",
+                "二",
                 "那是我的老师"
               ],
               "tokens": [],
@@ -988,10 +1015,10 @@
               "sentence": "这是书",
               "answer": "这是书",
               "options": [
+                "二",
                 "这是书",
                 "两本书",
-                "那是我的老师",
-                "二"
+                "那是我的老师"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1005,9 +1032,9 @@
               "answer": "两本书",
               "options": [
                 "两本书",
-                "那是我的老师",
                 "二",
-                "这是书"
+                "这是书",
+                "那是我的老师"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1020,25 +1047,28 @@
               "sentence": "那是我的老师",
               "answer": "那是我的老师",
               "options": [
-                "那是我的老师",
                 "二",
                 "这是书",
-                "两本书"
+                "两本书",
+                "那是我的老师"
               ],
               "tokens": [],
               "tokenSeparator": ""
             },
             {
               "id": "zh_u3l4e5",
-              "type": "wordBank",
+              "type": "translateChoice",
               "language": "chinese",
-              "prompt": "Write simplified Chinese: two",
+              "prompt": "Choose the simplified Chinese: two",
               "sentence": "二",
               "answer": "二",
-              "options": [],
-              "tokens": [
+              "options": [
+                "一",
+                "三",
+                "四",
                 "二"
               ],
+              "tokens": [],
               "tokenSeparator": ""
             },
             {
@@ -1114,8 +1144,8 @@
               "sentence": "请给我水",
               "answer": "请给我水",
               "options": [
-                "请给我水",
                 "我要一杯茶",
+                "请给我水",
                 "这个多少钱",
                 "我要这个"
               ],
@@ -1130,10 +1160,10 @@
               "sentence": "我要一杯茶",
               "answer": "我要一杯茶",
               "options": [
-                "我要一杯茶",
+                "请给我水",
                 "这个多少钱",
-                "我要这个",
-                "请给我水"
+                "我要一杯茶",
+                "我要这个"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1147,9 +1177,9 @@
               "answer": "这个多少钱",
               "options": [
                 "这个多少钱",
-                "我要这个",
                 "请给我水",
-                "我要一杯茶"
+                "我要一杯茶",
+                "我要这个"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1162,10 +1192,10 @@
               "sentence": "我要这个",
               "answer": "我要这个",
               "options": [
-                "我要这个",
                 "请给我水",
                 "我要一杯茶",
-                "这个多少钱"
+                "这个多少钱",
+                "我要这个"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1254,8 +1284,8 @@
               "sentence": "请说慢一点",
               "answer": "请说慢一点",
               "options": [
-                "请说慢一点",
                 "请再说一遍",
+                "请说慢一点",
                 "我不明白",
                 "可以帮我吗"
               ],
@@ -1271,9 +1301,9 @@
               "answer": "请再说一遍",
               "options": [
                 "请再说一遍",
+                "请说慢一点",
                 "我不明白",
-                "可以帮我吗",
-                "请说慢一点"
+                "可以帮我吗"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1286,10 +1316,10 @@
               "sentence": "我不明白",
               "answer": "我不明白",
               "options": [
-                "我不明白",
-                "可以帮我吗",
                 "请说慢一点",
-                "请再说一遍"
+                "请再说一遍",
+                "可以帮我吗",
+                "我不明白"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1302,9 +1332,9 @@
               "sentence": "可以帮我吗",
               "answer": "可以帮我吗",
               "options": [
-                "可以帮我吗",
                 "请说慢一点",
                 "请再说一遍",
+                "可以帮我吗",
                 "我不明白"
               ],
               "tokens": [],
@@ -1394,10 +1424,10 @@
               "sentence": "请给我水",
               "answer": "请给我水",
               "options": [
-                "请给我水",
                 "这个多少钱",
                 "请说慢一点",
-                "我不明白"
+                "我不明白",
+                "请给我水"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1410,10 +1440,10 @@
               "sentence": "这个多少钱",
               "answer": "这个多少钱",
               "options": [
-                "这个多少钱",
+                "请给我水",
                 "请说慢一点",
-                "我不明白",
-                "请给我水"
+                "这个多少钱",
+                "我不明白"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1426,10 +1456,10 @@
               "sentence": "请说慢一点",
               "answer": "请说慢一点",
               "options": [
-                "请说慢一点",
-                "我不明白",
                 "请给我水",
-                "这个多少钱"
+                "请说慢一点",
+                "这个多少钱",
+                "我不明白"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1533,9 +1563,9 @@
               "sentence": "我要一杯茶",
               "answer": "我要一杯茶",
               "options": [
-                "我要一杯茶",
                 "我要这个",
                 "请再说一遍",
+                "我要一杯茶",
                 "可以帮我吗"
               ],
               "tokens": [],
@@ -1549,10 +1579,10 @@
               "sentence": "我要这个",
               "answer": "我要这个",
               "options": [
+                "我要一杯茶",
                 "我要这个",
                 "请再说一遍",
-                "可以帮我吗",
-                "我要一杯茶"
+                "可以帮我吗"
               ],
               "tokens": [],
               "tokenSeparator": ""
@@ -1565,10 +1595,10 @@
               "sentence": "请再说一遍",
               "answer": "请再说一遍",
               "options": [
-                "请再说一遍",
-                "可以帮我吗",
                 "我要一杯茶",
-                "我要这个"
+                "我要这个",
+                "可以帮我吗",
+                "请再说一遍"
               ],
               "tokens": [],
               "tokenSeparator": ""
