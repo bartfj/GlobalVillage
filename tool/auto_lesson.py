@@ -1,8 +1,18 @@
-# 模拟器自动化：通关 u1l2（含跟读题降级路径）-> 跳过对话 -> 庆祝页截图 -> 收下徽章
-import json, os, re, subprocess, sys, time
+# 模拟器自动化：通关 u1l3（含跟读题降级路径）-> 跳过对话 -> 庆祝页截图 -> 收下徽章
+import json
+import os
+import re
+import shutil
+import subprocess
+import time
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
-ADB = r'D:\fv_sdk\android-sdk\platform-tools\adb.exe'
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_DIR = ROOT / '.trae' / 'tmp' / 'auto_lesson'
+ADB = shutil.which('adb')
+if ADB is None:
+    raise SystemExit('Add Android SDK platform-tools to PATH to run this script.')
 LESSON = 'u1l3'
 
 def sh(*args):
@@ -37,11 +47,12 @@ def tap(node):
     print('tap', node.get('content-desc') or node.get('text') or node.get('class'), x, y)
     time.sleep(0.5)
 
-with open(r'D:\workspace\github_code\地球村\assets\courses\course_beginner.json', encoding='utf-8') as f:
+with open(ROOT / 'assets' / 'courses' / 'course_beginner.json', encoding='utf-8') as f:
     course = json.load(f)
 lesson = next(l for u in course['units'] for l in u['lessons'] if l['id'] == LESSON)
 exercises = lesson['exercises']
 print('exercises:', [(e['id'], e['type']) for e in exercises])
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # 进入课程：首页点击圆形课程节点（行中央空白不可点）
 # root = dump()
@@ -65,7 +76,7 @@ while time.time() < deadline:
         time.sleep(0.3)
         # 截图在设备上，先拉取
         subprocess.run([ADB, 'pull', '/sdcard/celebrate.png',
-                        r'D:\workspace\github_code\地球村\.trae\screen_v080_celebrate.png'],
+                        str(OUTPUT_DIR / 'screen_v080_celebrate.png')],
                        capture_output=True)
         tap(find_text(root, '收下徽章'))
         break
@@ -73,13 +84,12 @@ while time.time() < deadline:
         print('dialogue page -> skip')
         tap(find_text(root, '跳过'))
         # 连拍庆祝动画多帧（每帧立即拉回本地，宿主崩溃也能保住已拍帧）
-        import glob
-        for f in glob.glob(r'D:\workspace\github_code\地球村\.trae\celebrate_frame_*.png'):
-            os.remove(f)
+        for f in OUTPUT_DIR.glob('celebrate_frame_*.png'):
+            f.unlink()
         good = 0
         for i in range(9):
             sh('exec-out', 'screencap', '-p', f'/sdcard/celebrate_{i}.png')
-            local = rf'D:\workspace\github_code\地球村\.trae\celebrate_frame_{i}.png'
+            local = str(OUTPUT_DIR / f'celebrate_frame_{i}.png')
             r = subprocess.run([ADB, 'pull', f'/sdcard/celebrate_{i}.png', local],
                        capture_output=True, timeout=20)
             try:

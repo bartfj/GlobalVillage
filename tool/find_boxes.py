@@ -1,6 +1,5 @@
 import sys
 
-sys.path.insert(0, r'd:\workspace\github_code\地球村\.trae\sdk\pylibs')
 from PIL import Image
 
 path = sys.argv[1]
