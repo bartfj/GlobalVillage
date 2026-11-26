@@ -5,8 +5,9 @@
 import hashlib
 import json
 import random
+from pathlib import Path
 
-SRC = r'd:\workspace\github_code\地球村\assets\courses\course_beginner.json'
+SRC = Path(__file__).resolve().parents[1] / 'assets' / 'courses' / 'course_beginner.json'
 
 
 def seed_of(key):

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """生成 u11-u14 四个单元（16 课 × 8 题）追加到 course_beginner.json。"""
-import sys
-sys.path.insert(0, r'd:\workspace\github_code\地球村\.trae')
 from gen_units7to10 import append_units
 
 UNITS = [
