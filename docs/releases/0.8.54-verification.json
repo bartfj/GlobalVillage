@@ -1,0 +1,293 @@
+{
+  "client": {
+    "clientAnalysisExit": 0,
+    "clientTestsExit": 0,
+    "passed": 541,
+    "skipped": 1,
+    "testFiles": 66,
+    "batches": [
+      {
+        "log": "client-test-01.log",
+        "passed": 49,
+        "skipped": 0,
+        "files": [
+          "test\\adaptive_shell_test.dart",
+          "test\\answer_normalization_test.dart",
+          "test\\api_base_url_test.dart",
+          "test\\audio_failure_test.dart",
+          "test\\award_celebration_test.dart",
+          "test\\backup_service_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-02.log",
+        "passed": 23,
+        "skipped": 0,
+        "files": [
+          "test\\content_overlay_test.dart",
+          "test\\course_expansion_test.dart",
+          "test\\course_loader_test.dart",
+          "test\\debug_jump_dialog_test.dart",
+          "test\\diagnostic_log_test.dart",
+          "test\\dialogue_performance_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-03.log",
+        "passed": 22,
+        "skipped": 0,
+        "files": [
+          "test\\english_yoga_button_test.dart",
+          "test\\language_practice_test.dart",
+          "test\\learning_improvement_test.dart",
+          "test\\learning_path_navigation_test.dart",
+          "test\\lesson_controller_test.dart",
+          "test\\lesson_design_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-04.log",
+        "passed": 61,
+        "skipped": 0,
+        "files": [
+          "test\\match_pairs_widget_test.dart",
+          "test\\mother_pattern_completion_test.dart",
+          "test\\mother_pattern_content_test.dart",
+          "test\\mother_pattern_controller_test.dart",
+          "test\\mother_pattern_hint_test.dart",
+          "test\\mother_pattern_model_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-05.log",
+        "passed": 120,
+        "skipped": 0,
+        "files": [
+          "test\\mother_pattern_overlay_test.dart",
+          "test\\mother_pattern_page_test.dart",
+          "test\\mother_pattern_review_ui_test.dart",
+          "test\\mother_pattern_route_test.dart",
+          "test\\mother_pattern_speech_test.dart",
+          "test\\mother_pattern_store_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-06.log",
+        "passed": 36,
+        "skipped": 1,
+        "files": [
+          "test\\multilingual_course_test.dart",
+          "test\\offline_asr_test.dart",
+          "test\\online_auth_test.dart",
+          "test\\pattern_content_test.dart",
+          "test\\pattern_entry_integration_test.dart",
+          "test\\pattern_lesson_entry_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-07.log",
+        "passed": 67,
+        "skipped": 0,
+        "files": [
+          "test\\pattern_review_store_test.dart",
+          "test\\pattern_training_controller_test.dart",
+          "test\\pattern_training_model_test.dart",
+          "test\\pattern_training_page_test.dart",
+          "test\\phonetic_bubble_test.dart",
+          "test\\phonetic_lookup_service_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-08.log",
+        "passed": 38,
+        "skipped": 0,
+        "files": [
+          "test\\post_lesson_comedy_entry_test.dart",
+          "test\\post_lesson_comedy_test.dart",
+          "test\\production_exercise_test.dart",
+          "test\\progress_repository_test.dart",
+          "test\\result_session_provider_test.dart",
+          "test\\review_flow_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-09.log",
+        "passed": 38,
+        "skipped": 0,
+        "files": [
+          "test\\review_regression_test.dart",
+          "test\\reward_repository_test.dart",
+          "test\\sanskrit_answer_display_test.dart",
+          "test\\sanskrit_audio_navigation_test.dart",
+          "test\\sanskrit_audio_page_test.dart",
+          "test\\sanskrit_audio_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-10.log",
+        "passed": 50,
+        "skipped": 0,
+        "files": [
+          "test\\similarity_test.dart",
+          "test\\skill_practice_test.dart",
+          "test\\speech_engine_retry_test.dart",
+          "test\\sync_service_test.dart",
+          "test\\tablet_layout_test.dart",
+          "test\\translate_choice_phonetic_test.dart"
+        ]
+      },
+      {
+        "log": "client-test-11.log",
+        "passed": 37,
+        "skipped": 0,
+        "files": [
+          "test\\tree_growth_test.dart",
+          "test\\tts_cancellation_test.dart",
+          "test\\tts_speak_result_test.dart",
+          "test\\user_repository_test.dart",
+          "test\\word_bank_render_test.dart",
+          "test\\yoga_audio_test.dart"
+        ]
+      }
+    ],
+    "seconds": 159.59,
+    "sourceCommit": "35c9a0026e07fc21f36e8a1e3b27cea12d820962",
+    "validatedWorkingTreeCommittedAs": "03b026ff17d11b3b01b0ae855be97f7e4d2f3d11"
+  },
+  "build": {
+    "sourceCommit": "03b026ff17d11b3b01b0ae855be97f7e4d2f3d11",
+    "exitCode": 0,
+    "seconds": 105.05,
+    "apk": "C:\\Users\\vincent\\.codex\\worktrees\\mother-pattern-course\\GlobalVillage\\build\\app\\outputs\\apk\\release\\app-release.apk",
+    "version": "0.8.54+71",
+    "platform": "android-arm64",
+    "comedyIncludedInApk": true,
+    "separateFlutterAssemble": true
+  },
+  "apk": {
+    "apk": "C:\\Users\\vincent\\.codex\\worktrees\\mother-pattern-course\\GlobalVillage\\build\\app\\outputs\\apk\\release\\app-release.apk",
+    "package": "com.example.english_village",
+    "versionName": "0.8.54",
+    "versionCode": 71,
+    "size": 217149927,
+    "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+    "sourceCommit": "03b026ff17d11b3b01b0ae855be97f7e4d2f3d11",
+    "zipCrc": "pass",
+    "signatureV2": "pass",
+    "tabletLayout": {
+      "compiledCompleteMenu": true,
+      "compiledFlutterVersion": "0.8.54",
+      "physicalTablet": "not-tested"
+    },
+    "certificateSha256": "bd50f65066dc4310c55660384c294c2c81fa49165de5c092d16d765a1fcac7a6",
+    "upgradeCertificateMatches": true,
+    "motherPattern": {
+      "units": 4,
+      "lessons": 16,
+      "scoredExercises": 160,
+      "bundledExactAudio": 483,
+      "sourceContentMatches": true
+    },
+    "beginnerPilotFields": 0,
+    "compiledProductionDefaultFound": true,
+    "physicalDevicePlayback": "not-tested",
+    "physicalDeviceASR": "not-tested",
+    "nextDayHumanRecall": "not-tested",
+    "postLessonComedy": {
+      "builtIn": true,
+      "assets": {
+        "assets/dialogues/post_lesson_comedy.html": {
+          "bytes": 877049,
+          "sha256": "9b4dd71571c28b04e5b53d0bb9209e07b650b874c5c11fde33000460d504f074"
+        },
+        "assets/dialogues/post_lesson_comedy_catalog.json": {
+          "bytes": 30292,
+          "sha256": "9e80b1d9166dcf6ca136bd073e077ca107f27e18083fe254a99ac4a224055f4b"
+        }
+      },
+      "nativePlatformRegistration": "pass",
+      "physicalAndroidWebView": "not-tested"
+    }
+  },
+  "share": {
+    "version": "0.8.54+71",
+    "sourceCommit": "03b026ff17d11b3b01b0ae855be97f7e4d2f3d11",
+    "url": "http://192.168.0.111:8080/earthvillage-0.8.54%2B71.apk",
+    "alternateUrl": "http://192.168.2.150:8080/earthvillage-0.8.54%2B71.apk",
+    "previewUrl": "http://192.168.0.111:8080/fun-dialogues-preview.html",
+    "alternatePreviewUrl": "http://192.168.2.150:8080/fun-dialogues-preview.html",
+    "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+    "checks": [
+      {
+        "url": "http://192.168.0.111:8080/earthvillage-0.8.54%2B71.apk",
+        "status": 200,
+        "bytes": 217149927,
+        "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.0.111:8080/earthvillage-latest.apk",
+        "status": 200,
+        "bytes": 217149927,
+        "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.0.111:8080/fun-dialogues-preview.html",
+        "status": 200,
+        "bytes": 969002,
+        "sha256": "759de4331164724c7e6d105159cccd6fd54586f50991cb070d78eb5557cfdd65",
+        "contentType": "text/html",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-0.8.54%2B71.apk",
+        "status": 200,
+        "bytes": 217149927,
+        "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/earthvillage-latest.apk",
+        "status": 200,
+        "bytes": 217149927,
+        "sha256": "3032e049bc7a5a2f6b8cc5f779806e39a2481682c4ba7c583bd5161568c1f89c",
+        "contentType": "application/octet-stream",
+        "fullDownloadVerified": true
+      },
+      {
+        "url": "http://192.168.2.150:8080/fun-dialogues-preview.html",
+        "status": 200,
+        "bytes": 969002,
+        "sha256": "759de4331164724c7e6d105159cccd6fd54586f50991cb070d78eb5557cfdd65",
+        "contentType": "text/html",
+        "fullDownloadVerified": true
+      }
+    ],
+    "qr": "D:\\workspace\\github_code\\GlobalVillage\\build\\apk-share\\apk-download-qr.png",
+    "previewQr": "D:\\workspace\\github_code\\GlobalVillage\\build\\apk-share\\fun-dialogues-preview-qr.png",
+    "serviceRestarted": true,
+    "serviceMode": "background-hidden-process",
+    "comedyIncludedInApk": true,
+    "verifiedUtc": "2026-11-14T15:07:16.174861+00:00"
+  },
+  "server": {
+    "rerun": false,
+    "reason": "No server or content changes"
+  },
+  "visual": {
+    "realHomepage": true,
+    "fontsLoaded": true,
+    "largeTextScale": 1.8,
+    "sizes": [
+      "1366x900",
+      "1024x768",
+      "390x844"
+    ],
+    "androidAndIosThemeMenuTests": true,
+    "physicalTablet": "not-tested"
+  }
+}
