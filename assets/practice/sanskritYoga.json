@@ -1309,6 +1309,795 @@
           "language": "sanskrit"
         }
       ]
+    },
+    {
+      "id": "syg-more-asanas",
+      "title": "常见体式",
+      "subtitle": "下犬式、幻椅式、半月式",
+      "exercises": [
+        {
+          "id": "syg81",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：下犬式",
+          "sentence": "adhomukhaśvānāsana",
+          "options": [
+            "adhomukhaśvānāsana",
+            "ūrdhvamukhaśvānāsana",
+            "utkaṭāsana",
+            "daṇḍāsana"
+          ],
+          "answer": "adhomukhaśvānāsana",
+          "audioId": "adhomukhashvanasana",
+          "support": "अधोमुखश्वानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg82",
+          "type": "translateChoice",
+          "prompt": "“adhomukhaśvānāsana” 是什么意思？",
+          "sentence": "下犬式",
+          "options": [
+            "上犬式",
+            "幻椅式",
+            "手杖式",
+            "下犬式"
+          ],
+          "answer": "下犬式",
+          "audioId": "adhomukhashvanasana",
+          "support": "अधोमुखश्वानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg83",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：上犬式",
+          "sentence": "ūrdhvamukhaśvānāsana",
+          "options": [
+            "utkaṭāsana",
+            "daṇḍāsana",
+            "nāvāsana",
+            "ūrdhvamukhaśvānāsana"
+          ],
+          "answer": "ūrdhvamukhaśvānāsana",
+          "audioId": "urdhvamukhashvanasana",
+          "support": "ऊर्ध्वमुखश्वानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg84",
+          "type": "translateChoice",
+          "prompt": "“ūrdhvamukhaśvānāsana” 是什么意思？",
+          "sentence": "上犬式",
+          "options": [
+            "手杖式",
+            "船式",
+            "上犬式",
+            "幻椅式"
+          ],
+          "answer": "上犬式",
+          "audioId": "urdhvamukhashvanasana",
+          "support": "ऊर्ध्वमुखश्वानासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg85",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：幻椅式",
+          "sentence": "utkaṭāsana",
+          "options": [
+            "nāvāsana",
+            "garuḍāsana",
+            "utkaṭāsana",
+            "daṇḍāsana"
+          ],
+          "answer": "utkaṭāsana",
+          "audioId": "utkatasana",
+          "support": "उत्कटासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg86",
+          "type": "translateChoice",
+          "prompt": "“utkaṭāsana” 是什么意思？",
+          "sentence": "幻椅式",
+          "options": [
+            "鹰式",
+            "幻椅式",
+            "手杖式",
+            "船式"
+          ],
+          "answer": "幻椅式",
+          "audioId": "utkatasana",
+          "support": "उत्कटासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg87",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：手杖式",
+          "sentence": "daṇḍāsana",
+          "options": [
+            "ardhacandrāsana",
+            "daṇḍāsana",
+            "nāvāsana",
+            "garuḍāsana"
+          ],
+          "answer": "daṇḍāsana",
+          "audioId": "dandasana",
+          "support": "दण्डासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg88",
+          "type": "translateChoice",
+          "prompt": "“daṇḍāsana” 是什么意思？",
+          "sentence": "手杖式",
+          "options": [
+            "手杖式",
+            "船式",
+            "鹰式",
+            "半月式"
+          ],
+          "answer": "手杖式",
+          "audioId": "dandasana",
+          "support": "दण्डासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg89",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：船式",
+          "sentence": "nāvāsana",
+          "options": [
+            "nāvāsana",
+            "garuḍāsana",
+            "ardhacandrāsana",
+            "utthitapārśvakoṇāsana"
+          ],
+          "answer": "nāvāsana",
+          "audioId": "navasana",
+          "support": "नावासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg90",
+          "type": "translateChoice",
+          "prompt": "“nāvāsana” 是什么意思？",
+          "sentence": "船式",
+          "options": [
+            "鹰式",
+            "半月式",
+            "伸展侧角式",
+            "船式"
+          ],
+          "answer": "船式",
+          "audioId": "navasana",
+          "support": "नावासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg91",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：鹰式",
+          "sentence": "garuḍāsana",
+          "options": [
+            "ardhacandrāsana",
+            "utthitapārśvakoṇāsana",
+            "adhomukhaśvānāsana",
+            "garuḍāsana"
+          ],
+          "answer": "garuḍāsana",
+          "audioId": "garudasana",
+          "support": "गरुडासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg92",
+          "type": "translateChoice",
+          "prompt": "“garuḍāsana” 是什么意思？",
+          "sentence": "鹰式",
+          "options": [
+            "伸展侧角式",
+            "下犬式",
+            "鹰式",
+            "半月式"
+          ],
+          "answer": "鹰式",
+          "audioId": "garudasana",
+          "support": "गरुडासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg93",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：半月式",
+          "sentence": "ardhacandrāsana",
+          "options": [
+            "adhomukhaśvānāsana",
+            "ūrdhvamukhaśvānāsana",
+            "ardhacandrāsana",
+            "utthitapārśvakoṇāsana"
+          ],
+          "answer": "ardhacandrāsana",
+          "audioId": "ardhachandrasana",
+          "support": "अर्धचन्द्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg94",
+          "type": "translateChoice",
+          "prompt": "“ardhacandrāsana” 是什么意思？",
+          "sentence": "半月式",
+          "options": [
+            "上犬式",
+            "半月式",
+            "伸展侧角式",
+            "下犬式"
+          ],
+          "answer": "半月式",
+          "audioId": "ardhachandrasana",
+          "support": "अर्धचन्द्रासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg95",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：伸展侧角式",
+          "sentence": "utthitapārśvakoṇāsana",
+          "options": [
+            "utkaṭāsana",
+            "utthitapārśvakoṇāsana",
+            "adhomukhaśvānāsana",
+            "ūrdhvamukhaśvānāsana"
+          ],
+          "answer": "utthitapārśvakoṇāsana",
+          "audioId": "utthitaparshvakonasana",
+          "support": "उत्थितपार्श्वकोणासन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg96",
+          "type": "translateChoice",
+          "prompt": "“utthitapārśvakoṇāsana” 是什么意思？",
+          "sentence": "伸展侧角式",
+          "options": [
+            "伸展侧角式",
+            "下犬式",
+            "上犬式",
+            "幻椅式"
+          ],
+          "answer": "伸展侧角式",
+          "audioId": "utthitaparshvakonasana",
+          "support": "उत्थितपार्श्वकोणासन",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "syg-breath",
+      "title": "呼吸与调息",
+      "subtitle": "吸气、呼气、屏息",
+      "exercises": [
+        {
+          "id": "syg97",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：吸气",
+          "sentence": "pūraka",
+          "options": [
+            "pūraka",
+            "recaka",
+            "kumbhaka",
+            "ujjāyī"
+          ],
+          "answer": "pūraka",
+          "audioId": "puraka",
+          "support": "पूरक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg98",
+          "type": "translateChoice",
+          "prompt": "“pūraka” 是什么意思？",
+          "sentence": "吸气",
+          "options": [
+            "呼气",
+            "屏息",
+            "胜利式呼吸",
+            "吸气"
+          ],
+          "answer": "吸气",
+          "audioId": "puraka",
+          "support": "पूरक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg99",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：呼气",
+          "sentence": "recaka",
+          "options": [
+            "kumbhaka",
+            "ujjāyī",
+            "bhastrikā",
+            "recaka"
+          ],
+          "answer": "recaka",
+          "audioId": "recaka",
+          "support": "रेचक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg100",
+          "type": "translateChoice",
+          "prompt": "“recaka” 是什么意思？",
+          "sentence": "呼气",
+          "options": [
+            "胜利式呼吸",
+            "风箱式呼吸",
+            "呼气",
+            "屏息"
+          ],
+          "answer": "呼气",
+          "audioId": "recaka",
+          "support": "रेचक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg101",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：屏息",
+          "sentence": "kumbhaka",
+          "options": [
+            "bhastrikā",
+            "bhrāmarī",
+            "kumbhaka",
+            "ujjāyī"
+          ],
+          "answer": "kumbhaka",
+          "audioId": "kumbhaka",
+          "support": "कुम्भक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg102",
+          "type": "translateChoice",
+          "prompt": "“kumbhaka” 是什么意思？",
+          "sentence": "屏息",
+          "options": [
+            "蜂鸣式呼吸",
+            "屏息",
+            "胜利式呼吸",
+            "风箱式呼吸"
+          ],
+          "answer": "屏息",
+          "audioId": "kumbhaka",
+          "support": "कुम्भक",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg103",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：胜利式呼吸",
+          "sentence": "ujjāyī",
+          "options": [
+            "śītalī",
+            "ujjāyī",
+            "bhastrikā",
+            "bhrāmarī"
+          ],
+          "answer": "ujjāyī",
+          "audioId": "ujjayi",
+          "support": "उज्जायी",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg104",
+          "type": "translateChoice",
+          "prompt": "“ujjāyī” 是什么意思？",
+          "sentence": "胜利式呼吸",
+          "options": [
+            "胜利式呼吸",
+            "风箱式呼吸",
+            "蜂鸣式呼吸",
+            "清凉式呼吸"
+          ],
+          "answer": "胜利式呼吸",
+          "audioId": "ujjayi",
+          "support": "उज्जायी",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg105",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：风箱式呼吸",
+          "sentence": "bhastrikā",
+          "options": [
+            "bhastrikā",
+            "bhrāmarī",
+            "śītalī",
+            "nāḍīśodhana"
+          ],
+          "answer": "bhastrikā",
+          "audioId": "bhastrika",
+          "support": "भस्त्रिका",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg106",
+          "type": "translateChoice",
+          "prompt": "“bhastrikā” 是什么意思？",
+          "sentence": "风箱式呼吸",
+          "options": [
+            "蜂鸣式呼吸",
+            "清凉式呼吸",
+            "经脉净化调息",
+            "风箱式呼吸"
+          ],
+          "answer": "风箱式呼吸",
+          "audioId": "bhastrika",
+          "support": "भस्त्रिका",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg107",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：蜂鸣式呼吸",
+          "sentence": "bhrāmarī",
+          "options": [
+            "śītalī",
+            "nāḍīśodhana",
+            "pūraka",
+            "bhrāmarī"
+          ],
+          "answer": "bhrāmarī",
+          "audioId": "bhramari",
+          "support": "भ्रामरी",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg108",
+          "type": "translateChoice",
+          "prompt": "“bhrāmarī” 是什么意思？",
+          "sentence": "蜂鸣式呼吸",
+          "options": [
+            "经脉净化调息",
+            "吸气",
+            "蜂鸣式呼吸",
+            "清凉式呼吸"
+          ],
+          "answer": "蜂鸣式呼吸",
+          "audioId": "bhramari",
+          "support": "भ्रामरी",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg109",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：清凉式呼吸",
+          "sentence": "śītalī",
+          "options": [
+            "pūraka",
+            "recaka",
+            "śītalī",
+            "nāḍīśodhana"
+          ],
+          "answer": "śītalī",
+          "audioId": "shitali",
+          "support": "शीतली",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg110",
+          "type": "translateChoice",
+          "prompt": "“śītalī” 是什么意思？",
+          "sentence": "清凉式呼吸",
+          "options": [
+            "呼气",
+            "清凉式呼吸",
+            "经脉净化调息",
+            "吸气"
+          ],
+          "answer": "清凉式呼吸",
+          "audioId": "shitali",
+          "support": "शीतली",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg111",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：经脉净化调息",
+          "sentence": "nāḍīśodhana",
+          "options": [
+            "kumbhaka",
+            "nāḍīśodhana",
+            "pūraka",
+            "recaka"
+          ],
+          "answer": "nāḍīśodhana",
+          "audioId": "nadishodhana",
+          "support": "नाडीशोधन",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg112",
+          "type": "translateChoice",
+          "prompt": "“nāḍīśodhana” 是什么意思？",
+          "sentence": "经脉净化调息",
+          "options": [
+            "经脉净化调息",
+            "吸气",
+            "呼气",
+            "屏息"
+          ],
+          "answer": "经脉净化调息",
+          "audioId": "nadishodhana",
+          "support": "नाडीशोधन",
+          "language": "sanskrit"
+        }
+      ]
+    },
+    {
+      "id": "syg-classroom",
+      "title": "方向与身体部位",
+      "subtitle": "左右、手脚、膝与面部",
+      "exercises": [
+        {
+          "id": "syg113",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：向上",
+          "sentence": "ūrdhva",
+          "options": [
+            "ūrdhva",
+            "adhaḥ",
+            "vāma",
+            "dakṣiṇa"
+          ],
+          "answer": "ūrdhva",
+          "audioId": "urdhva",
+          "support": "ऊर्ध्व",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg114",
+          "type": "translateChoice",
+          "prompt": "“ūrdhva” 是什么意思？",
+          "sentence": "向上",
+          "options": [
+            "向下",
+            "左侧",
+            "右侧",
+            "向上"
+          ],
+          "answer": "向上",
+          "audioId": "urdhva",
+          "support": "ऊर्ध्व",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg115",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：向下",
+          "sentence": "adhaḥ",
+          "options": [
+            "vāma",
+            "dakṣiṇa",
+            "hasta",
+            "adhaḥ"
+          ],
+          "answer": "adhaḥ",
+          "audioId": "adhah",
+          "support": "अधः",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg116",
+          "type": "translateChoice",
+          "prompt": "“adhaḥ” 是什么意思？",
+          "sentence": "向下",
+          "options": [
+            "右侧",
+            "手",
+            "向下",
+            "左侧"
+          ],
+          "answer": "向下",
+          "audioId": "adhah",
+          "support": "अधः",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg117",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：左侧",
+          "sentence": "vāma",
+          "options": [
+            "hasta",
+            "pāda",
+            "vāma",
+            "dakṣiṇa"
+          ],
+          "answer": "vāma",
+          "audioId": "vama",
+          "support": "वाम",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg118",
+          "type": "translateChoice",
+          "prompt": "“vāma” 是什么意思？",
+          "sentence": "左侧",
+          "options": [
+            "脚",
+            "左侧",
+            "右侧",
+            "手"
+          ],
+          "answer": "左侧",
+          "audioId": "vama",
+          "support": "वाम",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg119",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：右侧",
+          "sentence": "dakṣiṇa",
+          "options": [
+            "jānu",
+            "dakṣiṇa",
+            "hasta",
+            "pāda"
+          ],
+          "answer": "dakṣiṇa",
+          "audioId": "dakshina",
+          "support": "दक्षिण",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg120",
+          "type": "translateChoice",
+          "prompt": "“dakṣiṇa” 是什么意思？",
+          "sentence": "右侧",
+          "options": [
+            "右侧",
+            "手",
+            "脚",
+            "膝"
+          ],
+          "answer": "右侧",
+          "audioId": "dakshina",
+          "support": "दक्षिण",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg121",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：手",
+          "sentence": "hasta",
+          "options": [
+            "hasta",
+            "pāda",
+            "jānu",
+            "mukha"
+          ],
+          "answer": "hasta",
+          "audioId": "hasta",
+          "support": "हस्त",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg122",
+          "type": "translateChoice",
+          "prompt": "“hasta” 是什么意思？",
+          "sentence": "手",
+          "options": [
+            "脚",
+            "膝",
+            "面部",
+            "手"
+          ],
+          "answer": "手",
+          "audioId": "hasta",
+          "support": "हस्त",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg123",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：脚",
+          "sentence": "pāda",
+          "options": [
+            "jānu",
+            "mukha",
+            "ūrdhva",
+            "pāda"
+          ],
+          "answer": "pāda",
+          "audioId": "pada",
+          "support": "पाद",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg124",
+          "type": "translateChoice",
+          "prompt": "“pāda” 是什么意思？",
+          "sentence": "脚",
+          "options": [
+            "面部",
+            "向上",
+            "脚",
+            "膝"
+          ],
+          "answer": "脚",
+          "audioId": "pada",
+          "support": "पाद",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg125",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：膝",
+          "sentence": "jānu",
+          "options": [
+            "ūrdhva",
+            "adhaḥ",
+            "jānu",
+            "mukha"
+          ],
+          "answer": "jānu",
+          "audioId": "janu",
+          "support": "जानु",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg126",
+          "type": "translateChoice",
+          "prompt": "“jānu” 是什么意思？",
+          "sentence": "膝",
+          "options": [
+            "向下",
+            "膝",
+            "面部",
+            "向上"
+          ],
+          "answer": "膝",
+          "audioId": "janu",
+          "support": "जानु",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg127",
+          "type": "translateChoice",
+          "prompt": "选择 IAST：面部",
+          "sentence": "mukha",
+          "options": [
+            "vāma",
+            "mukha",
+            "ūrdhva",
+            "adhaḥ"
+          ],
+          "answer": "mukha",
+          "audioId": "mukha",
+          "support": "मुख",
+          "language": "sanskrit"
+        },
+        {
+          "id": "syg128",
+          "type": "translateChoice",
+          "prompt": "“mukha” 是什么意思？",
+          "sentence": "面部",
+          "options": [
+            "面部",
+            "向上",
+            "向下",
+            "左侧"
+          ],
+          "answer": "面部",
+          "audioId": "mukha",
+          "support": "मुख",
+          "language": "sanskrit"
+        }
+      ]
     }
   ]
 }

@@ -11,6 +11,7 @@ import 'package:english_village/data/repositories/sanskrit_audio_repository.dart
 import 'package:english_village/features/skill_practice/yoga_audio_button.dart';
 import 'package:english_village/features/skill_practice/yoga_audio_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -47,9 +48,11 @@ class _HangingRepository implements SanskritAudioRepository {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   test('catalog matches the packaged recordings and yoga bank', () {
     final catalog = _catalog();
-    expect(catalog.terms.length, 40);
+    expect(catalog.terms.length, 64);
     expect(catalog.source['reviewStatus'], 'syntheticReference');
 
     for (final term in catalog.terms.values) {
@@ -63,7 +66,11 @@ void main() {
       jsonDecode(File('assets/practice/sanskritYoga.json').readAsStringSync())
           as Map<String, dynamic>,
     );
-    expect(bank.exercises.length, 80);
+    expect(bank.exercises.length, 128);
+    expect(
+      bank.exercises.map((e) => e.audioId!).toSet(),
+      catalog.terms.keys.toSet(),
+    );
     for (final exercise in bank.exercises) {
       expect(exercise.audioId, isNotNull, reason: exercise.id);
       expect(
@@ -75,6 +82,41 @@ void main() {
     for (var i = 0; i < bank.exercises.length; i += 2) {
       expect(bank.exercises[i].audioId, bank.exercises[i + 1].audioId);
     }
+    for (var i = 80; i < bank.exercises.length; i += 2) {
+      final reading = bank.exercises[i];
+      final term = catalog.terms[reading.audioId]!;
+      expect(term.devanagari, reading.support, reason: term.id);
+      expect(term.iast, reading.answer, reason: term.id);
+    }
+  });
+
+  test('an expanded term loads offline from the asset bundle', () async {
+    final root = await Directory.systemTemp.createTemp('yoga_audio_test');
+    addTearDown(() => root.delete(recursive: true));
+    final catalog = YogaTermAudioCatalog.fromJson(
+      jsonDecode(
+            await rootBundle.loadString(
+              'assets/practice/sanskritYogaAudio.json',
+            ),
+          )
+          as Map<String, dynamic>,
+    );
+    final term = catalog.terms['puraka']!;
+    final repository = SanskritAudioRepository(
+      root: root,
+      readBundled: (clip) async {
+        final bytes = await rootBundle.load(
+          'assets/practice/sanskrit_yoga_audio/${clip.id}.mp3',
+        );
+        return bytes.buffer.asUint8List(
+          bytes.offsetInBytes,
+          bytes.lengthInBytes,
+        );
+      },
+    );
+
+    final file = File(await repository.fileFor(term));
+    expect(sha256.convert(await file.readAsBytes()).toString(), term.sha256);
   });
 
   test('rejects malformed entries', () {
@@ -107,19 +149,20 @@ void main() {
           uiStringsOverride,
         ],
         child: const MaterialApp(
-          home: Scaffold(body: YogaAudioButton(audioId: 'namaste')),
+          home: Scaffold(body: YogaAudioButton(audioId: 'utkatasana')),
         ),
       ),
     );
     await tester.pump();
     await tester.pump();
     expect(find.byIcon(Icons.volume_up_rounded), findsOneWidget);
+    expect(find.byTooltip('播放合成参考发音'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.volume_up_rounded));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(player.calls, ['/audio/namaste.mp3']);
+    expect(player.calls, ['/audio/utkatasana.mp3']);
     expect(find.byIcon(Icons.volume_up_rounded), findsOneWidget);
   });
 
