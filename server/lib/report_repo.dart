@@ -39,7 +39,9 @@ class ClientReport {
     this.note,
     this.screenshot,
     bool? hasScreenshot,
-  }) : hasScreenshot = hasScreenshot ?? screenshot != null;
+    DateTime? resolvedAt,
+  }) : hasScreenshot = hasScreenshot ?? screenshot != null,
+       resolvedAt = resolvedAt;
 
   final String reportId;
   final DateTime receivedAt;
@@ -53,6 +55,9 @@ class ClientReport {
   /// 列表查询可不加载图片字节，只带这个标记。
   final bool hasScreenshot;
 
+  /// 后台标记为已处理的时间；为空表示待处理。
+  DateTime? resolvedAt;
+
   Map<String, Object?> toListJson() => {
     'reportId': reportId,
     'receivedAt': receivedAt.toUtc().toIso8601String(),
@@ -62,6 +67,7 @@ class ClientReport {
     'lesson': context['lesson'],
     'eventCount': events.length,
     'hasScreenshot': hasScreenshot,
+    'resolved': resolvedAt != null,
   };
 
   Map<String, Object?> toDetailJson() => {
@@ -218,6 +224,9 @@ abstract class ReportRepo {
   Future<List<ClientReport>> list({int limit = 100});
 
   Future<ClientReport?> get(String reportId);
+
+  /// 标记为已处理或待处理。报告不存在时返回 null。
+  Future<ClientReport?> setResolved(String reportId, bool resolved);
 }
 
 /// 内存实现。新实例为空，与账号内存仓储一样，进程重启后丢失。
@@ -242,6 +251,16 @@ class InMemoryReportRepo implements ReportRepo {
   Future<ClientReport?> get(String reportId) async {
     for (final item in _items) {
       if (item.reportId == reportId) return item;
+    }
+    return null;
+  }
+
+  @override
+  Future<ClientReport?> setResolved(String reportId, bool resolved) async {
+    for (final item in _items) {
+      if (item.reportId != reportId) continue;
+      item.resolvedAt = resolved ? DateTime.now().toUtc() : null;
+      return item;
     }
     return null;
   }
@@ -291,6 +310,9 @@ CREATE TABLE IF NOT EXISTS client_reports (
     await _conn.execute('''
 ALTER TABLE client_reports ADD COLUMN IF NOT EXISTS screenshot bytea
 ''');
+    await _conn.execute('''
+ALTER TABLE client_reports ADD COLUMN IF NOT EXISTS resolved_at timestamptz
+''');
   }
 
   @override
@@ -339,7 +361,8 @@ WHERE report_id IN (
     final result = await _conn.execute(
       Sql.named('''
 SELECT report_id, received_at, account_id::text AS account_id, app_version,
-       note, context, events, (screenshot IS NOT NULL) AS has_screenshot
+       note, context, events, (screenshot IS NOT NULL) AS has_screenshot,
+       resolved_at
 FROM client_reports
 ORDER BY received_at DESC
 LIMIT @limit
@@ -354,12 +377,29 @@ LIMIT @limit
     final result = await _conn.execute(
       Sql.named('''
 SELECT report_id, received_at, account_id::text AS account_id, app_version,
-       note, context, events, screenshot
+       note, context, events, screenshot, resolved_at
 FROM client_reports
 WHERE report_id = @id
 LIMIT 1
 '''),
       parameters: {'id': reportId},
+    );
+    if (result.isEmpty) return null;
+    return _fromRow(result.first.toColumnMap());
+  }
+
+  @override
+  Future<ClientReport?> setResolved(String reportId, bool resolved) async {
+    final result = await _conn.execute(
+      Sql.named('''
+UPDATE client_reports
+SET resolved_at = CASE WHEN @resolved THEN now() ELSE NULL END
+WHERE report_id = @id
+RETURNING report_id, received_at, account_id::text AS account_id, app_version,
+          note, context, events, (screenshot IS NOT NULL) AS has_screenshot,
+          resolved_at
+'''),
+      parameters: {'id': reportId, 'resolved': resolved},
     );
     if (result.isEmpty) return null;
     return _fromRow(result.first.toColumnMap());
@@ -373,6 +413,7 @@ LIMIT 1
     return ClientReport(
       reportId: row['report_id'] as String,
       receivedAt: row['received_at'] as DateTime,
+      resolvedAt: row['resolved_at'] as DateTime?,
       accountId: row['account_id'] as String?,
       appVersion: row['app_version'] as String,
       note: row['note'] as String?,

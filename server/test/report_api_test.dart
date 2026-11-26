@@ -309,6 +309,74 @@ void main() {
     expect(detail['report']['osVersion'], '13');
   });
 
+  test('后台可把反馈标记为已处理，也可改回待处理', () async {
+    final handler = open(token: adminToken, reports: InMemoryReportRepo());
+    await send(handler, 'POST', '/v1/reports', body: sample());
+    const path = '/admin/api/reports/reportid01/resolve';
+    expect(
+      (await send(handler, 'POST', path, body: {'resolved': true})).statusCode,
+      401,
+    );
+    expect(
+      (
+        await send(handler, 'POST', path, bearer: adminToken, body: {'x': 1})
+      ).statusCode,
+      400,
+    );
+    expect(
+      (
+        await send(
+          handler,
+          'POST',
+          '/admin/api/reports/missing01/resolve',
+          bearer: adminToken,
+          body: {'resolved': true},
+        )
+      ).statusCode,
+      404,
+    );
+
+    Future<Object?> flag(String detail) async {
+      final listed = await json(
+        await send(handler, 'GET', '/admin/api/reports', bearer: adminToken),
+      );
+      final response = await json(
+        await send(
+          handler,
+          'GET',
+          '/admin/api/reports/reportid01',
+          bearer: adminToken,
+        ),
+      );
+      final report = listed['reports'][0] as Map;
+      expect(response['report'][detail], report[detail]);
+      return report[detail];
+    }
+
+    expect(await flag('resolved'), isFalse);
+    final marked = await send(
+      handler,
+      'POST',
+      path,
+      bearer: adminToken,
+      body: {'resolved': true},
+    );
+    expect(marked.statusCode, 200);
+    expect((await json(marked))['report']['resolved'], isTrue);
+    expect(await flag('resolved'), isTrue);
+    expect(await flag('note'), '听不到');
+
+    final cleared = await send(
+      handler,
+      'POST',
+      path,
+      bearer: adminToken,
+      body: {'resolved': false},
+    );
+    expect(cleared.statusCode, 200);
+    expect(await flag('resolved'), isFalse);
+  });
+
   test('超大请求体拒绝', () async {
     final handler = open(token: adminToken);
     final response = await send(

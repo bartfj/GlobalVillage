@@ -348,7 +348,10 @@ void _mountAdmin(
   router.get('/admin', (Request request) {
     return Response.ok(
       adminPageHtml(),
-      headers: {'content-type': 'text/html; charset=utf-8'},
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        'cache-control': 'no-cache',
+      },
     );
   });
 
@@ -497,6 +500,23 @@ void _mountAdmin(
     return _json(200, {
       'report': _adminReportJson(report, account, detail: true),
     }).change(headers: {'cache-control': 'no-store'});
+  });
+
+  // POST /admin/api/reports/<id>/resolve：标记已处理（resolved: true）或待处理
+  router.post('/admin/api/reports/<id>/resolve', (
+    Request request,
+    String id,
+  ) async {
+    if (!_adminAllowed(request, adminToken)) return _adminUnauthorized();
+    final body = await _readJson(request);
+    final resolved = body?['resolved'];
+    if (resolved is! bool) return _error(400, 'invalid_body', 'resolved 必填');
+    final report = await reports.setResolved(id, resolved);
+    if (report == null) return _error(404, 'not_found', '报告不存在');
+    final account = report.accountId == null
+        ? null
+        : await repo.findById(report.accountId!);
+    return _json(200, {'report': _adminReportJson(report, account)});
   });
 
   router.delete('/admin/api/accounts/<id>', (Request request, String id) async {
