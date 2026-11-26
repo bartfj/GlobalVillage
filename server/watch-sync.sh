@@ -69,12 +69,14 @@ local_ok() {
 }
 
 public_ok() {
+  # 经 Cloudflare 回源时偶发 >12s；放宽超时并多试几次，避免误报 down。
   local body attempt
-  for attempt in 1 2; do
-    body="$(curl -sf -m 12 "${PUBLIC_URL}" || true)"
+  for attempt in 1 2 3; do
+    body="$(curl -4 -sf --connect-timeout 5 -m 20 "${PUBLIC_URL}" || true)"
     if [[ "${body}" == *global_village_server* ]]; then
       return 0
     fi
+    sleep 1
   done
   return 1
 }

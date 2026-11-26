@@ -38,7 +38,8 @@ class ClientReport {
     this.accountId,
     this.note,
     this.screenshot,
-  });
+    bool? hasScreenshot,
+  }) : hasScreenshot = hasScreenshot ?? screenshot != null;
 
   final String reportId;
   final DateTime receivedAt;
@@ -49,6 +50,9 @@ class ClientReport {
   final List<Map<String, dynamic>> events;
   final Uint8List? screenshot;
 
+  /// 列表查询可不加载图片字节，只带这个标记。
+  final bool hasScreenshot;
+
   Map<String, Object?> toListJson() => {
     'reportId': reportId,
     'receivedAt': receivedAt.toUtc().toIso8601String(),
@@ -57,6 +61,7 @@ class ClientReport {
     'note': note,
     'lesson': context['lesson'],
     'eventCount': events.length,
+    'hasScreenshot': hasScreenshot,
   };
 
   Map<String, Object?> toDetailJson() => {
@@ -334,7 +339,7 @@ WHERE report_id IN (
     final result = await _conn.execute(
       Sql.named('''
 SELECT report_id, received_at, account_id::text AS account_id, app_version,
-       note, context, events
+       note, context, events, (screenshot IS NOT NULL) AS has_screenshot
 FROM client_reports
 ORDER BY received_at DESC
 LIMIT @limit
@@ -363,13 +368,16 @@ LIMIT 1
   ClientReport _fromRow(Map<String, dynamic> row) {
     final context = row['context'];
     final events = row['events'];
+    final screenshot = row['screenshot'] as Uint8List?;
+    final listed = row['has_screenshot'];
     return ClientReport(
       reportId: row['report_id'] as String,
       receivedAt: row['received_at'] as DateTime,
       accountId: row['account_id'] as String?,
       appVersion: row['app_version'] as String,
       note: row['note'] as String?,
-      screenshot: row['screenshot'] as Uint8List?,
+      screenshot: screenshot,
+      hasScreenshot: listed is bool ? listed : screenshot != null,
       context: context is Map
           ? Map<String, dynamic>.from(context)
           : <String, dynamic>{},

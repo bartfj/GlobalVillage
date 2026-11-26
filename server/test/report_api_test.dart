@@ -110,10 +110,12 @@ void main() {
     );
     expect(listed['reports'], hasLength(1));
     expect(listed['reports'][0], isNot(contains('screenshot')));
+    expect(listed['reports'][0]['hasScreenshot'], isTrue);
     final response = await json(
       await send(handler, 'GET', detail, bearer: adminToken),
     );
     expect(response['report']['screenshot'], jpeg);
+    expect(response['report']['hasScreenshot'], isTrue);
     expect(response['report']['note'], isNull);
     expect(response['report']['events'], isEmpty);
   });
