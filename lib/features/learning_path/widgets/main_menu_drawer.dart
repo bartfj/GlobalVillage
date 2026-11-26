@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../app/adaptive/adaptive_breakpoints.dart';
 import '../../../app/providers.dart';
 import '../../../app/app_strings.dart';
 import '../../../app/theme.dart';
@@ -66,6 +65,7 @@ class MainMenuDrawer extends ConsumerWidget {
     required this.onAbout,
     required this.onLogout,
     required this.onLogin,
+    this.persistent = false,
   });
 
   final VoidCallback onBackupRestore;
@@ -73,10 +73,15 @@ class MainMenuDrawer extends ConsumerWidget {
   final VoidCallback onAbout;
   final VoidCallback onLogout;
   final VoidCallback onLogin;
+  final bool persistent;
 
   static const _background = Color(0xFFF5F8F4);
 
   void _openRoute(BuildContext context, String location) {
+    if (persistent) {
+      context.go(location);
+      return;
+    }
     Navigator.of(context).pop();
     context.push(location);
   }
@@ -91,11 +96,9 @@ class MainMenuDrawer extends ConsumerWidget {
     final progress = ref.watch(progressRepositoryProvider);
     final rewards = ref.watch(rewardRepositoryProvider);
     final selectedTrack = ref.watch(selectedTrackProvider);
-    final allCourses = ref.watch(allCoursesProvider).requireValue;
+    final allCourses = ref.watch(allCoursesProvider).asData?.value;
     final s = ref.watch(stringsProvider);
-    final wide = showAdaptiveRail(MediaQuery.sizeOf(context).width);
-
-    if (progress == null || rewards == null) {
+    if (progress == null || rewards == null || allCourses == null) {
       return const Drawer(
         backgroundColor: _background,
         child: Center(child: CircularProgressIndicator()),
@@ -126,6 +129,8 @@ class MainMenuDrawer extends ConsumerWidget {
 
     return Drawer(
       backgroundColor: _background,
+      elevation: persistent ? 0 : null,
+      shape: persistent ? const RoundedRectangleBorder() : null,
       child: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(14, 14, 14, 20),
@@ -138,9 +143,7 @@ class MainMenuDrawer extends ConsumerWidget {
               userKey: auth.userKey,
               s: s,
               onLogin: onLogin,
-              onOpen: wide || isGuest
-                  ? null
-                  : () => _openRoute(context, '/account'),
+              onOpen: isGuest ? null : () => _openRoute(context, '/account'),
             ),
             const SizedBox(height: 10),
             _StatsCard(
@@ -150,7 +153,7 @@ class MainMenuDrawer extends ConsumerWidget {
                   color: AppColors.blue,
                   label: s.statsCompleted,
                   value: '$completed/$total',
-                  onTap: wide ? null : () => _openRoute(context, '/completed'),
+                  onTap: () => _openRoute(context, '/completed'),
                 ),
                 _StatData(
                   icon: Icons.park_rounded,
@@ -158,14 +161,14 @@ class MainMenuDrawer extends ConsumerWidget {
                   label: s.statsTree,
                   value: '$treeCount',
                   subtitle: treeStage.label,
-                  onTap: wide ? null : () => _openRoute(context, '/tree'),
+                  onTap: () => _openRoute(context, '/tree'),
                 ),
                 _StatData(
                   icon: Icons.emoji_events_rounded,
                   color: AppColors.goldDark,
                   label: s.statsBadges,
                   value: '×$badgeUnits',
-                  onTap: wide ? null : () => _openRoute(context, '/badges'),
+                  onTap: () => _openRoute(context, '/badges'),
                 ),
               ],
             ),
@@ -178,7 +181,15 @@ class MainMenuDrawer extends ConsumerWidget {
               total: total,
               switchLabel: s.switchCourse,
               completedText: s.completedCount(completed, total),
-              onTap: () => showCourseSelector(context, ref),
+              onTap: () async {
+                final previous = ref.read(selectedTrackProvider);
+                await showCourseSelector(context, ref);
+                if (persistent &&
+                    context.mounted &&
+                    ref.read(selectedTrackProvider) != previous) {
+                  context.go('/');
+                }
+              },
             ),
             // 多课程语言（英语）显示等级快捷切换；单课程语言摘要卡已足够
             if (tracksOfLanguage.length > 1) ...[
@@ -195,7 +206,12 @@ class MainMenuDrawer extends ConsumerWidget {
                           await ref
                               .read(selectedTrackProvider.notifier)
                               .select(track);
-                          if (context.mounted) Navigator.of(context).pop();
+                          if (!context.mounted) return;
+                          if (persistent) {
+                            context.go('/');
+                          } else {
+                            Navigator.of(context).pop();
+                          }
                         },
                       ),
                   ],
@@ -208,8 +224,7 @@ class MainMenuDrawer extends ConsumerWidget {
               title: s.sectionPractice,
               child: Column(
                 children: [
-                  if (!wide &&
-                      selectedTrack.language == LearningLanguage.sanskrit)
+                  if (selectedTrack.language == LearningLanguage.sanskrit)
                     _MenuRow(
                       icon: Icons.record_voice_over_rounded,
                       color: AppColors.goldDark,
@@ -235,13 +250,18 @@ class MainMenuDrawer extends ConsumerWidget {
               title: s.sectionMore,
               child: Column(
                 children: [
-                  if (!wide)
-                    _MenuRow(
-                      icon: Icons.history_rounded,
-                      color: AppColors.blue,
-                      title: s.reviewRecords,
-                      onTap: () => _openRoute(context, '/review'),
-                    ),
+                  _MenuRow(
+                    icon: Icons.route_rounded,
+                    color: AppColors.greenDark,
+                    title: s.navPath,
+                    onTap: () => _openRoute(context, '/'),
+                  ),
+                  _MenuRow(
+                    icon: Icons.history_rounded,
+                    color: AppColors.blue,
+                    title: s.reviewRecords,
+                    onTap: () => _openRoute(context, '/review'),
+                  ),
                   _MenuRow(
                     icon: Icons.translate_rounded,
                     color: AppColors.greenDark,
@@ -503,12 +523,14 @@ class _LinkRow extends StatelessWidget {
           children: [
             Icon(icon, size: 15, color: color),
             const SizedBox(width: 6),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: color,
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ),
           ],
@@ -729,12 +751,14 @@ class _CourseRow extends StatelessWidget {
               color: selected ? AppColors.green : AppColors.lockedDark,
             ),
             const SizedBox(width: 10),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: selected ? AppColors.greenDark : AppColors.textPrimary,
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: selected ? AppColors.greenDark : AppColors.textPrimary,
+                ),
               ),
             ),
           ],

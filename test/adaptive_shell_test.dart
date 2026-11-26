@@ -11,10 +11,13 @@ import 'package:english_village/data/models/course_track.dart';
 import 'package:english_village/data/models/learning_language.dart';
 import 'package:english_village/data/models/skill_practice.dart';
 import 'package:english_village/features/skill_practice/skill_practice_chapters_page.dart';
+import 'package:english_village/features/learning_path/widgets/main_menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+
+import 'adaptive_test_overrides.dart';
 
 class _FixedTrack extends StateNotifier<CourseTrack>
     implements SelectedTrackController {
@@ -81,15 +84,29 @@ Future<void> _pumpChrome(
   tester.view.devicePixelRatio = 1;
   await tester.pumpWidget(
     ProviderScope(
-      overrides: [
-        stringsProvider.overrideWithValue(const S(UiLanguage.chinese)),
-        selectedTrackProvider.overrideWith(
-          (ref) => _FixedTrack(CourseTrack.beginner),
-        ),
-      ],
+      overrides: adaptiveTestOverrides(),
       child: MaterialApp.router(routerConfig: router),
     ),
   );
+  await tester.pumpAndSettle();
+}
+
+Future<void> revealMenuItem(WidgetTester tester, String label) async {
+  await tester.scrollUntilVisible(
+    find.text(label),
+    180,
+    scrollable: find
+        .descendant(
+          of: find.byType(MainMenuDrawer),
+          matching: find.byType(Scrollable),
+        )
+        .first,
+  );
+}
+
+Future<void> tapMenuItem(WidgetTester tester, String label) async {
+  await revealMenuItem(tester, label);
+  await tester.tap(find.text(label));
 }
 
 void main() {
@@ -166,7 +183,9 @@ void main() {
     expect(box.size.width, closeTo(390, 0.5));
   });
 
-  testWidgets('shell forces 780 content width beside the rail', (tester) async {
+  testWidgets('shell page fills available width beside the complete menu', (
+    tester,
+  ) async {
     final router = GoRouter(
       initialLocation: '/',
       routes: [
@@ -191,23 +210,12 @@ void main() {
 
     Future<void> expectClamped(Size size) async {
       await _pumpChrome(tester, router, size: size);
-      expect(find.byType(NavigationRail), findsOneWidget);
+      expect(find.byType(MainMenuDrawer), findsOneWidget);
 
       final pageRect = tester.getRect(find.byKey(const Key('page')));
-      final alignRect = tester.getRect(
-        find
-            .ancestor(
-              of: find.byKey(const Key('page')),
-              matching: find.byType(Align),
-            )
-            .first,
-      );
-      expect(alignRect.width, greaterThan(kAdaptiveContentMaxWidth));
-      expect(pageRect.width, lessThanOrEqualTo(kAdaptiveContentMaxWidth));
-      expect(pageRect.width, closeTo(kAdaptiveContentMaxWidth, 0.5));
-      final expectedLeft =
-          alignRect.left + (alignRect.width - pageRect.width) / 2;
-      expect(pageRect.left, closeTo(expectedLeft, 0.5));
+      expect(pageRect.left, closeTo(kAdaptiveMenuWidth + 1, .5));
+      expect(pageRect.width, closeTo(size.width - kAdaptiveMenuWidth - 1, .5));
+      expect(pageRect.right, closeTo(size.width, .5));
     }
 
     await expectClamped(const Size(1024, 800));
@@ -267,7 +275,10 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await _pumpChrome(tester, router, size: const Size(1024, 800));
-    await tester.tap(find.text('练习'));
+    await tapMenuItem(
+      tester,
+      const S(UiLanguage.chinese).skillTitle(SkillPracticeKind.pronunciation),
+    );
     await tester.pumpAndSettle();
     expect(find.text('map-back'), findsOneWidget);
     expect(router.routeInformationProvider.value.uri.path, isNot('/'));
@@ -313,7 +324,7 @@ void main() {
     );
   });
 
-  testWidgets('AppAdaptiveShell shows NavigationRail only when wide', (
+  testWidgets('AppAdaptiveShell shows MainMenuDrawer only when wide', (
     tester,
   ) async {
     final router = GoRouter(
@@ -348,44 +359,49 @@ void main() {
       tester.view.physicalSize = size;
       await tester.pumpWidget(
         ProviderScope(
-          overrides: [
-            stringsProvider.overrideWithValue(const S(UiLanguage.chinese)),
-            selectedTrackProvider.overrideWith((ref) => track),
-          ],
+          overrides: adaptiveTestOverrides(controller: track),
           child: MaterialApp.router(routerConfig: router),
         ),
       );
+      await tester.pumpAndSettle();
     }
 
     await pumpAt(const Size(390, 800));
-    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.byType(MainMenuDrawer), findsNothing);
     expect(find.text('home'), findsOneWidget);
 
     await pumpAt(const Size(1024, 800));
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
     expect(find.text('home'), findsOneWidget);
-    expect(find.text('路径'), findsOneWidget);
-    expect(find.text('练习'), findsOneWidget);
+    expect(find.text('系统课程'), findsOneWidget);
     expect(find.text('梵文发音'), findsNothing);
 
-    await tester.tap(find.text('练习'));
+    await tapMenuItem(
+      tester,
+      const S(UiLanguage.chinese).skillTitle(SkillPracticeKind.pronunciation),
+    );
     await tester.pumpAndSettle();
     expect(find.text('practice:pronunciation'), findsOneWidget);
 
     await pumpAt(const Size(1024, 320));
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
     expect(tester.takeException(), isNull);
 
     track.state = CourseTrack.sanskrit;
     await tester.pump();
+    await tester.pumpAndSettle();
+    await revealMenuItem(tester, '梵文发音');
     expect(find.text('梵文发音'), findsOneWidget);
 
-    await tester.tap(find.text('练习'));
+    await tapMenuItem(
+      tester,
+      const S(UiLanguage.chinese).skillTitle(SkillPracticeKind.sanskritLetters),
+    );
     await tester.pumpAndSettle();
     expect(find.text('practice:sanskritLetters'), findsOneWidget);
   });
 
-  testWidgets('home route has NavigationRail on wide screen', (tester) async {
+  testWidgets('home route has MainMenuDrawer on wide screen', (tester) async {
     final router = _chromeRouter();
     addTearDown(router.dispose);
     addTearDown(tester.view.resetPhysicalSize);
@@ -393,11 +409,11 @@ void main() {
 
     await _pumpChrome(tester, router);
 
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
     expect(find.text('home'), findsOneWidget);
   });
 
-  testWidgets('lesson route has no NavigationRail on wide screen', (
+  testWidgets('lesson route has no MainMenuDrawer on wide screen', (
     tester,
   ) async {
     final router = _chromeRouter(initialLocation: '/lesson/x');
@@ -407,7 +423,7 @@ void main() {
 
     await _pumpChrome(tester, router);
 
-    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.byType(MainMenuDrawer), findsNothing);
     expect(find.text('lesson:x'), findsOneWidget);
   });
 
@@ -423,27 +439,27 @@ void main() {
     await tester.tap(find.text('home'));
     await tester.pumpAndSettle();
     expect(find.text('lesson:x'), findsOneWidget);
-    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.byType(MainMenuDrawer), findsNothing);
 
     router.pop();
     await tester.pumpAndSettle();
     expect(find.text('home'), findsOneWidget);
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
 
     router.go('/practice/pronunciation');
     await tester.pumpAndSettle();
     expect(find.text('practice:pronunciation'), findsOneWidget);
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
 
     await tester.tap(find.text('practice:pronunciation'));
     await tester.pumpAndSettle();
     expect(find.text('chapter:pronunciation/ch1'), findsOneWidget);
-    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.byType(MainMenuDrawer), findsNothing);
 
     router.pop();
     await tester.pumpAndSettle();
     expect(find.text('practice:pronunciation'), findsOneWidget);
-    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(MainMenuDrawer), findsOneWidget);
   });
 
   testWidgets('production router keeps focus routes outside the shell', (
