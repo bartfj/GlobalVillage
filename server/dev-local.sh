@@ -110,6 +110,10 @@ cmd_stop() {
 }
 
 start_services() {
+  if launchctl print "gui/$(id -u)/com.globalvillage.api" >/dev/null 2>&1; then
+    echo "API 与隧道已由 launchd 托管。状态: ./watch-sync.sh status ；卸下: ./install-watch.sh uninstall" >&2
+    exit 1
+  fi
   ensure_db
   free_api_port
   stop_tunnel
