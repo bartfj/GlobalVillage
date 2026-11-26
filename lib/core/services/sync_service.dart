@@ -14,8 +14,28 @@ import '../../data/sources/reward_store.dart';
 import '../../data/sources/settings_store.dart';
 import '../../data/sources/sync_api.dart';
 
-/// 同步状态（抽屉展示用）
-enum SyncStatus { idle, syncing, synced, failed }
+/// 一次同步当前走到哪一步。抽屉用它显示步骤和已等待秒数。
+enum SyncPhase { idle, pulling, merging, writing, pushing, synced, failed }
+
+class SyncActivity {
+  const SyncActivity({this.phase = SyncPhase.idle, this.startedAt});
+
+  final SyncPhase phase;
+  final DateTime? startedAt;
+
+  int elapsedSeconds(DateTime now) {
+    final start = startedAt;
+    if (start == null) return 0;
+    final seconds = now.difference(start).inSeconds;
+    return seconds < 0 ? 0 : seconds;
+  }
+
+  bool get active =>
+      phase == SyncPhase.pulling ||
+      phase == SyncPhase.merging ||
+      phase == SyncPhase.writing ||
+      phase == SyncPhase.pushing;
+}
 
 /// 同步快照（schemaVersion=1）：progress / rewards / track / checkInDays。
 class SyncSnapshot {
@@ -210,7 +230,7 @@ class SyncService {
     required SettingsStore settings,
     required AuthState Function() readAuth,
     required Future<bool> Function() refreshAccessToken,
-    void Function(SyncStatus status)? onStatus,
+    void Function(SyncActivity activity)? onActivity,
     void Function()? onMerged,
     Duration debounce = const Duration(seconds: 2),
     Duration pollInterval = const Duration(seconds: 15),
@@ -218,7 +238,7 @@ class SyncService {
        _settings = settings,
        _readAuth = readAuth,
        _refreshAccessToken = refreshAccessToken,
-       _onStatus = onStatus,
+       _onActivity = onActivity,
        _onMerged = onMerged,
        _debounce = debounce,
        _pollInterval = pollInterval;
@@ -227,7 +247,7 @@ class SyncService {
   final SettingsStore _settings;
   final AuthState Function() _readAuth;
   final Future<bool> Function() _refreshAccessToken;
-  final void Function(SyncStatus status)? _onStatus;
+  final void Function(SyncActivity activity)? _onActivity;
   final void Function()? _onMerged;
   final Duration _debounce;
   final Duration _pollInterval;
@@ -305,23 +325,28 @@ class SyncService {
     if (!auth.isOnline || userKey == null || auth.pendingImportFrom != null) {
       return true;
     }
-    _onStatus?.call(SyncStatus.syncing);
+    final startedAt = DateTime.now();
     try {
       var token = auth.accessToken;
       token ??= await _refreshAccessToken() ? _readAuth().accessToken : null;
       if (token == null) {
         throw const CloudAuthException('登录已过期', statusCode: 401);
       }
-      await _pullMergePushWithToken(userKey, token, allowRetry: true);
+      await _pullMergePushWithToken(
+        userKey,
+        token,
+        allowRetry: true,
+        startedAt: startedAt,
+      );
       await _settings.setLastSyncAt(
         userKey,
         DateTime.now().millisecondsSinceEpoch,
       );
-      _onStatus?.call(SyncStatus.synced);
+      _onActivity?.call(const SyncActivity(phase: SyncPhase.synced));
       return true;
     } catch (error, stack) {
       recordDiagnosticError('sync', error, stack);
-      _onStatus?.call(SyncStatus.failed);
+      _onActivity?.call(const SyncActivity(phase: SyncPhase.failed));
       return false;
     }
   }
@@ -330,8 +355,15 @@ class SyncService {
     String userKey,
     String token, {
     required bool allowRetry,
+    required DateTime startedAt,
   }) async {
+    void phase(SyncPhase value) {
+      _onActivity?.call(SyncActivity(phase: value, startedAt: startedAt));
+    }
+
     final device = await _deviceInfo();
+    phase(SyncPhase.pulling);
+    final pullWatch = Stopwatch()..start();
     RemoteSnapshot? remote;
     try {
       remote = await _api.pull(token);
@@ -341,42 +373,81 @@ class SyncService {
           userKey,
           _readAuth().accessToken!,
           allowRetry: false,
+          startedAt: startedAt,
         );
       }
       rethrow;
     }
+    pullWatch.stop();
+
+    phase(SyncPhase.merging);
+    final mergeWatch = Stopwatch()..start();
     final local = buildLocal(userKey);
+    final Map<String, dynamic> uploadPayload;
+    final int uploadUpdatedAt;
+    final int? baseClientUpdatedAt;
+    SyncSnapshot? toWrite;
     if (remote == null) {
-      // 云端无快照：首次同步，直接上传本地
-      await _api.push(
-        token,
-        local.toPayload(),
-        local.clientUpdatedAt,
-        device: device,
-      );
-      return;
+      uploadPayload = local.toPayload();
+      uploadUpdatedAt = local.clientUpdatedAt;
+      baseClientUpdatedAt = null;
+    } else {
+      final remoteSnapshot = SyncSnapshot.fromPayload(remote.payload);
+      final merged = SyncMerger.merge(local, remoteSnapshot);
+      if (!SyncSnapshot.sameContent(merged, local)) toWrite = merged;
+      // 内容没变时仍上报设备并刷新后台的同步时间。版本和快照保持云端原值，避免两台互相改写。
+      final contentChanged = !SyncSnapshot.sameContent(merged, remoteSnapshot);
+      uploadPayload = contentChanged ? merged.toPayload() : remote.payload;
+      uploadUpdatedAt = contentChanged
+          ? merged.clientUpdatedAt
+          : remote.clientUpdatedAt;
+      baseClientUpdatedAt = remote.clientUpdatedAt;
     }
-    final remoteSnapshot = SyncSnapshot.fromPayload(remote.payload);
-    final merged = SyncMerger.merge(local, remoteSnapshot);
-    if (!SyncSnapshot.sameContent(merged, local)) {
-      await _writeLocal(userKey, merged);
-    }
-    // 内容没变时仍上报设备并刷新后台的同步时间。版本保持云端原值，避免两台互相改写快照。
-    final contentChanged = !SyncSnapshot.sameContent(merged, remoteSnapshot);
+    mergeWatch.stop();
+
+    phase(SyncPhase.writing);
+    final writeWatch = Stopwatch()..start();
+    if (toWrite != null) await _writeLocal(userKey, toWrite);
+    writeWatch.stop();
+
+    final trace = <String, dynamic>{
+      'pullMs': pullWatch.elapsedMilliseconds,
+      'mergeMs': mergeWatch.elapsedMilliseconds,
+      'writeMs': writeWatch.elapsedMilliseconds,
+      'pullBytes': remote?.byteLength ?? 0,
+    };
+    phase(SyncPhase.pushing);
+    final pushWatch = Stopwatch()..start();
+    final int pushBytes;
     try {
-      await _api.push(
+      pushBytes = await _api.push(
         token,
-        contentChanged ? merged.toPayload() : remote.payload,
-        contentChanged ? merged.clientUpdatedAt : remote.clientUpdatedAt,
-        baseClientUpdatedAt: remote.clientUpdatedAt,
+        uploadPayload,
+        uploadUpdatedAt,
+        baseClientUpdatedAt: baseClientUpdatedAt,
         device: device,
+        trace: trace,
       );
     } on CloudAuthException catch (e) {
       if (e.code == 'sync_conflict' && allowRetry) {
-        // 云端又被更新：重新拉合并一次
-        return _pullMergePushWithToken(userKey, token, allowRetry: false);
+        return _pullMergePushWithToken(
+          userKey,
+          token,
+          allowRetry: false,
+          startedAt: startedAt,
+        );
       }
       rethrow;
+    }
+    pushWatch.stop();
+    try {
+      await _api.reportTrace(token, uploadUpdatedAt, {
+        ...trace,
+        'pushMs': pushWatch.elapsedMilliseconds,
+        'pushBytes': pushBytes,
+      });
+    } catch (_) {
+      // 补报失败不改变同步结果。
     }
   }
 

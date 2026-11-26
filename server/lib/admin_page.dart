@@ -423,10 +423,36 @@ document.getElementById('sync-run').addEventListener('click', async function () 
   await loadAccounts();
 });
 
+function traceSpan(ms) {
+  if (typeof ms !== 'number' || ms < 0) return '';
+  if (ms < 1000) return ms + '毫秒';
+  return (ms / 1000).toFixed(1) + '秒';
+}
+
+function traceSize(bytes) {
+  if (typeof bytes !== 'number' || bytes < 0) return '';
+  if (bytes < 1024) return bytes + 'B';
+  return (bytes / 1024).toFixed(1) + 'KB';
+}
+
+function traceLabel(trace) {
+  if (!trace) return '';
+  const parts = [];
+  if (typeof trace.pullMs === 'number') {
+    parts.push('拉取 ' + traceSpan(trace.pullMs) + (typeof trace.pullBytes === 'number' ? ' ' + traceSize(trace.pullBytes) : ''));
+  }
+  if (typeof trace.mergeMs === 'number') parts.push('合并 ' + traceSpan(trace.mergeMs));
+  if (typeof trace.writeMs === 'number') parts.push('写入 ' + traceSpan(trace.writeMs));
+  if (typeof trace.pushMs === 'number') {
+    parts.push('上传 ' + traceSpan(trace.pushMs) + (typeof trace.pushBytes === 'number' ? ' ' + traceSize(trace.pushBytes) : ''));
+  }
+  return parts.join(' · ');
+}
+
 function syncHistoryTable(items) {
   const table = document.createElement('table');
   const header = document.createElement('tr');
-  for (const title of ['时间', '客户端时间', '来源', '课数', '设备']) {
+  for (const title of ['时间', '客户端时间', '来源', '课数', '过程', '设备']) {
     const th = document.createElement('th');
     th.textContent = title;
     header.appendChild(th);
@@ -439,6 +465,7 @@ function syncHistoryTable(items) {
       item.clientUpdatedAt ? localTime(item.clientUpdatedAt) : '',
       item.source === 'admin' ? '后台' : '客户端',
       String(item.lessonCount ?? ''),
+      traceLabel(item.trace),
       item.device ? deviceDetail(item.device) : '未上报',
     ];
     for (const value of values) {
@@ -498,6 +525,7 @@ async function openDetail(id) {
   meta.textContent = '线路 ' + (track.selected || '未选') +
     ' · 奖励 ' + rewardCount + ' 条 · 凭证版本 ' + account.credentialVersion;
   detail.appendChild(meta);
+  detail.appendChild(accountActions(id, account));
   const syncTitle = document.createElement('h3');
   syncTitle.textContent = '同步信息';
   detail.appendChild(syncTitle);
@@ -518,6 +546,9 @@ async function openDetail(id) {
     wrap.appendChild(lessonRows(pair[1]));
     detail.appendChild(wrap);
   }
+}
+
+function accountActions(id, account) {
   const actions = document.createElement('p');
   const toggle = document.createElement('button');
   toggle.textContent = account.disabledAt ? '恢复' : '停用';
@@ -527,22 +558,28 @@ async function openDetail(id) {
     await loadAccounts();
     await openDetail(id);
   });
+  const passwordLabel = document.createElement('span');
+  passwordLabel.className = 'muted';
+  passwordLabel.textContent = '修改密码';
   const password = document.createElement('input');
   password.type = 'password';
   password.placeholder = '新密码（至少 6 位）';
+  password.setAttribute('aria-label', '新密码');
   const setPassword = document.createElement('button');
-  setPassword.textContent = '设置密码';
+  setPassword.textContent = '保存新密码';
   setPassword.addEventListener('click', async function () {
     const value = password.value;
     if (value.length < 6) { alert('密码至少 6 位'); return; }
-    if (!confirm('确认把密码改为：' + value)) return;
+    if (!confirm('确认把密码改为：' + value + '？旧登录会立即失效。')) return;
     const response = await api('/admin/api/accounts/' + id + '/password', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ password: value })
     });
     password.value = '';
-    if (!response.ok) { alert('设置失败'); return; }
+    const body = await response.json().catch(function () { return {}; });
+    if (!response.ok) { alert(body.message || '设置失败'); return; }
+    alert('密码已更新。该账号需要用新密码重新登录。');
     await openDetail(id);
   });
   const remove = document.createElement('button');
@@ -554,15 +591,17 @@ async function openDetail(id) {
     const response = await api('/admin/api/accounts/' + id, { method: 'DELETE' });
     if (response.status !== 204) { alert('删除失败'); return; }
     current = null;
+    const detail = document.getElementById('detail');
     detail.innerHTML = '';
     detail.hidden = true;
     await loadAccounts();
   });
   actions.appendChild(toggle);
+  actions.appendChild(passwordLabel);
   actions.appendChild(password);
   actions.appendChild(setPassword);
   actions.appendChild(remove);
-  detail.appendChild(actions);
+  return actions;
 }
 
 let contentPacks = [];

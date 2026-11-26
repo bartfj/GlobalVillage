@@ -17,13 +17,37 @@ Map<String, dynamic> buildSyncHistoryEntry({
   required int lessonCount,
   required String source,
   Map<String, dynamic>? device,
+  Map<String, dynamic>? trace,
 }) => {
   'serverUpdatedAt': serverUpdatedAt.toUtc().toIso8601String(),
   'clientUpdatedAt': clientUpdatedAt,
   'lessonCount': lessonCount,
   'source': source == syncSourceAdmin ? syncSourceAdmin : syncSourceClient,
   if (device != null) 'device': device,
+  if (trace != null) 'trace': trace,
 };
+
+const _traceIntKeys = {
+  'pullMs',
+  'mergeMs',
+  'writeMs',
+  'pushMs',
+  'pullBytes',
+  'pushBytes',
+};
+
+/// 只保留耗时和字节数。负数、未知字段丢弃，避免客户端写入任意内容。
+Map<String, dynamic>? readSyncTrace(Object? value) {
+  if (value is! Map) return null;
+  final trace = <String, dynamic>{};
+  for (final key in _traceIntKeys) {
+    final raw = value[key];
+    if (raw is! int || raw < 0) continue;
+    final cap = key.endsWith('Bytes') ? 8 * 1024 * 1024 : 30 * 60 * 1000;
+    trace[key] = raw > cap ? cap : raw;
+  }
+  return trace.isEmpty ? null : trace;
+}
 
 List<Map<String, dynamic>> prependSyncHistory(
   List<Map<String, dynamic>> previous,
@@ -90,8 +114,16 @@ abstract class SyncRepo {
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
+    Map<String, dynamic>? trace,
     String source = syncSourceClient,
   });
+
+  /// 给最近一次、且版本匹配的同步记录补上耗时。没有匹配记录时返回 false。
+  Future<bool> attachTrace(
+    String accountId,
+    int clientUpdatedAt,
+    Map<String, dynamic> trace,
+  );
 
   /// 删除该账号的快照。没有记录时也成功。
   Future<void> delete(String accountId);
@@ -130,6 +162,7 @@ class InMemorySyncRepo implements SyncRepo {
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
+    Map<String, dynamic>? trace,
     String source = syncSourceClient,
   }) async {
     final current = _records[accountId];
@@ -152,11 +185,36 @@ class InMemorySyncRepo implements SyncRepo {
           lessonCount: lessonCountOf(payload),
           source: source,
           device: device,
+          trace: trace,
         ),
       ),
     );
     _records[accountId] = record;
     return record;
+  }
+
+  @override
+  Future<bool> attachTrace(
+    String accountId,
+    int clientUpdatedAt,
+    Map<String, dynamic> trace,
+  ) async {
+    final current = _records[accountId];
+    if (current == null || current.history.isEmpty) return false;
+    final latest = current.history.first;
+    if (latest['clientUpdatedAt'] != clientUpdatedAt) return false;
+    final history = [
+      {...latest, 'trace': trace},
+      ...current.history.skip(1),
+    ];
+    _records[accountId] = SyncRecord(
+      payload: current.payload,
+      clientUpdatedAt: current.clientUpdatedAt,
+      serverUpdatedAt: current.serverUpdatedAt,
+      device: current.device,
+      history: history,
+    );
+    return true;
   }
 
   @override
@@ -250,6 +308,7 @@ ADD COLUMN IF NOT EXISTS history jsonb NOT NULL DEFAULT '[]'::jsonb
     int clientUpdatedAt, {
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
+    Map<String, dynamic>? trace,
     String source = syncSourceClient,
   }) async {
     final now = DateTime.now().toUtc();
@@ -259,6 +318,7 @@ ADD COLUMN IF NOT EXISTS history jsonb NOT NULL DEFAULT '[]'::jsonb
       lessonCount: lessonCountOf(payload),
       source: source,
       device: device,
+      trace: trace,
     );
     final normalized = mergeSnapshotCheckInDays(payload);
     // 版本比较必须与写入处于同一 SQL 操作，避免并发请求同时通过预读检查。
@@ -328,6 +388,32 @@ RETURNING payload, server_updated_at, device, history
       device: _deviceOf(row['device']),
       history: _historyOf(row['history']),
     );
+  }
+
+  @override
+  Future<bool> attachTrace(
+    String accountId,
+    int clientUpdatedAt,
+    Map<String, dynamic> trace,
+  ) async {
+    final result = await _conn.execute(
+      Sql.named('''
+UPDATE sync_snapshots
+SET history = jsonb_set(history, '{0,trace}', @trace::jsonb, true)
+WHERE account_id = @id::uuid
+  AND client_updated_at = @clientUpdatedAt
+  AND jsonb_typeof(history) = 'array'
+  AND jsonb_array_length(history) > 0
+  AND (history->0->>'clientUpdatedAt')::bigint = @clientUpdatedAt
+RETURNING account_id
+'''),
+      parameters: {
+        'id': accountId,
+        'clientUpdatedAt': clientUpdatedAt,
+        'trace': jsonEncode(trace),
+      },
+    );
+    return result.isNotEmpty;
   }
 
   @override

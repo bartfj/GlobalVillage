@@ -241,6 +241,12 @@ class S {
   String get logoutSwitch => isEn ? 'Sign out / Switch account' : '退出登录 / 切换账号';
   String get switchCourse => isEn ? 'Switch' : '切换';
   String get syncNow => isEn ? 'Syncing…' : '同步中…';
+  String get syncPulling => isEn ? 'Downloading' : '正在拉取';
+  String get syncMerging => isEn ? 'Merging' : '正在合并';
+  String get syncWriting => isEn ? 'Saving' : '正在写入';
+  String get syncUploading => isEn ? 'Uploading' : '正在上传';
+  String syncStep(String step, int seconds) =>
+      isEn ? '$step · ${seconds}s' : '$step · 已等待 $seconds 秒';
   String get syncFailed => isEn ? 'Sync failed, try again later' : '同步失败，稍后再试';
   String get syncWaiting => isEn ? 'Waiting for first sync' : '等待首次同步';
   String syncLastAt(String time) => isEn ? 'Synced $time' : '上次同步 $time';

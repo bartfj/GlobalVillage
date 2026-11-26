@@ -49,15 +49,24 @@ class ReviewSync extends SyncApi {
   @override
   Future<RemoteSnapshot?> pull(String token) async => null;
   @override
-  Future<void> push(
+  Future<int> push(
     String token,
     Map<String, dynamic> payload,
     int updatedAt, {
     int? baseClientUpdatedAt,
     Map<String, dynamic>? device,
+    Map<String, dynamic>? trace,
   }) async {
     uploaded = payload;
+    return 0;
   }
+
+  @override
+  Future<void> reportTrace(
+    String accessToken,
+    int clientUpdatedAt,
+    Map<String, dynamic> trace,
+  ) async {}
 }
 
 void main() {
