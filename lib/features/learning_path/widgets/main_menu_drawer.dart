@@ -147,6 +147,10 @@ class MainMenuDrawer extends ConsumerWidget {
               userKey: auth.userKey,
               s: s,
               onLogin: onLogin,
+              onReauth: () {
+                ref.read(authProvider.notifier).prepareReauth();
+                _openRoute(context, '/login');
+              },
               onOpen: isGuest ? null : () => _openRoute(context, '/account'),
             ),
             const SizedBox(height: 10),
@@ -385,6 +389,7 @@ class _AccountCard extends StatelessWidget {
     required this.userKey,
     required this.s,
     required this.onLogin,
+    required this.onReauth,
     this.onOpen,
   });
 
@@ -395,6 +400,7 @@ class _AccountCard extends StatelessWidget {
   final String? userKey;
   final S s;
   final VoidCallback onLogin;
+  final VoidCallback onReauth;
   final VoidCallback? onOpen;
 
   @override
@@ -485,7 +491,7 @@ class _AccountCard extends StatelessWidget {
             ),
           ] else if (userKey != null) ...[
             const SizedBox(height: 10),
-            _SyncStatusLine(userKey: userKey!),
+            _SyncStatusLine(userKey: userKey!, onReauth: onReauth),
           ],
         ],
       ),
@@ -851,9 +857,10 @@ class _MenuRow extends StatelessWidget {
 
 /// 在线账号的同步状态行：当前步骤和已等待秒数 / 上次同步时间 / 同步失败
 class _SyncStatusLine extends ConsumerStatefulWidget {
-  const _SyncStatusLine({required this.userKey});
+  const _SyncStatusLine({required this.userKey, required this.onReauth});
 
   final String userKey;
+  final VoidCallback onReauth;
 
   @override
   ConsumerState<_SyncStatusLine> createState() => _SyncStatusLineState();
@@ -883,10 +890,15 @@ class _SyncStatusLineState extends ConsumerState<_SyncStatusLine> {
   Widget build(BuildContext context) {
     final s = ref.watch(stringsProvider);
     final activity = ref.watch(syncActivityProvider);
-    final lastSyncAt = ref.watch(settingsStoreProvider).lastSyncAt(widget.userKey);
+    final lastSyncAt = ref
+        .watch(settingsStoreProvider)
+        .lastSyncAt(widget.userKey);
     _keepTicking(activity.active);
+    final signedOut = activity.phase == SyncPhase.signedOut;
     final String text;
-    if (activity.phase == SyncPhase.failed) {
+    if (signedOut) {
+      text = s.syncSignedOut;
+    } else if (activity.phase == SyncPhase.failed) {
       text = s.syncFailed;
     } else if (activity.active) {
       final step = switch (activity.phase) {
@@ -902,13 +914,21 @@ class _SyncStatusLineState extends ConsumerState<_SyncStatusLine> {
     } else {
       text = s.syncWaiting;
     }
-    const color = AppColors.textSecondary;
-    return Row(
+    final color = signedOut ? AppColors.redDark : AppColors.textSecondary;
+    final line = Row(
       children: [
-        const Icon(Icons.sync_rounded, size: 13, color: color),
+        Icon(Icons.sync_rounded, size: 13, color: color),
         const SizedBox(width: 4),
-        Text(text, style: const TextStyle(fontSize: 12, color: color)),
+        Flexible(
+          child: Text(text, style: TextStyle(fontSize: 12, color: color)),
+        ),
       ],
+    );
+    if (!signedOut) return line;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: widget.onReauth,
+      child: line,
     );
   }
 

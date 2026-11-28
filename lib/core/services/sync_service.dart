@@ -15,7 +15,16 @@ import '../../data/sources/settings_store.dart';
 import '../../data/sources/sync_api.dart';
 
 /// 一次同步当前走到哪一步。抽屉用它显示步骤和已等待秒数。
-enum SyncPhase { idle, pulling, merging, writing, pushing, synced, failed }
+enum SyncPhase {
+  idle,
+  pulling,
+  merging,
+  writing,
+  pushing,
+  synced,
+  failed,
+  signedOut,
+}
 
 class SyncActivity {
   const SyncActivity({this.phase = SyncPhase.idle, this.startedAt});
@@ -302,7 +311,10 @@ class SyncService {
         _followUp = false;
         final epoch = _changeEpoch;
         final ok = await _pullMergePushOnce();
-        if (!ok) return;
+        if (!ok) {
+          if (_followUp) continue;
+          return;
+        }
         if (_changeEpoch != epoch || _followUp) continue;
         _dirty = false;
         return;
@@ -346,7 +358,12 @@ class SyncService {
       return true;
     } catch (error, stack) {
       recordDiagnosticError('sync', error, stack);
-      _onActivity?.call(const SyncActivity(phase: SyncPhase.failed));
+      final expired =
+          error is CloudAuthException &&
+          cloudAuthFailureIsSessionExpired(error);
+      _onActivity?.call(
+        SyncActivity(phase: expired ? SyncPhase.signedOut : SyncPhase.failed),
+      );
       return false;
     }
   }

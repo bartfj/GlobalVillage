@@ -248,6 +248,8 @@ class S {
   String syncStep(String step, int seconds) =>
       isEn ? '$step · ${seconds}s' : '$step · 已等待 $seconds 秒';
   String get syncFailed => isEn ? 'Sync failed, try again later' : '同步失败，稍后再试';
+  String get syncSignedOut =>
+      isEn ? 'Session expired. Tap to sign in' : '登录已过期，点此重新登录';
   String get syncWaiting => isEn ? 'Waiting for first sync' : '等待首次同步';
   String syncLastAt(String time) => isEn ? 'Synced $time' : '上次同步 $time';
   String completedCount(int done, int total) =>
@@ -266,11 +268,9 @@ class S {
       : '无法添加这张图片，请重新选择 PNG 或 JPEG 截图。';
   String get feedbackCancel => isEn ? 'Cancel' : '取消';
   String get feedbackSend => isEn ? 'Send' : '发送';
-  String get feedbackSubmitting =>
-      isEn ? 'Submitting feedback…' : '正在提交反馈…';
+  String get feedbackSubmitting => isEn ? 'Submitting feedback…' : '正在提交反馈…';
   String get feedbackSent => isEn ? 'Feedback sent' : '反馈提交成功';
-  String get feedbackUnconfirmed =>
-      isEn ? 'Delivery not confirmed' : '反馈未确认送达';
+  String get feedbackUnconfirmed => isEn ? 'Delivery not confirmed' : '反馈未确认送达';
   String get feedbackSendFailed =>
       isEn ? 'Could not submit feedback. Please try again.' : '反馈提交失败，请重试。';
   String get feedbackQueued => isEn

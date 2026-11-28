@@ -133,7 +133,7 @@ void main() {
   });
 
   group('refresh / logout', () {
-    test('refresh token 换取新 access token', () async {
+    test('refresh token 换取新 access token，并顺延 refresh token', () async {
       final registered = await json(
         await post('/v1/auth/register', {
           'email': 'a@example.com',
@@ -145,7 +145,18 @@ void main() {
         'refreshToken': registered['refreshToken'],
       });
       expect(response.statusCode, 200);
-      expect((await json(response))['accessToken'], isNotEmpty);
+      final body = await json(response);
+      expect(body['accessToken'], isNotEmpty);
+      expect(body['refreshToken'], isNotEmpty);
+
+      final rotated = await post('/v1/auth/refresh', {
+        'refreshToken': body['refreshToken'],
+      });
+      expect(rotated.statusCode, 200);
+      final original = await post('/v1/auth/refresh', {
+        'refreshToken': registered['refreshToken'],
+      });
+      expect(original.statusCode, 200);
     });
 
     test('access token 不能当 refresh token 用', () async {

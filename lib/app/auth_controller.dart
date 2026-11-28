@@ -41,10 +41,10 @@ class AuthState {
   AuthMode get mode => userKey == null
       ? AuthMode.none
       : isGuest
-          ? AuthMode.guest
-          : isOnline
-              ? AuthMode.online
-              : AuthMode.local;
+      ? AuthMode.guest
+      : isOnline
+      ? AuthMode.online
+      : AuthMode.local;
 
   /// 在线会话的 userKey 前缀
   static const onlineKeyPrefix = 'online:';
@@ -71,7 +71,7 @@ class AuthController extends StateNotifier<AuthState> {
 
   /// 本地账号绑定在线后、切换会话之前复制槽位；由 providers 接线
   final Future<void> Function(String fromUserKey, String toUserKey)?
-      onBoundToOnline;
+  onBoundToOnline;
 
   AuthController(
     this.repository, {
@@ -79,22 +79,22 @@ class AuthController extends StateNotifier<AuthState> {
     TokenStore? tokenStore,
     this.onOnlineSessionReady,
     this.onBoundToOnline,
-  })  : _cloudAuth = cloudAuth ?? CloudAuthApi(),
-        _tokenStore = tokenStore ?? SecureTokenStore(),
-        super(AuthState(
-          userKey: repository.store.currentSession,
-          displayName: repository.store.currentDisplayName,
-        )) {
+  }) : _cloudAuth = cloudAuth ?? CloudAuthApi(),
+       _tokenStore = tokenStore ?? SecureTokenStore(),
+       super(
+         AuthState(
+           userKey: repository.store.currentSession,
+           displayName: repository.store.currentDisplayName,
+         ),
+       ) {
     unawaited(_refreshOnlineSession());
   }
 
   /// 用安全存储的 refresh token 换取新 access token；成功返回 true。
   /// 不触发同步，供同步过程中的 401 重试使用。
   /// 网络失败会抛出，避免同步把断网记成登录过期。
-  Future<bool> refreshAccessToken() => _refreshOnlineSession(
-        notifyReady: false,
-        surfaceTransportErrors: true,
-      );
+  Future<bool> refreshAccessToken() =>
+      _refreshOnlineSession(notifyReady: false, surfaceTransportErrors: true);
 
   /// 在线会话重启后静默换取新 access token（断网或 token 失效时保持已登录状态）。
   /// 冷启动成功时通知同步；由同步服务主动调用时不再通知。
@@ -115,13 +115,20 @@ class AuthController extends StateNotifier<AuthState> {
           state.userKey != session) {
         return false;
       }
-      final accessToken = await _cloudAuth.refreshAccessToken(refreshToken);
+      final refreshed = await _cloudAuth.refreshAccessToken(refreshToken);
       if (!mounted || epoch != _sessionEpoch || state.userKey != session) {
         return false;
       }
+      final rotated = refreshed.refreshToken;
+      if (rotated != null) {
+        await _tokenStore.writeRefreshToken(rotated);
+        if (!mounted || epoch != _sessionEpoch || state.userKey != session) {
+          return false;
+        }
+      }
       state = AuthState(
         userKey: session,
-        accessToken: accessToken,
+        accessToken: refreshed.accessToken,
         displayName: state.displayName,
         pendingImportFrom: state.pendingImportFrom,
       );
@@ -130,8 +137,7 @@ class AuthController extends StateNotifier<AuthState> {
       }
       return true;
     } on CloudAuthException catch (error) {
-      if (surfaceTransportErrors &&
-          !cloudAuthFailureIsSessionExpired(error)) {
+      if (surfaceTransportErrors && !cloudAuthFailureIsSessionExpired(error)) {
         rethrow;
       }
       return false;
@@ -232,8 +238,9 @@ class AuthController extends StateNotifier<AuthState> {
     bool adoptDeviceAccount = true,
   }) async {
     // 游客或刚退出的本地账号：有进度则等用户确认后再同步，避免先把空槽位上传
-    final importFrom =
-        adoptDeviceAccount ? _deviceImportSource(result.account.accountId) : null;
+    final importFrom = adoptDeviceAccount
+        ? _deviceImportSource(result.account.accountId)
+        : null;
     _invalidateSessionRequests();
     await _tokenStore.writeRefreshToken(result.refreshToken);
     await repository.store.setSession(
@@ -299,12 +306,11 @@ class AuthController extends StateNotifier<AuthState> {
     required String nickname,
     required String password,
     required String confirm,
-  }) =>
-      repository.resetPassword(
-        nickname: nickname,
-        password: password,
-        confirm: confirm,
-      );
+  }) => repository.resetPassword(
+    nickname: nickname,
+    password: password,
+    confirm: confirm,
+  );
 
   String? _onlineAccountId() {
     final key = state.userKey;
@@ -340,15 +346,14 @@ class AuthController extends StateNotifier<AuthState> {
     String? email,
     String? phone,
     required String password,
-  }) =>
-      _bindOnline(
-        () => _cloudAuth.register(
-          email: email,
-          phone: phone,
-          password: password,
-          displayName: state.userKey,
-        ),
-      );
+  }) => _bindOnline(
+    () => _cloudAuth.register(
+      email: email,
+      phone: phone,
+      password: password,
+      displayName: state.userKey,
+    ),
+  );
 
   /// 拉取在线资料并写入会话缓存。离线时保留上次缓存。
   Future<void> refreshProfile() async {
@@ -408,10 +413,9 @@ class AuthController extends StateNotifier<AuthState> {
     String? email,
     String? phone,
     required String password,
-  }) =>
-      _bindOnline(
-        () => _cloudAuth.login(email: email, phone: phone, password: password),
-      );
+  }) => _bindOnline(
+    () => _cloudAuth.login(email: email, phone: phone, password: password),
+  );
 
   Future<String?> _bindOnline(
     Future<OnlineAuthResult> Function() action,
@@ -429,14 +433,16 @@ class AuthController extends StateNotifier<AuthState> {
       // 标记本地账号已绑定（§4.2）
       final localUser = repository.store.getUser(fromUserKey);
       if (localUser != null) {
-        await repository.store.putUser(User(
-          nickname: localUser.nickname,
-          passwordHash: localUser.passwordHash,
-          salt: localUser.salt,
-          createdAt: localUser.createdAt,
-          onlineAccountId: result.account.accountId,
-          onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
-        ));
+        await repository.store.putUser(
+          User(
+            nickname: localUser.nickname,
+            passwordHash: localUser.passwordHash,
+            salt: localUser.salt,
+            createdAt: localUser.createdAt,
+            onlineAccountId: result.account.accountId,
+            onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
+          ),
+        );
       }
       return null;
     } on CloudAuthException catch (e) {
@@ -466,21 +472,31 @@ class AuthController extends StateNotifier<AuthState> {
 
   Future<void> _markLocalBound(String nickname) async {
     final accountId = state.userKey;
-    if (accountId == null ||
-        !accountId.startsWith(AuthState.onlineKeyPrefix)) {
+    if (accountId == null || !accountId.startsWith(AuthState.onlineKeyPrefix)) {
       return;
     }
     final localUser = repository.store.getUser(nickname);
     if (localUser == null) return;
-    await repository.store.putUser(User(
-      nickname: localUser.nickname,
-      passwordHash: localUser.passwordHash,
-      salt: localUser.salt,
-      createdAt: localUser.createdAt,
-      onlineAccountId:
-          accountId.substring(AuthState.onlineKeyPrefix.length),
-      onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
-    ));
+    await repository.store.putUser(
+      User(
+        nickname: localUser.nickname,
+        passwordHash: localUser.passwordHash,
+        salt: localUser.salt,
+        createdAt: localUser.createdAt,
+        onlineAccountId: accountId.substring(AuthState.onlineKeyPrefix.length),
+        onlineBoundAt: DateTime.now().millisecondsSinceEpoch,
+      ),
+    );
+  }
+
+  /// 登录已过期时清掉内存里的 access token，登录页才不会被送回首页。
+  void prepareReauth() {
+    if (!state.isOnline) return;
+    state = AuthState(
+      userKey: state.userKey,
+      displayName: state.displayName,
+      pendingImportFrom: state.pendingImportFrom,
+    );
   }
 
   /// 游客导入确认处理完毕后清除标记

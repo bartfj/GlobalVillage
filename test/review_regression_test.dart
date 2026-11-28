@@ -22,7 +22,7 @@ import 'package:hive/hive.dart';
 
 class ReviewCloud extends CloudAuthApi {
   final refreshStarted = Completer<void>();
-  final refreshResult = Completer<String>();
+  final refreshResult = Completer<RefreshedTokens>();
   @override
   Future<OnlineAuthResult> register({
     String? email,
@@ -35,7 +35,7 @@ class ReviewCloud extends CloudAuthApi {
     refreshToken: 'review-refresh',
   );
   @override
-  Future<String> refreshAccessToken(String token) {
+  Future<RefreshedTokens> refreshAccessToken(String token) {
     if (!refreshStarted.isCompleted) refreshStarted.complete();
     return refreshResult.future;
   }
@@ -177,7 +177,9 @@ void main() {
       await cloud.refreshStarted.future;
       await auth.logout();
       expect(auth.state.hasSession, isFalse);
-      cloud.refreshResult.complete('review-access');
+      cloud.refreshResult.complete(
+        const RefreshedTokens(accessToken: 'review-access'),
+      );
       await Future<void>.delayed(Duration.zero);
       expect(auth.state.hasSession, isFalse);
     },

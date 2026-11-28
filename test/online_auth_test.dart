@@ -64,8 +64,11 @@ class _FakeCloudAuth extends CloudAuthApi {
   }
 
   @override
-  Future<String> refreshAccessToken(String refreshToken) async =>
-      nextAccessToken;
+  Future<RefreshedTokens> refreshAccessToken(String refreshToken) async =>
+      RefreshedTokens(
+        accessToken: nextAccessToken,
+        refreshToken: nextRefreshToken.isEmpty ? null : nextRefreshToken,
+      );
 
   @override
   Future<OnlineAccount> fetchMe(String accessToken) async => OnlineAccount(
@@ -101,7 +104,11 @@ void main() {
   test('只有 401 才算登录过期，断网不是', () {
     expect(
       cloudAuthFailureIsSessionExpired(
-        const CloudAuthException('登录已过期', statusCode: 401, code: 'invalid_token'),
+        const CloudAuthException(
+          '登录已过期',
+          statusCode: 401,
+          code: 'invalid_token',
+        ),
       ),
       isTrue,
     );
@@ -160,6 +167,20 @@ void main() {
               .having((e) => e.statusCode, 'statusCode', 401),
         ),
       );
+    });
+
+    test('刷新响应同时解析顺延后的 refresh token', () async {
+      final client = MockClient((request) async {
+        expect(request.url.path, '/v1/auth/refresh');
+        return http.Response(
+          jsonEncode({'accessToken': 'at2', 'refreshToken': 'rt2'}),
+          200,
+        );
+      });
+      final api = CloudAuthApi(client: client, baseUrl: 'http://x/v1');
+      final refreshed = await api.refreshAccessToken('rt1');
+      expect(refreshed.accessToken, 'at2');
+      expect(refreshed.refreshToken, 'rt2');
     });
 
     test('网络异常映射为友好错误', () async {
@@ -273,6 +294,34 @@ void main() {
       );
       expect(error, '该邮箱已被注册');
       expect(auth.state.hasSession, isFalse);
+    });
+
+    test('刷新成功时换上新的 access token，并保存顺延后的 refresh token', () async {
+      await auth.registerOnline(
+        email: 'a@example.com',
+        displayName: 'ann',
+        password: 'secret6',
+        confirm: 'secret6',
+      );
+      cloud.nextAccessToken = 'access-2';
+      cloud.nextRefreshToken = 'refresh-2';
+      expect(await auth.refreshAccessToken(), isTrue);
+      expect(auth.state.accessToken, 'access-2');
+      expect(tokens.token, 'refresh-2');
+    });
+
+    test('旧服务端不返回 refresh token 时保留原来的', () async {
+      await auth.registerOnline(
+        email: 'a@example.com',
+        displayName: 'ann',
+        password: 'secret6',
+        confirm: 'secret6',
+      );
+      cloud.nextAccessToken = 'access-2';
+      cloud.nextRefreshToken = '';
+      expect(await auth.refreshAccessToken(), isTrue);
+      expect(auth.state.accessToken, 'access-2');
+      expect(tokens.token, 'refresh-token');
     });
 
     test('在线登出清除会话与 refresh token', () async {

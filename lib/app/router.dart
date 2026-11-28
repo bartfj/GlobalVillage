@@ -76,6 +76,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       if (auth.hasSession && onAuth) {
         // 游客允许进入登录/注册页升级账号
         if (auth.isGuest && state.matchedLocation != '/welcome') return null;
+        // 在线会话的 access token 已经失效时，留在登录页重新登录。
+        if (auth.isOnline &&
+            auth.accessToken == null &&
+            state.matchedLocation == '/login') {
+          return null;
+        }
         return '/';
       }
       return null;

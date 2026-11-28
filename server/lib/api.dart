@@ -142,10 +142,16 @@ Handler buildRouter(
       return _error(401, 'invalid_token', 'refresh token 无效或已过期');
     }
 
+    final current = account!;
+    // 旧 refresh token 在自己的到期时间前仍然有效。新 token 从这次刷新起再算 30 天。
     return _json(200, {
       'accessToken': auth.issueAccessToken(
-        account!.accountId,
-        credentialVersion: account.credentialVersion,
+        current.accountId,
+        credentialVersion: current.credentialVersion,
+      ),
+      'refreshToken': auth.issueRefreshToken(
+        current.accountId,
+        credentialVersion: current.credentialVersion,
       ),
     });
   });

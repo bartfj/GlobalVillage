@@ -23,6 +23,14 @@ class OnlineAccount {
   final DateTime? createdAt;
 }
 
+/// 刷新成功后的 token。旧服务端不返回 refresh token 时 [refreshToken] 为空。
+class RefreshedTokens {
+  const RefreshedTokens({required this.accessToken, this.refreshToken});
+
+  final String accessToken;
+  final String? refreshToken;
+}
+
 /// 注册/登录成功结果（账号 + 双 token）。
 class OnlineAuthResult {
   const OnlineAuthResult({
@@ -105,10 +113,18 @@ class CloudAuthApi {
     );
   }
 
-  /// 用 refresh token 换新 access token。
-  Future<String> refreshAccessToken(String refreshToken) async {
+  /// 用 refresh token 换新 access token。服务端顺延时一并返回新的 refresh token。
+  Future<RefreshedTokens> refreshAccessToken(String refreshToken) async {
     final body = await _post('/auth/refresh', {'refreshToken': refreshToken});
-    return body['accessToken'] as String;
+    final accessToken = body['accessToken'];
+    if (accessToken is! String || accessToken.isEmpty) {
+      throw const CloudAuthException('服务响应异常');
+    }
+    final rotated = body['refreshToken'];
+    return RefreshedTokens(
+      accessToken: accessToken,
+      refreshToken: rotated is String && rotated.isNotEmpty ? rotated : null,
+    );
   }
 
   Future<OnlineAccount> fetchMe(String accessToken) async {

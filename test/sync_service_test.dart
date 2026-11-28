@@ -26,17 +26,16 @@ LessonProgress _lesson(
   int correctCount = 0,
   int totalCount = 9,
   int completedAtMs = 0,
-}) =>
-    LessonProgress(
-      lessonId: id,
-      completed: completed,
-      score: score,
-      correctCount: correctCount,
-      totalCount: totalCount,
-      completedAt: completedAtMs == 0
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(completedAtMs),
-    );
+}) => LessonProgress(
+  lessonId: id,
+  completed: completed,
+  score: score,
+  correctCount: correctCount,
+  totalCount: totalCount,
+  completedAt: completedAtMs == 0
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(completedAtMs),
+);
 
 class _FakeSyncApi extends SyncApi {
   RemoteSnapshot? remote;
@@ -95,25 +94,23 @@ class _FakeCloudAuth extends CloudAuthApi {
     String? phone,
     required String password,
     String? displayName,
-  }) async =>
-      OnlineAuthResult(
-        account: OnlineAccount(
-          accountId: 'acc-1',
-          email: email,
-          phone: phone,
-          displayName: 'ann',
-        ),
-        accessToken: 'at',
-        refreshToken: 'rt',
-      );
+  }) async => OnlineAuthResult(
+    account: OnlineAccount(
+      accountId: 'acc-1',
+      email: email,
+      phone: phone,
+      displayName: 'ann',
+    ),
+    accessToken: 'at',
+    refreshToken: 'rt',
+  );
 
   @override
   Future<OnlineAuthResult> login({
     String? email,
     String? phone,
     required String password,
-  }) async =>
-      register(email: email, phone: phone, password: password);
+  }) async => register(email: email, phone: phone, password: password);
 }
 
 class _SettingsStoreWithImportHook extends SettingsStore {
@@ -202,7 +199,9 @@ void main() {
 
     test('快照序列化往返', () {
       final snapshot = SyncSnapshot(
-        progress: {'l1': _lesson('l1', completed: true, score: 90, completedAtMs: 100)},
+        progress: {
+          'l1': _lesson('l1', completed: true, score: 90, completedAtMs: 100),
+        },
         rewards: {'a1': 'l1'},
         track: const {'selected': 'zero', 'updatedAt': 100},
         clientUpdatedAt: 100,
@@ -210,8 +209,7 @@ void main() {
       final restored = SyncSnapshot.fromPayload(snapshot.toPayload());
       expect(restored.progress['l1']!.completed, isTrue);
       expect(restored.progress['l1']!.score, 90);
-      expect(
-          restored.progress['l1']!.completedAt!.millisecondsSinceEpoch, 100);
+      expect(restored.progress['l1']!.completedAt!.millisecondsSinceEpoch, 100);
       expect(restored.rewards, {'a1': 'l1'});
       expect(restored.track['selected'], 'zero');
     });
@@ -274,8 +272,9 @@ void main() {
     });
 
     test('云端无快照：首次同步直接上传本地', () async {
-      await ProgressStore(userKey: userKey).save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await ProgressStore(
+        userKey: userKey,
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await service.pullMergePush();
       expect(api.pullCalls, 1);
       expect(api.pushCalls, 1);
@@ -374,6 +373,67 @@ void main() {
       expect(api.reportedTrace!['pushBytes'], 120);
     });
 
+    test('登录过期显示为重新登录，网络错误仍是同步失败', () async {
+      Future<SyncPhase> run({
+        required AuthState authState,
+        required Future<bool> Function() refresh,
+      }) async {
+        final phases = <SyncPhase>[];
+        service.dispose();
+        service = SyncService(
+          api: api,
+          settings: settings,
+          readAuth: () => authState,
+          refreshAccessToken: refresh,
+          onActivity: (activity) => phases.add(activity.phase),
+        );
+        await service.pullMergePush();
+        return phases.last;
+      }
+
+      expect(
+        await run(
+          authState: const AuthState(userKey: userKey),
+          refresh: () async => false,
+        ),
+        SyncPhase.signedOut,
+      );
+      expect(api.pullCalls, 0);
+
+      expect(
+        await run(
+          authState: const AuthState(userKey: userKey),
+          refresh: () async => throw const CloudAuthException('网络连接失败，请稍后重试'),
+        ),
+        SyncPhase.failed,
+      );
+    });
+
+    test('进行中的失败结束后会再跑已经排队的一轮', () async {
+      final release = Completer<void>();
+      service.dispose();
+      service = SyncService(
+        api: api,
+        settings: settings,
+        readAuth: () => auth.state,
+        refreshAccessToken: () async => true,
+        onActivity: (_) {},
+      );
+      api.onPull = () async {
+        if (api.pullCalls == 1) {
+          await release.future;
+          throw const CloudAuthException('网络连接失败，请稍后重试');
+        }
+      };
+      final first = service.pullMergePush();
+      await Future<void>.delayed(Duration.zero);
+      final second = service.pullMergePush();
+      release.complete();
+      await Future.wait([first, second]);
+      expect(api.pullCalls, 2);
+      expect(api.pushCalls, 1);
+    });
+
     test('拉取合并：云端已完成的课写入本地并回传并集', () async {
       api.remote = RemoteSnapshot(
         clientUpdatedAt: 500,
@@ -387,8 +447,9 @@ void main() {
           clientUpdatedAt: 500,
         ).toPayload(),
       );
-      await ProgressStore(userKey: userKey).save(
-          _lesson('l1', completed: false, correctCount: 4));
+      await ProgressStore(
+        userKey: userKey,
+      ).save(_lesson('l1', completed: false, correctCount: 4));
       await RewardStore(userKey: userKey).save('a2', 'l3');
       await settings.setTrack(userKey, CourseTrack.zero);
 
@@ -399,8 +460,10 @@ void main() {
       expect(local['l1']!.completed, isTrue);
       expect(local['l1']!.score, 90);
       expect(local['l2']!.completed, isTrue);
-      expect(RewardStore(userKey: userKey).attempts.keys,
-          containsAll(['a1', 'a2']));
+      expect(
+        RewardStore(userKey: userKey).attempts.keys,
+        containsAll(['a1', 'a2']),
+      );
       // 上传并集，乐观锁带上云端版本
       expect(api.pushedBase, 500);
       final pushed = SyncSnapshot.fromPayload(api.pushedPayload!);
@@ -409,8 +472,9 @@ void main() {
     });
 
     test('内容与云端一致时只上报设备，不改版本也不刷新界面', () async {
-      await ProgressStore(userKey: userKey).save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await ProgressStore(
+        userKey: userKey,
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       var merges = 0;
       final watching = SyncService(
         api: api,
@@ -481,9 +545,9 @@ void main() {
       try {
         await Future.any([pullStarted.future, pending]);
         expect(api.pullCalls, 1);
-        await ProgressStore(userKey: userKey).save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100),
-        );
+        await ProgressStore(
+          userKey: userKey,
+        ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
         service.scheduleUpload();
       } finally {
         releasePull.complete();
@@ -536,8 +600,9 @@ void main() {
     });
 
     test('scheduleUpload 防抖后自动上传', () async {
-      await ProgressStore(userKey: userKey).save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await ProgressStore(
+        userKey: userKey,
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       service.scheduleUpload();
       expect(api.pushCalls, 0);
       await Future<void>.delayed(const Duration(milliseconds: 50));
@@ -545,8 +610,9 @@ void main() {
     });
 
     test('copySlot 复制进度、奖励、轨道和打卡日期且保留源槽位', () async {
-      await ProgressStore(userKey: 'alice').save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await ProgressStore(
+        userKey: 'alice',
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await RewardStore(userKey: 'alice').save('a1', 'l1');
       const sourceDays = CheckInStore(userKey: 'alice');
       const targetDays = CheckInStore(userKey: userKey);
@@ -554,8 +620,7 @@ void main() {
       await targetDays.mergeDays(['2026-11-19', '2026-11-20']);
       await settings.setTrack('alice', CourseTrack.intermediate);
       await service.copySlot('alice', userKey);
-      expect(
-          ProgressStore(userKey: userKey).entries['l1']!.completed, isTrue);
+      expect(ProgressStore(userKey: userKey).entries['l1']!.completed, isTrue);
       expect(RewardStore(userKey: userKey).attempts, {'a1': 'l1'});
       expect(settings.getTrack(userKey), CourseTrack.intermediate);
       expect(targetDays.days, {'2026-11-18', '2026-11-19', '2026-11-20'});
@@ -565,12 +630,14 @@ void main() {
     });
 
     test('本地账号绑定在线：会话切换、标记绑定、回调迁移', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-      ));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        ),
+      );
       await UserStore().setSession('alice');
       String? migratedFrom;
       final bound = AuthController(
@@ -596,8 +663,9 @@ void main() {
 
     test('游客升级为在线：标记待导入，确认后清除', () async {
       await UserStore().setSession(UserRepository.guestKey);
-      await ProgressStore(userKey: UserRepository.guestKey).save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await ProgressStore(
+        userKey: UserRepository.guestKey,
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       final guest = AuthController(
         UserRepository(store: UserStore()),
         cloudAuth: _FakeCloudAuth(),
@@ -618,14 +686,17 @@ void main() {
     });
 
     test('绑定先复制本地进度，再开始同步', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-      ));
-      await ProgressStore(userKey: 'alice').save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        ),
+      );
+      await ProgressStore(
+        userKey: 'alice',
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await UserStore().setSession('alice');
       final events = <String>[];
       late AuthController bound;
@@ -662,14 +733,17 @@ void main() {
     });
 
     test('退出本地账号后登录在线，待导入该账号且先不同步', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-      ));
-      await ProgressStore(userKey: 'alice').save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        ),
+      );
+      await ProgressStore(
+        userKey: 'alice',
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await UserStore().setSession('alice');
       var syncs = 0;
       final auth = AuthController(
@@ -691,14 +765,17 @@ void main() {
     });
 
     test('未退出记录时，在线登录仍发现本机本地进度', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-      ));
-      await ProgressStore(userKey: 'alice').save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+        ),
+      );
+      await ProgressStore(
+        userKey: 'alice',
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       await UserStore().clearSession();
       var syncs = 0;
       final auth = AuthController(
@@ -719,16 +796,19 @@ void main() {
     });
 
     test('已绑定但在线槽位缺少进度时仍可导入', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-        onlineAccountId: 'acc-1',
-        onlineBoundAt: 1,
-      ));
-      await ProgressStore(userKey: 'alice').save(
-          _lesson('l1', completed: true, score: 80, completedAtMs: 100));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+          onlineAccountId: 'acc-1',
+          onlineBoundAt: 1,
+        ),
+      );
+      await ProgressStore(
+        userKey: 'alice',
+      ).save(_lesson('l1', completed: true, score: 80, completedAtMs: 100));
       final auth = AuthController(
         UserRepository(store: UserStore()),
         cloudAuth: _FakeCloudAuth(),
@@ -740,14 +820,16 @@ void main() {
     });
 
     test('本地槽位只有尚未同步的打卡日期也可导入', () async {
-      await UserStore().putUser(User(
-        nickname: 'alice',
-        passwordHash: 'h',
-        salt: 's',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(1),
-        onlineAccountId: 'acc-1',
-        onlineBoundAt: 1,
-      ));
+      await UserStore().putUser(
+        User(
+          nickname: 'alice',
+          passwordHash: 'h',
+          salt: 's',
+          createdAt: DateTime.fromMillisecondsSinceEpoch(1),
+          onlineAccountId: 'acc-1',
+          onlineBoundAt: 1,
+        ),
+      );
       await const CheckInStore(userKey: 'alice').mergeDays(['2026-11-20']);
       expect(auth.localAccountsToImport(), ['alice']);
       await service.copySlot('alice', userKey);
